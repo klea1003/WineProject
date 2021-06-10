@@ -26,30 +26,30 @@ public class UserMapperTest {
 	}
 	
 	@Test
-	public void testInsert() {
+	public void testJoin() {
 		UserVO user = new UserVO();
-		user.setUSER_ID("yosepId");
-		user.setUSER_NICKNAME("yosepNickname");
-		user.setUSER_EMAIL("yosep@yosep.com");
-		user.setUSER_PASSWORD("yosepPWD");
-		user.setUSER_PHONENUM("010-1111-1111");
-		user.setUSER_REALNAME("yosepReal");
-		user.setUSER_BIRTHDAY("1995-11-15");
+		user.setUserId("yosepId");
+		user.setUserNickName("yosepNickname");
+		user.setUserEmail("yosep@yosep.com");
+		user.setUserPassWord("yosepPWD");
+		user.setUserPhoneNum("010-1111-1111");
+		user.setUserRealName("yosepReal");
+		user.setUserBirthDay("1995-11-15");
 		mapper.join(user);
 		log.info(user);
 				
 	}
 	
 	@Test
-	public void testInsertSelectKey() {
+	public void testJoinSelectKey() {
 		UserVO user = new UserVO();
-		user.setUSER_ID("yosepId2");
-		user.setUSER_NICKNAME("yosepNickname2");
-		user.setUSER_EMAIL("yosep@yosep.com2");
-		user.setUSER_PASSWORD("yosepPWD2");
-		user.setUSER_PHONENUM("010-1111-11112");
-		user.setUSER_REALNAME("yosepReal2");
-		user.setUSER_BIRTHDAY("2001-11-11");
+		user.setUserId("yosepId2");
+		user.setUserNickName("yosepNickname2");
+		user.setUserEmail("yosep@yosep.com2");
+		user.setUserPassWord("yosepPWD2");
+		user.setUserPhoneNum("010-1111-11112");
+		user.setUserRealName("yosepReal2");
+		user.setUserBirthDay("2001-11-11");
 		mapper.joinSelectKey(user);
 		log.info(user);
 				
@@ -58,11 +58,11 @@ public class UserMapperTest {
 	@Test
 	public void testUpdate() {
 		UserVO user = new UserVO();
-		user.setUSER_NUM(28L);
-		user.setUSER_EMAIL("yosep@yosep.update");
-		user.setUSER_PASSWORD("yosepPWDupdate");
-		user.setUSER_PHONENUM("010-2222-2222");
-		user.setUSER_BIRTHDAY("1999-11-11");
+		user.setUserNum(28L);
+		user.setUserEmail("yosep@yosep.update");
+		user.setUserPassWord("yosepPWDupdate");
+		user.setUserPhoneNum("010-2222-2222");
+		user.setUserBirthDay("1999-11-11");
 		int count = mapper.update(user);
 		log.info("UPDATE COUNT : " + count);
 	}

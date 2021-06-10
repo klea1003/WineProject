@@ -6,13 +6,13 @@ import lombok.Data;
 @Data
 public class UserVO {
 	
-	private Long USER_NUM;
-	private String USER_ID;
-	private String USER_NICKNAME;
-	private String USER_EMAIL;
-	private String USER_PASSWORD;
-	private String USER_PHONENUM;
-	private String USER_REALNAME;
-	private String USER_BIRTHDAY;
+	private Long userNum;
+	private String userId;
+	private String userNickName;
+	private String userEmail;
+	private String userPassWord;
+	private String userPhoneNum;
+	private String userRealName;
+	private String userBirthDay;
 
 }

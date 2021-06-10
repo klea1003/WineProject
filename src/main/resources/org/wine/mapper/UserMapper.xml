@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.UserMapper">
+		<resultMap type="user" id="userSelect">
+		<result property="userNum" column="USER_NUM"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userNickName" column="USER_NICKNAME"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPassWord" column="USER_PASSWORD"/>
+		<result property="userPhoneNum" column="USER_PHONENUM"/>
+		<result property="userRealName" column="USER_REALNAME"/>
+		<result property="userBirthDay" column="USER_BIRTHDAY"/>
+	</resultMap>
 	<select id="getList" resultType="org.wine.domain.UserVO">
 		select*from tbl_user_test where USER_NUM >0
 	</select>

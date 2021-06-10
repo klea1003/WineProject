@@ -36,7 +36,7 @@ public class UserController {
 		
 		service.join(user);
 		
-		rttr.addFlashAttribute("result", user.getUSER_NUM());
+		rttr.addFlashAttribute("result", user.getUserNum());
 		
 		return "redirect:/user/login"; // redirect를 하지않은 경우, 새로 고침시 도배
 	}
