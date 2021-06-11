@@ -32,7 +32,7 @@ public class UserServiceTest {
 		user.setUserId("yosepId2");
 		user.setUserNickName("yosepNickname2");
 		user.setUserEmail("yosep@yosep.com2");
-		user.setUserPassWord("yosepPWD2");
+		user.setUserPassword("yosepPWD2");
 		user.setUserPhoneNum("010-1111-11112");
 		user.setUserRealName("yosepReal2");
 		user.setUserBirthDay("2001-11-12");

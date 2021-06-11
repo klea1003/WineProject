@@ -75,31 +75,31 @@
 				<form role="form" action="/user/join" method="post">
 					<div class="form-group">
 						<label>유저아이디</label> <input type="text" class="form-control"
-							placeholder="아이디" name="USER_ID" maxlength="20">
+							placeholder="아이디" name="userId" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저비밀번호</label><input type="password" class="form-control"
-							placeholder="비밀번호" name="USER_PASSWORD" maxlength="20">
+							placeholder="비밀번호" name="userPassword" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저닉네임</label><input type="text" class="form-control"
-							placeholder="닉네임" name="USER_NICKNAME" maxlength="20">
+							placeholder="닉네임" name="userNickName" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저이메일</label><input type="email" class="form-control" 
-						placeholder="이메일" name="USER_EMAIL" maxlength="20">
+						placeholder="이메일" name="userEmail" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저핸드폰</label><input type="text" class="form-control"
-							placeholder="핸드폰" name="USER_PHONENUM" maxlength="20">
+							placeholder="핸드폰" name="userPhoneNum" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저실명</label><input type="text" class="form-control"
-							placeholder="실명" name="USER_REALNAME" maxlength="20">
+							placeholder="실명" name="userRealName" maxlength="20">
 					</div>
 					<div class="form-group">
 						<label>유저생년월일</label><input type="text" class="form-control"
-							placeholder="생년월일" name="USER_BIRTHDAY" maxlength="20">
+							placeholder="생년월일" name="userBirthDay" maxlength="20">
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-danger">Reset</button>

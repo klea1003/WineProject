@@ -31,7 +31,7 @@ public class UserMapperTest {
 		user.setUserId("yosepId");
 		user.setUserNickName("yosepNickname");
 		user.setUserEmail("yosep@yosep.com");
-		user.setUserPassWord("yosepPWD");
+		user.setUserPassword("yosepPWD");
 		user.setUserPhoneNum("010-1111-1111");
 		user.setUserRealName("yosepReal");
 		user.setUserBirthDay("1995-11-15");
@@ -46,7 +46,7 @@ public class UserMapperTest {
 		user.setUserId("yosepId2");
 		user.setUserNickName("yosepNickname2");
 		user.setUserEmail("yosep@yosep.com2");
-		user.setUserPassWord("yosepPWD2");
+		user.setUserPassword("yosepPWD2");
 		user.setUserPhoneNum("010-1111-11112");
 		user.setUserRealName("yosepReal2");
 		user.setUserBirthDay("2001-11-11");
@@ -58,9 +58,9 @@ public class UserMapperTest {
 	@Test
 	public void testUpdate() {
 		UserVO user = new UserVO();
-		user.setUserNum(28L);
+		user.setUserNum(69L);
 		user.setUserEmail("yosep@yosep.update");
-		user.setUserPassWord("yosepPWDupdate");
+		user.setUserPassword("yosepPWDupdate");
 		user.setUserPhoneNum("010-2222-2222");
 		user.setUserBirthDay("1999-11-11");
 		int count = mapper.update(user);
