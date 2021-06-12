@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.SellerMapper">
+
+	<resultMap type="org.wine.domain.SellerVO" id="sellerInfo">
+		<result property="sellerNum" column="SELLER_NUM"/>
+		<result property="sellerId" column="SELLER_ID"/>
+		<result property="sellerPhoneNum" column="SELLER_PHONENUM"/>
+		<result property="sellerLocation" column="SELLER_LOCATION"/>
+	</resultMap>
+	
+	<select id="getList" resultMap="sellerInfo">
+		SELECT * FROM TBL_SELLER_TEST WHERE SELLER_NUM > 0
+	</select>
+	
+	<insert id="insert">
+				
+		INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
+		VALUES(SEQ_SELLER_TEST.NEXTVAL, #{sellerId}, #{sellerPhoneNum}, #{sellerLocation})
+	
+	</insert>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
