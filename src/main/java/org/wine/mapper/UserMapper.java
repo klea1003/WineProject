@@ -15,4 +15,6 @@ public interface UserMapper {
 	public void joinSelectKey(UserVO user);
 	
 	public int update(UserVO user);
+	
+	public int idCheck(String userId); 
 }

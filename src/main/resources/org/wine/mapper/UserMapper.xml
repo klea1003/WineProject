@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.UserMapper">
-		
+
 	<resultMap type="org.wine.domain.UserVO" id="userInfo">
-		<result property="userNum" column="USER_NUM"/>
-		<result property="userId" column="USER_ID"/>
-		<result property="userNickName" column="USER_NICKNAME"/>
-		<result property="userEmail" column="USER_EMAIL"/>
-		<result property="userPassword" column="USER_PASSWORD"/>
-		<result property="userPhoneNum" column="USER_PHONENUM"/>
-		<result property="userRealName" column="USER_REALNAME"/>
-		<result property="userBirthDay" column="USER_BIRTHDAY"/>
-	</resultMap> 
-	
+		<result property="userNum" column="USER_NUM" />
+		<result property="userId" column="USER_ID" />
+		<result property="userNickName" column="USER_NICKNAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userPassword" column="USER_PASSWORD" />
+		<result property="userPhoneNum" column="USER_PHONENUM" />
+		<result property="userRealName" column="USER_REALNAME" />
+		<result property="userBirthDay" column="USER_BIRTHDAY" />
+	</resultMap>
+
 	<select id="getList" resultMap="userInfo">
-	
 		select*from tbl_user_test where USER_NUM >0
 	</select>
-	
-	  <insert id="join">
- insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME, USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
- values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
-  </insert>
-  
-  
-  <insert id="joinSelectKey">
-  <selectKey keyProperty="userNum" order="BEFORE" resultType="long">
-  select SEQ_USER_TEST.nextval from dual
-  </selectKey>
-   insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME, USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
- values(#{userNum},#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
-  </insert>
- 
-  <update id="update">
-  update TBL_USER_TEST set USER_EMAIL=#{userEmail}, USER_PASSWORD=#{userPassword}, USER_PHONENUM=#{userPhoneNum}, USER_BIRTHDAY = to_char(to_date(#{userBirthDay}))
-  where USER_NUM=#{userNum}
-  </update> 
- 
+
+	<insert id="join">
+		insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
+		values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
+	</insert>
+
+
+	<insert id="joinSelectKey">
+		<selectKey keyProperty="userNum" order="BEFORE"
+			resultType="long">
+			select SEQ_USER_TEST.nextval from dual
+		</selectKey>
+		insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
+		values(#{userNum},#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
+	</insert>
+
+	<update id="update">
+		update TBL_USER_TEST set USER_EMAIL=#{userEmail},
+		USER_PASSWORD=#{userPassword}, USER_PHONENUM=#{userPhoneNum},
+		USER_BIRTHDAY = to_char(to_date(#{userBirthDay}))
+		where USER_NUM=#{userNum}
+	</update>
+
+	<select id="idCheck" resultType="int">
+		select count(*) from TBL_USER_TEST where USER_ID = #{userId}
+	</select>
+
+
 </mapper>
  

@@ -1,25 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-$(document).ready(function() {
-	  $("#joinBtn").on("click",function(){
-	         self.location = "/user/join";
-	      });
-}
-
-</script>
 <meta charset="UTF-8">
-
 <title>Insert title here</title>
+<link rel="stylesheet" href="../resources/css/user/login.css">
 </head>
 <body>
 
-login 페이지임<button id='joinBtn' type="button" class="btn btn-xs pull-right">가입하기</button>
+<div class="wrapper">
+	
+	<div class="wrap">
+		<div class="logo_wrap">
+			<span>너 와,IN</span>
+		</div>
+		<div class="login_wrap"> 
+			<div class="id_wrap">
+					<div class="id_input_box">
+					<input class="id_input">
+				</div>
+			</div>
+			<div class="pw_wrap">
+				<div class="pw_input_box">
+					<input class="pw_iput">
+				</div>
+			</div>
+			<div class="login_button_wrap">
+				<input type="button" class="login_button" value="로그인">
+			</div>			
+		</div>
+		
+		
+	</div>
+
+</div>
+
 </body>
 </html>

@@ -8,19 +8,18 @@ import org.wine.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-
 @Log4j
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
-	
+
 	@Override
 	public void join(UserVO user) {
 		// TODO Auto-generated method stub
 		log.info("join" + user);
-		
+
 		mapper.joinSelectKey(user);
 	}
 
@@ -30,4 +29,9 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public int idCheck(String userId) {
+		// TODO Auto-generated method stub
+		return mapper.idCheck(userId);
+	}
 }

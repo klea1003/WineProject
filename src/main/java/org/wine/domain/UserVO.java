@@ -9,10 +9,10 @@ public class UserVO {
 	private Long userNum;
 	private String userId;
 	private String userNickName;
-	private String userEmail;
 	private String userPassword;
-	private String userPhoneNum;
 	private String userRealName;
 	private String userBirthDay;
+	private String userEmail;
+	private String userPhoneNum;
 
 }

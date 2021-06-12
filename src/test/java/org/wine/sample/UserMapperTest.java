@@ -66,4 +66,12 @@ public class UserMapperTest {
 		int count = mapper.update(user);
 		log.info("UPDATE COUNT : " + count);
 	}
+	
+	@Test
+	public void userIdChk() {
+		String id = "admin";	
+		String id2 = "test123";	
+		mapper.idCheck(id);
+		mapper.idCheck(id2);
+	}
 }
