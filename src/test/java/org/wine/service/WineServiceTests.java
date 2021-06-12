@@ -1,4 +1,6 @@
-package org.wine.sample;
+package org.wine.service;
+
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wine.domain.WineVO;
-import org.wine.mapper.WineMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -14,18 +15,21 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class WineMapperTests {
+public class WineServiceTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private WineMapper mapper;
+	private WineService service;
 	
 	@Test
-	public void testGetList() {
-		mapper.getList().forEach(wine->log.info(wine));
+	public void testExist() {
+		
+		log.info(service);
+		assertNotNull(service);
 	}
 	
 	@Test
-	public void testInsert() {
+	public void testRegister( ) {
+		
 		WineVO wine = new WineVO();
 		wine.setTitle("wine1");
 		wine.setWinenery("winenery1");
@@ -39,17 +43,19 @@ public class WineMapperTests {
 		wine.setAlcohol(0.5);
 		wine.setWineStyle("style1");
 		
-		mapper.insert(wine);
+		service.register(wine);
 		
-		log.info(wine);
+		log.info("wine number:" + wine.getWno());
 	}
 	
 	@Test
-	public void testRead() {
-		
-		WineVO wine = mapper.read(8L);
-		
-		log.info(wine);
+	public void testGetList() {
+		service.getList().forEach(wine -> log.info(wine));
+	}
+	
+	@Test
+	public void testGet() {
+		log.info(service.get(1L));
 	}
 
 }

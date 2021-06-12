@@ -7,7 +7,6 @@ import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -41,5 +40,6 @@ public class WineServiceImpl implements WineService {
 		return mapper.getList();
 
 	}
+		
 
 }
