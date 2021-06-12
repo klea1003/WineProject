@@ -1,20 +1,20 @@
-/* @charset "UTF-8";
+@charset "UTF-8";
 *{
 	margin: 0;
 	padding:0;
 }
 
-È­¸é ÀüÃ¼ ·¾
+í™”ë©´ ì „ì²´ ë ™
 .wrapper{
 	width: 1900px;	
 }
 
-content ·¦
+content ë©
 .wrap{
 	width : 800px;
 	margin: auto;
 }
-ÆäÀÌÁö Á¦¸ñ
+í˜ì´ì§€ ì œëª©
 .subjecet{
 	width: 100%;
     height: 120px;
@@ -27,7 +27,7 @@ content ·¦
     color: white;
 }
 
-¾ÆÀÌµğ ¿µ¿ª
+ì•„ì´ë”” ì˜ì—­
 .id_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -49,7 +49,7 @@ content ·¦
 	font-size:28px;
 }
 
-ºñ¹Ğ¹øÈ£ ¿µ¿ª
+ë¹„ë°€ë²ˆí˜¸ ì˜ì—­
 .password_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -71,7 +71,7 @@ content ·¦
 	font-size:28px;
 }
 
-ºñ¹Ğ¹øÈ£ È®ÀÎ ¿µ¿ª
+ë¹„ë°€ë²ˆí˜¸ í™•ì¸ ì˜ì—­
 .pwck_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -93,7 +93,7 @@ content ·¦
 	font-size:28px;
 }
 
-ÀÌ¸§ ¿µ¿ª
+ì´ë¦„ ì˜ì—­
 .user_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -115,7 +115,7 @@ content ·¦
 	font-size:28px;
 }
 
-¸ŞÀÏ ¿µ¿ª
+ë©”ì¼ ì˜ì—­
 .mail_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -136,7 +136,7 @@ content ·¦
 	border:none;
 	font-size:28px;
 }
-.mail_check_wrap{
+.email_check_wrap{
 	margin-top: 20px;	
 }
 .mail_check_input_box{
@@ -152,7 +152,7 @@ content ·¦
 	border:none;
 	font-size:28px;
 }
-.mail_check_button{
+.email_check_button{
     border: 1px solid black;
     height: 51px;
     width: 30%;
@@ -165,7 +165,7 @@ content ·¦
     cursor: pointer;
 }
 
-ÁÖ¼Ò ¿µ¿ª
+ì£¼ì†Œ ì˜ì—­
 .address_wrap{
 	width: 100%;
     margin-top: 20px;
@@ -231,7 +231,7 @@ content ·¦
 	font-size:28px;
 }
 
-°¡ÀÔÇÏ±â ¹öÆ°
+ê°€ì…í•˜ê¸° ë²„íŠ¼
 .join_button_wrap{
 	margin-top: 40px;
 	text-align: center;
@@ -245,7 +245,7 @@ content ·¦
     color: white;
 }
 
-float ¼Ó¼º ÇØÁ¦
+float ì†ì„± í•´ì œ
 .clearfix{
 	clear: both;
-} */
+}

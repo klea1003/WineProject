@@ -6,29 +6,41 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resources/css/user/join.css">
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-
+<script 
+src="https://code.jquery.com/jquery-3.4.1.js"
+integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+crossorigin="anonymous">
+	</script>
+<link rel="stylesheet" href="../resources/css/user/join.css">
 <style>
-	/* 중복아이디 존재하지 않는경우 */
-	.id_input_re_1{
-		color : green;
-		display : none;
-	}
-	/* 중복아이디 존재하는 경우 */
-	.id_input_re_2{
-		color : red;
-		display : none;
-	}
+
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1 {
+	color: green;
+	display: none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2 {
+	color: red;
+	display: none;
+}
+
+
+ 
+#email_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#email_check_input_box_true{
+    background-color:white;
+}
 </style>
 
 </head>
 <body>
 
 	<div class="wrapper">
-	  <form id="join_form" method="post">
+		<form id="join_form" method="post">
 
 			<div class="wrap">
 				<div class="subjecet">
@@ -39,8 +51,8 @@
 					<div class="id_input_box">
 						<input class="id_input" name="userId">
 					</div>
-					<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-				<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+					<span class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
+						class="id_input_re_2">아이디가 이미 존재합니다.</span>
 				</div>
 				<div class="nickname_wrap">
 					<div class="nickname_name">닉네임</div>
@@ -77,6 +89,15 @@
 					<div class="email_input_box">
 						<input class="email_input" name="userEmail">
 					</div>
+					<div class="email_check_wrap">
+						<div class="email_check_input_box" id="email_check_input_box_false">
+							<input class="email_check_input"  disabled="disabled">
+						</div>
+						<div class="email_check_button">
+							<span>인증번호 전송</span>
+						</div>
+						<div class="clearfix"></div>
+					</div>
 				</div>
 				<div class="phonenum_wrap">
 					<div class="phonenum_name">핸드폰</div>
@@ -100,7 +121,7 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
-			</div> -->
+			</div>  -->
 
 			<!-- 	<div class="address_wrap">
 				<div class="address_name">주소</div>
@@ -131,38 +152,64 @@
 			</div>
 		</form>
 	</div>
-<script>
+	<script>
+		$(document).ready(function() {
+			$(".join_button").click(function() {
+				$("#join_form").attr("action", "/user/join");
 
-$(document).ready(function(){
-	$(".join_button").click(function(){
-		$("#join_form").attr("action", "/user/join");
-		
-		$("#join_form").submit();
-	});
-});
-$('.id_input').on("propertychange change keyup paste input", function(){
-	var userId = $('.id_input').val();	
-	var data = {userId : userId}	
-	
-	$.ajax({
-		type : "post",
-		url : "/user/userIdchk",
-		data : data,
-		success : function(result){
+				$("#join_form").submit();
+			});
+		});
+		$('.id_input').on(
+				"propertychange change keyup paste input",
+				function() {
+					var userId = $('.id_input').val();
+					var data = {
+						userId : userId
+					}
+
+					$.ajax({
+						type : "post",
+						url : "/user/userIdchk",
+						data : data,
+						success : function(result) {
+
+							if (result != 'fail') {
+								$('.id_input_re_1').css("display",
+										"inline-block");
+								$('.id_input_re_2').css("display", "none");
+							} else {
+								$('.id_input_re_2').css("display",
+										"inline-block");
+								$('.id_input_re_1').css("display", "none");
+							}
+						}// success 종료
+
+					}); // ajax 종료	
+
+		});// function 종료
+
+		 
+		/* 인증번호 이메일 전송 */
+		$(".email_check_button").click(function(){
 			
-				if(result != 'fail'){
-					$('.id_input_re_1').css("display","inline-block");
-					$('.id_input_re_2').css("display", "none");				
-				} else {
-					$('.id_input_re_2').css("display","inline-block");
-					$('.id_input_re_1').css("display", "none");				
-				}
-		}// success 종료
-		
-	}); // ajax 종료	
-
-});// function 종료
-</script>
+			 	var email = $(".email_input").val();            // 입력한 이메일
+			    var cehckBox = $(".email_check_input");        // 인증번호 입력란
+			    var boxWrap = $(".email_check_input_box");    // 인증번호 입력란 박스
+		    
+			  var email = $(".email_input").val();   
+			  $.ajax({
+			        
+			        type:"GET",
+			        url:"emailcheck?email=" + email,
+			        success:function(data){
+			            
+			        	  console.log("data : " + data);
+			        	
+			        }      
+			    });
+		});
+	</script>
 
 </body>
 </html>
