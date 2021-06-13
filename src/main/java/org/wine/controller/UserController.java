@@ -32,11 +32,11 @@ public class UserController {
 	@Autowired
 	private JavaMailSender emailSender;
 
-	// ¸ŞÀÎ ÆäÀÌÁö ÀÌµ¿
+	
 	@GetMapping("/main")
 	public void mainPageGET() {
 
-		log.info("¸ŞÀÎ ÆäÀÌÁö ÁøÀÔ");
+		log.info("ë©”ì¸ í…ŒìŠ¤íŠ¸ í˜ì´ì§€");
 
 	}
 
@@ -71,7 +71,27 @@ public class UserController {
 
 		int result = service.idCheck(userId);
 
-		log.info("°á°ú°ª = " + result);
+		log.info("ê²°ê³¼ê°’ = " + result);
+
+		if (result != 0) {
+
+			return "fail";
+
+		} else {
+
+			return "success";
+
+		}
+	}
+	@PostMapping("/userNickNamechk")
+	@ResponseBody
+	public String userNickNamechk(String userNickName) {
+
+		log.info("userNickNamechk " + userNickName);
+
+		int result = service.nicknameCheck(userNickName);
+
+		log.info("ê²°ê³¼ê°’ = " + result);
 
 		if (result != 0) {
 
@@ -84,21 +104,26 @@ public class UserController {
 		}
 	}
 
+
 	@GetMapping("/emailcheck")
 	@ResponseBody
 	public String mailecheck(String email) {
-		log.info("ÀÌ¸ŞÀÏ µ¥ÀÌÅÍ Àü¼Û È®ÀÎ");
-		log.info("ÀÎÁõ¸ŞÀÏ: " + email);
+		log.info("ì´ë©”ì¼ ë°ì´í„° ì „ì†¡ í™•ì¸");
+		log.info("ì¸ì¦ë²ˆí˜¸ : " + email);
 
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-		log.info("ÀÎÁõ¹øÈ£: " + checkNum);
+		log.info("ì¸ì¦ë²ˆí˜¸ : " + checkNum);
 
 		String setFrom = "choiyeosep@naver.com";
 		String toMail = email;
-		String title = "È¸¿ø°¡ÀÔ ÀÎÁõ ÀÌ¸ŞÀÏ ÀÔ´Ï´Ù.";
-		String content = "È¨ÆäÀÌÁö¸¦ ¹æ¹®ÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù." + "<br><br>" + "ÀÎÁõ ¹øÈ£´Â " + checkNum + "ÀÔ´Ï´Ù." + "<br>"
-				+ "ÇØ´ç ÀÎÁõ¹øÈ£¸¦ ÀÎÁõ¹øÈ£ È®ÀÎ¶õ¿¡ ±âÀÔÇÏ¿© ÁÖ¼¼¿ä.";
+		String title = "íšŒì›ê°€ì… ì¸ì¦ ì´ë©”ì¼ ì…ë‹ˆë‹¤.";
+	    String content = 
+	                "í™ˆí˜ì´ì§€ë¥¼ ë°©ë¬¸í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤." +
+	                "<br><br>" + 
+	                "ì¸ì¦ ë²ˆí˜¸ëŠ” " + checkNum + "ì…ë‹ˆë‹¤." + 
+	                "<br>" + 
+	                "í•´ë‹¹ ì¸ì¦ë²ˆí˜¸ë¥¼ ì¸ì¦ë²ˆí˜¸ í™•ì¸ë€ì— ê¸°ì…í•˜ì—¬ ì£¼ì„¸ìš”.";
 
 //		try {
 //

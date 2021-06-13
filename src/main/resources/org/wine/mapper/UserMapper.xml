@@ -25,8 +25,7 @@
 
 
 	<insert id="joinSelectKey">
-		<selectKey keyProperty="userNum" order="BEFORE"
-			resultType="long">
+		<selectKey keyProperty="userNum" order="BEFORE"	resultType="long">
 			select SEQ_USER_TEST.nextval from dual
 		</selectKey>
 		insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME,
@@ -45,6 +44,8 @@
 		select count(*) from TBL_USER_TEST where USER_ID = #{userId}
 	</select>
 
-
+	<select id="nicknameCheck" resultType="int">
+		select count(*) from TBL_USER_TEST where USER_NICKNAME = #{userNickName}
+	</select>
 </mapper>
  

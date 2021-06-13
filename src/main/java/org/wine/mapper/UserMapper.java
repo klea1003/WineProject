@@ -17,4 +17,6 @@ public interface UserMapper {
 	public int update(UserVO user);
 	
 	public int idCheck(String userId); 
+	
+	public int nicknameCheck(String userNickName); 
 }

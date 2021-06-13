@@ -34,4 +34,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return mapper.idCheck(userId);
 	}
+
+	@Override
+	public int nicknameCheck(String userNickName) {
+		// TODO Auto-generated method stub
+		return mapper.nicknameCheck(userNickName);
+	}
 }
