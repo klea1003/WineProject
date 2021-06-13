@@ -38,6 +38,17 @@ public class SellerMapperTest {
 		
 	}
 	
+	@Test
+	public void testUpdate() {
+		SellerVO seller = new SellerVO();
+		
+		seller.setSellerNum(8L);
+		seller.setSellerPhoneNum("010-1234");
+		seller.setSellerLocation("주소이전");
+		int count = mapper.update(seller);
+		log.info("UPDATE COUNT : " + count);
+	}
+	
 	
 	
 	

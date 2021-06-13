@@ -20,6 +20,11 @@
 	
 	</insert>
 	
+	<update id="update">
+	UPDATE tbl_seller_test SET SELLER_PHONENUM = #{sellerPhoneNum}, SELLER_LOCATION = #{sellerLocation} 
+	WHERE SELLER_NUM = #{sellerNum}
+	</update>
+	
 	
 
 

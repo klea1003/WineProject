@@ -10,5 +10,7 @@ public interface SellerMapper {
 	public List<SellerVO> getList();
 	
 	public void insert(SellerVO seller);
+	
+	public int update(SellerVO seller);
 
 }
