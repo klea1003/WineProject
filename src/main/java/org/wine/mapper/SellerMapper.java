@@ -9,8 +9,14 @@ public interface SellerMapper {
 	
 	public List<SellerVO> getList();
 	
-	public void insert(SellerVO seller);
+	public void sellerInsert(SellerVO seller);
+	
+	public void sellerSelectKey(SellerVO seller);
+	
+	public SellerVO read(Long sellerNum);
 	
 	public int update(SellerVO seller);
+	
+	public int delete(Long sellerNum);
 
 }

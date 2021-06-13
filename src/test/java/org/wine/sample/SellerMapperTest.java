@@ -25,28 +25,61 @@ public class SellerMapperTest {
 	}
 	
 	@Test
-	public void testInsert() {
+	public void testSellerInsert() {
 		
 		SellerVO seller = new SellerVO();
 		
 		seller.setSellerId("wineInsertTest111");
 		seller.setSellerPhoneNum("11211");
 		seller.setSellerLocation("소스트리 한글은 응답하라");
+		seller.setSellerLocation("변경");
 		
-		mapper.insert(seller);
+		mapper.sellerInsert(seller);
+		log.info(seller);
+		
+	}
+		
+	@Test 
+	public void testSellerSelectKey() {
+	  
+		SellerVO seller = new SellerVO();
+		  
+		seller.setSellerId("요셉와인"); 
+		seller.setSellerPhoneNum("010-1234");
+		seller.setSellerLocation("경기도 수원시");
+		  
+		mapper.sellerSelectKey(seller); 
+		log.info(seller); 
+	  
+	}
+	
+	@Test
+	public void testRead() {
+		
+		SellerVO seller = mapper.read(10L);
+		
 		log.info(seller);
 		
 	}
 	
 	@Test
 	public void testUpdate() {
+		
 		SellerVO seller = new SellerVO();
 		
 		seller.setSellerNum(8L);
-		seller.setSellerPhoneNum("010-1234");
-		seller.setSellerLocation("주소이전");
+		seller.setSellerPhoneNum("111111");
+		seller.setSellerLocation("주소이전 업데이트");
+		
 		int count = mapper.update(seller);
 		log.info("UPDATE COUNT : " + count);
+	}
+	
+	@Test
+	public void testDelete() {
+		
+		log.info("DELETE COUNT: " + mapper.delete(14L));
+		
 	}
 	
 	

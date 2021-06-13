@@ -13,17 +13,36 @@
 		SELECT * FROM TBL_SELLER_TEST WHERE SELLER_NUM > 0
 	</select>
 	
-	<insert id="insert">
+	<insert id="sellerInsert">
 				
 		INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
 		VALUES(SEQ_SELLER_TEST.NEXTVAL, #{sellerId}, #{sellerPhoneNum}, #{sellerLocation})
 	
 	</insert>
 	
+	<insert id="sellerSelectKey">
+		
+		<selectKey keyProperty="sellerNum" order="BEFORE" resultType="long">
+			select seq_seller_test.nextval from dual
+		</selectKey>
+		
+		INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
+		VALUES(#{sellerNum}, #{sellerId}, #{sellerPhoneNum}, #{sellerLocation})
+	
+	</insert>
+	
+	<select id="read" resultType="org.wine.domain.SellerVO">
+		select * from TBL_SELLER_TEST where SELLER_NUM = #{sellerNum}
+	</select>
+	
 	<update id="update">
 	UPDATE tbl_seller_test SET SELLER_PHONENUM = #{sellerPhoneNum}, SELLER_LOCATION = #{sellerLocation} 
 	WHERE SELLER_NUM = #{sellerNum}
 	</update>
+	
+	<delete id="delete">
+		delete from tbl_seller_test where SELLER_NUM = #{sellerNum}
+	</delete>
 	
 	
 
