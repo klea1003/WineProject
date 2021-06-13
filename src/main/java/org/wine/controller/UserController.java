@@ -30,7 +30,7 @@ public class UserController {
 		log.info("join");
 		
 	}
-	@PostMapping("/join") //È¸¿ø°¡ÀÔ
+	@PostMapping("/join") //íšŒì›ê°€ì…
 	public String join(UserVO user, RedirectAttributes rttr) {
 		log.info("join : " + user);
 		
@@ -38,7 +38,7 @@ public class UserController {
 		
 		rttr.addFlashAttribute("result", user.getUSER_NUM());
 		
-		return "redirect:/user/login"; // redirect¸¦ ÇÏÁö¾ÊÀº °æ¿ì, »õ·Î °íÄ§½Ã µµ¹è
+		return "redirect:/user/login"; // redirectë¥¼ í•˜ì§€ì•Šì€ ê²½ìš°, ìƒˆë¡œ ê³ ì¹¨ì‹œ ë„ë°°
 	}
 	
 	
