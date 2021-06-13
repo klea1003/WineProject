@@ -26,7 +26,7 @@ public class UserControllerTest {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-	private MockMvc mockMvc; // MockMvc :°¡Â¥ mvc
+	private MockMvc mockMvc; 
 	
 	@Before
 	public void setup() {
@@ -43,7 +43,7 @@ public class UserControllerTest {
 						.param("USER_EMAIL", "controller@email")
 						.param("USER_PASSWORD", "conPWD")
 						.param("USER_PHONENUM", "010-5555-6666")
-						.param("USER_REALNAME", "ÄÁÆ®·Ñ·¯")
+						.param("USER_REALNAME", "ì»¨íŠ¸ë¡¤ëŸ¬")
 						.param("USER_BIRTHDAY", "2021-05-13")
 						)
 				.andReturn().getModelAndView().getViewName();
