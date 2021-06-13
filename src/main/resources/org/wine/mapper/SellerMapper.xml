@@ -31,7 +31,7 @@
 	
 	</insert>
 	
-	<select id="read" resultType="org.wine.domain.SellerVO">
+	<select id="read" resultMap="sellerInfo" >
 		select * from TBL_SELLER_TEST where SELLER_NUM = #{sellerNum}
 	</select>
 	
