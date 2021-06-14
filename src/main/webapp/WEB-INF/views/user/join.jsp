@@ -410,11 +410,11 @@ $(".email_check_button").click(function(){
     if(inputCode == code){                            
         checkResult.html("인증번호가 일치합니다.");
         checkResult.attr("class", "correct"); 
-        emailnumCheck = true;     // 일치할 경우
+        emailnumCheck = true;  
     } else {                                            
         checkResult.html("인증번호를 다시 확인해주세요.");
         checkResult.attr("class", "incorrect");
-        mailnumCheck = false;    // 일치하지 않을 경우
+        mailnumCheck = false;  
     }   
      
  }); // function 종료
