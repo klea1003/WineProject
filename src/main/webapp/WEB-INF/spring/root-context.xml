@@ -9,7 +9,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	 <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	 
       <property name="driverClassName"
          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
@@ -17,24 +17,20 @@
          value="jdbc:log4jdbc:oracle:thin:@klea-home.iptime.org:1521:xe"></property>
       <property name="username" value="c##FinalProject"></property>
       <property name="password" value="1234"></property>
-   </bean>
+   	
+   	</bean>
 
 	<!-- HikariCP configuration -->
 	
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-	destroy-method="close">
-	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
-
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-
-	<context:component-scan
-		base-package="org.wine.*"></context:component-scan>
+	<context:component-scan base-package="org.wine.*"></context:component-scan>
 	
 	<mybatis-spring:scan base-package="org.wine.mapper"/>
 
