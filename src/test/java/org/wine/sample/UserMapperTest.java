@@ -11,20 +11,19 @@ import org.wine.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class UserMapperTest {
-	
+
 	@Setter(onMethod_ = @Autowired)
-	private UserMapper mapper;	
-	
+	private UserMapper mapper;
+
 	@Test
 	public void testGetList() {
-		mapper.getList().forEach(user->log.info(user));
+		mapper.getList().forEach(user -> log.info(user));
 	}
-	
+
 	@Test
 	public void testJoin() {
 		UserVO user = new UserVO();
@@ -37,9 +36,9 @@ public class UserMapperTest {
 		user.setUserBirthDay("1995-11-15");
 		mapper.join(user);
 		log.info(user);
-				
+
 	}
-	
+
 	@Test
 	public void testJoinSelectKey() {
 		UserVO user = new UserVO();
@@ -52,9 +51,9 @@ public class UserMapperTest {
 		user.setUserBirthDay("2001-11-11");
 		mapper.joinSelectKey(user);
 		log.info(user);
-				
+
 	}
-	
+
 	@Test
 	public void testUpdate() {
 		UserVO user = new UserVO();
@@ -66,12 +65,31 @@ public class UserMapperTest {
 		int count = mapper.update(user);
 		log.info("UPDATE COUNT : " + count);
 	}
-	
+
 	@Test
 	public void userIdChk() {
-		String id = "admin";	
-		String id2 = "test123";	
+		String id = "admin";
+		String id2 = "test123";
 		mapper.idCheck(id);
 		mapper.idCheck(id2);
 	}
+
+	@Test
+	public void testuserLogin() {
+
+		UserVO user = new UserVO(); // MemberVO 변수 선언 및 초기화
+
+		/* 올바른 아이디 비번 입력경우 */
+		// user.setUserId("admin");
+		// user.setUserPassword("1234");
+
+		/* 올바른 않은 아이디 비번 입력경우 */
+		user.setUserId("admin");
+		user.setUserPassword("1234111");
+
+		mapper.userLogin(user);
+		System.out.println("결과 값 : " + mapper.userLogin(user));
+
+	}
+
 }

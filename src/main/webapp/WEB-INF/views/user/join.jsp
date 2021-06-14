@@ -366,7 +366,6 @@ $('.nickname_input').on("propertychange change keyup paste input",function() {
 
 });// function 종료
 	 
-/* 인증번호 이메일 전송 */
 $(".email_check_button").click(function(){
 	
  	var email = $(".email_input").val(); 

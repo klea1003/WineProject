@@ -11,5 +11,5 @@ public interface UserService {
 		
 		public int nicknameCheck(String userNickName);
 		
-		public boolean login(UserVO user);
+		public UserVO userLogin(UserVO user);
 }

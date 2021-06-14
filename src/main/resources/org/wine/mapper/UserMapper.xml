@@ -47,5 +47,11 @@
 	<select id="nicknameCheck" resultType="int">
 		select count(*) from TBL_USER_TEST where USER_NICKNAME = #{userNickName}
 	</select>
+	
+	<select id='userLogin'  resultMap="userInfo">	
+		SELECT USER_ID,USER_NICKNAME,USER_EMAIL,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY
+		FROM TBL_USER_TEST
+		WHERE USER_ID=#{userId} and USER_PASSWORD =#{userPassword}
+	</select>
 </mapper>
  

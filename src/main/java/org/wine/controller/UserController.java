@@ -3,6 +3,9 @@ package org.wine.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -46,6 +49,29 @@ public class UserController {
 
 	}
 
+	@PostMapping("/login")
+	public String loginPOST(HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+	   
+//		System.out.println("login 메서드 진입");
+//        System.out.println("전달된 데이터 : " + user);
+        
+        HttpSession session = request.getSession();
+        UserVO lvo = service.userLogin(user);
+
+        if(lvo == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
+            
+            int result = 0;
+            rttr.addFlashAttribute("result", result);
+            return "redirect:/user/login";
+            
+        }
+        
+        session.setAttribute("user", lvo);   
+        
+        return "redirect:/user/main";
+		
+	}
+	
 	@GetMapping("/join")
 	public void join() {
 		log.info("join");
@@ -125,22 +151,23 @@ public class UserController {
 	                "<br>" + 
 	                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
-//		try {
-//
-//			MimeMessage message = emailSender.createMimeMessage();
-//			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-//			helper.setFrom(setFrom);
-//			helper.setTo(toMail);
-//			helper.setSubject(title);
-//			helper.setText(content, true);
-//			emailSender.send(message);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+
+			MimeMessage message = emailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			emailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		String num = Integer.toString(checkNum);
 		return num;
 	}
+
 
 }
