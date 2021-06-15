@@ -137,11 +137,17 @@ crossorigin="anonymous">
 						<input class="email_input" name="userEmail"></div>
 					<span class="final_email_ck">이메일을 입력해주세요</span>
 					<span class="email_input_box_warn"></span>
+					
+					
 					<div class="email_check_wrap">
 						<div class="email_check_input_box" id="email_check_input_box_false">
 							<input class="email_check_input"  disabled="disabled"></div>
+						
+						
 						<div class="email_check_button">
 							<span>인증번호 전송</span></div>
+							
+							
 						<div class="clearfix"></div>
 						 <span id="email_check_input_box_warn"></span>
 					</div>
