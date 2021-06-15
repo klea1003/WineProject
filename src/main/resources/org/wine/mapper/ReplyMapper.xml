@@ -4,8 +4,8 @@
 <mapper namespace="org.wine.mapper.ReplyMapper">
 
 <insert id="insert">
- insert into tblReplyTest(rno, boardNum, reply, replyer)
- values (seq_reply.nextval, #{boardNum}, #{reply}, #{replyer})
+ insert into tblReplyTest(rno, boardNum, replyer, reply)
+ values (seq_reply.nextval, #{boardNum}, #{replyer}, #{reply})
 </insert>
 
 <select id = "read" resultType="org.wine.domain.ReplyVO"> 

@@ -93,9 +93,9 @@
 						<tr>
 							<th>#번호</th>
 							<th>제목</th>
+							<th>종류</th>
 							<th>작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -105,9 +105,10 @@
 								<td>${c.boardNum}</td>
 								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}</a></td> --%>
 								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
+								<td>${c.type}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
-								<td>${c.updateDate}</td>
+								<%-- <td>${c.updateDate}</td> --%>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -133,6 +134,8 @@
                         <c:out value="${pageMaker.cri.type eq'TW'?'selected':''}"/>>제목 or 작성자</option>
                         <option value="TCW"
                         <c:out value="${pageMaker.cri.type eq'TCW'?'selected':''}"/>>제목 or 내용 or 작성자</option>
+                         <option value="P"
+                        <c:out value="${pageMaker.cri.type eq'P'?'selected':''}"/>>종류</option>
                      </select> 
                      <input type='text' name='keyword' 
                      value='<c:out value="${pageMaker.cri.keyword }"/>'/> 

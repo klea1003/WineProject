@@ -47,7 +47,6 @@ public class ReplyMapperTest {
 			   vo.setBoardNum(boardNumArr[i%5]);
 			   vo.setReply("reply"+i);
 			   vo.setReplyer("replyer"+i);
-			   log.info("//////////////////////////////"+vo);
 			   mapper.insert(vo);   
 			   
 		   });
@@ -69,7 +68,7 @@ public class ReplyMapperTest {
 	      
 	      @Test
 	      public void testUpdate() {
-	         Long targetRno =1L;
+	         Long targetRno =10L;
 	         ReplyVO vo = mapper.read(targetRno);
 	         vo.setReply("Update Reply");
 	         int count=mapper.update(vo);
