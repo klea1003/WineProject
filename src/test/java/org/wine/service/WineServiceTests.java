@@ -42,6 +42,7 @@ public class WineServiceTests {
 		wine.setPrice(100);
 		wine.setAlcohol(0.5);
 		wine.setWineStyle("style1");
+		wine.setImageName("test.jpg");
 		
 		service.register(wine);
 		

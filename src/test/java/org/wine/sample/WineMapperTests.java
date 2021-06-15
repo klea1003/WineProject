@@ -38,6 +38,7 @@ public class WineMapperTests {
 		wine.setPrice(100);
 		wine.setAlcohol(0.5);
 		wine.setWineStyle("style1");
+		wine.setImageName("test.jpg");	
 		
 		mapper.insert(wine);
 		
