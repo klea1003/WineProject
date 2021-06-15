@@ -1,4 +1,4 @@
-package org.wine.sample;
+package org.wine.mapper;
 
 
 

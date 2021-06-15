@@ -1,4 +1,4 @@
-package org.wine.sample;
+package org.wine.controller;
 
 import org.junit.Before;
 import org.junit.Test;

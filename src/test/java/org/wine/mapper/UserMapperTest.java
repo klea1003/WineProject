@@ -1,4 +1,4 @@
-package org.wine.sample;
+package org.wine.mapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
