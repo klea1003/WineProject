@@ -12,8 +12,12 @@
 			class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 			<c:forEach items="${list}" var="wine">
 				<div class="card">
-					<div class="text-align:left">
+					<div class="card-image">
+						<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="246" width="155">
+					</div>
+					<div class="card-info">
 						<!-- Product name-->
+						
 						<c:out value="${wine.winenery}" />
 						<h5 class="fw-bolder"><c:out value="${wine.title}" /></h5>
 						<c:out value="${wine.grapes}" />
