@@ -29,13 +29,13 @@ public class UserServiceTest {
 	@Test
 	public void testRegister() {
 		UserVO user = new UserVO();
-		user.setUSER_ID("yosepId2");
-		user.setUSER_NICKNAME("yosepNickname2");
-		user.setUSER_EMAIL("yosep@yosep.com2");
-		user.setUSER_PASSWORD("yosepPWD2");
-		user.setUSER_PHONENUM("010-1111-11112");
-		user.setUSER_REALNAME("yosepReal2");
-		user.setUSER_BIRTHDAY("2001-11-12");
+		user.setUserId("yosepId2");
+		user.setUserNickName("yosepNickname2");
+		user.setUserEmail("yosep@yosep.com2");
+		user.setUserPassword("yosepPWD2");
+		user.setUserPhoneNum("010-1111-11112");
+		user.setUserRealName("yosepReal2");
+		user.setUserBirthDay("2001-11-12");
 		service.join(user);
 		log.info(user);
 	

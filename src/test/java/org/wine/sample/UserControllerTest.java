@@ -26,7 +26,7 @@ public class UserControllerTest {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-	private MockMvc mockMvc; 
+	private MockMvc mockMvc; // MockMvc
 	
 	@Before
 	public void setup() {
@@ -38,13 +38,13 @@ public class UserControllerTest {
 	public void testJoin() throws Exception {
 		String resultPage = mockMvc
 				.perform(MockMvcRequestBuilders.post("/user/join")
-						.param("USER_ID", "yosepcontroller")
-						.param("USER_NICKNAME", "controller")
-						.param("USER_EMAIL", "controller@email")
-						.param("USER_PASSWORD", "conPWD")
-						.param("USER_PHONENUM", "010-5555-6666")
-						.param("USER_REALNAME", "컨트롤러")
-						.param("USER_BIRTHDAY", "2021-05-13")
+						.param("userId", "yosepcontroller")
+						.param("userNickName", "controller")
+						.param("userEmail", "controller@email")
+						.param("userPassword", "conPWD")
+						.param("userPhoneNum", "010-5555-6666")
+						.param("userRealName", "최요셉")
+						.param("userBirthDay", "2021-05-13")
 						)
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
