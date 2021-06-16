@@ -5,8 +5,19 @@ import lombok.Data;
 @Data
 public class CartVO {
 
-	private Long CART_NUM;
-	private Long USER_NUM;
-	private Long SELLER_NUM;
+	private Long cartNum;
+	private Long userNum;
+	private String userRealName;
+	private Long sellerNum;
+	private String sellerId;
+	private Long wno;
+	private String title;
+	private int price;
+	private int cartQty;
+	private int totalPrice;
+	
+ 
+	
+	
 	
 }
