@@ -1,4 +1,4 @@
-package org.wine.sample;
+package org.wine.controller;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class UserControllerTest {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-	private MockMvc mockMvc; // MockMvc :가짜 mvc
+	private MockMvc mockMvc; // MockMvc
 	
 	@Before
 	public void setup() {

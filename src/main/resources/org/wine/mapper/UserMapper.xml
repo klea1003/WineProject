@@ -23,7 +23,6 @@
 		values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
 	</insert>
 
-
 	<insert id="joinSelectKey">
 		<selectKey keyProperty="userNum" order="BEFORE"	resultType="long">
 			select SEQ_USER_TEST.nextval from dual
@@ -53,5 +52,6 @@
 		FROM TBL_USER_TEST
 		WHERE USER_ID=#{userId} and USER_PASSWORD =#{userPassword}
 	</select>
+	
 </mapper>
  

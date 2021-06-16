@@ -1,0 +1,59 @@
+CREATE TABLE TBL_REVIEW(
+	REVIEW_NUM NUMBER,
+	WINE_NUM NUMBER,
+	USER_NUM NUMBER,
+	REVIEW_CONTENT VARCHAR2(2048),
+	REGDATE DATE DEFAULT SYSDATE,
+	STAR_RATING VARCHAR2(50));
+create SEQUENCE seq_board;
+create SEQUENCE seq_reply;
+select seq_board.nextval from dual;
+alter sequence seq_board increment by -41;
+
+CREATE TABLE tblReplyTest(
+	rno NUMBER,
+	boardNum NUMBER,
+	replyer NUMBER,
+	reply varchar2(100),
+	replyDate DATE DEFAULT SYSDATE);
+    
+drop table tblBoardTest;
+
+CREATE TABLE tblBoardTest(
+	boardNum NUMBER,
+	writer VARCHAR2(50),
+	Type VARCHAR2(50),
+	Title VARCHAR2(50),
+	Content VARCHAR2(50),
+	REGDATE DATE DEFAULT SYSDATE,
+	boardReadCount NUMBER default 0,
+    replyCnt number default 0);
+    
+CREATE TABLE TBL_BOARD(
+	BOARD_NUM NUMBER,
+	USER_name VARCHAR2(50),
+	BOARD_TYPE VARCHAR2(50),
+	BOARD_TITLE VARCHAR2(50),
+	BOARD_CONTENT VARCHAR2(50),
+	REGDATE DATE DEFAULT SYSDATE,
+	BOARD_READ_COUNT NUMBER,
+    replyCnt number);
+	
+commit;
+
+CREATE TABLE TBL_BOARD_IMAGE_test(
+	uuid varchar2(50),
+    uploadpath varchar2(50),
+    filename varchar2(50),
+    filetype varchar2(50),
+    boardNum number);
+	
+commit;
+	
+CREATE TABLE TBL_BOARD_LIKE(
+	WINElIKE_NUM NUMBER,
+	BOARD_NUM NUMBER,
+	USER_NUM NUMBER,
+	LIKES VARCHAR2(50));
+	
+commit;

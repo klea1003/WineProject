@@ -4257,12 +4257,12 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 80%;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  float: left;
 }
 .card > hr {
   margin-right: 0;
@@ -4287,9 +4287,15 @@ textarea.form-control-lg {
   border-top: 0;
 }
 
-.card-body {
-  flex: 1 1 auto;
-  padding: 1rem 1rem;
+.card-image {
+  height: 250px;
+  width: 160px;
+}
+
+.card-info {
+  height: 200px;
+  width: 400px;
+  text-align: left;
 }
 
 .card-title {
