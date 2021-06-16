@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.WineMapper">
+	
+	<resultMap type="org.wine.domain.WineVO" id="wineInfo">
+		<result property="wno" column="WINE_NUM" />
+		<result property="title" column="WINE_TITLE" />
+		<result property="winenery" column="WINENERY" />
+		<result property="grapes" column="WINE_GRAPES" />
+		<result property="regions" column="WINE_REGIONS" />
+		<result property="allergens" column="WINE_ALLERGENS" />
+		<result property="wineType" column="WINETYPE" />
+		<result property="region" column="WINE_REGION" />
+		<result property="country" column="WINE_COUNTRY" />
+		<result property="price" column="WINE_PRICE" />
+		<result property="alcohol" column="WINE_ALCOHOL" />
+		<result property="wineStyle" column="WINESTYLE" />
+		<result property="imageName" column="WINE_IMAGENAME" /> 		
+	</resultMap>
+	
 
-	<select id="getList" resultType="org.wine.domain.WineVO">
+	<select id="getList" resultType="wineInfo">
 	  <![CDATA[
 	  	select * from TBL_WINE_TEST where wno > 0
 	  ]]>
 	</select>
 
 	<insert id="insert">
-		<selectKey keyProperty="wno" order="BEFORE"
-			resultType="long">
+		<selectKey keyProperty="wno" order="BEFORE" resultType="long">
 			select seq_wine.nextval from dual
 		</selectKey>
 
@@ -30,7 +46,7 @@
 		where wno=#{wno}
 	</update>
 
-	<select id="read" resultType="org.wine.domain.WineVO">
+	<select id="read" resultType="wineInfo">
 		select * from tbl_wine_test where wno = #{wno}
 	</select>
 
