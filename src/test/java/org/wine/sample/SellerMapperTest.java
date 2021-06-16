@@ -29,11 +29,12 @@ public class SellerMapperTest {
 		
 		SellerVO seller = new SellerVO();
 		
-		seller.setSellerId("wineInsertTest111");
-		seller.setSellerPhoneNum("11211");
-		seller.setSellerLocation("소스트리 한글은 응답하라");
-		seller.setSellerLocation("변경");
-		
+		seller.setSellerId("Keumyang International");
+		seller.setSellerStoreName("금양인터내셔널");
+		seller.setSellerContent("www.keumyang.com");
+		seller.setSellerPhoneNum("02-2109-9200");
+		seller.setSellerLocation("서울 영등포구 의사당대로8 (여의도동)");
+				
 		mapper.sellerInsert(seller);
 		log.info(seller);
 		
@@ -44,9 +45,11 @@ public class SellerMapperTest {
 	  
 		SellerVO seller = new SellerVO();
 		  
-		seller.setSellerId("요셉와인"); 
-		seller.setSellerPhoneNum("010-1234");
-		seller.setSellerLocation("경기도 수원시");
+		seller.setSellerId("GoriWineShop");
+		seller.setSellerStoreName("고리 와인샵");
+		seller.setSellerContent("고리와인샵 입니다.");
+		seller.setSellerPhoneNum("031-287-1250");
+		seller.setSellerLocation("경기 성남시 분당구 황새울로 234 (수내동)");
 		  
 		mapper.sellerSelectKey(seller); 
 		log.info(seller); 
@@ -56,7 +59,7 @@ public class SellerMapperTest {
 	@Test
 	public void testRead() {
 		
-		SellerVO seller = mapper.read(10L);
+		SellerVO seller = mapper.read(25L);
 		
 		log.info(seller);
 		
@@ -67,7 +70,7 @@ public class SellerMapperTest {
 		
 		SellerVO seller = new SellerVO();
 		
-		seller.setSellerNum(8L);
+		seller.setSellerNum(25L);
 		seller.setSellerPhoneNum("111111");
 		seller.setSellerLocation("주소이전 업데이트");
 		
@@ -78,7 +81,7 @@ public class SellerMapperTest {
 	@Test
 	public void testDelete() {
 		
-		log.info("DELETE COUNT: " + mapper.delete(14L));
+		log.info("DELETE COUNT: " + mapper.delete(25L));
 		
 	}
 	

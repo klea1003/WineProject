@@ -41,14 +41,13 @@ public class SellerController {
 		
 		return "redirect:/seller/list";
 	}
-	
-	@GetMapping("/get")
-	public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
-		
-		log.info("/get");
-		
-		model.addAttribute("seller", service.get(sellerNum));
-		
+
+	@GetMapping("/get") public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
+		  
+		  log.info("/get");
+		  
+		  model.addAttribute("seller", service.get(sellerNum));
+		  
 	}
 	
 	@PostMapping("/modify")

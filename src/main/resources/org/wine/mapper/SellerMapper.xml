@@ -5,6 +5,8 @@
 	<resultMap type="org.wine.domain.SellerVO" id="sellerInfo">
 		<result property="sellerNum" column="SELLER_NUM"/>
 		<result property="sellerId" column="SELLER_ID"/>
+		<result property="sellerStoreName" column="SELLER_STORENAME"/>
+		<result property="sellerContent" column="SELLER_CONTENT"/>
 		<result property="sellerPhoneNum" column="SELLER_PHONENUM"/>
 		<result property="sellerLocation" column="SELLER_LOCATION"/>
 	</resultMap>
@@ -15,9 +17,10 @@
 	
 	<insert id="sellerInsert">
 				
-		INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
-		VALUES(SEQ_SELLER_TEST.NEXTVAL, #{sellerId}, #{sellerPhoneNum}, #{sellerLocation})
-	
+		INSERT INTO tbl_seller_test
+		(SELLER_NUM, SELLER_ID, SELLER_STORENAME, SELLER_CONTENT, SELLER_PHONENUM, SELLER_LOCATION) 
+		VALUES(SEQ_SELLER_TEST.NEXTVAL, #{sellerId}, #{sellerStoreName}, #{sellerContent}, #{sellerPhoneNum}, #{sellerLocation})
+		
 	</insert>
 	
 	<insert id="sellerSelectKey">
@@ -26,9 +29,10 @@
 			select seq_seller_test.nextval from dual
 		</selectKey>
 		
-		INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
-		VALUES(#{sellerNum}, #{sellerId}, #{sellerPhoneNum}, #{sellerLocation})
-	
+		INSERT INTO tbl_seller_test
+		(SELLER_NUM, SELLER_ID, SELLER_STORENAME, SELLER_CONTENT, SELLER_PHONENUM, SELLER_LOCATION) 
+		VALUES(#{sellerNum}, #{sellerId}, #{sellerStoreName}, #{sellerContent}, #{sellerPhoneNum}, #{sellerLocation})
+					
 	</insert>
 	
 	<select id="read" resultMap="sellerInfo" >
@@ -44,35 +48,4 @@
 		delete from tbl_seller_test where SELLER_NUM = #{sellerNum}
 	</delete>
 	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>

@@ -26,6 +26,7 @@ public class SellerServiceTest {
 		
 		log.info(service);
 		assertNotNull(service);
+		
 	}
 	
 	@Test
@@ -33,12 +34,15 @@ public class SellerServiceTest {
 		
 		SellerVO seller = new SellerVO();
 		seller.setSellerId("seller 서비스단");
-		seller.setSellerPhoneNum("010-777-777");
-		seller.setSellerLocation("수원와인 와인수원");
+		seller.setSellerStoreName("seller 서비스단 와인");
+		seller.setSellerContent("서비스단 와인입니다");
+		seller.setSellerPhoneNum("010-1234-1234");
+		seller.setSellerLocation("수원시");
 		
 		service.register(seller);
 		
-		log.info("생성된 셀러의 번호: " + seller.getSellerNum());
+		log.info("생성된 셀러의 번호 : " + seller.getSellerNum());
+		
 	}
 	
 	@Test
@@ -49,31 +53,32 @@ public class SellerServiceTest {
 	}
 	
 	@Test
-	public void testGet() {
+	public void testGet(){
 		
-		log.info(service.get(2L));
-	
+		log.info(service.get(28L));
+		
 	}
 	
 	@Test
 	public void testUpdate() {
 		
-		SellerVO seller = service.get(2L);
+		SellerVO seller = service.get(28L);
 		
 		if(seller == null) {
 			return;
 		}
 		
-		seller.setSellerPhoneNum("전화번호 수정합니다.");
-		log.info("MODIFY RESULT: " + service.modify(seller));
+		seller.setSellerPhoneNum("전화번호를 수정합니다.");
+		log.info("MODIFY RESULT : " + service.modify(seller));
 		
 	}
 	
 	@Test
 	public void testDelete() {
 		
-		log.info("REMOVE RESULT : " + service.remove(4L));
+		log.info("REMOVE RESULT : " + service.remove(28L));
 		
 	}
+	
 
 }

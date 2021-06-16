@@ -47,9 +47,11 @@ public class SellerControllerTest {
 	public void testRegister() throws Exception {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/seller/register")
-				.param("sellerId", "seller00")
-				.param("sellerPhoneNum", "seller00Phone")
-				.param("sellerLocation", "seller00Location")
+				.param("sellerId", "wine365")
+				.param("sellerStoreName", "와인365")
+				.param("sellerContent", "와인 365 입니다")
+				.param("sellerPhoneNum", "와인365 Phone")
+				.param("sellerLocation", "오ㅏ인 365Location")
 			).andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);
@@ -59,7 +61,7 @@ public class SellerControllerTest {
 	public void testGet() throws Exception {
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders
-				.get("/seller/get").param("sellerNum", "16"))
+				.get("/seller/get").param("sellerNum", "30"))
 				.andReturn()
 				.getModelAndView().getModelMap());
 	}
@@ -68,8 +70,7 @@ public class SellerControllerTest {
 	public void testModify() throws Exception {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/seller/modify")
-				.param("sellerNum", "16")
-				.param("sellerId", "seller00")
+				.param("sellerNum", "30")
 				.param("sellerPhoneNum", "수정된 전화번호")
 				.param("sellerLocation", "수정된 주소"))
 			.andReturn().getModelAndView().getViewName();
@@ -82,7 +83,7 @@ public class SellerControllerTest {
 	public void testRemove() throws Exception {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/seller/remove")
-				.param("sellerNum", "5"))
+				.param("sellerNum", "30"))
 				.andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);
