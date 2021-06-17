@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    	<%@include file="../includes/sellerHeader.jsp" %>
+    	<%@include file="../includes/header.jsp" %>
       
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
@@ -31,7 +31,9 @@
                             <p class="card-text"><c:out value="${seller.sellerLocation}"/></p>
                             <p class="card-text"><c:out value="${seller.sellerPhoneNum}"/></p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="${seller.sellerNum}">More Info</a></div>
+                        <a  href="/user/userpage?userNum=<c:out value="${c.userNum }"/>"><c:out value="${c.userId }"/></a>
+                        
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="/seller/get?sellerNum=${seller.sellerNum}">More Info</a></div>
                      </div>
                 </div>
               	
@@ -39,9 +41,7 @@
             </div>
             
         </div>
-        
-       
-        <%@include file="../includes/sellerFooter.jsp" %>
+
     
   </body>
 </html>

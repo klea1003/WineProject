@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    	<%@include file="../includes/sellerHeader.jsp" %>
+    	<%@include file="../includes/header.jsp" %>
       
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
@@ -34,6 +34,7 @@
 								center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         						
 								level: 3 // 지도의 확대 레벨
+								
    							 };  
 
 						// 지도를 생성합니다    
@@ -43,7 +44,7 @@
 						var geocoder = new kakao.maps.services.Geocoder();
 
 						// 주소로 좌표를 검색합니다
-						geocoder.addressSearch('서울 강남구 봉은사로 641(삼성동)' , function(result, status) {
+						geocoder.addressSearch('${seller.sellerLocation}' , function(result, status) {
 
 					    // 정상적으로 검색이 완료됐으면 
 					     if (status === kakao.maps.services.Status.OK) {
@@ -58,7 +59,7 @@
 
 				        // 인포윈도우로 장소에 대한 설명을 표시합니다
 				        var infowindow = new kakao.maps.InfoWindow({
-				            content: '<div style="width:150px;text-align:center;padding:6px 0;">국순당</div>'
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">${seller.sellerStoreName}</div>'
 				        });
 				        infowindow.open(map, marker);
 				
@@ -83,10 +84,10 @@
                 <div class="card-body"><p class="text-white m-0">▼ 판매자가 현재 판매하고 있는 와인들을 소개해 드립니다</p></div>
             </div>
             
-            <!-- Content Row-->
+            <!--  Content Row -->
             <div class="row gx-4 gx-lg-5">
                 
-                <!-- Card One  -->                
+                <!--  Card One    -->              
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
@@ -107,7 +108,7 @@
                         <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
                     </div>
                 </div>
-                
+                                 
                 <!-- Card Three  -->
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
@@ -120,9 +121,6 @@
                 </div>
             </div>
         </div>
-        
-       
-        <%@include file="../includes/sellerFooter.jsp" %>
-    
+              
   </body>
 </html>
