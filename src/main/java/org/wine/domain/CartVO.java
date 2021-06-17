@@ -10,9 +10,9 @@ public class CartVO {
 	private String userRealName;
 	private Long sellerNum;
 	private String sellerId;
-	private Long wno;
-	private String title;
-	private int price;
+	private Long wineNum;
+	private String wineTitle;
+	private int winePrice;
 	private int cartQty;
 	private int totalPrice;
 	

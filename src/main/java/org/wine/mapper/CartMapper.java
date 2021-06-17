@@ -22,7 +22,7 @@ public interface CartMapper {
 	void delete(Long cartNum); //장바구니 삭제
 	void modifyCart(CartVO cartvo); //장바구니 수량조정
 	int sumTotalPrice(Long userNum); //장바구니 금액 합계 리턴
-	int countCart(Long userNum, Long sellerNum, Long wno); //장바구니 동일상품 조회
+	int countCart(Long userNum, Long sellerNum, Long wineNum); //장바구니 동일상품 조회
 	void updateCart(CartVO cartvo); //동일상품 있을경우 수량추가
 	
 }

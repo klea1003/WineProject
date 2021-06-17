@@ -11,7 +11,7 @@ public interface CartService {
 	public void delete(Long userNum); //삭제
 	public void modifyCart(CartVO cartvo); //수정
 	public int sumTotalPrice(Long userNum); //합계
-	public int countCart(Long userNum, Long sellerNum, Long wno); //상품확인
+	public int countCart(Long userNum, Long sellerNum, Long wineNum); //상품확인
 	public void updateCart(CartVO cartvo); //상품수량변경
 	
 	

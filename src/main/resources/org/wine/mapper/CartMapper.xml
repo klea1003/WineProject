@@ -2,16 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.CartMapper">
 
+<resultMap type="org.wine.domain.CartVO" id="cartList">
+<result property="cartNum" column="CART_NUM" />
+<result property="userNum" column="USER_NUM" />
+<result property="sellerNum" column="SELLER_NUM" />
+<result property="wineNum" column="WINE_NUM" />
+<result property="cartQty" column="CART_QTY" />
+</resultMap>
 
-	<select id="getList" resultType="org.wine.domain.CartVO">
+
+
+	<select id="getList" resultMap="cartList">
 		<![CDATA[
 		select*from tbl_cart_test where CART_NUM > 0
 		]]>
 	</select>
 	
 	<insert id = "insert">
-	insert into tbl_cart_test(CART_NUM, USER_NUM, SELLER_NUM, WNO, CART_QTY)
-	VALUES( SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wno}, #{cartQty})
+	insert into tbl_cart_test(CART_NUM, USER_NUM, SELLER_NUM, WINE_NUM, CART_QTY)
+	VALUES( SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, #{cartQty})
 	</insert>
 	
 
@@ -19,32 +28,32 @@
 	<!--장바구니 추가 -->
 	<insert id="insertCart">
 		insert into tbl_cart_test(
-		CART_NUM, USER_NUM, SELLER_NUM, WNO, CART_QTY
+		CART_NUM, USER_NUM, SELLER_NUM, WINE_NUM, CART_QTY
 		)values(
-		SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wno}, #{cartQty}
+		SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, #{cartQty}
 		)
 	</insert>
 
 
 	<!-- 장바구니 목록 -->
-	<select id = "listCart" resultType="org.wine.domain.CartVO">
-	select CART_NUM, USER_NUM, USER_REALNAME, SELLER_NUM, SELLER_ID,
-	WNO, TITLE, PRICE, CART_QTY, (PRICE*CART_QTY)TOTAL_PRICE
+	<select id = "listCart" resultType="org.wine.domain.CartVO" resultMap="cartList">
+	select CART_NUM, U.USER_NUM, USER_REALNAME, S.SELLER_NUM, SELLER_ID,
+	W.WINE_NUM, WINE_TITLE, WINE_PRICE, CART_QTY, (PRICE*CART_QTY)TOTAL_PRICE
 	from
 	TBL_USER_TEST U, TBL_CART_TEST C, TBL_SELLER_TEST S
 	where
-	U.USER_ID = C.USER_ID and C.WNO = W.WNO and C.SELLER_NUM = S.SELLER_NUM
+	U.USER_ID = C.USER_ID and C.WINE_NUM = W.WINE_NUM and C.SELLER_NUM = S.SELLER_NUM
 	and C.USER_NUM=#{userNum} order by CART_NUM
 	</select>
 	
 	
 	<!-- 장바구니 전체 금액 -->
-	<select id="sumTotalPrice" resultType="int">
-	select NVL(SUM(PRICE*CART_QTY),0) TOTAL_PRICE
+	<select id="sumTotalPrice" resultType="int" resultMap="cartList">
+	select NVL(SUM(WINE_PRICE*CART_QTY),0) TOTAL_PRICE
 	from
 	TBL_CART_TEST C, TBL_WINE_TEST W
 	where
-	C.WNO = W.WNO and C.USER_NUM = #{userNum}
+	C.WINE_NUM = W.WINE_NUM and C.USER_NUM = #{userNum}
 	</select>
 	
 	<!-- 장바구니 수정 -->
@@ -53,7 +62,7 @@
 	set CART_QTY = #{cartQty}
 	WHERE USER_NUM = #{userNum}
 	AND SELLER_NUM = #{sellerNum}
-	AND WNO = #{wno}
+	AND WINE_NUM = #{wineNum}
 	</update>
 	
 	<!-- 장바구니 삭제 -->
@@ -63,12 +72,12 @@
 	</delete>
 	
 	<!-- 장바구니 동일상품 확인 -->
-	<select id = "countCart" resultType="int">
+	<select id = "countCart" resultType="int" resultMap="cartList">
 	select count(*)
 	from TBL_CART_TEST
 	where USER_NUM = #{userNum}
 	and SELLER_NUM = #{sellerNum}
-	and WNO = #{wno}</select>
+	and WINE_NUM = #{wineNum}</select>
 	
 	<!-- 동일상품 존재할 경우 수량 수정 -->
 	<update id = "updateCart">
@@ -76,7 +85,7 @@
 	set CART_QTY = CART_QTY + #{cartQty}
 	where USER_NUM = #{userNum}
 	and SELLER_NUM = #{sellerNum}
-	and WNO = #{wno}
+	and WINE_NUM = #{wineNum}
 	</update>
 
 

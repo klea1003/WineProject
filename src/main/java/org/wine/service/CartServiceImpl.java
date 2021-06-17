@@ -51,9 +51,9 @@ public class CartServiceImpl implements CartService {
 
 	//장바구니 상품 확인
 	@Override
-	public int countCart(Long userNum, Long sellerNum, Long wno) {
+	public int countCart(Long userNum, Long sellerNum, Long wineNum) {
 		// TODO Auto-generated method stub
-		return mapper.countCart(userNum, sellerNum, wno);
+		return mapper.countCart(userNum, sellerNum, wineNum);
 	}
 
 	//장바구니 상품수량 변경

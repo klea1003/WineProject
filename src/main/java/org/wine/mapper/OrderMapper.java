@@ -1,28 +1,26 @@
 package org.wine.mapper;
 import java.util.List;
 
-import javax.inject.Inject;
+import org.wine.domain.OrderDetailVO;
+import org.wine.domain.OrderListVO;
+import org.wine.domain.OrderVO;
 
-import org.apache.ibatis.session.SqlSession;
-import org.wine.domain.CartVO;
 
 public interface OrderMapper {
 	
-	
-	public List<CartVO> getList();
-	public void insertSeletKey(CartVO cartvo);
-	
-	
-	List<CartVO> cartTotalPrice();
-	
-	
-	
-	void insert(CartVO cartvo); //상품 추가
-	List<CartVO> listCart(Long userNum); //목록 
-	void delete(Long cartNum); //장바구니 삭제
-	void modifyCart(CartVO cartvo); //장바구니 수량조정
-	int sumTotalPrice(Long userNum); //장바구니 금액 합계 리턴
-	int countCart(Long userNum, Long sellerNum, Long wno); //장바구니 동일상품 조회
-	void updateCart(CartVO cartvo); //동일상품 있을경우 수량추가
-	
+//주문 정보
+public void orderInfo(OrderVO order) throws Exception;
+
+//주문 상세 정보
+public void orderInfo_Detail(OrderDetailVO orderDetail) throws Exception;
+
+//주문완료 후 카트에서 삭제
+public void cartAllDelete(Long userNum) throws Exception;
+
+//주문 목록
+public List<OrderVO> orderList(OrderVO order) throws Exception;
+
+//특정 주문 상세 목록
+public List<OrderListVO> orderView(OrderVO order) throws Exception;
+
 }

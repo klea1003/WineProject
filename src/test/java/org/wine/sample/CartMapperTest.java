@@ -31,7 +31,7 @@ public void testInsert() {
 	CartVO cartvo = new CartVO();
 	cartvo.setUserNum((long) 1);
 	cartvo.setSellerNum((long) 21);
-	cartvo.setWno((long) 4);
+	cartvo.setWineNum((long) 4);
 	cartvo.setCartQty(5);
 	
 	mapper.insert(cartvo);
