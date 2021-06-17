@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.BoardMapper">
+  <select id="getList" resultType="org.wine.domain.BoardVO">
+  select*from tblBoardTest where boardNum > 0
+  </select>
+  
+  <select id="read" resultType="org.wine.domain.BoardVO">
+  select*from tblBoardTest where boardNum=#{boardNum}
+  </select>
+  
+  <select id="getTotalCount" resultType="int">
+  select count(*) from tblBoardTest where 
+  <include refid="criteria"></include>
+  boardNum > 0
+  </select>
+  
+  
+  <sql id="criteria">
+
+	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+		<foreach item="type"  collection="typeArr">
+		<trim prefix="OR">
+			<choose>
+			<when test="type == 'T'.toString()">title like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'C'.toString()">content like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'W'.toString()">writer like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'P'.toString()">type like '%' ||#{keyword}||'%'</when>
+			</choose>
+		</trim>
+		</foreach>
+	</trim>
+  
+  </sql>
+  
+  <select id="getListWithPaging" resultType="org.wine.domain.BoardVO">
+  <![CDATA[ select * from(
+	select /*+INDEX_desc(tblBoardTest pk_board)*/
+	rownum rn,boardNum,Title,Content,writer,regdate,boardReadCount,replycnt
+	from tblBoardTest
+	where ]]> 
+	
+	<include refid="criteria"></include>
+
+
+
+<![CDATA[rownum <= #{pageNum}*#{amount}
+)
+where rn>(#{pageNum}-1)*#{amount}]]>
+</select> 
+
+  <delete id="delete">
+  delete from tblBoardTest where boardNum=#{boardNum}
+  </delete>
+  
+  <update id="update">
+  update tblBoardTest set Title=#{title}, Content=#{content}, writer=#{writer}, Type=#{type}
+  where boardNum=#{boardNum}
+  </update> 
+
+  
+  <insert id="insert">
+  insert into tblBoardTest(boardNum, Type, Title, Content, writer)
+  values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
+  </insert>
+  
+    <insert id="insertSelectKey">
+  <selectKey keyProperty="boardNum" order="BEFORE" resultType="long">
+  select seq_board.nextval from dual
+  </selectKey>
+   insert into tblBoardTest(boardNum, Type, Title, Content, writer)
+  values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
+  </insert>
+  
+  <update id="updateReplyCnt">
+  	update tblBoardTest set replycnt = replycnt + #{amount} where boardNum = #{boardNum}
+  </update>
+  
+  
+  
+</mapper>
