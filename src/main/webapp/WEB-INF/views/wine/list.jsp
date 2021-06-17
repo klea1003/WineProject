@@ -7,9 +7,10 @@
 <html lang="en">
 <!-- Section-->
 <section class="py-5">
+
+	<!-- Wine List-->
 	<div class="container px-4 px-lg-5 mt-5">
-		<div
-			class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 			<c:forEach items="${list}" var="wine">
 				<div class="card">
 					<div class="card-image">
@@ -26,12 +27,34 @@
 						<c:out value="${wine.wineStyle}" />
 						<!-- Product price-->
 						<c:out value="${wine.price}" />
-					</div>
-					
+					</div>					
 				</div>
 			</c:forEach>
 		</div>
 	</div>
+	<!-- End of Wine List-->
+		
+	<!-- Pagination -->
+	<div class="pull-right">
+		<ul class="pagination"> 
+			<c:if test = "$ {pageMaker.prev}">
+				<li class ="paginate_button previous">
+				<a her ="${pageMaker.startPage-1}">Previous</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var ="num" begin="${pageMaker.startPage}"
+			end="${pageMaker.endPage}">
+			 <li class ="paginate_button ${pageMaker.cri.pageNum == num ? "active" : "" } "> <a herf ="${num }">${num}</a></li>
+			</c:forEach>
+			
+			<c:if test = "$ {pageMaker.next}">
+				<li class ="paginate_button next"><a her ="#">Next</a></li>
+			</c:if>
+		</ul>
+	</div>
+	<!-- End of Pagination -->		
+	
 </section>
 <!-- Bootstrap core JS-->
 <script
