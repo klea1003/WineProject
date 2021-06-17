@@ -1,15 +1,15 @@
 package org.wine.domain;
 
-import java.util.Date;
-
+import java.sql.Date;
 import lombok.Data;
 
 @Data
 public class ReplyVO {
-	
-	private Long REPLY_NUM;
-	private Long REVIEW_NUM;
-	private String REPLY_CONTENT;
-	private Date REGDATE;
+
+	private Long rno;
+	private Long boardNum;
+	private String reply;
+	private String replyer;
+	private Date replyDate;
 	
 }

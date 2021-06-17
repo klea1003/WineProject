@@ -17,7 +17,7 @@
 		insert into tbl_wine_test
 		values (#{wno}, #{title}, #{winenery}, #{grapes}, #{regions}, #{allergens},
 		#{wineType}, #{region}, #{country}, #{price}, #{alcohol},
-		#{wineStyle})
+		#{wineStyle}, #{imageName})
 	</insert>
 
 	<delete id="delete">
