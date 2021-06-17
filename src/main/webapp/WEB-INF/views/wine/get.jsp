@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ include file="../includes/header.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <body>
+	<%@ include file="../includes/header.jsp"%>
+	
 	<section>
 		<!-- row -->
 		<div>
@@ -41,7 +43,5 @@
 	
 	<%@ include file="../includes/footer.jsp"%>
 </body>
-
 <script src="/resources/js/scripts.js"></script>
-
 </html>

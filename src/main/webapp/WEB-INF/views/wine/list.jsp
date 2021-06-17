@@ -2,12 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ include file="../includes/header.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <!-- Section-->
 <body>
+	<%@ include file="../includes/header.jsp"%>
 	<section class="py-5">
 	
 		<!-- Wine List-->
@@ -75,9 +76,7 @@
 
 </body>
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/js/scripts.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
