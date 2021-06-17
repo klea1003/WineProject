@@ -1,4 +1,4 @@
-package org.wine.sample;
+package org.wine.service;
 
 import static org.junit.Assert.assertNotNull;
 
