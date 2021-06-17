@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.WineMapper">
 	
-	<resultMap type="org.wine.domain.WineVO" id="wineInfo">
+	<resultMap type="org.wine.domain.WineVO" id="WineInfo">
 		<result property="wno" column="WINE_NUM" />
 		<result property="title" column="WINE_TITLE" />
 		<result property="winenery" column="WINENERY" />
@@ -19,9 +19,9 @@
 	</resultMap>
 	
 
-	<select id="getList" resultType="wineInfo">
+	<select id="getList" resultMap="WineInfo">
 	  <![CDATA[
-	  	select * from TBL_WINE_TEST where wno > 0
+	  	select * from TBL_WINE_TEST where WINE_NUM > 0
 	  ]]>
 	</select>
 
@@ -37,17 +37,17 @@
 	</insert>
 
 	<delete id="delete">
-		delete from tbl_wine_test where wno=#{wno}
+		delete from tbl_wine_test where WINE_NUM=#{wno}
 	</delete>
 
 	<update id="update">
 		update tbl_wine_test set title=#{title}, content=#{content}, writer=#{writer},
 		updateDate = sysdate
-		where wno=#{wno}
+		where WINE_NUM=#{wno}
 	</update>
 
-	<select id="read" resultType="wineInfo">
-		select * from tbl_wine_test where wno = #{wno}
+	<select id="read" resultMap="WineInfo">
+		select * from tbl_wine_test where WINE_NUM = #{wno}
 	</select>
 
 </mapper>
