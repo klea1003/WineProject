@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome BookMall</title>
-<link rel="stylesheet" href="../resources/css/yoseptest.css">
+<link rel="stylesheet" href=/resources/user_bootstrap/css/yoseptest.css">
 <style type="text/css">
 .login_success_area{
     height: 62%;

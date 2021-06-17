@@ -259,99 +259,77 @@ $(document).ready(function() {
 				var phonenum = $('#phonenum_input').val();
 
 				if (id == "") {
-					$('.final_id_ck').css('display',
-							'block');
+					$('.final_id_ck').css('display','block');
 					idCheck = false;
 				} else {
-					$('.final_id_ck').css('display',
-							'none');
+					$('.final_id_ck').css('display','none');
 					idCheck = true;
 				}
-
+			
+				
 				if (nickname == "") {
-					$('.final_nickname_ck').css(
-							'display', 'block');
+					$('.final_nickname_ck').css('display', 'block');
 					nicknameCheck = false;
 				} else {
-					$('.final_nickname_ck').css(
-							'display', 'none');
+					$('.final_nickname_ck').css('display', 'none');
 					nicknameCheck = true;
 				}
-
+			
+				
 				if (password == "") {
-					$('.final_password_ck').css(
-							'display', 'block');
+					$('.final_password_ck').css('display', 'block');
 					passwordCheck = false;
 				} else {
-					$('.final_password_ck').css(
-							'display', 'none');
+					$('.final_password_ck').css('display', 'none');
 					passwordCheck = true;
 				}
-
+			
+				
 				if (passwordck == "") {
-					$('.final_passwordck_ck').css(
-							'display', 'block');
+					$('.final_passwordck_ck').css('display', 'block');
 					passwordckCheck = false;
 				} else {
-					$('.final_passwordck_ck').css(
-							'display', 'none');
+					$('.final_passwordck_ck').css('display', 'none');
 					passwordckCheck = true;
 				}
-
+			
 				if (realname == "") {
-					$('.final_realname_ck').css(
-							'display', 'block');
+					$('.final_realname_ck').css('display', 'block');
 					realnameCheck = false;
 				} else {
-					$('.final_realname_ck').css(
-							'display', 'none');
+					$('.final_realname_ck').css('display', 'none');
 					realnameCheck = true;
 				}
-
+				
+				
 				if (birthday == "") {
-					$('.final_birthday_ck').css(
-							'display', 'block');
+					$('.final_birthday_ck').css('display', 'block');
 					birthdayCheck = false;
 				} else {
-					$('.final_birthday_ck').css(
-							'display', 'none');
+					$('.final_birthday_ck').css('display', 'none');
 					birthdayCheck = true;
 				}
-
+			
 				if (phonenum == "") {
-					$('.final_phonenum_ck').css(
-							'display', 'block');
+					$('.final_phonenum_ck').css('display', 'block');
 					phonenumCheck = false;
 				} else {
-					$('.final_phonenum_ck').css(
-							'display', 'none');
+					$('.final_phonenum_ck').css('display', 'none');
 					phonenumCheck = true;
 				}
-
+				
 				if (email == "") {
-					$('.final_email_ck').css('display',
-							'block');
+					$('.final_email_ck').css('display',	'block');
 					emailCheck = false;
 				} else {
-					$('.final_email_ck').css('display',
-							'none');
+					$('.final_email_ck').css('display','none');
 					emailCheck = true;
 				}
-
-				if (idCheck && idckCheck
-						&& nicknameCheck
-						&& nicknameckCheck
-						&& passwordCheck
-						&& passwordckCheck
-						&& passwordckcorCheck
-						&& realnameCheck
-						&& birthdayCheck && emailCheck
-						&& emailnumCheck
-						&& phonenumCheck) {
-					$("#join_form").attr("action",
-							"/user/join");
+			
+				if (idCheck&&idckCheck&&nicknameCheck&&nicknameckCheck&&passwordCheck&&passwordckCheck&&passwordckcorCheck&&realnameCheck&&birthdayCheck&&emailCheck&&emailnumCheck&&phonenumCheck){
+					$("#join_form").attr("action","/user/join");
 					$("#join_form").submit();
-
+					alert(id+'님 회원가입을 축하합니다.')
 					}
 		return false;
 	});
@@ -374,13 +352,11 @@ $(document).ready(function() {
 						success : function(result) {
 
 							if (result != 'fail') {
-								$('.id_input_re_1').css("display",
-										"inline-block");
+								$('.id_input_re_1').css("display","inline-block");
 								$('.id_input_re_2').css("display", "none");
 								idckCheck = true;
 							} else {
-								$('.id_input_re_2').css("display",
-										"inline-block");
+								$('.id_input_re_2').css("display","inline-block");
 								$('.id_input_re_1').css("display", "none");
 								idckCheck = false;
 							}
@@ -391,8 +367,7 @@ $(document).ready(function() {
 
 				});// function 종료
 
-		$('#nickname_input').on(
-				"propertychange change keyup paste input",
+		$('#nickname_input').on("propertychange change keyup paste input",
 				function() {
 
 					var userNickName = $('#nickname_input').val();
@@ -408,17 +383,13 @@ $(document).ready(function() {
 						success : function(result) {
 
 							if (result != 'fail') {
-								$('.nickname_input_re_1').css("display",
-										"inline-block");
-								$('.nickname_input_re_2')
-										.css("display", "none");
-								nicnameckCheck = true;
-							} else {
-								$('.nickname_input_re_2').css("display",
-										"inline-block");
-								$('.nickname_input_re_1')
-										.css("display", "none");
+								$('.nickname_input_re_1').css("display","inline-block");
+								$('.nickname_input_re_2').css("display", "none");
 								nicknameckCheck = true;
+							} else {
+								$('.nickname_input_re_2').css("display","inline-block");
+								$('.nickname_input_re_1').css("display", "none");
+								nicknameckCheck = false;
 							}
 						}// success 종료
 
@@ -436,7 +407,7 @@ $(document).ready(function() {
 			// 인증번호 입력란 박스
 			var warnMsg = $(".email_input_box_warn");
 			// 이메일 입력 경고글
-			alert('test email2')
+			
 			if (emailFormCheck(email)) {
 				warnMsg.html("이메일이 전송 되었습니다. 이메일을 확인해주세요.");
 				warnMsg.css("display", "inline-block");
@@ -474,7 +445,7 @@ $(document).ready(function() {
 			} else {
 				checkResult.html("인증번호를 다시 확인해주세요.");
 				checkResult.attr("id", "incorrect");
-				mailnumCheck = false;
+				emailnumCheck = false;
 			}
 
 		}); // function 종료
