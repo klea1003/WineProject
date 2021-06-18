@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.BoardMapper">
   <select id="getList" resultType="org.wine.domain.BoardVO">
-  select*from tblBoardTest where boardNum > 0
+  select*from tbl_Board_Test where board_Num > 0
   </select>
   
   <select id="read" resultType="org.wine.domain.BoardVO">
-  select*from tblBoardTest where boardNum=#{boardNum}
+  select*from tbl_Board_Test where board_Num=#{boardNum}
   </select>
   
   <select id="getTotalCount" resultType="int">
-  select count(*) from tblBoardTest where 
+  select count(*) from tbl_Board_Test where 
   <include refid="criteria"></include>
-  boardNum > 0
+  board_Num > 0
   </select>
   
   
@@ -22,10 +22,10 @@
 		<foreach item="type"  collection="typeArr">
 		<trim prefix="OR">
 			<choose>
-			<when test="type == 'T'.toString()">title like '%' ||#{keyword}||'%'</when>
-			<when test="type == 'C'.toString()">content like '%' ||#{keyword}||'%'</when>
-			<when test="type == 'W'.toString()">writer like '%' ||#{keyword}||'%'</when>
-			<when test="type == 'P'.toString()">type like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'T'.toString()">board_title like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'C'.toString()">board_content like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'W'.toString()">board_writer like '%' ||#{keyword}||'%'</when>
+			<when test="type == 'P'.toString()">board_type like '%' ||#{keyword}||'%'</when>
 			</choose>
 		</trim>
 		</foreach>
@@ -35,9 +35,10 @@
   
   <select id="getListWithPaging" resultType="org.wine.domain.BoardVO">
   <![CDATA[ select * from(
-	select /*+INDEX_desc(tblBoardTest pk_board)*/
-	rownum rn,boardNum,Title,Content,writer,regdate,boardReadCount,replycnt
-	from tblBoardTest
+	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	rownum rn,board_Num,board_Title,board_Content,board_writer,regdate,
+	board_Read_Count,replycnt,board_like
+	from tbl_Board_Test
 	where ]]> 
 	
 	<include refid="criteria"></include>
@@ -50,17 +51,17 @@ where rn>(#{pageNum}-1)*#{amount}]]>
 </select> 
 
   <delete id="delete">
-  delete from tblBoardTest where boardNum=#{boardNum}
+  delete from tbl_Board_Test where board_Num=#{boardNum}
   </delete>
   
   <update id="update">
-  update tblBoardTest set Title=#{title}, Content=#{content}, writer=#{writer}, Type=#{type}
-  where boardNum=#{boardNum}
+  update tbl_Board_Test set board_Title=#{title}, board_Content=#{content}, board_writer=#{writer}, board_Type=#{type}
+  where board_Num=#{boardNum}
   </update> 
 
   
   <insert id="insert">
-  insert into tblBoardTest(boardNum, Type, Title, Content, writer)
+  insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
   values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
   </insert>
   
@@ -68,14 +69,21 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   <selectKey keyProperty="boardNum" order="BEFORE" resultType="long">
   select seq_board.nextval from dual
   </selectKey>
-   insert into tblBoardTest(boardNum, Type, Title, Content, writer)
+   insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
   values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
   </insert>
   
   <update id="updateReplyCnt">
-  	update tblBoardTest set replycnt = replycnt + #{amount} where boardNum = #{boardNum}
+  	update tbl_Board_Test set replycnt = replycnt + #{amount} where board_Num = #{boardNum}
   </update>
   
+  <update id="updateBoardReadCount">
+  	update tbl_Board_Test set Board_Read_Count = Board_Read_Count + 1 where board_Num = #{boardNum}
+  </update>
+  
+  <update id="updateLike">
+  	update tbl_Board_Test set board_like = board_like + 1 where board_Num = #{boardNum}
+  </update>
   
   
 </mapper>

@@ -35,11 +35,6 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	private BoardService service;
 
-//	@GetMapping("/list")
-//	public void list(Criteria cri, Model model) {
-//		log.info("list : " + cri);
-//		model.addAttribute("list", service.getList(cri));
-//	}
 
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
@@ -50,8 +45,8 @@ public class BoardController {
 		model.addAttribute("pageMaker", new pageDTO(cri, total));
 	}
 
-	/* @PreAuthorize("isAuthenticated()") */
-	@PostMapping("/register") // �Խñ� ����
+	/* @PreAuthorize("isAuthenticated()")  나중에 시큐리티 기능 넣을때*/
+	@PostMapping("/register") 
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register : " + board);
 		if(board.getAttachList()!=null) {
@@ -59,22 +54,11 @@ public class BoardController {
 		}
 		service.register(board);
 		rttr.addFlashAttribute("result", board.getBoardNum());
-		return "redirect:/board/list"; // redirect�� �������� ���, ���� ��ħ�� ����
+		return "redirect:/board/list"; 
 	}
 
-//	@GetMapping("/get")
-//	public void get(@RequestParam("boardNum") long boardNum, Model model) {
-//		log.info("/get");
-//		model.addAttribute("board", service.get(boardNum));
-//	}
 
-//	@GetMapping("/modify")
-//	   public void modify(@RequestParam("boardNum")Long boardNum, Model model) {
-//	      log.info("modify-----------");
-//	      model.addAttribute("board", service.get(boardNum));
-//	   }
-
-	/* @PreAuthorize("principal.username == #board.writer") */
+	/* @PreAuthorize("principal.username == #board.writer") 나중에 시큐리티 기능 넣을때*/
 	@PostMapping("/modify")
 	public String get(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);

@@ -4,20 +4,20 @@
 <mapper namespace="org.wine.mapper.ReplyMapper">
 
 <insert id="insert">
- insert into tblReplyTest(rno, boardNum, replyer, reply)
+ insert into tbl_Reply_Test(rno, board_Num, replyer, reply)
  values (seq_reply.nextval, #{boardNum}, #{replyer}, #{reply})
 </insert>
 
 <select id = "read" resultType="org.wine.domain.ReplyVO"> 
-select * from tblReplyTest where rno = #{rno}
+select * from tbl_Reply_Test where rno = #{rno}
 </select> 
 
 <delete id="delete">
-delete from tblReplyTest where rno = #{rno}
+delete from tbl_Reply_Test where rno = #{rno}
 </delete>
 
 <update id ="update">
- update tblReplyTest set reply = #{reply}
+ update tbl_Reply_Test set reply = #{reply}
  where rno = #{rno}
 </update>
 
@@ -29,12 +29,12 @@ where boardNum=#{boardNum}
 
 <select id="getListWithPaging" resultType="org.wine.domain.ReplyVO">
 <![CDATA[
-select rno, boardNum, reply, replyer, replyDate
+select rno, board_Num, reply, replyer, reply_Date
 from
 (select /*+ INDEX(tblReplyTest idx_reply) */
-rownum rn, rno, boardNum, reply, replyer, replyDate
-from tblReplyTest
-where boardNum=#{boardNum}
+rownum rn, rno, board_Num, reply, replyer, reply_Date
+from tbl_Reply_Test
+where board_Num=#{boardNum}
 and rno>0
 and rownum <= #{cri.pageNum} * #{cri.amount}
 )
@@ -44,7 +44,7 @@ where rn > (#{cri.pageNum}-1)*#{cri.amount}
 
 <select id="getCountByboardNum" resultType="int">
 select count(rno)
-from tblReplyTest where boardNum = #{boardNum}
+from tbl_Reply_Test where board_Num = #{boardNum}
 </select>
 
 
