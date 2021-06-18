@@ -10,24 +10,25 @@ create SEQUENCE seq_reply;
 select seq_board.nextval from dual;
 alter sequence seq_board increment by -41;
 
-CREATE TABLE tblReplyTest(
+CREATE TABLE tbl_Reply_Test(
 	rno NUMBER,
 	boardNum NUMBER,
-	replyer NUMBER,
+	replyer varchar2(20),
 	reply varchar2(100),
 	replyDate DATE DEFAULT SYSDATE);
     
 drop table tblBoardTest;
 
-CREATE TABLE tblBoardTest(
-	boardNum NUMBER,
-	writer VARCHAR2(50),
-	Type VARCHAR2(50),
-	Title VARCHAR2(50),
-	Content VARCHAR2(50),
+CREATE TABLE TBL_BOARD_TEST(
+	board_Num NUMBER,
+	board_writer VARCHAR2(50),
+	board_Type VARCHAR2(50),
+	board_Title VARCHAR2(50),
+	board_Content VARCHAR2(50),
 	REGDATE DATE DEFAULT SYSDATE,
-	boardReadCount NUMBER default 0,
-    replyCnt number default 0);
+	board_Read_Count NUMBER default 0,
+    replyCnt number default 0,
+    board_like number default 0);
     
 CREATE TABLE TBL_BOARD(
 	BOARD_NUM NUMBER,
@@ -46,6 +47,9 @@ CREATE TABLE TBL_BOARD_IMAGE_test(
     uploadpath varchar2(50),
     filename varchar2(50),
     filetype varchar2(50),
+    boardNum number);
+	
+commit;
     boardNum number);
 	
 commit;

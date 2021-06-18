@@ -7,6 +7,7 @@ import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.mapper.BoardAttachMapper;
 import org.wine.mapper.BoardMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,11 +86,20 @@ public class BoardServiceImpl implements BoardService {
 		log.info("getList With criteria" + cri);
 		return mapper.getListWithPaging(cri);
 	}
+	@Override
+	public void updateBoardReadCount(Long boardNum) {
+		log.info("updateBoardReadCount.." + boardNum);
+		mapper.updateBoardReadCount(boardNum);
+	}
+	@Override
+	public void updateLike(Long boardNum) {
+		log.info("updateLike.." + boardNum);
+		mapper.updateLike(boardNum);
+	}
 
 	@Override
 	public int getTotal(Criteria cri) {
-		log.info("get total count");
+		log.info("getTotal.." + cri);
 		return mapper.getTotalCount(cri);
 	}
-
 }
