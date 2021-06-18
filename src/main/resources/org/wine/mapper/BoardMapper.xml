@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.BoardMapper">
-  <select id="getList" resultType="org.wine.domain.BoardVO">
+
+<resultMap type="org.wine.domain.BoardVO" id="boardinfo">
+  <result property="boardNum" column="Board_NUM"/>
+  <result property="writer" column="BOARD_WRITER"/>
+  <result property="type" column="BOARD_TYPE"/>
+  <result property="title" column="BOARD_TITLE"/>
+  <result property="content" column="BOARD_CONTENT"/>
+  <result property="regdate" column="REGDATE"/>
+  <result property="boardReadCount" column="BOARD_READ_COUNT"/>
+  <result property="replyCnt" column="REPLYCNT"/>
+  <result property="like" column="BOARD_LIKE"/>
+ </resultMap>
+
+
+  <select id="getList" resultMap="boardinfo">
   select*from tbl_Board_Test where board_Num > 0
   </select>
   
-  <select id="read" resultType="org.wine.domain.BoardVO">
+  <select id="read" resultMap="boardinfo">
   select*from tbl_Board_Test where board_Num=#{boardNum}
   </select>
   
@@ -33,10 +47,10 @@
   
   </sql>
   
-  <select id="getListWithPaging" resultType="org.wine.domain.BoardVO">
+  <select id="getListWithPaging" resultMap="boardinfo">
   <![CDATA[ select * from(
 	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
-	rownum rn,board_Num,board_Title,board_Content,board_writer,regdate,
+	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
 	board_Read_Count,replycnt,board_like
 	from tbl_Board_Test
 	where ]]> 
@@ -86,4 +100,5 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   </update>
   
   
+ 
 </mapper>
