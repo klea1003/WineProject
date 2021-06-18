@@ -55,8 +55,8 @@ public class ReplyMapperTest {
 	   
 	      @Test
 	      public void testRead() {
-	         Long targetRno = 5L;
-	         ReplyVO vo =mapper.read(targetRno);
+	         Long targetrno = 51L;
+	         ReplyVO vo =mapper.read(targetrno);
 	         log.info(vo);
 	      }
 	      
@@ -68,7 +68,7 @@ public class ReplyMapperTest {
 	      
 	      @Test
 	      public void testUpdate() {
-	         Long targetRno =10L;
+	         Long targetRno =51L;
 	         ReplyVO vo = mapper.read(targetRno);
 	         vo.setReply("Update Reply");
 	         int count=mapper.update(vo);

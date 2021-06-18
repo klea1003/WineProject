@@ -89,6 +89,16 @@ public void testSearch() {
 	list.forEach(board->log.info(board));
 }
 
+@Test
+public void updateBoardReadCount() {
+	mapper.updateBoardReadCount(29L);
+	log.info("조회수 증가");
+}
+@Test
+public void updateLike() {
+	mapper.updateLike(29L);
+	log.info("좋아요 증가");
+}
 
 
 }
