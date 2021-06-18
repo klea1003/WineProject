@@ -23,7 +23,6 @@ public class Criteria {
 	
 	private String type;
 	private String keyword;
-	//�˻������� �迭�� ó��
 	public String[] getTypeArr() {
 		return type == null? new String[] {}:type.split("");
 	}
