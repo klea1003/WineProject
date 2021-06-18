@@ -11,5 +11,7 @@ public interface WineService {
 	public WineVO get(Long wno);
 		
 	public List<WineVO> getList(Criteria cri);
+	
+	public int getTotal(Criteria cri);
 
 }

@@ -28,7 +28,12 @@ public class WineController {
 		log.info("list"+ cri);
 		
 		model.addAttribute("list", service.getList(cri));
-		model.addAttribute("pageMaker",new pageDTO(cri,123));
+		
+		int total = service.getTotal(cri);
+		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageMaker",new pageDTO(cri,total)); 		
 	}
 	
 	@PostMapping("/register")
