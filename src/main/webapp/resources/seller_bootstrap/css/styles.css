@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - Shop Homepage v5.0.1 (https://startbootstrap.com/template/shop-homepage)
+* Start Bootstrap - Small Business v5.0.1 (https://startbootstrap.com/template/small-business)
 * Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-small-business/blob/master/LICENSE)
 */
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -4257,12 +4257,12 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 80%;
+  min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  float: left;
+  border-radius: 0.25rem;
 }
 .card > hr {
   margin-right: 0;
@@ -4287,15 +4287,9 @@ textarea.form-control-lg {
   border-top: 0;
 }
 
-.card-image {
-  height: 250px;
-  width: 160px;
-}
-
-.card-info {
-  height: 200px;
-  width: 400px;
-  text-align: left;
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
 }
 
 .card-title {
@@ -10838,15 +10832,4 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-}
-
-.footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-	padding: 15px 0;
-	text-align: center;
-	color: white;
-	background: blue;
 }
