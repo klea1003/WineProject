@@ -46,6 +46,17 @@ public class WineControllerTests {
 	}
 	
 	@Test
+	public void testListPaging() throws Exception{
+		
+		log.info(mockMvc.perform(
+			MockMvcRequestBuilders.get("/wine/list")
+			.param("pageNum", "2")
+			.param("amount", "10"))
+			.andReturn().getModelAndView().getModelMap());
+		
+	}
+	
+	@Test
 	public void testRegister() throws Exception{
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/wine/register")

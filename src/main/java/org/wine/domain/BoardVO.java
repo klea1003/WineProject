@@ -15,6 +15,7 @@ public class BoardVO {
 	private Date regdate;
 	private int boardReadcCount;
 	private int replyCnt;
+	private int like;
 	
 	private List<BoardAttachVO> attachList;
 

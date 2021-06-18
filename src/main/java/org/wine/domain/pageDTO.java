@@ -10,10 +10,10 @@ import lombok.ToString;
 
 public class pageDTO {
 
-	private int startPage; //ȭ�鿡 �������� �������� ���۹�ȣ
-	private int endPage; //ȭ�鿡 �������� �������� ����ȣ
-	private boolean prev, next; //���� Ȥ�� ���������� ���� ����
-	private int total; //��ü �����ͼ�
+	private int startPage; 
+	private int endPage; 
+	private boolean prev, next; 
+	private int total; 
 	private Criteria cri;
 	public pageDTO(Criteria cri, int total) {
 		this.cri = cri; this.total = total;
