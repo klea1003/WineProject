@@ -343,4 +343,3 @@ $(document).ready(function() {//모델 보여주기 추가
 <!-- /.row -->
 
 <!-- /.row -->
-<jsp:include page="../includes/footer.jsp" flush="false"></jsp:include>

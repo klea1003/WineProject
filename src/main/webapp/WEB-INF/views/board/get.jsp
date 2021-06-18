@@ -498,4 +498,3 @@
 
 <!-- /.row -->
 <!--    footer 시작      -------------------------------------------------------------- -->
-<jsp:include page="../includes/footer.jsp"></jsp:include>
