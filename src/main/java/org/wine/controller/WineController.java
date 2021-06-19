@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.Criteria;
 import org.wine.domain.WineVO;
+import org.wine.domain.pageDTO;
 import org.wine.service.WineService;
 
 import lombok.AllArgsConstructor;
@@ -22,10 +24,16 @@ public class WineController {
 	private WineService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("list");
+	public void list(Criteria cri,Model model) {
+		log.info("list"+ cri);
 		
-		model.addAttribute("list", service.getList());
+		model.addAttribute("list", service.getList(cri));
+		
+		int total = service.getTotal(cri);
+		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageMaker",new pageDTO(cri,total)); 		
 	}
 	
 	@PostMapping("/register")
