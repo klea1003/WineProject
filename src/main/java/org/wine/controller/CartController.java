@@ -27,7 +27,7 @@ public class CartController {
 
 	private CartService service;
 	
-	@GetMapping("/list")
+	@RequestMapping("/list")
 		public ModelAndView list(HttpSession session, ModelAndView mav) {
 		
 		Long userNum = (Long) session.getAttribute("userNum");
@@ -102,7 +102,7 @@ public class CartController {
 	
 	//장바구니 삭제
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("cartNum") Long cartNum) {
+	public String delete(@RequestParam Long cartNum) {
 		service.delete(cartNum);
 		return "redirect:/cart/list";
 

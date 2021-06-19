@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.OrderMapper">
+
+<resultMap type="org.wine.domain.OrderVO" id="ordering">
+<result property="orderNum" column="ORDER_NUM" />
+<result property="userNum" column="USER_NUM" />
+<result property="userRealName" column="USER_REALNAME" />
+<result property="pickUpName" column="PICKUP_NAME" />
+<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
+<result property="orderPrice" column="ORDER_PRICE" />
+<result property="orderDate" column="ORDER_DATE" />
+<result property="pickUpDate" column="PICKUP_DATE" />
+</resultMap>
+
+<resultMap type="org.wine.domain.OrderDetailVO" id="orderList">
+<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
+<result property="userNum" column="USER_NUM" />
+<result property="sellerId" column="SELLER_ID" />
+<result property="wineNum" column="WINE_NUM" />
+<result property="cartQty" column="CART_QTY" />
+</resultMap>
+
+<resultMap type="org.wine.domain.OrderListVO" id="orderView">
+<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
+<result property="userNum" column="USER_NUM" />
+<result property="userRealName" column="USER_REALNAME" />
+<result property="pickUpName" column="PICKUP_NAME" />
+<result property="pickUpPhonNum" column="PICKUP_PHONENUM" />
+<result property="orderPrice" column="ORDER_PRICE" />
+<result property="orderDate" column="ORDER_DATE" />
+<result property="pickUpDate" column="PICKUP_DATE" />
+
+<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
+<result property="sellerId" column="SELLER_ID" />
+<result property="wineNum" column="WINE_NUM" />
+<result property="cartQty" column="CART_QTY" />
+
+<result property="wineTitle" column="WINE_TITLE" />
+<result property="wineImageName" column="WINE_IMAGENAME" />
+<result property="winePrice" column="WINE_PRICE" />
+</resultMap>
+
+
+
+<!-- 주문 정보 -->
+<insert id="orderInfo">
+ insert into tbl_order_test(ORDER_NUM, USER_NUM, USER_REALNAME, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, PICKUP_DATE)
+     values(#{orderNum}, #{userNum}, #{userRealName}, #{pickUpName}, #{pickUpPhoneNum}, #{orderPrice}, #{pickUpDate})
+</insert>
+   
+<!-- 주문 상세 정보 --> 
+<insert id="orderInfo_Detail">
+ insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_ID,WINE_NUM,CART_QTY)
+     select seq_tbl_order_details.nextval, #{orderNum}, wineNum, sellerId, carQty
+         from tbl_cart_test
+</insert> 
+
+<!-- 카트 비우기 -->
+<delete id="cartAllDelete">
+delete tbl_cart_test
+where USER_NUM = #{userNum}
+</delete>
+
+
+<!-- 유저의 주문 목록 -->
+<select id="orderList" resultType="org.wine.domain.OrderVO" resultMap="ordering">
+ select
+    ORDER_NUM, USER_NUM, USER_REALNAME, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, ORDER_DATE, PICKUP_DATE
+ from tbl_order_test
+     where USER_NUM = #{userNum}
+</select>
+
+<!-- 특정 주문 상세 목록 -->
+<select id = "orderView" resultType="org.wine.domain.OrderListVO" resultMap="orderView">
+select O.ORDER_NUM , O.USER_NUM, O.USER_REALNAME, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.ORDER_PRICE, O.ORDER_DATE, O.PICKUP_DATE,
+D.ORDERDETAIL_NUM, D.WINE_NUM, D.CART_QTY,
+W.WINE_TITLE, W.WINE_IMAGENAME, W.WINE_PRICE
+from tbl_order_test o
+inner join tbl_order_detail d
+on O.ORDER_NUM = D.ORDER_NUM
+inner join TBL_WINE_TEST W
+on D.WINE_NUM = W.WINE_NUM
+where O.USER_NUM = #{userNum}
+and O.ORDER_NUM = #{orderNum}
+
+</select>
+
+</mapper>
+ 
