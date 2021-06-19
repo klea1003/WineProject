@@ -9,7 +9,7 @@ import lombok.Data;
 public class BoardVO {
 	private Long boardNum;
 	private String writer;
-	private String type;
+	private String boardType;
 	private String title;
 	private String content;
 	private Date regdate;
