@@ -63,5 +63,11 @@
 			WHERE RN> (#{pageNum} -1)* #{amount}
 		 ]]>
 	</select>
+	
+	<select id ="getTotalCount" resultType="int"> 
+		<![CDATA[
+		select count(*) from tbl_wine_test where wine_num > 0
+		]]>
+	</select>
 
 </mapper>

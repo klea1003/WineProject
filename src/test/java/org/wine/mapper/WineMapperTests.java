@@ -68,4 +68,13 @@ public class WineMapperTests {
 		
 		list.forEach(wine-> log.info(wine.getWno()));
 	}
+	
+	@Test
+	public void testGetTotalCount() {
+		Criteria cri = new Criteria();
+		
+		int count = mapper.getTotalCount(cri);
+		
+		log.info(count);
+	}
 }

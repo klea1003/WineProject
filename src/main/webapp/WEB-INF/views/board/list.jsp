@@ -31,14 +31,7 @@
          actionForm.submit();
       });
       
- /*       $(".move").on("click",function(e){
-          e.perventDefault();
-          //console.log('click');
-          actionForm.append("<input type='hidden' name='boardNum' value='"
-                +$(this).attr("href")+" '>");
-          actionForm.attr("action","/board/get");
-          actionForm.submit();
-       });  */
+ 
       $(".move").on("click",function(e) {
           e.preventDefault();
           actionForm.append("<input type='hidden' name='boardNum' value=' "
@@ -96,19 +89,20 @@
 							<th>종류</th>
 							<th>작성자</th>
 							<th>작성일</th>
+							<th>좋아요</th>
 						</tr>
 					</thead>
 					<tbody>
 
-						<c:forEach var="c" items="${list}">
+						<c:forEach var="c" items="${boardlist}">
 							<tr>
-								<td>${c.boardNum}</td>
+								<td>${c.boardNum }</td>
 								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}</a></td> --%>
 								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
 								<td>${c.type}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
-								<%-- <td>${c.updateDate}</td> --%>
+								<td>${c.like}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
