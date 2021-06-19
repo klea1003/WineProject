@@ -3,11 +3,11 @@ package org.wine.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.wine.domain.Criteria;
 import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -34,12 +34,13 @@ public class WineServiceImpl implements WineService {
 	}
 
 	@Override
-	public List<WineVO> getList() {
+	public List<WineVO> getList(Criteria cri) {
 		
-		log.info("getList............");
+		log.info("get List with Criteria: "+ cri);
 		
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
 
 	}
+		
 
 }

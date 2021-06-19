@@ -17,6 +17,7 @@ public class WineVO {
     private int price;
     private Double alcohol;
     private String wineStyle;
+    private String imageName;
     
 }
 

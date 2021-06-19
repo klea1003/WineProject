@@ -1,0 +1,24 @@
+desc tbl_seller_test;
+
+select * from tbl_seller_test;
+
+create SEQUENCE seq_seller_test;
+
+select * from tbl_seller_test order by seller_num;
+
+alter table tbl_seller_test add constraint pk_tbl_seller_test
+primary key (seller_num);
+
+INSERT INTO tbl_seller_test(seller_num, seller_ID, seller_PHONENUM, SELLER_LOCATION) 
+VALUES(SEQ_SELLER_TEST.NEXTVAL, 'wineInsertTest', '1234', '경기도 수원시');
+
+INSERT INTO TBL_SELLER_TEST(SELLER_NUM, SELLER_ID, seller_PHONENUM, SELLER_LOCATION) 
+		VALUES(seq_seller_test.NEXTVAL, 'wineInsertTest', '1234', '경기도 수원시');
+
+UPDATE tbl_seller_test SET SELLER_PHONENUM = '1212' WHERE SELLER_NUM = 12;
+
+delete tbl_seller_test where seller_num=15;
+
+select * from TBL_SELLER_TEST where SELLER_NUM=10;
+
+COMMIT;
