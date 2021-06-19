@@ -360,11 +360,11 @@ $('.nickname_input').on("propertychange change keyup paste input",function() {
 			if (result != 'fail') {
 				$('.nickname_input_re_1').css("display","inline-block");
 				$('.nickname_input_re_2').css("display", "none");
-				nicnameckCheck = true;
+				nicknameckCheck = true;
 			}else {
 				$('.nickname_input_re_2').css("display","inline-block");
 				$('.nickname_input_re_1').css("display", "none");
-				nicknameckCheck = true;
+				nicknameckCheck = false;
 			}
 		}// success 종료
 
@@ -421,7 +421,7 @@ $(".email_check_button").click(function(){
     } else {                                            
         checkResult.html("인증번호를 다시 확인해주세요.");
         checkResult.attr("class", "incorrect");
-        mailnumCheck = false;    // 일치하지 않을 경우
+        emailnumCheck = false;    // 일치하지 않을 경우
     }   
      
  }); // function 종료
