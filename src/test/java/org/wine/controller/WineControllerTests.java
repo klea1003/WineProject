@@ -85,4 +85,14 @@ public class WineControllerTests {
 				.andReturn()
 				.getModelAndView().getModelMap());
 	}
+	
+	@Test
+	public void testGetTotalCount() throws Exception {
+		
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/wine/list")
+				.param("amount", "10"))
+				.andReturn()
+				.getModelAndView().getModelMap());
+	}
 }
