@@ -72,7 +72,7 @@
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 	</form>
 
-	
+	<%@include file="../includes/footer.jsp" %>
 </body>
 
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
