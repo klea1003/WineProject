@@ -68,13 +68,13 @@ public class BoardController {
 		return "redirect:/board/list" + cri.getListLink();
 	}
 
-	@GetMapping
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("boardNum") Long boardNum, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("/get or modify");
 		model.addAttribute("board", service.get(boardNum));
 	}
 
-	//@PreAuthorize("principal.username == #writer")
+	//@PreAuthorize("principal.username == #writer")  나중에 시큐리티 기능 넣을때
 	@PostMapping("/remove")
 	   public String remove(@RequestParam("boardNum")Long boardNum,@ModelAttribute("cri")Criteria cri,RedirectAttributes rttr,String writer) {
 	      log.info("remove....."+ boardNum);
@@ -87,7 +87,7 @@ public class BoardController {
 	      return "redirect:/board/list" + cri.getListLink();
 	   }
 
-	//@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")  나중에 시큐리티 기능 넣을때
 	@GetMapping("/register")
 	public void register() {
 
@@ -98,7 +98,7 @@ public class BoardController {
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long boardNum){
 		log.info("getAttachList" + boardNum);
 		return new ResponseEntity<>(service.getAttachList(boardNum), HttpStatus.OK);
-	}
+	}//첨부파일들 확인
 	
 	private void deleteFiles(List<BoardAttachVO> attachList) {
 		if(attachList == null || attachList.size() == 0) {return;}

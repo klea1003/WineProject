@@ -5,7 +5,7 @@
 <resultMap type="org.wine.domain.BoardVO" id="boardinfo">
   <result property="boardNum" column="Board_NUM"/>
   <result property="writer" column="BOARD_WRITER"/>
-  <result property="type" column="BOARD_TYPE"/>
+  <result property="boardType" column="BOARD_TYPE"/>
   <result property="title" column="BOARD_TITLE"/>
   <result property="content" column="BOARD_CONTENT"/>
   <result property="regdate" column="REGDATE"/>
@@ -69,14 +69,14 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   </delete>
   
   <update id="update">
-  update tbl_Board_Test set board_Title=#{title}, board_Content=#{content}, board_writer=#{writer}, board_Type=#{type}
+  update tbl_Board_Test set board_Title=#{title}, board_Content=#{content}, board_writer=#{writer}, board_Type=#{boardType}
   where board_Num=#{boardNum}
   </update> 
 
   
   <insert id="insert">
   insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
-  values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
+  values(seq_board.nextval, #{boardType}, #{title}, #{content}, #{writer})
   </insert>
   
     <insert id="insertSelectKey">
@@ -84,7 +84,7 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   select seq_board.nextval from dual
   </selectKey>
    insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
-  values(seq_board.nextval, #{type}, #{title}, #{content}, #{writer})
+  values(seq_board.nextval, #{boardType}, #{title}, #{content}, #{writer})
   </insert>
   
   <update id="updateReplyCnt">
