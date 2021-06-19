@@ -33,7 +33,7 @@ public class BoardServiceTest {
 		BoardVO board = new BoardVO();
 		board.setTitle("change from service");
 		board.setContent("change from service");
-		board.setType("Q&A");
+		board.setBoardType("Q&A");
 		board.setWriter("newbie");
 		service.register(board);
 		log.info("REGISTER RESULT : " + board.getBoardNum());

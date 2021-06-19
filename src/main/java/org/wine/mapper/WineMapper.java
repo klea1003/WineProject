@@ -19,5 +19,7 @@ public interface WineMapper {
 	
 	public int update(WineVO wine);
 	
+	public int getTotalCount(Criteria cri);
+	
 
 }
