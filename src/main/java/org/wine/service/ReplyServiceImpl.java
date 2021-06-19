@@ -23,8 +23,6 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;	
-	
-	@Setter(onMethod_ = @Autowired)
 	private BoardMapper boardMapper;	
 	
 	
@@ -67,7 +65,7 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public ReplyPageDTO getListPage(Criteria cri, Long boardNum) {
-		log.info(boardNum+"�� ��� count����:" + mapper.getCountByboardNum(boardNum));
+		log.info(boardNum+"의 댓글 count 갯수 :" + mapper.getCountByboardNum(boardNum));
 		return new ReplyPageDTO(
 				mapper.getCountByboardNum(boardNum),
 				mapper.getListWithPaging(cri, boardNum));

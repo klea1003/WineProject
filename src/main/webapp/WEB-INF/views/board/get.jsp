@@ -114,7 +114,8 @@
                   /* replyService.get(23, function(data) {
                      console.log(data);
                   }); */
-
+                //댓글 조회
+              	//ul태그
                   var replyUL = $(".chat");
                   showList(1);
                   function showList(page) {
@@ -163,26 +164,31 @@
                   var modalModBtn = $("#modalModBtn");
                   var modalRemoveBtn = $("#modalRemoveBtn");
                   var modalRegisterBtn = $("#modalRegisterBtn");
+                  
                   var replyer=null;
-                  <sec:authorize access="isAuthenticated()">
+                  /* <sec:authorize access="isAuthenticated()">
                   replyer='<sec:authentication property="principal.username"/>';
                   </sec:authorize>
-                 var csrfHeaderName ="${_csrf.headerName}";
-              var csrfTokenValue="${_csrf.token}";
-              
+                  var csrfHeaderName ="${_csrf.headerName}";
+                  var csrfTokenValue="${_csrf.token}"; 시큐리티 기능*/
+                  
+                  //새로운 댓글 등록 버튼 클릭 시
                   $("#addReplyBtn").on("click",function(e){
                      modal.find("input").val("");
-                     modal.find("input[name='replyer']").val(replyer);
+                     /* modal.find("input[name='replyer']").val(replyer); 시큐리티*/
                      modalInputReplyDate.closest("div").hide();
                      modal.find("button[id !='modalCloseBtn']").hide();
-                     
                      modalRegisterBtn.show();
                      $(".modal").modal("show");
-                     showList(1);
+                    /*  showList(1); */
                   });
+                  
+                /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
                   $(document).ajaxSend(function(e,xhr,options){
                      xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-                  })
+                  }) 시큐리티 기능*/
+                  
+                  //새로운 댓글 처리
                   modalRegisterBtn.on("click",function(e){
                            var reply ={
                                  reply:modalInputReply.val(),
@@ -198,6 +204,7 @@
                            });
                         });
                   
+                //특정 댓글의 클릭 이벤트
                   $(".chat").on("click","li",function(e){
                      var rno = $(this).data("rno");
                      replyService.get(rno,function(reply){
@@ -213,13 +220,13 @@
                      })
                      console.log(rno);
                   });
-                  
+                //수정
                   modalModBtn.on("click",function(e){
                      var originalReplyer = modalInputReplyer.val();
                      var reply={rno:modal.data("rno"), 
                            reply:modalInputReply.val(),
                            replyer:originalReplyer}
-                     if(!replyer){
+                    /*  if(!replyer){
                         alert("로그인 후 수정 가능")
                         modal.modal("hide")
                         return
@@ -229,20 +236,20 @@
                         alert("자신이 작성한 댁글만 수정 가능")
                         modal.modal("hide")
                         return
-                     }
+                     } 시큐리티 기능*/
                      replyService.update(reply,function(result){
                         alert(result)
                         modal.modal("hide")
                         showList(pageNum)
                      })
                   });
-                  
+                //삭제
                   modalRemoveBtn.on("click", function(e){
                         var originalReplyer = modalInputReplyer.val();
                    
                          var rno=modal.data("rno")
 
-                         if(!replyer){
+                        /*  if(!replyer){
                             alert("로그인 후 삭제 가능")
                             modal.modal("hide")
                             return
@@ -252,15 +259,15 @@
                             alert("자신이 작성한 댁글만 삭제 가능")
                             modal.modal("hide")
                             return
-                         }
-                     replyService.remove(rno, originalReplyer, function(result){
+                         } 시큐리티 기능*/
+                     replyService.remove(rno/* , originalReplyer */, function(result){
                         alert(result)
                         modal.modal("hide")
                         showList(pageNum)
                      })
                      
                   });
-                  
+                //댓글의 페이지 번호 처리
                   var pageNum=1
                   var replyPageFooter= $(".panel-footer")
                   function showReplyPage(replyCnt){
@@ -285,8 +292,9 @@
                      str +="</ul></div>"
                      console.log(str)
                      replyPageFooter.html(str)
-                  }
+                  }//showReplyPage
                   
+                  //페이지 번호 클릭 시
                   replyPageFooter.on("click","li a",function(e){
                       e.preventDefault();
                       console.log("page click");
@@ -295,9 +303,13 @@
                       pageNum = targetPageNum;
                       showList(pageNum);
                    });
+                  
+                  //게시물 조회 시 파일 관련 자료를 JSON 데이터로 만들어서 화면에 전송
                   var boardNum ='<c:out value="${board.boardNum}"/>';
                   $.getJSON("/board/getAttachList",{boardNum:boardNum}, function(arr){
-                      console.log(arr)
+                      console.log(arr);
+                      
+                    //게시물 조회 이미지 출력 부분 
                       var str=''
                       $(arr).each(function(i,obj){
                          if (!obj.fileType) {
@@ -320,7 +332,9 @@
                            }
                       })
                       $(".uploadResult ul").html(str);
-                   })
+                   });
+                   
+                   
                    $(".uploadResult").on("click", "li", function(e) {
                       console.log("view image");
                      var liObj = $(this);
@@ -343,8 +357,10 @@
                      });
                   
                });
+   
      function showImage(fileCallPath) {
       alert(fileCallPath);
+    //썸네일 클릭 시 커짐
       $(".bigPictureWrapper").css("display", "flex").show();
       $(".bigPicture")
             .html(
@@ -353,6 +369,14 @@
                width : '100%',
                height : '100%'
             }, 1000);
+      
+    //커진 사진 클릭 시 다시 작아짐
+  	$(".bigPictureWrapper").on("click", function(e){
+  		$(".bigPicture").animate({width : '0%', height : '0%'}, 1000);
+  		setTimeout(() => {
+  			$(this).hide();
+  		}, 1000);
+  	});//bigPictureWrapper click
      }
 </script>
 
@@ -376,6 +400,10 @@
                   value='<c:out value="${board.boardNum }"/>' readonly='readonly'>
             </div>
             <div class="form-group">
+               <label>Type</label><input class='form-control' name='type'
+                  value='<c:out value="${board.boardType }"/>' readonly='readonly'>
+            </div>
+            <div class="form-group">
                <label>Title</label><input class='form-control' name='title'
                   value='<c:out value="${board.title }"/>' readonly='readonly'>
             </div>
@@ -388,13 +416,18 @@
                <label>writer</label><input class='form-control' name='writer'
                   value='<c:out value="${board.writer }"/>' readonly='readonly'>
             </div>
-            <sec:authentication property="principal" var="pinfo"/>
+             <!-- board파트 -->
+            
+            <%-- <sec:authentication property="principal" var="pinfo"/>
             <sec:authorize access="isAuthenticated()">
             <c:if test="${pinfo.username eq board.writer }">
             <button class='btn btn-success' data-oper='modify'>Modify</button>
             </c:if>
-            </sec:authorize>
+            </sec:authorize> 시큐리티 기능--%>
+            
+            <button class='btn btn-success' data-oper='modify'>Modify</button>
             <button class='btn btn-primary' data-oper='list'>List</button>
+            
             <form id='operForm' action='/board/modify' method='get'>
                <input type='hidden' id='boardNum' name='boardNum'
                   value='<c:out value="${board.boardNum }" />'> <input
@@ -434,10 +467,12 @@
       <div class="panel panel-default">
          <div class="panel-heading">
             <i class="fa fa-comments fa-fw"></i>Reply
-            <sec:authorize access="isAuthenticated()">
+            <!-- <sec:authorize access="isAuthenticated()">
             <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
-               </sec:authorize>
+               </sec:authorize> 시큐리티-->
+               <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
+               Reply</button>
          </div>
          <div class="panel-body">
             <ul class="chat">
