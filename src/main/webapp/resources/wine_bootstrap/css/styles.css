@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - Small Business v5.0.1 (https://startbootstrap.com/template/small-business)
+* Start Bootstrap - Modern Business v5.0.2 (https://startbootstrap.com/template-overviews/modern-business)
 * Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-small-business/blob/master/LICENSE)
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-modern-business/blob/master/LICENSE)
 */
 /*!
  * Bootstrap v5.0.1 (https://getbootstrap.com/)
@@ -10832,4 +10832,48 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+body,
+html {
+  height: 100%;
+}
+
+.feature {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+}
+
+.bg-featured-blog {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 15rem;
+}
+
+/* 추가 */
+
+.header-color {
+	background-color: rgb(156,22,49);
+}
+
+.title-color {
+	
+	color: #212529;
+	
+}
+
+.main-color{
+	
+	background-color: rgb(255,247,236);
+}
+
+.footer-color{
+	
+	background-color: rgb(254,232,200);
 }
