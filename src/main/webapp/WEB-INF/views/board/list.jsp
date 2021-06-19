@@ -208,4 +208,3 @@
 <!-- /.row -->
 
 <!-- /.row -->
-<jsp:include page="../includes/footer.jsp" flush="false"></jsp:include>
