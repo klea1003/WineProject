@@ -10,11 +10,13 @@ import lombok.ToString;
 
 public class pageDTO {
 
+
 	private int startPage; 
 	private int endPage; 
 	private boolean prev, next; 
 	private int total; 
 	private Criteria cri;
+	
 	public pageDTO(Criteria cri, int total) {
 		this.cri = cri; this.total = total;
 		this.endPage = (int)Math.ceil(cri.getPageNum()/10.)*10;
