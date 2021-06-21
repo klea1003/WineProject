@@ -15,26 +15,6 @@
 		SELECT * FROM TBL_SELLER_TEST WHERE SELLER_NUM > 0
 	</select>
 	
-	<insert id="sellerInsert">
-				
-		INSERT INTO tbl_seller_test
-		(SELLER_NUM, SELLER_ID, SELLER_STORENAME, SELLER_CONTENT, SELLER_PHONENUM, SELLER_LOCATION) 
-		VALUES(SEQ_SELLER_TEST.NEXTVAL, #{sellerId}, #{sellerStoreName}, #{sellerContent}, #{sellerPhoneNum}, #{sellerLocation})
-		
-	</insert>
-	
-	<insert id="sellerSelectKey">
-		
-		<selectKey keyProperty="sellerNum" order="BEFORE" resultType="long">
-			select seq_seller_test.nextval from dual
-		</selectKey>
-		
-		INSERT INTO tbl_seller_test
-		(SELLER_NUM, SELLER_ID, SELLER_STORENAME, SELLER_CONTENT, SELLER_PHONENUM, SELLER_LOCATION) 
-		VALUES(#{sellerNum}, #{sellerId}, #{sellerStoreName}, #{sellerContent}, #{sellerPhoneNum}, #{sellerLocation})
-					
-	</insert>
-	
 	<select id="read" resultMap="sellerInfo" >
 		select * from TBL_SELLER_TEST where SELLER_NUM = #{sellerNum}
 	</select>

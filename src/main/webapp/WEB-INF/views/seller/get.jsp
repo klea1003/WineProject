@@ -75,50 +75,35 @@
                 <div class="col-lg-5">
                 	<h1 class="font-weight-light">${seller.sellerId}</h1>
                 	<p>판매자 소개글</p>
-                    <a class="btn btn-primary" href="#!">더 알아보기</a>
+                    <a class="btn btn-danger" href="#!">더 알아보기</a>
                 </div>
             </div>
             
-            <!-- Call to Action-->
+            <!-- Introduce Seller Wine Card-->
             <div class="card text-white bg-secondary my-5 py-4 text-center">
                 <div class="card-body"><p class="text-white m-0">▼ 판매자가 현재 판매하고 있는 와인들을 소개해 드립니다</p></div>
+              
             </div>
             
             <!--  Content Row -->
             <div class="row gx-4 gx-lg-5">
-                
+             
                 <!--  Card One    -->              
-                <div class="col-md-4 mb-5">
+                <c:forEach items="${product}" var="p">
+                	<div class="col-md-4 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h2 class="card-title">판매자 와인1</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                        <img src="http://klea-home.iptime.org:8081/<c:out value="${p.imageName}" />" height="350" width="150">
+                            <h3 class="card-title"><c:out value="${p.wineTitle}" /></h3>
+                            <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /><br>
+                            와인타입 : <c:out value="${p.wineType}" /><br>
+                            도수 : <c:out value="${p.wineAlcohol}" />%<br>
+                            가격 : <c:out value="${p.sellerPrice}" />원</p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
                     </div>
-                </div>
-                
-                <!-- Card Two  -->
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">판매자 와인2</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
-                                 
-                <!-- Card Three  -->
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">판매자 와인3</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
+                	</div>
+                </c:forEach>
             </div>
         </div>
        <%@include file="../includes/footer.jsp" %>       
