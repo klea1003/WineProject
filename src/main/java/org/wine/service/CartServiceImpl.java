@@ -17,11 +17,11 @@ public class CartServiceImpl implements CartService {
 
 	@Setter(onMethod_ = @Autowired)
 	private CartMapper mapper;
-
+	
 	//추가
 	@Override
-	public void insert(CartVO cartvo) {
-		mapper.insert(cartvo);
+	public int insert(CartVO cartvo) {
+		return mapper.insert(cartvo);
 	}
 
 	//목록
@@ -32,15 +32,15 @@ public class CartServiceImpl implements CartService {
 
 	//삭제
 	@Override
-	public void delete(Long cartNum) {
-		mapper.delete(cartNum);
+	public int delete(Long cartNum) {
+		return mapper.delete(cartNum);
 	}
 
 	//수정
 
 	@Override
-	public void modifyCart(CartVO cartvo) {
-		mapper.modifyCart(cartvo);
+	public int modifyCart(CartVO cartvo) {
+		return mapper.modifyCart(cartvo);
 	}
 
 	//장바구니 합계	
@@ -51,15 +51,15 @@ public class CartServiceImpl implements CartService {
 
 	//장바구니 상품 확인
 	@Override
-	public int countCart(Long userNum, Long sellerNum, Long wineNum) {
+	public int countCart(CartVO cartvo) {
 		// TODO Auto-generated method stub
-		return mapper.countCart(userNum, sellerNum, wineNum);
+		return mapper.countCart(cartvo);
 	}
 
 	//장바구니 상품수량 변경
 	@Override
-	public void updateCart(CartVO cartvo) {
-		mapper.updateCart(cartvo);
+	public int updateCart(CartVO cartvo) {
+		return mapper.updateCart(cartvo);
 
 	}
 

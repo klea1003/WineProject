@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +9,14 @@
 <title>Insert title here</title>
 
 
-<script>
+<!--  <script>
 $(document).ready(function(){
 	//리스트 페이지로 이동
 	$("#btnSellerList").click(function(){
 		location.href="${path}/seller/list";
 	});
 });
-</script>
+</script>-->
 </head>
 <body>
 
@@ -40,7 +42,7 @@ $(document).ready(function(){
 
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
-							<td>${row.Winetitle}</td>
+							<td>${row.wineTitle}</td>
 
 							<td style="width: 80px" align="right"><fmt:formatNumber
 									pattern="#,###,###" value="${row.winePrice}" /></td>
@@ -69,7 +71,9 @@ $(document).ready(function(){
 			</form>
 		</c:otherwise>
 	</c:choose>
-	<button type="button" id="btnSellerList">상품목록</button>
+	
+	<button type="button" onclick="location.href='/seller/list'">상품목록</button>
+	<!--  -<button type="button" id="btnSellerList">상품목록</button> -->
 	<button type="button" onclick="location.href='/order/orderList'">예약하기</button>
 </body>
 </html>
