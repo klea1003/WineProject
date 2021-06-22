@@ -27,13 +27,13 @@
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h2 class="card-title"><c:out value="${seller.sellerId}"/></h2>
+                            <h2 class="card-title"><c:out value="${seller.sellerStoreName}"/></h2>
                             <p class="card-text"><c:out value="${seller.sellerLocation}"/></p>
                             <p class="card-text"><c:out value="${seller.sellerPhoneNum}"/></p>
                         </div>
                         <a  href="/user/userpage?userNum=<c:out value="${c.userNum }"/>"><c:out value="${c.userId }"/></a>
                         
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="/seller/get?sellerNum=${seller.sellerNum}">More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-outline-danger btn-sm" href="/seller/get?sellerNum=${seller.sellerNum}">More Info</a></div>
                      </div>
                 </div>
               	

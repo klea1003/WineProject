@@ -93,7 +93,8 @@
                 	<div class="col-md-4 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
-                        <img src="http://klea-home.iptime.org:8081/<c:out value="${p.imageName}" />" height="350" width="150">
+                        <div class="text-center">
+                        <img src="http://klea-home.iptime.org:8081/<c:out value="${p.imageName}" />" height="350" width="150"></div>
                             <h3 class="card-title"><c:out value="${p.wineTitle}" /></h3>
                             <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /><br>
                             와인타입 : <c:out value="${p.wineType}" /><br>
