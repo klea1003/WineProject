@@ -1,5 +1,10 @@
 package org.wine.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +29,7 @@ public class WineController {
 	private WineService service;
 	
 	@GetMapping("/list")
-	public void list(Criteria cri,Model model) {
+	public void list(Criteria cri, Model model) {
 		log.info("list"+ cri);
 		
 		model.addAttribute("list", service.getList(cri));
@@ -35,6 +40,18 @@ public class WineController {
 		
 		model.addAttribute("pageMaker",new pageDTO(cri,total)); 		
 	}
+	
+	@GetMapping(value = "/requestWineList")
+	public ResponseEntity<List<WineVO>> checkWineTypeArr(@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> valueArr) {
+		log.info(valueArr);
+		
+		Criteria cri = new Criteria();
+		
+		ResponseEntity<List<WineVO>> result = null;
+		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
+		
+		return result;
+	}	
 	
 	@PostMapping("/register")
 	public String register(WineVO wine, RedirectAttributes rttr) {
