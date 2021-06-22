@@ -34,12 +34,13 @@ public class ReplyController {
       log.info("ReplyVO : " +vo);
       int insertCount=service.register(vo);
       log.info("Reply INSERT COUNT : " +insertCount);
-      return insertCount==1? new ResponseEntity<>("success",HttpStatus.OK)
+      return insertCount==1 ? new ResponseEntity<>("success",HttpStatus.OK)
             :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
    }
    
    @GetMapping(value="/pages/{boardNum}/{page}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-   public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page")int page, @PathVariable("boardNum")Long boardNum) {
+   public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page")int page,
+		   @PathVariable("boardNum")Long boardNum) {
       log.info("getList............");
       Criteria cri=new Criteria(page, 10);
       log.info("cri: "+cri);
