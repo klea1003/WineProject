@@ -29,7 +29,7 @@
 					<c:out value="${wine.wineStyle}" /><br>
 					<c:out value="${wine.price}" />
       			</p>
-      			
+      			<a href="#" class="btn btn-outline-danger">View shops</a>
     		</div>
   			</div>
   			</c:forEach>
