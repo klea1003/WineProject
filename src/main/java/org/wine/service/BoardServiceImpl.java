@@ -57,13 +57,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean modify(BoardVO board) {
 		log.info("modify..." + board);
-		attachmapper.deleteAll(board.getBoardNum()); //db���� ��� ÷������ ���� ����
-		boolean modifyResult = mapper.update(board)==1; //board ���̺� ���� ����
+		attachmapper.deleteAll(board.getBoardNum()); 
+		boolean modifyResult = mapper.update(board)==1; 
 		if(modifyResult && board.getAttachList() != null && board.getAttachList().size()>0) {
 			board.getAttachList().forEach(attach->{
 				attach.setBoardNum(board.getBoardNum());
 				log.info(board.getBoardNum());
-				attachmapper.insert(attach); //db�� ÷������ ���� ����
+				attachmapper.insert(attach); 
 			});
 		}
 		return modifyResult;
@@ -126,6 +126,12 @@ public class BoardServiceImpl implements BoardService {
         if(read!=0) {
         	likemapper.updateD(userId);
         }
+        return likemapper.getTotalLike(boardNum);
+	}
+	
+	@Override
+	public int totalLike(Long boardNum) {
+		
         return likemapper.getTotalLike(boardNum);
 	}
 }

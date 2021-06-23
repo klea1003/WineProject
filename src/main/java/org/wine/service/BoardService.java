@@ -20,6 +20,7 @@ public interface BoardService {
 	public int updateBoardReadCount(Long boardNum);
 	public int like(BoardLikeVO boardLike);
 	public int disLike(BoardLikeVO boardLike);
+	public int totalLike(Long boardNum);
 	
 	public List<BoardAttachVO> getAttachList(Long boardNum);
 	

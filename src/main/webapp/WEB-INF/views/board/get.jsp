@@ -185,12 +185,8 @@
                   });
                   
                   $("#like_button").click(function(){
-                      $("#login_form").attr("action", "/user/login");
-                      $("#login_form").submit();
-                  });
-                  $("#dislike_button").click(function(){
-                      $("#login_form").attr("action", "/user/login");
-                      $("#login_form").submit();
+                      $("#like_form").attr("action", "/board/like");
+                      $("#like_form").submit();
                   });
                   
                 /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
@@ -447,6 +443,15 @@
                   value='<c:out value="${cri.amount }"/>'> <input
                   type="hidden" name="type" value="${cri.type }"> <input
                   type="hidden" name="keyword" value="${cri.keyword }">
+            </form>
+             <form id='operForm' action='/board/like' method='post'>
+               <input type='hidden' id='boardNum' name='boardNum'
+                  value='<c:out value="${board.boardNum }" />'> 
+               <input type='hidden' id='userID' name='userID'
+                  value='<c:out value="user000"/>'> 
+                <input type='submit'
+                  value='좋아요'>
+                  
             </form>
 
             <!-- /.table-responsive -->
