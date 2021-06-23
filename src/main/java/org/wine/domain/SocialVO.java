@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class SocialVO {
 	
-	private Long USER_FOLLOWING_NUM;
-	private Long USER_FOLLOWER_NUM;
+	private Long userFollowingId;
+	private String userFollowerId;
 	
+	private int followingCnt;
+	private int followerCnt;
 }

@@ -14,13 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
+import org.wine.service.SocialService;
 import org.wine.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +40,9 @@ public class UserController {
 
 	@Autowired
 	private JavaMailSender emailSender;
+	
+	@Autowired
+	private SocialService socialservice;
 
 	@GetMapping("/main")
 	public void mainPageGET() {
@@ -55,13 +61,21 @@ public class UserController {
 	}
 
 	@GetMapping({ "/userpage" })
-	public void get(@RequestParam("userNum") Long userNum, Model model) {
+	public void get(@RequestParam("userNum") Long userNum,String userFollowerId, Model model) {
 
 		log.info("userpage ");
 
 		model.addAttribute("userpage", service.get(userNum));
+		
+		model.addAttribute("followck", socialservice.followingBtn(userNum));
+		
+		
+		
+		log.info("social ");
 	}
 
+	
+	
 	@GetMapping("/login")
 	public void login() {
 		log.info("login");
@@ -181,4 +195,5 @@ public class UserController {
 		return num;
 	}
 
+	
 }
