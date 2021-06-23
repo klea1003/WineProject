@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.domain.WineVO;
 
@@ -50,31 +51,35 @@ public class WineMapperTests {
 	@Test
 	public void testRead() {
 		
-		WineVO wine = mapper.read(8L);
-		
+		WineVO wine = mapper.read(8L);		
 		log.info(wine);
 	}
 	
 	@Test
 	public void testPaging() {
 		
-		Criteria cri = new Criteria();
-		
-		cri.setPageNum(3);
-		
-		cri.setAmount(10);		
-		
-		List<WineVO> list = mapper.getListWithPaging(cri); 
-		
+		Criteria cri = new Criteria();		
+		cri.setPageNum(3);		
+		cri.setAmount(10);				
+		List<WineVO> list = mapper.getListWithPaging(cri);		
 		list.forEach(wine-> log.info(wine.getWno()));
 	}
 	
 	@Test
 	public void testGetTotalCount() {
-		Criteria cri = new Criteria();
 		
-		int count = mapper.getTotalCount(cri);
-		
+		Criteria cri = new Criteria();		
+		int count = mapper.getTotalCount(cri);		
 		log.info(count);
+	}
+	
+	@Test
+	public void testSearch() {
+		Criteria cri = new Criteria(); 
+		cri.setKeyword("Lady");
+		cri.setType("T");
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list);
+		
 	}
 }
