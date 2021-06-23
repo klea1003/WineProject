@@ -80,8 +80,8 @@
             </div>
             
             <!-- Introduce Seller Wine Card-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">▼ 판매자가 현재 판매하고 있는 와인들을 소개해 드립니다</p></div>
+            <div class="card my-5 py-4 text-center">
+                <div class="card-body"><p class="text-dark m-0">▼ 판매자가 현재 판매하고 있는 와인들을 소개해 드립니다</p></div>
               
             </div>
             
