@@ -53,6 +53,7 @@
 		
 	<%@ include file="../includes/footer.jsp"%>
 		
+
 </body>
 <script src="/resources/js/scripts.js"></script>
 </html>
