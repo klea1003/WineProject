@@ -33,6 +33,17 @@ public class UserControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
+	@Test
+	public void testList() throws Exception{
+		
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/user/userlist"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				);
+		
+	}
 	
 	@Test
 	public void testJoin() throws Exception {

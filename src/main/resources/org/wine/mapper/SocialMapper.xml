@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.SocialMapper">
+
+	<resultMap type="org.wine.domain.UserVO" id="userInfo">
+		<result property="userNum" column="USER_NUM" />
+		<result property="userId" column="USER_ID" />
+		<result property="userNickName" column="USER_NICKNAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userPassword" column="USER_PASSWORD" />
+		<result property="userPhoneNum" column="USER_PHONENUM" />
+		<result property="userRealName" column="USER_REALNAME" />
+		<result property="userBirthDay" column="USER_BIRTHDAY" />
+	</resultMap>
+	<resultMap type="org.wine.domain.SocialVO" id="socialInfo">
+		<result property="userFollowingId" column="USER_FOLLOWING_ID" />
+		<result property="userFollowerId" column="USER_FOLLOWER_ID" />
+	</resultMap>
+	
+	<insert id="following">
+		insert into tbl_social_test(USER_FOLLOWING_ID, USER_FOLLOWER_ID)
+		values(#{userFollowingId},#{userFollowerId})
+	</insert>
+	
+	<delete id="unfollowing">
+		delete tbl_social_test 
+		where USER_FOLLOWING_ID = #{userFollowingId} and USER_FOLLOWER_ID=#{userFollowerId}
+	</delete>
+	
+	<select id="followingBtn" resultMap="socialInfo">
+		select * from tbl_social_test
+		where user_following_id = #{userFollowingId}  
+	</select>
+	
+	<select id='getCountByFollower' resultType='int'>
+      
+      select count(user_follower_id) as followerCnt
+      from tbl_social_test 
+      where USER_FOLLOWING_ID=#{userNum}
+   
+   </select>
+  
+   	<select id='getCountByFollowing'  resultType='int'>
+      
+       select count(user_following_id) as followingCnt
+       from tbl_social_test 
+       where USER_FOLLOWER_ID=#{userId}
+     
+   </select>
+
+</mapper>
+ 

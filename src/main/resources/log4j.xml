@@ -15,7 +15,9 @@
 		<level value="info" />
 	</logger>
 	
-
+	<logger name="org.wine.service">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

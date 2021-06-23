@@ -27,7 +27,7 @@ public class UserMapperTest {
 	@Test
 	public void testJoin() {
 		UserVO user = new UserVO();
-		user.setUserId("yosepId");
+		user.setUserId("yosepId5");
 		user.setUserNickName("yosepNickname");
 		user.setUserEmail("yosep@yosep.com");
 		user.setUserPassword("yosepPWD");
@@ -90,6 +90,12 @@ public class UserMapperTest {
 		mapper.userLogin(user);
 		System.out.println("결과 값 : " + mapper.userLogin(user));
 
+	}
+	
+	@Test
+	public void testRead() {
+		UserVO user = mapper.read(1L);
+		log.info(user);
 	}
 
 }
