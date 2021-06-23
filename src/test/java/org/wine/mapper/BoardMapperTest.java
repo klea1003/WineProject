@@ -20,8 +20,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 
 public class BoardMapperTest {
-@Setter(onMethod =@__({@Autowired}))
-private BoardMapper mapper;
+ @Setter(onMethod =@__({@Autowired}))
+ private BoardMapper mapper;
 
 @Test
 public void testGetList() {
@@ -94,11 +94,7 @@ public void updateBoardReadCount() {
 	mapper.updateBoardReadCount(29L);
 	log.info("조회수 증가");
 }
-@Test
-public void updateLike() {
-	mapper.updateLike(29L);
-	log.info("좋아요 증가");
-}
+
 
 
 }

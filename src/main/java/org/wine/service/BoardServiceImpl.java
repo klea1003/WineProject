@@ -3,9 +3,11 @@ package org.wine.service;
 import java.util.List;
 
 import org.wine.domain.BoardAttachVO;
+import org.wine.domain.BoardLikeVO;
 import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.mapper.BoardAttachMapper;
+import org.wine.mapper.BoardLikeMapper;
 import org.wine.mapper.BoardMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,8 @@ import lombok.extern.log4j.Log4j;
 
 public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
-
 	private BoardAttachMapper attachmapper;
+	private BoardLikeMapper likemapper;
 
 	@Transactional
 	@Override
@@ -87,19 +89,43 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getListWithPaging(cri);
 	}
 	@Override
-	public void updateBoardReadCount(Long boardNum) {
+	public int updateBoardReadCount(Long boardNum) {
 		log.info("updateBoardReadCount.." + boardNum);
 		mapper.updateBoardReadCount(boardNum);
+		return 1;
 	}
-	@Override
-	public void updateLike(Long boardNum) {
-		log.info("updateLike.." + boardNum);
-		mapper.updateLike(boardNum);
-	}
+	
 
 	@Override
 	public int getTotal(Criteria cri) {
 		log.info("getTotal.." + cri);
 		return mapper.getTotalCount(cri);
+	}
+	
+	@Transactional
+	@Override
+	public int like(BoardLikeVO boardLike) {
+		String userId = boardLike.getUserID();
+		Long boardNum = boardLike.getBoardNum();
+		int read = likemapper.read(boardLike);
+        if(read==0) {
+        	likemapper.insert(boardLike);
+        }else {
+        	likemapper.update(userId);
+        }
+        log.info(boardNum);
+        return likemapper.getTotalLike(boardNum);
+	}
+	
+	@Transactional
+	@Override
+	public int disLike(BoardLikeVO boardLike) {
+		String userId = boardLike.getUserID();
+		Long boardNum = boardLike.getBoardNum();
+		int read = likemapper.read(boardLike);
+        if(read!=0) {
+        	likemapper.updateD(userId);
+        }
+        return likemapper.getTotalLike(boardNum);
 	}
 }

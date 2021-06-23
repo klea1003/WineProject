@@ -6,10 +6,12 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.wine.domain.BoardAttachVO;
+import org.wine.domain.BoardLikeVO;
 import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.domain.pageDTO;
 import org.wine.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +36,29 @@ import lombok.extern.log4j.Log4j;
 
 public class BoardController {
 	private BoardService service;
+	
 
+ 
+	@PostMapping("/like")
+	public String like(BoardLikeVO likeVO, RedirectAttributes rttr) {
+		log.info("like : " + likeVO);
+		int totallike = service.like(likeVO);
+		log.info("totallike"+totallike);
+		rttr.addFlashAttribute("boardlike", totallike);
 
+		return "redirect:/board/get?boardNum="+likeVO.getBoardNum();
+	}
+	@PostMapping("/dislike")
+	public String dislike(BoardLikeVO likeVO, RedirectAttributes rttr) {
+		log.info("like : " + likeVO);
+
+		int totallike = service.disLike(likeVO);
+		log.info("totallike"+totallike);
+		rttr.addFlashAttribute("boardlike", totallike);
+
+		return "redirect:/board/get?boardNum="+likeVO.getBoardNum();
+	}
+	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
 		log.info("list" + cri);
@@ -44,6 +67,7 @@ public class BoardController {
 		log.info("total:" + total);
 		model.addAttribute("pageMaker", new pageDTO(cri, total));
 	}
+	
 
 	/* @PreAuthorize("isAuthenticated()")  나중에 시큐리티 기능 넣을때*/
 	@PostMapping("/register") 

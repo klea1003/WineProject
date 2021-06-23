@@ -77,7 +77,7 @@
 
                   /* 리플라이 */
 
-                  var boardNumValue = '<c:out value="${board.boardNum}"/>'
+                  var boardNumValue = '<c:out value="${board.boardNum}"/>';
               /*          replyService.add({
                           reply : "JS TEST",
                           replyer : "js tester",
@@ -129,9 +129,9 @@
                                    console.log("replyCnt : "+ replyCnt)
                                    console.log("list: "+list)
                                     if(page==-1) {
-                                       pageNum=Math.ceil(replyCnt/10.0)
-                                       showList(pageNum)
-                                       return
+                                       pageNum=Math.ceil(replyCnt/10.0);
+                                       showList(pageNum);
+                                       return;
                                     }
                                     var str = "";
                                     if (list == null|| list.length == 0) {
@@ -139,7 +139,7 @@
                                        return;
                                     }
                                     for (var i = 0, len = list.length || 0; i < len; i++) {
-                                       str += "<li class='letf clearfix' data-rno='"+list[i].rno+"'>";
+                                       str += "<li class='letf clearfix' data-rno='"+list[i].rno+"'>"
                                        str += "<div><div class='header'><strong class='primary-font'>"
                                              + list[i].replyer
                                              + "</strong>";
@@ -174,13 +174,23 @@
                   
                   //새로운 댓글 등록 버튼 클릭 시
                   $("#addReplyBtn").on("click",function(e){
-                     modal.find("input").val("");
+                	  alert('test')
+                      modal.find("input").val(""); 
                      /* modal.find("input[name='replyer']").val(replyer); 시큐리티*/
-                     modalInputReplyDate.closest("div").hide();
+                      modalInputReplyDate.closest("div").hide();
                      modal.find("button[id !='modalCloseBtn']").hide();
                      modalRegisterBtn.show();
                      $(".modal").modal("show");
-                    /*  showList(1); */
+                     showList(1);  
+                  });
+                  
+                  $("#like_button").click(function(){
+                      $("#login_form").attr("action", "/user/login");
+                      $("#login_form").submit();
+                  });
+                  $("#dislike_button").click(function(){
+                      $("#login_form").attr("action", "/user/login");
+                      $("#login_form").submit();
                   });
                   
                 /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
@@ -222,10 +232,10 @@
                   });
                 //수정
                   modalModBtn.on("click",function(e){
-                     var originalReplyer = modalInputReplyer.val();
+                   /*   var originalReplyer = modalInputReplyer.val(); */
                      var reply={rno:modal.data("rno"), 
-                           reply:modalInputReply.val(),
-                           replyer:originalReplyer}
+                           reply:modalInputReply.val()
+                           /* ,replyer:originalReplyer */}
                     /*  if(!replyer){
                         alert("로그인 후 수정 가능")
                         modal.modal("hide")
@@ -245,7 +255,7 @@
                   });
                 //삭제
                   modalRemoveBtn.on("click", function(e){
-                        var originalReplyer = modalInputReplyer.val();
+                       /*  var originalReplyer = modalInputReplyer.val(); */
                    
                          var rno=modal.data("rno")
 
@@ -471,7 +481,7 @@
             <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
                </sec:authorize> 시큐리티-->
-               <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
+               <button id="addReplyBtn" class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
          </div>
          <div class="panel-body">
