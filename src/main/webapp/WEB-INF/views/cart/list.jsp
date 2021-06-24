@@ -33,6 +33,7 @@ $(document).ready(function(){
 				
 				<table border="1">
 					<tr>
+			            <th>SELLER</th>
 						<th>PRODUCT</th>
 						<th>PRICE</th>
 						<th>QUANTITY</th>
@@ -42,6 +43,8 @@ $(document).ready(function(){
 
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
+						    <td>${row.sellerId}</td>
+						
 							<td>${row.wineTitle}</td>
 
 							<td style="width: 80px" align="right"><fmt:formatNumber

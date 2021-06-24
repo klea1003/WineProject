@@ -22,12 +22,6 @@
 		select*from tbl_cart_test where CART_NUM > 0
 		]]>
 	</select>
-	
-	<insert id = "insert">
-	insert into tbl_cart_test(CART_NUM, USER_NUM, SELLER_NUM, WINE_NUM, CART_QTY)
-	VALUES( SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, #{cartQty})
-	</insert>
-	
 
 
 	<!--장바구니 추가 -->
@@ -48,8 +42,7 @@
 	TBL_USER_TEST U, TBL_CART_TEST C, TBL_SELLER_TEST S, TBL_WINE_TEST W
 	where
 	U.USER_NUM = C.USER_NUM and C.WINE_NUM = W.WINE_NUM and C.SELLER_NUM = S.SELLER_NUM
-	and C.USER_NUM = #{userNum} order by CART_NUM
-    
+	and C.USER_NUM = #{userNum} order by CART_NUM 
 	</select>
 	
 	
@@ -67,7 +60,6 @@
 	update TBL_CART_TEST
 	set CART_QTY = #{cartQty}
 	WHERE USER_NUM = #{userNum}
-	AND SELLER_NUM = #{sellerNum}
 	AND WINE_NUM = #{wineNum}
 	</update>
 	

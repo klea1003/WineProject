@@ -94,4 +94,19 @@ public class CartController {
 		return "redirect:/cart/list";
 
 	}
-}
+	
+	@RequestMapping("/modifyCart")
+	public String modifyCart(@ModelAttribute("cartvo") CartVO cartvo) {
+		log.info("cartVO===" + cartvo);
+		int cartQty = cartvo.getCartQty();
+		Long cartNum = cartvo.getCartNum();
+		
+		if(cartQty == 0) {
+			service.delete(cartNum);
+		}else if(cartQty > 0) {
+			service.modifyCart(cartvo);
+		}
+		return "redirect:/cart/list";
+		}
+	}
+	
