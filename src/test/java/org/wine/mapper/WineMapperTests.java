@@ -1,5 +1,6 @@
 package org.wine.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -7,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -58,7 +59,7 @@ public class WineMapperTests {
 	@Test
 	public void testPaging() {
 		
-		Criteria cri = new Criteria();		
+		CriteriaWine cri = new CriteriaWine();		
 		cri.setPageNum(3);		
 		cri.setAmount(10);				
 		List<WineVO> list = mapper.getListWithPaging(cri);		
@@ -68,16 +69,20 @@ public class WineMapperTests {
 	@Test
 	public void testGetTotalCount() {
 		
-		Criteria cri = new Criteria();		
+		CriteriaWine cri = new CriteriaWine();		
 		int count = mapper.getTotalCount(cri);		
 		log.info(count);
 	}
 	
 	@Test
 	public void testSearch() {
-		Criteria cri = new Criteria(); 
-		cri.setKeyword("Lady");
-		cri.setType("T");
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
 		List<WineVO> list = mapper.getListWithPaging(cri);
 		log.info(list);
 		

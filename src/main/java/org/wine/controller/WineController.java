@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
-import org.wine.domain.pageDTO;
+import org.wine.domain.pageWineDTO;
 import org.wine.service.WineService;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class WineController {
 	private WineService service;
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {
+	public void list(CriteriaWine cri, Model model) {
 		log.info("list"+ cri);
 		
 		model.addAttribute("list", service.getList(cri));
@@ -38,14 +38,14 @@ public class WineController {
 		
 		log.info("total:" + total); 
 		
-		model.addAttribute("pageMaker",new pageDTO(cri,total)); 		
+		model.addAttribute("pageMaker",new pageWineDTO(cri,total)); 		
 	}
 	
 	@GetMapping(value = "/requestWineList")
 	public ResponseEntity<List<WineVO>> checkWineTypeArr(@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> valueArr) {
 		log.info(valueArr);
 		
-		Criteria cri = new Criteria();
+		CriteriaWine cri = new CriteriaWine();
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));

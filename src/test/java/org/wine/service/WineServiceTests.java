@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -53,7 +53,7 @@ public class WineServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList(new Criteria(2,10)).forEach(wine -> log.info(wine));
+		service.getList(new CriteriaWine(2,10)).forEach(wine -> log.info(wine));
 	}
 	
 	@Test
