@@ -1,6 +1,7 @@
 package org.wine.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,4 +24,12 @@ public class CriteriaWine {
 	
 	private ArrayList<String> wineTypeArr;
 	
+	public ArrayList<String> getWineTypeArr() {
+		if (wineTypeArr == null || wineTypeArr.size() == 0) {
+			ArrayList<String> wineTypeList = new ArrayList<>(Arrays.asList("Red wine", "White wine")); //수정중 
+			return wineTypeList;
+		} else {
+			return wineTypeArr;
+		}
+	}
 }
