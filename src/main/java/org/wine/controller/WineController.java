@@ -42,10 +42,18 @@ public class WineController {
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineVO>> checkWineTypeArr(@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> valueArr) {
-		log.info(valueArr);
+	public ResponseEntity<List<WineVO>> checkWineTypeArr(
+			@RequestParam(value="pageNum") int pageNum, 
+			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> valueArr
+			) {
 		
 		CriteriaWine cri = new CriteriaWine();
+		
+		log.info("requestWineList pageNum: " + pageNum);
+		log.info("requestWineList valueArr: " + valueArr);
+		
+		cri.setPageNum(pageNum);
+		cri.setWineTypeArr(valueArr);
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));

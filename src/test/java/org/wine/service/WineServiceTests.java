@@ -1,7 +1,9 @@
 package org.wine.service;
 
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +55,10 @@ public class WineServiceTests {
 	
 	@Test
 	public void testGetList() {
+		CriteriaWine cri = new CriteriaWine(2,10);
+		cri.setWineTypeArr(new ArrayList<String>(Arrays.asList("Red wine")));
+		
+		
 		service.getList(new CriteriaWine(2,10)).forEach(wine -> log.info(wine));
 	}
 	

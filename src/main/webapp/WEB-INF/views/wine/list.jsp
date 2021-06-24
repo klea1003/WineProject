@@ -12,42 +12,27 @@
 <body>
 	<%@ include file="../includes/header.jsp"%>
 	
-	<label><input type="checkbox" name="wine_type" data-id="wine1" value="1" /> Red</label>
-	<label><input type="checkbox" name="wine_type" data-id="wine2" value="2" /> White</label>
-	<label><input type="checkbox" name="wine_type" data-id="wine3" value="3" /> Sparkling</label>
-	<label><input type="checkbox" name="wine_type" data-id="wine4" value="4" /> Rose</label>
-	<label><input type="checkbox" name="wine_type" data-id="wine5" value="5" /> Dessert</label>
-	<label><input type="checkbox" name="wine_type" data-id="wine6" value="6" /> Fortified</label>
+	<label><input type="checkbox" name="wine_type" value="Red wine" /> Red</label>
+	<label><input type="checkbox" name="wine_type" value="White wine" /> White</label>
+	<!-- 아래의 value는 추후 크롤링 DB 입력 후 변경해야 됨 -->
+	<label><input type="checkbox" name="wine_type" value="3" /> Sparkling</label>
+	<label><input type="checkbox" name="wine_type" value="4" /> Rosé</label>
+	<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
+	<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
 	
 	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->
 	<section class="py-5">
-	
+		
 		<!-- Wine List-->
-		<div class="container" style="text-align: center;">
-  			<c:forEach items="${list}" var="wine">
-  			<div style="width: 1000px; height: 500px; margin-bottom: 20px;">
-    			<div style="width: 60%; height: 100%; float: left;">
-    			<img class="card-img-top" src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" alt="Card image" style="width : 164px; height: 500px;" >
-	    		</div>
-	    		<div class="card-body" style="width: 40%; height: 100%; float: right;">
-	      			<c:out value="${wine.winenery}" />
-	      			<h4 class="card-title"><a href='/wine/get?wno=${wine.wno}'>
-										<c:out value="${wine.title}" /></a></h4><br>
-					<p class="card-text">
-						<c:out value="${wine.grapes}" /><br>
-						<c:out value="${wine.region}" /><br>
-						<c:out value="${wine.country}" /><br>
-						<c:out value="${wine.wineStyle}" /><br>
-						<c:out value="${wine.price}" />
-	      			</p>
-	      			<a href="#" class="btn btn-outline-danger">View shops</a>
-	    		</div>
-  			</div>
-  			</c:forEach>
-  		</div>
-	</section><!-- End of Wine List-->
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center wine-card-list">
+            </div>
+        </div>
+        <!-- End of Wine List-->
+		
+	</section>
 		
 	<!-- Pagination -->
 		
@@ -119,30 +104,31 @@
 					}
 					
 					for(var i = 0, len = list.length||0; i < len; i++) {
-						//console.log(list[i]);
 						
-						str += "<div class='card'>";
+						str += "<div style='width: 1000px; height: 500px; margin-bottom: 20px;'>";				
 						
-						str += "<div class='card-image'>"
-						str += "<img src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' height='246' width='155'>"
+						str += "<div style='width: 60%; height: 100%; float: left;'>"
+						str += "<img class='card-img-top' src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' alt='Card image' style='width : 164px; height: 500px;' />"
 						str += "</div>"
 						
-						str += "<div class='card-info'>"
+						str += "<div class='card-body' style='width: 40%; height: 100%; float: right;'>"
 						str += list[i].winenery
-						str += "<a href='/wine/get?wno=" + list[i].wno +"'><h5 class='fw-bolder'>" + list[i].title + "</h5></a>"
-						str += list[i].grapes
-						str += list[i].region
-						str += list[i].country
-						str += list[i].wineStyle
-						str += list[i].price
+						str += "<h4 class='card-title'><a href='/wine/get?wno=" + list[i].wno + "'>" + list[i].title + " </a></h4><br>"
+						str += "<p class='card-text'>"
+						str += list[i].grapes + "<br>"
+						str += list[i].region + "<br>"
+						str += list[i].country + "<br>"
+						str += list[i].wineStyle + "<br>"
+						str += list[i].price + "<br>"
+						str += "</p>"
+							
 						str += "</div>"
-						
 						str += "</div>"
 						
 					}
+					
 					wineDiv.html(str);
 				}		
-			
 			)
 		}
 		
