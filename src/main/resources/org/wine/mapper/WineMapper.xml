@@ -61,7 +61,7 @@
 				WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME
 			    FROM TBL_WINE_TEST WHERE  ]]>
 				
-				<include refid="criteria"></include>
+				<include refid="criteriaWineType"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -74,14 +74,16 @@
 		]]>
 	</select>
 
-	<sql id="criteria">
-		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
-			<foreach item="wineType" collection="wineTypeArr">
-				<trim prefix="OR">
-					wineType = #{wineType}		
-				</trim>
-			</foreach>
-		</trim>
+	<sql id="criteriaWineType">
+		<if test="wineTypeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineType" collection="wineTypeArr">
+					<trim prefix="OR">
+						wineType = #{wineType}		
+					</trim>
+				</foreach>
+			</trim>
+		</if>
 	</sql>
 
 </mapper>

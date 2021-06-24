@@ -75,7 +75,21 @@ public class WineMapperTests {
 	}
 	
 	@Test
-	public void testSearch() {
+	public void testWineTypeArr1() {
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>();
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
+		log.info(list);
+		
+	}
+	
+	@Test
+	public void testWineTypeArr2() {
 		CriteriaWine cri = new CriteriaWine();
 		
 		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
@@ -84,6 +98,23 @@ public class WineMapperTests {
 		cri.setWineTypeArr(wineTypeArr);
 		
 		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
+		log.info(list);
+		
+	}
+	
+	@Test
+	public void testWineTypeArr3() {
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		wineTypeArr.add("White wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
 		log.info(list);
 		
 	}
