@@ -28,23 +28,7 @@ public class SellerServiceTest {
 		assertNotNull(service);
 		
 	}
-	
-	@Test
-	public void testRegister() {
-		
-		SellerVO seller = new SellerVO();
-		seller.setSellerId("seller 서비스단");
-		seller.setSellerStoreName("seller 서비스단 와인");
-		seller.setSellerContent("서비스단 와인입니다");
-		seller.setSellerPhoneNum("010-1234-1234");
-		seller.setSellerLocation("수원시");
-		
-		service.register(seller);
-		
-		log.info("생성된 셀러의 번호 : " + seller.getSellerNum());
-		
-	}
-	
+
 	@Test
 	public void testGetList() {
 		

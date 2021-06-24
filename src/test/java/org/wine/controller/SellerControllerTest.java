@@ -43,19 +43,6 @@ public class SellerControllerTest {
 				.getModelMap());
 	}
 	
-	@Test
-	public void testRegister() throws Exception {
-		
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/seller/register")
-				.param("sellerId", "wine365")
-				.param("sellerStoreName", "와인365")
-				.param("sellerContent", "와인 365 입니다")
-				.param("sellerPhoneNum", "와인365 Phone")
-				.param("sellerLocation", "오ㅏ인 365Location")
-			).andReturn().getModelAndView().getViewName();
-		
-		log.info(resultPage);
-	}
 	
 	@Test
 	public void testGet() throws Exception {

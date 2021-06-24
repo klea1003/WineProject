@@ -24,9 +24,10 @@
 }
  
 </style>
+
+
 </head>
 <body>
-
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top_gnb_area">
@@ -50,7 +51,7 @@
 					<!-- 로그인한 상태 -->
 					<c:if test="${ user != null }">
 						<div class="login_success_area">
-						<span>번호 : ${user.userNum}</span>
+							<span>번호 : ${user.userNum}</span>
                         <span>닉네임 : ${user.userNickName}</span>
                         <span>실명 : ${user.userRealName}</span>
                         <span>핸드폰번호 : ${user.userPhoneNum}</span>
@@ -64,7 +65,20 @@
 			</div>
 			<div class="content_area">
 				<h1>content area</h1>
-				<span><a href="/user/userlist">리스트</a></span>
+				테스트<br>
+				<c:forEach items="${userlist}" var="c">
+					<tr>
+						<%-- <td>${user.userNum}</td> --%>
+						<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}</a></td> --%>
+						<%-- <td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td> --%>
+						<%-- <td><a class="move" href="<c:out value='${user.userNum }'/>"><c:out value="${user.userId}"/></a></td>
+						 --%><%-- <td>${user.userId}</td> --%>
+						<td><a  href="/user/userpage?userNum=<c:out value="${c.userNum }"/>"><c:out value="${c.userId }"/></a></td>
+						
+						<br>
+						<%-- <td>${c.updateDate}</td> --%>
+					</tr>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
