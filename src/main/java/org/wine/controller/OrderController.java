@@ -51,6 +51,7 @@ public class OrderController {
 	 
 	 UserVO user = (UserVO)session.getAttribute("user");  
 	Long userNum = user.getUserNum();
+	userNum = (long) 1;
 	 
 	 Calendar cal = Calendar.getInstance();
 	 int year = cal.get(Calendar.YEAR);
@@ -88,6 +89,7 @@ public class OrderController {
 			
 			UserVO user = (UserVO)session.getAttribute("user");
 			Long userNum = user.getUserNum();
+			userNum = (long) 1;
 			
 			order.setUserNum(userNum);
 			List<OrderVO> orderList = service.orderList(order);
@@ -105,6 +107,7 @@ public class OrderController {
 	 
 	 UserVO user = (UserVO)session.getAttribute("user");
 	 Long userNum = user.getUserNum();
+		userNum = (long) 1;
 	 
 	 order.setUserNum(userNum);
 	 order.setOrderNum(orderNum);

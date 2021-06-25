@@ -52,7 +52,7 @@
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Detail">
  insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_ID,WINE_NUM,CART_QTY)
-     select seq_tbl_order_details.nextval, #{orderNum}, wineNum, sellerId, carQty
+     select seq_tbl_order_detail.nextval, #{orderNum}, wineNum, sellerId, carQty
          from tbl_cart_test
 </insert> 
 
@@ -64,7 +64,7 @@ where USER_NUM = #{userNum}
 
 
 <!-- 유저의 주문 목록 -->
-<select id="orderList" resultType="org.wine.domain.OrderVO" resultMap="ordering">
+<select id="orderList" resultMap="ordering">
  select
     ORDER_NUM, USER_NUM, USER_REALNAME, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, ORDER_DATE, PICKUP_DATE
  from tbl_order_test
@@ -72,7 +72,7 @@ where USER_NUM = #{userNum}
 </select>
 
 <!-- 특정 주문 상세 목록 -->
-<select id = "orderView" resultType="org.wine.domain.OrderListVO" resultMap="orderView">
+<select id = "orderView" resultMap="orderView">
 select O.ORDER_NUM , O.USER_NUM, O.USER_REALNAME, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.ORDER_PRICE, O.ORDER_DATE, O.PICKUP_DATE,
 D.ORDERDETAIL_NUM, D.WINE_NUM, D.CART_QTY,
 W.WINE_TITLE, W.WINE_IMAGENAME, W.WINE_PRICE
