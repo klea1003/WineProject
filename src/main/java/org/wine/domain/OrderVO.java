@@ -1,6 +1,6 @@
 package org.wine.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class OrderVO {
 	private String pickUpPhoneNum;
 	private int orderPrice;
 	private Date orderDate;
-	private Date pickUpDate;
+	private String pickUpDate;
 
 	
 	

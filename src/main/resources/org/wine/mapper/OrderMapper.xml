@@ -26,7 +26,7 @@
 <result property="userNum" column="USER_NUM" />
 <result property="userRealName" column="USER_REALNAME" />
 <result property="pickUpName" column="PICKUP_NAME" />
-<result property="pickUpPhonNum" column="PICKUP_PHONENUM" />
+<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
 <result property="orderPrice" column="ORDER_PRICE" />
 <result property="orderDate" column="ORDER_DATE" />
 <result property="pickUpDate" column="PICKUP_DATE" />
@@ -52,7 +52,7 @@
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Detail">
  insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_ID,WINE_NUM,CART_QTY)
-     select seq_tbl_order_detail.nextval, #{orderNum}, wineNum, sellerId, carQty
+     select seq_tbl_order_detail.nextval, #{orderNum}, wineNum, sellerId, cartQty
          from tbl_cart_test
 </insert> 
 

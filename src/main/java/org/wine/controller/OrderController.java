@@ -30,28 +30,18 @@ public class OrderController {
 	private OrderService service;
 	private CartService cartService;
 	
-	@RequestMapping(value="/orderList", method = RequestMethod.POST)
-	public void order(HttpSession sesssion, OrderVO order, OrderDetailVO orderDetail) throws Exception{
-		log.info("order");
-		
-		
-//		 UserVO user = (UserVO) session.getAttribute("user");
-//		 Long userNum =  user.getUSER_NUM();
 
-		
-		service.orderInfo(order);
-		service.orderInfo_Detail(orderDetail);
-	}
-	
 	
 	// 주문
-	@RequestMapping(value = "/ordering", method = RequestMethod.POST)
+	@RequestMapping(value = "/ordering", method = {RequestMethod.GET, RequestMethod.POST})
 	public String order1(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 	 log.info("order");
 	 
-	 UserVO user = (UserVO)session.getAttribute("user");  
-	Long userNum = user.getUserNum();
-	userNum = (long) 1;
+	//UserVO user = (UserVO)session.getAttribute("userNum"); 
+	//Long userNum = user.getUserNum();
+	 Long userNum = (Long) session.getAttribute("userNum");
+	
+	userNum = (long) 9;
 	 
 	 Calendar cal = Calendar.getInstance();
 	 int year = cal.get(Calendar.YEAR);
@@ -69,6 +59,10 @@ public class OrderController {
 	 
 	 order.setOrderNum(OrderNum);
 	 order.setUserNum(userNum);
+	 order.setUserRealName(orderNum);
+	 order.setPickUpName(orderNum);
+	 order.setPickUpPhoneNum(orderNum);
+	 order.setPickUpDate(orderNum);
 	  
 	 service.orderInfo(order);
 	 
@@ -87,9 +81,10 @@ public class OrderController {
 		public void getOrderSuccessList(HttpSession session, OrderVO order, Model model)throws Exception{
 			log.info("get order  List");
 			
-			UserVO user = (UserVO)session.getAttribute("user");
-			Long userNum = user.getUserNum();
-			userNum = (long) 1;
+			//UserVO user = (UserVO)session.getAttribute("userNum");
+			//Long userNum = user.getUserNum();
+			Long userNum = (Long) session.getAttribute("userNum");
+			userNum = (long) 9;
 			
 			order.setUserNum(userNum);
 			List<OrderVO> orderList = service.orderList(order);
@@ -105,9 +100,10 @@ public class OrderController {
 	      OrderVO order, Model model) throws Exception {
 	 log.info("get order view");
 	 
-	 UserVO user = (UserVO)session.getAttribute("user");
-	 Long userNum = user.getUserNum();
-		userNum = (long) 1;
+	 //UserVO user = (UserVO)session.getAttribute("userNum");
+	 //Long userNum = user.getUserNum();
+	 Long userNum = (Long) session.getAttribute("userNum");
+		userNum = (long) 9;
 	 
 	 order.setUserNum(userNum);
 	 order.setOrderNum(orderNum);
