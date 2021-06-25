@@ -9,12 +9,7 @@ SELECT    *  FROM tbl_user_test;
 
 SELECT    *  FROM tbl_social_test;
 
-select count(user_follower_id)
-from tbl_social_test
-where user_following_id = 'test'; 
---팔로아워 수
-
-select user_following_id 
+select *
 from tbl_social_test
 where user_follower_id = 'test'; 
 --팔로잉 버튼 유무
@@ -28,3 +23,5 @@ select count(*)
 from tbl_social_test
 where user_following_id = 2;
 -- 팔로워 수
+
+

@@ -18,13 +18,13 @@ console.log("JS TEST");
 
 
 
-/* socialService.add(
+/* 테스트용 socialService.add(
 		
 		{userFollowingId:"test" , userFollowerId:"test"}
 		,
 		function(result){
 			alert("RESULT: "+ result);
-		}
+		} 
 	);  */
  
 /*  socialService.remove(
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		alert('clickfollowing')
 		var social = {
 			userFollowingId:"${userpage.userNum }",
-			userFollowerId:"${user.userId}"
+			userFollowerId:"${user.userNum}"
 			};
 		
 		if(${user != null}){
@@ -66,7 +66,7 @@ $(document).ready(function() {
 		alert('click')
 		var social = {
 			userFollowingId:"${userpage.userNum }",
-			userFollowerId:"${user.userId}"
+			userFollowerId:"${user.userNum}"
 			};
 		if("${user.userId}" != "${userpage.userId }"){
 		socialService.remove(social,function(result){
@@ -110,20 +110,30 @@ $(document).ready(function() {
                 <div class="container px-5">
                     <h1 class="fw-bolder fs-5 mb-4">	
                     	<span><c:out value='${userpage.userNum }'/>님의 Wine</span>
-                           
+                        <c:if test="${ user != null}">
                         <c:if test="${ followck != null}">
+                        <div class="btn-group">
 						<button class= "btn btn-outline-secondary btn-sm" id='unfollowBtn' type="button" >
 						팔로잉<i class="bi bi-person-check-fill"></i></button>
-						
+						</div>
 						</c:if>
 						<c:if test="${ followck == null}">
 						<c:out value='${followck.userFollowerId }'/>
 						<div class="btn-group">
-						
 						<button class= "btn btn-primary btn-sm" id='followingBtn' type="button" >
 						팔로우<i class="bi bi-person-plus-fill"></i></button>
 						</div>
-						</c:if></h1>
+						</c:if>
+						</c:if>
+						
+						<c:if test="${ user == null}">
+                       	<div class="btn-group">
+						<button class= "btn btn-primary btn-sm" id='followingBtn' type="button" >
+						팔로우<i class="bi bi-person-plus-fill"></i></button>
+						</div>
+						</c:if>
+						</h1>
+						
                
                 </div>
             </section>
@@ -163,8 +173,8 @@ $(document).ready(function() {
                                             <p class="text-muted mb-4">
                                             <br/>
                                             </p>
-                                            <div class="h6 fw-bolder">Following </div>
-                                            <div class="h6 fw-bolder">Follower  </div>
+                                            <div class="h6 fw-bolder">Following &nbsp;&nbsp;<c:out value='${followingcnt}'/> </div> 
+                                            <div class="h6 fw-bolder">Follower &nbsp;&nbsp; <c:out value='${followercnt}'/> </div>  
                                             <br/>
                                             <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
                                             <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>

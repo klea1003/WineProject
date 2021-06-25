@@ -61,7 +61,7 @@ public class UserController {
 	}
 
 	@GetMapping({ "/userpage" })
-	public void get(@RequestParam("userNum") Long userNum,String userFollowerId, Model model) {
+	public void get(@RequestParam("userNum") Long userNum , Model model) {
 
 		log.info("userpage ");
 
@@ -69,9 +69,14 @@ public class UserController {
 		
 		model.addAttribute("followck", socialservice.followingBtn(userNum));
 		
+		int followercnt = socialservice.getCountByFollower(userNum);
 		
+		model.addAttribute("followercnt",followercnt);
 		
-		log.info("social ");
+		int followingcnt = socialservice.getCountByFollowing(userNum);
+		
+		model.addAttribute("followingcnt",followingcnt);
+		
 	}
 
 	

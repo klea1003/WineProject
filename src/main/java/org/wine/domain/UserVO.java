@@ -14,7 +14,4 @@ public class UserVO {
 	private String userBirthDay;
 	private String userEmail;
 	private String userPhoneNum;
-
-	private int followingCnt;
-	private int followCnt;
 }

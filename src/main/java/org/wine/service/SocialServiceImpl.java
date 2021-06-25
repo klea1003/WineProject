@@ -55,7 +55,7 @@ public class SocialServiceImpl implements SocialService {
 
 
 	@Override
-	public int getCountByFollowing(String userFollowerId) {
+	public int getCountByFollowing(Long userFollowerId) {
 		// TODO Auto-generated method stub
 	   return mapper.getCountByFollowing(userFollowerId);
 	}
