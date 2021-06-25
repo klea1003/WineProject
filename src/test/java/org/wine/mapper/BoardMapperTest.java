@@ -32,7 +32,7 @@ public void testGetList() {
 public void testInsert() {
 	BoardVO board = new BoardVO();
 	board.setTitle("제목");
-	board.setType("이벤트공지");
+	board.setBoardType("이벤트공지");
 	board.setContent("내용");
 	board.setWriter("newbie");
 	mapper.insert(board);
@@ -43,7 +43,7 @@ public void testInsert() {
 public void testInsertSelectKey() {
 	BoardVO board = new BoardVO();
 	board.setTitle("제목");
-	board.setType("Q&A");
+	board.setBoardType("Q&A");
 	board.setContent("내용");
 	board.setWriter("newbie2");
 	mapper.insertSelectKey(board);
@@ -67,7 +67,7 @@ public void testUpdate() {
 	board.setBoardNum(3L);
 	board.setTitle("제목2");
 	board.setContent("내용2");
-	board.setType("Q&A");
+	board.setBoardType("Q&A");
 	board.setWriter("rose2");
 	int count = mapper.update(board);
 	log.info("UPDATE COUNT : " + count);

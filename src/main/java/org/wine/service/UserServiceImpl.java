@@ -1,5 +1,7 @@
 package org.wine.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wine.domain.UserVO;
@@ -15,6 +17,14 @@ public class UserServiceImpl implements UserService {
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
 
+	@Override
+	public List<UserVO> getList() {
+		// TODO Auto-generated method stub
+		log.info("getList............");
+		
+		return mapper.getList();
+	}
+	
 	@Override
 	public void join(UserVO user) {
 		// TODO Auto-generated method stub
@@ -40,4 +50,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return mapper.nicknameCheck(userNickName);
 	}
+
+	@Override
+	public UserVO get(Long userNum) {
+		// TODO Auto-generated method stub
+		log.info("get...."+userNum);
+		return mapper.read(userNum);
+	}
+
 }

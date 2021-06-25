@@ -9,15 +9,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
+import org.wine.service.SocialService;
 import org.wine.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -34,8 +40,10 @@ public class UserController {
 
 	@Autowired
 	private JavaMailSender emailSender;
-
 	
+	@Autowired
+	private SocialService socialservice;
+
 	@GetMapping("/main")
 	public void mainPageGET() {
 
@@ -43,35 +51,57 @@ public class UserController {
 
 	}
 
+	@GetMapping("/userlist")
+	public void userlist(Model model) {
+
+		log.info("유저 리스트페이지");
+
+		model.addAttribute("userlist", service.getList());
+
+	}
+
+	@GetMapping({ "/userpage" })
+	public void get(@RequestParam("userNum") Long userNum,String userFollowerId, Model model) {
+
+		log.info("userpage ");
+
+		model.addAttribute("userpage", service.get(userNum));
+		
+		model.addAttribute("followck", socialservice.followingBtn(userNum));
+		
+		
+		
+		log.info("social ");
+	}
+
+	
+	
 	@GetMapping("/login")
 	public void login() {
 		log.info("login");
 
 	}
 
-	@PostMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
-	   
-//		System.out.println("login 메서드 진입");
-//        System.out.println("전달된 데이터 : " + user);
-        
-        HttpSession session = request.getSession();
-        UserVO lvo = service.userLogin(user);
 
-        if(lvo == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
-            
-            int result = 0;
-            rttr.addFlashAttribute("result", result);
-            return "redirect:/user/login";
-            
-        }
-        
-        session.setAttribute("user", lvo);   
-        
-        return "redirect:/user/main";
-		
+		HttpSession session = request.getSession();
+		UserVO lvo = service.userLogin(user);
+
+		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
+
+			int result = 0;
+			rttr.addFlashAttribute("result", result);
+			return "redirect:/user/login";
+
+		}
+
+		session.setAttribute("user", lvo);
+
+		return "redirect:/user/main";
+
 	}
-	
+
 	@GetMapping("/join")
 	public void join() {
 		log.info("join");
@@ -89,8 +119,8 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 
-	@PostMapping("/userIdchk")
 	@ResponseBody
+	@PostMapping("/userIdchk")
 	public String userIdchk(String userId) {
 
 		log.info("userIdchk " + userId);
@@ -109,8 +139,9 @@ public class UserController {
 
 		}
 	}
-	@PostMapping("/userNickNamechk")
+
 	@ResponseBody
+	@PostMapping("/userNickNamechk")
 	public String userNickNamechk(String userNickName) {
 
 		log.info("userNickNamechk " + userNickName);
@@ -130,7 +161,6 @@ public class UserController {
 		}
 	}
 
-
 	@GetMapping("/emailcheck")
 	@ResponseBody
 	public String mailecheck(String email) {
@@ -144,12 +174,8 @@ public class UserController {
 		String setFrom = "choiyeosep@naver.com";
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
-	    String content = 
-	                "홈페이지를 방문해주셔서 감사합니다." +
-	                "<br><br>" + 
-	                "인증 번호는 " + checkNum + "입니다." + 
-	                "<br>" + 
-	                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
 		try {
 
@@ -169,5 +195,5 @@ public class UserController {
 		return num;
 	}
 
-
+	
 }

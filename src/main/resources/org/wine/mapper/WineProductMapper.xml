@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WineProductMapper">
+
+	<resultMap type="org.wine.domain.WineJoinProductVO" id="sellerWineInfo">
+		 
+		 <result property="wineNum" column="WINE_NUM"/>
+		 <result property="wineTitle" column="WINE_TITLE"/>
+		 <result property="winenery" column="WINENERY"/>
+		 <result property="wineGrapes" column="WINE_GRAPES"/>
+		 <result property="wineRegions" column="WINE_REGIONS"/>
+		 <result property="wineAllergens" column="WINE_ALLERGENS"/>
+		 <result property="wineType" column="WINETYPE"/>
+		 <result property="wineRegion" column="WINE_REGION"/>
+		 <result property="wineCountry" column="WINE_COUNTRY"/>
+	
+		 <result property="winePrice" column="WINE_PRICE"/>
+		 <result property="wineAlcohol" column="WINE_ALCOHOL"/>
+		 <result property="wineStyle" column="WINESTYLE"/>
+		 <result property="imageName" column="WINE_IMAGENAME"/>
+		 <result property="wineProductNum" column="WINE_PRODUCT_NUM"/>
+		 <result property="sellerNum" column="SELLER_NUM"/>
+		 <result property="sellerId" column="SELLER_ID"/>
+		 <result property="sellerPrice" column="SELLER_PRICE"/>
+		 <result property="sellerWineQty" column="SELLER_WINE_QTY"/>
+	
+	</resultMap>
+	
+	<select id="get" resultMap="sellerWineInfo">
+		
+		select w.wine_title, w.wine_country, w.winetype, w.wine_alcohol, w.wine_imagename, wp.seller_price
+  		from TBL_WINE_TEST w left outer join TBL_WINE_PRODUCT_TEST wp 
+  		on w.wine_NUM = wp.WINE_NUM where wp.SELLER_NUM = #{sellerNum}
+	
+	</select>
+	
+
+</mapper>

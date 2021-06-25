@@ -16,18 +16,14 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-
-// test for Controller
 @WebAppConfiguration
-
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Log4j
-public class WineControllerTests {
 
+public class WineControllerTests {
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-
 	private MockMvc mockMvc;
 
 	@Before
@@ -82,6 +78,16 @@ public class WineControllerTests {
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 				.get("/wine/get")
 				.param("wno", "2"))
+				.andReturn()
+				.getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void testGetTotalCount() throws Exception {
+		
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/wine/list")
+				.param("amount", "10"))
 				.andReturn()
 				.getModelAndView().getModelMap());
 	}

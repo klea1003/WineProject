@@ -17,15 +17,6 @@ import lombok.extern.log4j.Log4j;
 public class SellerServiceImpl implements SellerService{
 	
 	private SellerMapper mapper;
-
-	@Override
-	public void register(SellerVO seller) {
-		
-		log.info("register......" + seller);
-		
-		mapper.sellerSelectKey(seller);
-		
-	}
 	
 	@Override
 	public List<SellerVO> getList() {
