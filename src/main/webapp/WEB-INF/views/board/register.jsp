@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%> --%>
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
+
+<%@include file="../includes/header.jsp" %>
 <style>
 .uploadResult {
    width: 100%;
@@ -51,6 +52,11 @@
 
 .bigPicture img {
    width: 400px;
+}
+
+.w-50{
+	margin-top: 7%;
+	margin-left: 25%;
 }
 </style>
 
@@ -193,80 +199,62 @@ $(document).ready(function(e){
 
 </script>
 
-<!-- 위가 header.jsp -->
-<div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Board Register</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Board Register</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<form role="form" action="/board/register" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<div class="form-group">
-						<label>Title</label><input class="form-control" name='title'>
-					</div>
-					
-					 <div class='form-group'>
-                  		<label>Content</label>
-                  			<textarea class='form-control' rows='3' name='content'></textarea>
-               		 </div>
-					
-					<div class="form-group">
-						<label>Writer</label>
-						<input class='form-control' name='writer' value='<sec:authentication property="principal.username"/>'readonly="readonly">
-
-					</div>
-					
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<button type="reset" class="btn btn-danger">Reset</button>
-
-
-
-
-				</form>
-				<!-- /.table-responsive -->
-
-			</div>
-			<!-- /.panel-body -->
-		</div>
-		<!-- /.panel -->
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-<!-- 새로 추가하는 부분 -->
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">File Attach</div>
-				<!-- /.panel-heading -->
-				<div class="panel-body">
-					<div class="form-group uploadDiv">
-						<input type="file" name='uploadFile' multiple>
-					</div>
-					
-					<div class='uploadResult'>
-						<ul>
-						
-						</ul>
-					</div>
-				
+<body>
+		<section class="py-5">
+		<div class="container px-3 my-3">
+			<div class="text-center mb-5">
+            <h1 class="fw-bolder">Board Register</h1>
+            </div>
+            
+	
+			<div class="container-fluid">
+				<div class="w-50">
+			<form role="form" action="/board/register" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<div class="form-group">
+					<label>Title</label><input class="form-control" name='title'>
 				</div>
-				<!-- end panel body -->
+				
+				 <div class='form-group'>
+                 		<label>Content</label>
+                 			<textarea class='form-control' rows='3' name='content'></textarea>
+              		 </div>
+				
+				<div class="form-group">
+					<label>Writer</label>
+					<input class='form-control' name='writer' value='<sec:authentication property="principal.username"/>'readonly="readonly">
+
+				</div>
+				
+			<!-- File attach -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">File Attach</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="form-group uploadDiv">
+									<input type="file" name='uploadFile' multiple>
+								</div>
+								
+								<div class='uploadResult'>
+									<ul>
+									
+									</ul>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- File attach End -->
+			
+				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</form>
+			</div>
 			</div>
 		</div>
-	</div>
-
-<!-- /.row -->
-
-<!-- /.row -->
-
-<!-- /.row -->
+		</section>
+	<%@include file="../includes/footer.jsp" %>
+</body>

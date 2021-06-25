@@ -104,7 +104,7 @@
    });
 </script>
 
-  <body>
+<body>
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5 my-5">
@@ -117,7 +117,7 @@
                <div class="col-xl-8">
                   <table class="table">
 					<thead>
-						<tr class="table-danger">
+						<tr class="table">
 					      <th scope="col">No</th>
 					      <th scope="col">제목</th>
 					      <th scope="col">종류</th>

@@ -5,9 +5,10 @@
     
 <!DOCTYPE html>
 <html>
+
   <body>
     	<%@include file="../includes/header.jsp" %>
-      
+       
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
             
@@ -26,51 +27,7 @@
 					
 					<div id="map" style="width:700px; height:400px;"></div>
 
-					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5333d53ac31b106857d8f1c63a600d7&libraries=services"></script>
-					<script>
-						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    						mapOption = {
-        						
-								center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        						
-								level: 3 // 지도의 확대 레벨
-								
-   							 };  
-
-						// 지도를 생성합니다    
-						var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-						// 주소-좌표 변환 객체를 생성합니다
-						var geocoder = new kakao.maps.services.Geocoder();
-
-						// 주소로 좌표를 검색합니다
-						geocoder.addressSearch('${seller.sellerLocation}' , function(result, status) {
-
-					    // 정상적으로 검색이 완료됐으면 
-					     if (status === kakao.maps.services.Status.OK) {
-
-       					 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-				        // 결과값으로 받은 위치를 마커로 표시합니다
-				        var marker = new kakao.maps.Marker({
-				            map: map,
-				            position: coords
-				        });
-
-				        // 인포윈도우로 장소에 대한 설명을 표시합니다
-				        var infowindow = new kakao.maps.InfoWindow({
-				            content: '<div style="width:150px;text-align:center;padding:6px 0;">${seller.sellerStoreName}</div>'
-				        });
-				        infowindow.open(map, marker);
-				
-				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-				        map.setCenter(coords);
-				    } 
-				});    
-				</script>
-							
-
-                </div>
+				 </div><!-- Map End -->
                 
                 <div class="col-lg-5">
                 	<h1 class="font-weight-light">${seller.sellerId}</h1>
@@ -86,6 +43,7 @@
             </div>
             
             <!--  Content Row -->
+            
             <div class="row gx-4 gx-lg-5">
              
                 <!--  Card One    -->              
@@ -105,8 +63,54 @@
                     </div>
                 	</div>
                 </c:forEach>
-            </div>
-        </div>
-       <%@include file="../includes/footer.jsp" %>       
+             </div>
+          </div>
+   <%@include file="../includes/footer.jsp" %>
+       
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5333d53ac31b106857d8f1c63a600d7&libraries=services"></script>
+<script>
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = {
+    						
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	  						
+			level: 3 // 지도의 확대 레벨
+			
+					 };  
+
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${seller.sellerLocation}' , function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+			 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${seller.sellerStoreName}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+}); //Map End
+		
+	
+</script>              
   </body>
 </html>
