@@ -33,36 +33,12 @@
         <!-- End of Wine List-->
 		
 	</section>
-		
-	<!-- Pagination -->
-		
-		<div class="Pagination">
-			<ul class="pagination justify-content-center">
-			  <c:if test="${pageMaker.prev}">
-			  	<li class="page-item previous">
-			  		<a class="page-link" href="${pageMaker.startPage-1}">Previous</a></li>
-			  </c:if>
-			  
-			  <c:forEach var="num" begin="${pageMaker.startPage}"
-						end="${pageMaker.endPage}">
-					<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : "" } ">
-						<a class="page-link" href='${num}'>${num}</a></li>
-			  </c:forEach>
-			  
-			  
-			  <c:if test="${pageMaker.next}">
-			  	<li class="page-item next">
-			  		<a class="page-link" href="${pageMaker.endPage + 1}">Next</a></li>
-			  </c:if>
-			</ul>
-		</div>
-		
-		<form id="actionForm" action="/wine/list" method="get">
-			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-			<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-		</form>
-		
-	<!-- End of Pagination -->
+
+	<form id="actionForm" action="/wine/list" method="get">
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+		<input type="hidden" name="realEnd" value="${pageMaker.realEnd}">
+	</form>
 	
 
 	<%@include file="../includes/footer.jsp" %>
@@ -85,6 +61,24 @@
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.submit();
 		});
+		
+		$(window).scroll(function() {
+		
+			// scroll 감지
+			if($(window).scrollTop() == $(document).height() - $(window).height()){
+				console.log("scrolling");
+				
+				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+				var readlEnd = parseInt(actionForm.find("input[name='realEnd']").val());
+				
+				if (currentPageNum + 1 <= readlEnd) {
+				
+					actionForm.find("input[name='pageNum']").val(currentPageNum + 1);
+				
+					showWineList();
+				}
+			}
+		})
 		
 		var wineDiv = $(".wine-card-list")
 		
@@ -127,7 +121,7 @@
 						
 					}
 					
-					wineDiv.html(str);
+					wineDiv.append(str);
 				}		
 			)
 		}
