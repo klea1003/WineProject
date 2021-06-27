@@ -118,4 +118,48 @@ public class WineMapperTests {
 		log.info(list);
 		
 	}
+	
+	@Test
+	public void testWineGrapeArr1() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list); 
+	}
+	
+	@Test
+	public void testWineGrapeArr2() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec");
+		wineGrapeArr.add("Gamay"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list); 
+	}
+	
+	@Test
+	public void testGetTotalCountWithPaging() {
+		
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec");
+		wineGrapeArr.add("Gamay"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		int count = mapper.getTotalCountWithPaging(cri);		
+		log.info(count);
+	}
 }

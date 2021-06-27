@@ -1,7 +1,6 @@
 package org.wine.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +14,7 @@ public class CriteriaWine {
 	private int pageNum;
 	private int amount;
 	private ArrayList<String> wineTypeArr;
+	private ArrayList<String> wineGrapeArr;
 	public CriteriaWine() {
 		this(1,10);
 	}
@@ -22,6 +22,7 @@ public class CriteriaWine {
 		this.pageNum = pageNum;
 		this.amount = amount;
 		this.wineTypeArr = new ArrayList<String>(); // null 이 되면 .size 에서 에러가 나므로 empty list 로 일단 만들어 놓음
+		this.wineGrapeArr = new ArrayList<String>();
 	}
 	
 	public void setWineTypeArr(ArrayList<String> wineTypeArr) {
@@ -31,4 +32,14 @@ public class CriteriaWine {
 			this.wineTypeArr = wineTypeArr;
 		}
 	}
+	public void setWineGrapeArr(ArrayList<String>wineGrapeArr) {
+		if(wineGrapeArr == null) {
+			this.wineGrapeArr = new ArrayList<String>(); 
+		}else {
+			this.wineGrapeArr = wineGrapeArr; 
+			
+		}				
+		
+	}
+	
 }

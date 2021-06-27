@@ -11,14 +11,28 @@
 
 <body>
 	<%@ include file="../includes/header.jsp"%>
-	
-	<label><input type="checkbox" name="wine_type" value="Red wine" /> Red</label>
-	<label><input type="checkbox" name="wine_type" value="White wine" /> White</label>
-	<!-- 아래의 value는 추후 크롤링 DB 입력 후 변경해야 됨 -->
-	<label><input type="checkbox" name="wine_type" value="3" /> Sparkling</label>
-	<label><input type="checkbox" name="wine_type" value="4" /> Rosé</label>
-	<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
-	<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
+	<!-- Searching Wine Types -->
+	<div>
+		<label><input type="checkbox" name="wine_type" value="Red wine" /> Red</label>
+		<label><input type="checkbox" name="wine_type" value="White wine" /> White</label>
+		<!-- 아래의 value는 추후 크롤링 DB 입력 후 변경해야 됨 -->
+		<label><input type="checkbox" name="wine_type" value="3" /> Sparkling</label>
+		<label><input type="checkbox" name="wine_type" value="4" /> Rosé</label>
+		<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
+		<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
+	</div><br>
+	<!-- Searching Grapes -->
+	<div>
+		<label><input type="checkbox" name="Grapes" value="Cabernet Franc" /> Cabernet Franc</label>
+		<label><input type="checkbox" name="Grapes" value="Cabernet Sauvignon" /> Cabernet Sauvignon</label>
+		<label><input type="checkbox" name="Grapes" value="Chardonnay" /> Chardonnay</label>
+		<label><input type="checkbox" name="Grapes" value="Grenache" /> Grenache</label>
+		<label><input type="checkbox" name="Grapes" value="Malbec" /> Malbec</label>
+		<label><input type="checkbox" name="Grapes" value="Merlot" /> Merlot</label>
+		<label><input type="checkbox" name="Grapes" value="Pinot Noir" /> Pinot Noir</label>
+		<label><input type="checkbox" name="Grapes" value="Riesling" /> Riesling</label>
+		<label><input type="checkbox" name="Grapes" value="Sauvignon Blanc" /> Sauvignon Blanc</label>
+	</div>
 	
 	<input type="button" class="temp" value="search" style="width:100px" / >
 
@@ -37,7 +51,7 @@
 	<form id="actionForm" action="/wine/list" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-		<input type="hidden" name="realEnd" value="${pageMaker.realEnd}">
+		<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
 	</form>
 	
 
@@ -52,6 +66,8 @@
 	$(document).ready(function() {
 
 		var actionForm = $("#actionForm");
+		
+		console.log(actionForm.find("input[name='totalPageNum']").val());
 
 		$(".page-item a").on("click", function(e) {
 			e.preventDefault();
@@ -68,10 +84,13 @@
 			if($(window).scrollTop() == $(document).height() - $(window).height()){
 				console.log("scrolling");
 				
-				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
-				var readlEnd = parseInt(actionForm.find("input[name='realEnd']").val());
 				
-				if (currentPageNum + 1 <= readlEnd) {
+				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+				var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
+				
+				if (currentPageNum + 1 <= totalPageNum) {
+					
+					console.log("update last")
 				
 					actionForm.find("input[name='pageNum']").val(currentPageNum + 1);
 				
@@ -130,6 +149,10 @@
 			e.preventDefault();
 
 			console.log('click search btn');
+			
+			wineDiv.html("");	// to empty
+			actionForm.find("input[name='pageNum']").val("1");
+			wineService.requestTotalPageNum();
 			
 			showWineList();
 		});

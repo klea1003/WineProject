@@ -62,6 +62,8 @@
 			    FROM TBL_WINE_TEST WHERE  ]]>
 				
 				<include refid="criteriaWineType"></include>
+				<include refid="criteriaWineGrape"></include>
+				
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -73,6 +75,15 @@
 		select count(*) from tbl_wine_test where wine_num > 0
 		]]>
 	</select>
+	
+	<select id="getTotalCountWithPaging" resultType="int">
+		 <![CDATA[
+			SELECT COUNT(*) FROM (
+			    SELECT * FROM TBL_WINE_TEST WHERE ]]>
+				<include refid="criteriaWineType"></include>
+				<include refid="criteriaWineGrape"></include>	
+			wine_num > 0)	
+	</select>
 
 	<sql id="criteriaWineType">
 		<if test="wineTypeArr.size!=0">
@@ -80,6 +91,19 @@
 				<foreach item="wineType" collection="wineTypeArr">
 					<trim prefix="OR">
 						wineType = #{wineType}		
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+
+	
+	<sql id="criteriaWineGrape">
+		<if test="wineGrapeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineGrape" collection="wineGrapeArr">
+					<trim prefix="OR">
+						 Wine_Grapes like '%'||#{wineGrape}||'%' 
 					</trim>
 				</foreach>
 			</trim>

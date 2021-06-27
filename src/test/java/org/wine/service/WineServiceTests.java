@@ -57,9 +57,9 @@ public class WineServiceTests {
 	public void testGetList() {
 		CriteriaWine cri = new CriteriaWine(2,10);
 		cri.setWineTypeArr(new ArrayList<String>(Arrays.asList("Red wine")));
+		cri.setWineGrapeArr(new ArrayList<String>(Arrays.asList("Malbec")));		
 		
-		
-		service.getList(new CriteriaWine(2,10)).forEach(wine -> log.info(wine));
+		service.getList(cri).forEach(wine -> log.info(wine));
 	}
 	
 	@Test

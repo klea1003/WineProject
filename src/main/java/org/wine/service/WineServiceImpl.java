@@ -45,7 +45,7 @@ public class WineServiceImpl implements WineService {
 	public int getTotal(CriteriaWine cri) {
 		
 		log.info("get total count");
-		return mapper.getTotalCount(cri);
+		return mapper.getTotalCountWithPaging(cri);
 		
 	}
 		

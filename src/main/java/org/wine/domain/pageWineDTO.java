@@ -12,13 +12,13 @@ public class pageWineDTO{
 
 	private int total; 
 	private CriteriaWine cri;
-	private int realEnd;
+	private int totalPageNum;
 	
 	public pageWineDTO(CriteriaWine cri, int total) {
 		this.cri = cri; this.total = total;
-		this.realEnd = (int)Math.ceil(total*1.0/cri.getAmount());
+		this.totalPageNum = (int)Math.ceil(total*1.0/cri.getAmount());
 
 	}
-	
+
 	
 }
