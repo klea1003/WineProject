@@ -107,34 +107,23 @@
 
    });
 </script>
-<!-- 위가 header.jsp -->
-<div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Board List Page</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				게시글 목록
-				<button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
-			</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<table style="width: 100%"
-					class="table table-striped table-bordered table-hover">
+<body>
+<!-- Section -->    	
+<section class="py-5">
+	<div class="container px-5 my-5">
+         <div class="row">
+               <div>
+                  <table class="table">
 					<thead>
-						<tr class="table-danger">
-							<th scope="col">No</th>
-							<th scope="col">제목</th>
-							<th scope="col">종류</th>
-							<th scope="col">작성자</th>
-							<th scope="col">작성일</th>
-							<th scope="col"><i class="bi bi-hand-thumbs-up"></i></th>
-						</tr>
+						<tr class="table">
+					      <th scope="col">No</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">종류</th>
+					      <th scope="col">작성자</th>
+					      <th scope="col">작성일</th>
+					      <th scope="col"><i class="bi bi-hand-thumbs-up"></i></th>
+						 </tr>
+
 					</thead>
 
 					<tbody>
@@ -153,10 +142,7 @@
 					</tbody>
 				</table>
 
-				<p>
-					<c:out value='${pageMaker.total }' />
-					개의 결과가 검색됨
-				</p>
+				<p><c:out value='${pageMaker.total }' />개의 결과가 검색됨</p>
 
 				<div class='row'>
 					<div class="col-lg-12">
@@ -181,47 +167,55 @@
 									or 내용 or 작성자</option>
 								<option value="P"
 									<c:out value="${pageMaker.cri.type eq'P'?'selected':''}"/>>종류</option>
-							</select> <input type='text' name='keyword'
-								value='<c:out value="${pageMaker.cri.keyword }"/>' /> <input
-								type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
-							<input type='hidden' name='amount'
-								value="${pageMaker.cri.amount }" />
-							<button class='btn btn-info'>search</button>
+							</select> 
+							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' /> 
+							<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
+							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
+							<button class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
 					</div>
 				</div>
 
-				<div class='pull-right'>
-					<ul class='pagination'>
-						<c:if test="${pageMaker.prev}">
-							<li class='paginate_button previous'><a
-								href="${pageMaker.startPage-1 }">Previous</a></li>
-						</c:if>
-						<c:forEach var='num' begin='${pageMaker.startPage }'
-							end='${pageMaker.endPage }'>
-							<li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a
-								href="${num }">${num }|</a></li>
-						</c:forEach>
-						<c:if test="${pageMaker.next }">
-							<li class='paginate_button next'><a
-								href="${pageMaker.endPage+1 }">Next</a></li>
-						</c:if>
-					</ul>
-				</div>
-				<!--   페이지파트 -->
-
-				<form id="actionForm" action="/board/list" method="get">
-					<input type="hidden" name="pageNum"
-						value="${pageMaker.cri.pageNum }"> <input type="hidden"
-						name="amount" value="${pageMaker.cri.amount }"> <input
-						type="hidden" name="type" value="${pageMaker.cri.type }">
-					<input type="hidden" name="keyword"
-						value="${pageMaker.cri.keyword }">
-				</form>
+                   		<div align="right">
+                   		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>
+             		</div>
+          		</div>
 			</div>
-		</div>
-	</div>
-</div>
+			
+			
+         </div>
+     </div>
+</section><!-- Section End -->
+            
+	<!-- Pagination -->
+     
+    <div class="Pagination"> 
+    	<ul class="pagination justify-content-center">
+       		<c:if test="${pageMaker.prev}">
+				<li class='paginate_button previous'>
+				<a href="${pageMaker.startPage-1 }">Previous</a></li>
+			</c:if>
+          
+            <c:forEach var='num' begin='${pageMaker.startPage }' end='${pageMaker.endPage }'>
+				<li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}">
+				<a href="${num }">${num }|</a></li>
+			</c:forEach>
+          	
+          	<c:if test="${pageMaker.next }">
+				<li class='paginate_button next'>
+				<a href="${pageMaker.endPage+1 }">Next</a></li>
+			</c:if>
+       </ul>
+    </div>
+        
+    <form id="actionForm" action="/board/list" method="get">
+	    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+	    <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+	    <input type="hidden" name="type" value="${pageMaker.cri.type }">
+	   <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+	</form>
+          
+	<!-- End of Pagination -->
 
 <!-- 모달부분 주석 -->
 <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog"

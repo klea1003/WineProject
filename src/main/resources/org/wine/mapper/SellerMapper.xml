@@ -6,26 +6,25 @@
 		<result property="sellerNum" column="SELLER_NUM"/>
 		<result property="sellerId" column="SELLER_ID"/>
 		<result property="sellerStoreName" column="SELLER_STORENAME"/>
-		<result property="sellerContent" column="SELLER_CONTENT"/>
 		<result property="sellerPhoneNum" column="SELLER_PHONENUM"/>
 		<result property="sellerLocation" column="SELLER_LOCATION"/>
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerInfo">
-		SELECT * FROM TBL_SELLER_TEST WHERE SELLER_NUM > 0
+		SELECT * FROM TBL_SELLER WHERE SELLER_NUM > 0
 	</select>
 	
 	<select id="read" resultMap="sellerInfo" >
-		select * from TBL_SELLER_TEST where SELLER_NUM = #{sellerNum}
+		select * from TBL_SELLER where SELLER_NUM = #{sellerNum}
 	</select>
 	
 	<update id="update">
-	UPDATE tbl_seller_test SET SELLER_PHONENUM = #{sellerPhoneNum}, SELLER_LOCATION = #{sellerLocation} 
+	UPDATE tbl_seller SET SELLER_PHONENUM = #{sellerPhoneNum}, SELLER_LOCATION = #{sellerLocation} 
 	WHERE SELLER_NUM = #{sellerNum}
 	</update>
 	
 	<delete id="delete">
-		delete from tbl_seller_test where SELLER_NUM = #{sellerNum}
+		delete from tbl_seller where SELLER_NUM = #{sellerNum}
 	</delete>
 	
 </mapper>

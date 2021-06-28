@@ -42,30 +42,35 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                                                         
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="index.html">Wines</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">Grapes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Regions</a></li>
+                            <li class="nav-item"><a class="nav-link" href="pricing.html">Seller</a></li>
                             <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                             
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                                    <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
-                                    <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
-                                </ul>
-                            </li>
-                            
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                                    <li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>
-                                    <li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>
-                                </ul>
-                            </li>
-                            
-                        </ul>
+                       </ul>
+                        
+                    <div class="input-group-prepend">
+              			<button id="button-addon8" type="submit" class="btn btn-danger">
+              			<i class="bi bi-search"></i></button>
+            		</div>
+            		<input type="search" placeholder="Search any wine" aria-describedby="button-addon8" class="form-control" style="width: 200px;">
+						
                     </div>
+          
+          			<div class="dropdown text-end">
+			          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+			          </a>
+			          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+			            <li><a class="dropdown-item" href="#">My wines</a></li>
+			            <li><a class="dropdown-item" href="#">orders</a></li>
+			            <li><a class="dropdown-item" href="#">profiles</a></li>
+			            <li><a class="dropdown-item" href="#">Settings</a></li>
+			            <li><hr class="dropdown-divider"></li>
+			            <li><a class="dropdown-item" href="#">Log out</a></li>
+			          </ul>
+        			</div>
                  </div>
             </nav>
         </main>
@@ -73,8 +78,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-
-     	 <script src="/resources/wine_bootstrap/js/scripts.js"></script>
+		<script src="/resources/wine_bootstrap/js/scripts.js"></script>
 
         
   
