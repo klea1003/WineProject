@@ -12,6 +12,7 @@ var wineService = (function(){
 		
 	    var _wineTypeArr = [];     // 배열 초기화
 		var _wineGrapeArr = [];
+		var _wineRegionArr = [];
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
@@ -19,8 +20,11 @@ var wineService = (function(){
 
 		$("input[name='Grapes']:checked").each(function(i) {
 	    	_wineGrapeArr.push($(this).val()); 
-		})    
-
+		})
+		    
+		$("input[name='Region']:checked").each(function(i) {
+	    	_wineRegionArr.push($(this).val()); 
+		})
 
 		var actionForm = $("#actionForm");
 		var pageNum = actionForm.find("input[name='pageNum']").val();
@@ -28,6 +32,7 @@ var wineService = (function(){
 		console.log("pageNum", pageNum)  	    
 	    console.log("Wine Type", _wineTypeArr);
 		console.log("Wine Grape", _wineGrapeArr);
+		console.log("Wine Region", _wineRegionArr);
 
 	    
 	    $.ajax({
@@ -37,7 +42,9 @@ var wineService = (function(){
 	        , data: {
 				pageNum: pageNum,
 	        	wineTypeArr: _wineTypeArr,
-				wineGrapeArr: _wineGrapeArr}
+				wineGrapeArr: _wineGrapeArr,
+				wineRegionArr:_wineRegionArr
+				}
 				
 			, success : function(result, status, xhr) {
 				console.log("update wine List")
@@ -46,6 +53,8 @@ var wineService = (function(){
 				}
 			}
 	    });
+
+	};
 	
 
 	function requestTotalPageNum() {
@@ -53,12 +62,18 @@ var wineService = (function(){
 		
 	    var _wineTypeArr = [];     // 배열 초기화
 		var _wineGrapeArr = [];
+		var _wineRegionArr = [];
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
 	    })
+		
 		$("input[name='Grapes']:checked").each(function(i) {
-	    	_wineGrapeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	    	_wineGrapeArr.push($(this).val());     
+	    })
+		
+		$("input[name='Grapes']:checked").each(function(i) {
+	    	_wineRegionArr.push($(this).val());     
 	    })
 
 		var actionForm = $("#actionForm");
@@ -66,6 +81,8 @@ var wineService = (function(){
 			    
 	    console.log("Wine Type", _wineTypeArr);
 		console.log("Wine Grape", _wineGrapeArr);
+		console.log("Wine Region", _wineRegionArr);
+
 	    
 	    $.ajax({
 	        url: 'getTotalPageNum'
@@ -90,10 +107,7 @@ var wineService = (function(){
 		requestWineList : requestWineList,
 		requestTotalPageNum: requestTotalPageNum
 	};
-	
-	}
-
-});
+})();
 
 
 	
