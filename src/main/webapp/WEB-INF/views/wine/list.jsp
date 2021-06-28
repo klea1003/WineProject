@@ -46,6 +46,31 @@
 		<label><input type="checkbox" name="Region" value="Spain" /> Spain</label>				
 	</div><br>
 	
+	<!-- Searching Countries -->
+	<div> 
+		<label><input type="checkbox" name="Country" value="Argentina" /> Argentina</label>
+		<label><input type="checkbox" name="Country" value="Australia" /> Australia</label>
+		<label><input type="checkbox" name="Country" value="Austria" /> Austria</label>
+		<label><input type="checkbox" name="Country" value="Chile" /> Chile</label>
+		<label><input type="checkbox" name="Country" value="France" /> France</label>
+		<label><input type="checkbox" name="Country" value="Germany" /> Germany</label>
+		<label><input type="checkbox" name="Country" value="Italy" /> Italy</label>		
+		<label><input type="checkbox" name="Country" value="Portugal" /> Portugal</label>		
+		<label><input type="checkbox" name="Country" value="Spain" /> Spain</label>		
+		<label><input type="checkbox" name="Country" value="United States" /> United States</label>						
+	</div><br>
+	
+	<!-- Searching Wine Style -->
+	<div> 
+		<label><input type="checkbox" name="WineStyle" value="Australian Shiraz" /> Australian Shiraz</label>
+		<label><input type="checkbox" name="WineStyle" value="Argentinian Malbec" /> Argentinian Malbec</label>
+		<label><input type="checkbox" name="WineStyle" value="Californian Cabernet Sauvignon" /> Californian Cabernet Sauvignon</label>
+		<label><input type="checkbox" name="WineStyle" value="Central Italy Red" /> Central Italy Red</label>
+		<label><input type="checkbox" name="WineStyle" value="Spanish Red" /> Spanish Red</label>
+		<label><input type="checkbox" name="WineStyle" value="Spanish Rioja Red" /> Spanish Rioja Red</label>						
+	</div><br>
+	
+	
 	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->
@@ -143,7 +168,6 @@
 						str += list[i].grapes + "<br>"
 						str += list[i].region + "<br>"
 						str += list[i].country + "<br>"
-						str += list[i].wineStyle + "<br>"
 						str += list[i].price + "<br>"
 						str += "</p>"
 							

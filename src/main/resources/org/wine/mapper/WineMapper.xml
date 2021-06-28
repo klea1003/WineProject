@@ -64,6 +64,8 @@
 				<include refid="criteriaWineType"></include>
 				<include refid="criteriaWineGrape"></include>
 				<include refid="criteriaWineRegion"></include>
+				<include refid="criteriaWineCountry"></include>
+				<include refid="criteriaWineStyle"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -83,6 +85,9 @@
 				<include refid="criteriaWineType"></include>
 				<include refid="criteriaWineGrape"></include>
 				<include refid="criteriaWineRegion"></include>
+				<include refid="criteriaWineCountry"></include>
+				<include refid="criteriaWineStyle"></include>
+				
 			wine_num > 0)	
 	</select>
 
@@ -121,6 +126,30 @@
 				</foreach>
 			</trim>
 		</if>
-	</sql>	
+	</sql>
+	
+	<sql id="criteriaWineCountry">
+		<if test="wineCountryArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineCountry" collection="wineCountryArr">
+					<trim prefix="OR">
+						 Wine_Country like '%'||#{wineCountry}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineStyle">
+		<if test="wineStyleArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineStyle" collection="wineStyleArr">
+					<trim prefix="OR">
+						 WineStyle like '%'||#{wineStyle}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>				
 	
 </mapper>

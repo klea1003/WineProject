@@ -45,20 +45,26 @@ public class WineController {
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
-			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr
+			@RequestParam(value= "wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
+			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
+			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
 		
-		log.info("requestWineList pageNum: " + pageNum);
+		log.info("requestWineList pageNum: "  + pageNum);
 		log.info("requestWineList valueArr: " + wineTypeArr);
 		log.info("requestWineList valueArr: " + wineGrapeArr);
-		log.info("requestWineList valueArr: "+ wineRegionArr);
+		log.info("requestWineList valueArr: " + wineRegionArr);
+		log.info("requestWineList valueArr: " + wineCountryArr);
+		log.info("requestWineList valueArr: " + wineStyleArr);
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
 		cri.setWineRegionArr(wineRegionArr);
+		cri.setWineCountryArr(wineCountryArr);
+		cri.setWineStyleArr(wineStyleArr);
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
@@ -70,18 +76,24 @@ public class WineController {
 	public ResponseEntity<pageWineDTO> getTotalPageNum(
 			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
-			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr
+			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr,
+			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
+			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
 		
 		log.info("requestWineList valueArr: " + wineTypeArr);
 		log.info("requestWineList valueArr: " + wineGrapeArr);
-		log.info("requestWineList valueArr: "+ wineRegionArr);
+		log.info("requestWineList valueArr: " + wineRegionArr);
+		log.info("requestWineList valueArr: " + wineCountryArr);
+		log.info("requestWineList valueArr: " + wineStyleArr);
 		
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
 		cri.setWineRegionArr(wineRegionArr);
+		cri.setWineCountryArr(wineCountryArr);
+		cri.setWineStyleArr(wineStyleArr);
 		
 		int total = service.getTotal(cri);
 		log.info("total:" + total);

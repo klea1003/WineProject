@@ -177,6 +177,32 @@ public class WineMapperTests {
 		log.info(list);
 	}
 	
+	@Test
+	public void testWineCountryArr() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineCountryArr = new ArrayList<>(); 
+		wineCountryArr.add("France");
+		
+		cri.setWineCountryArr(wineCountryArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
 	
+	@Test
+	public void testWineStyleArr() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineStyleArr = new ArrayList<>(); 
+		wineStyleArr.add("Spanish Red");
+		
+		cri.setWineStyleArr(wineStyleArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
 	
 }
