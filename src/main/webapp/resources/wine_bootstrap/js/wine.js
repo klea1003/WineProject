@@ -16,9 +16,11 @@ var wineService = (function(){
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
 	    })
+
 		$("input[name='Grapes']:checked").each(function(i) {
-	    	_wineGrapeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
-	    })
+	    	_wineGrapeArr.push($(this).val()); 
+		})    
+
 
 		var actionForm = $("#actionForm");
 		var pageNum = actionForm.find("input[name='pageNum']").val();
@@ -26,6 +28,7 @@ var wineService = (function(){
 		console.log("pageNum", pageNum)  	    
 	    console.log("Wine Type", _wineTypeArr);
 		console.log("Wine Grape", _wineGrapeArr);
+
 	    
 	    $.ajax({
 	        url: 'requestWineList'
@@ -43,9 +46,8 @@ var wineService = (function(){
 				}
 			}
 	    });
-	    
-	}
 	
+
 	function requestTotalPageNum() {
 		console.log("request TotalPageNum....")
 		
@@ -89,7 +91,9 @@ var wineService = (function(){
 		requestTotalPageNum: requestTotalPageNum
 	};
 	
-})();
+	}
+
+});
 
 
 	

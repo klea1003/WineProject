@@ -21,6 +21,7 @@
 		<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
 		<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
 	</div><br>
+	
 	<!-- Searching Grapes -->
 	<div>
 		<label><input type="checkbox" name="Grapes" value="Cabernet Franc" /> Cabernet Franc</label>
@@ -32,7 +33,18 @@
 		<label><input type="checkbox" name="Grapes" value="Pinot Noir" /> Pinot Noir</label>
 		<label><input type="checkbox" name="Grapes" value="Riesling" /> Riesling</label>
 		<label><input type="checkbox" name="Grapes" value="Sauvignon Blanc" /> Sauvignon Blanc</label>
-	</div>
+	</div><br>
+	
+	<!-- Searching Regions -->
+	<div> 
+		<label><input type="checkbox" name="Region" value="Bordeaux" /> Bordeaux</label>
+		<label><input type="checkbox" name="Region" value="Bourgogne" /> Bourgogne</label>
+		<label><input type="checkbox" name="Region" value="Napa Valley" /> Napa Valley</label>
+		<label><input type="checkbox" name="Region" value="Piemonte" /> Piemonte</label>
+		<label><input type="checkbox" name="Region" value="Rhone Valley" /> Rhone Valley</label>
+		<label><input type="checkbox" name="Region" value="Toscana" /> Toscana</label>
+		<label><input type="checkbox" name="Region" value="Spain" /> Spain</label>				
+	</div><br>
 	
 	<input type="button" class="temp" value="search" style="width:100px" / >
 

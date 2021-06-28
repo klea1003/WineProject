@@ -44,7 +44,8 @@ public class WineController {
 	public ResponseEntity<List<WineVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
-			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr
+			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
+			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
@@ -52,10 +53,12 @@ public class WineController {
 		log.info("requestWineList pageNum: " + pageNum);
 		log.info("requestWineList valueArr: " + wineTypeArr);
 		log.info("requestWineList valueArr: " + wineGrapeArr);
+		log.info("requestWineList valueArr: "+ wineRegionArr);
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
+		cri.setWineRegionArr(wineRegionArr);
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
@@ -66,16 +69,19 @@ public class WineController {
 	@GetMapping(value = "/getTotalPageNum")
 	public ResponseEntity<pageWineDTO> getTotalPageNum(
 			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
-			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr
+			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
+			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
 		
 		log.info("requestWineList valueArr: " + wineTypeArr);
 		log.info("requestWineList valueArr: " + wineGrapeArr);
+		log.info("requestWineList valueArr: "+ wineRegionArr);
 		
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
+		cri.setWineRegionArr(wineRegionArr);
 		
 		int total = service.getTotal(cri);
 		log.info("total:" + total);

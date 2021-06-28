@@ -63,7 +63,7 @@
 				
 				<include refid="criteriaWineType"></include>
 				<include refid="criteriaWineGrape"></include>
-				
+				<include refid="criteriaWineRegion"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -81,7 +81,8 @@
 			SELECT COUNT(*) FROM (
 			    SELECT * FROM TBL_WINE_TEST WHERE ]]>
 				<include refid="criteriaWineType"></include>
-				<include refid="criteriaWineGrape"></include>	
+				<include refid="criteriaWineGrape"></include>
+				<include refid="criteriaWineRegion"></include>
 			wine_num > 0)	
 	</select>
 
@@ -109,5 +110,17 @@
 			</trim>
 		</if>
 	</sql>
-
+	
+	<sql id="criteriaWineRegion">
+		<if test="wineRegionArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineRegion" collection="wineRegionArr">
+					<trim prefix="OR">
+						 Wine_Regions like '%'||#{wineRegion}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>	
+	
 </mapper>
