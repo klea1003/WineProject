@@ -103,7 +103,7 @@
 	<!-- End of Pagination -->
 	
 
-	<%@include file="../includes/footer.jsp" %>
+	<%-- <%@include file="../includes/footer.jsp" %> --%>
 
 </body>
 
