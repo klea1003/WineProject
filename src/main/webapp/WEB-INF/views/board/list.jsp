@@ -108,13 +108,8 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5 my-5">
-         <div class="text-center mb-5">
-            <h1 class="fw-bolder">Frequently Asked Questions</h1>
-            <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
-         </div>
-            
-            <div class="row gx-5">
-               <div class="col-xl-8">
+         <div class="row">
+               <div>
                   <table class="table">
 					<thead>
 						<tr class="table">
@@ -177,25 +172,7 @@
           		</div>
 			</div>
 			
-			<!-- Contact us Card -->			
-            <div class="col-xl-4">
-                <div class="card border-0 mt-xl-5">
-                    <div class="card-body p-4 py-lg-5">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="text-center">
-                                <div class="h6 fw-bolder">Have more questions?</div>
-                             	<p class="text-muted mb-4">
-                                <div class="h6 fw-bolder">Contact us at</div>
-                                <a href="#!">youandmewine@domain.com</a>
-                                <br>
-                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;02-2021-0729</a>
-                                
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			
          </div>
      </div>
 </section><!-- Section End -->
