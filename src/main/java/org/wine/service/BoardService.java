@@ -23,6 +23,8 @@ public interface BoardService {
 	public int totalLike(Long boardNum);
 	
 	public List<BoardAttachVO> getAttachList(Long boardNum);
+	public List<Integer> likelist(List<BoardVO> getList);
+	public int readLike(BoardLikeVO boardLike);
 	
 	
 }

@@ -8,6 +8,7 @@
       checkModal(result);
       history.replaceState({},null,null);
       
+
       function checkModal(result){
          if(result ===''||history.state){
             return;
@@ -82,7 +83,7 @@
 			<div class="panel-body">
 			
 			
-				<table width="100%" class="table table-striped table-bordered table-hover">
+				<table style="width:100%" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>#번호</th>
@@ -95,7 +96,7 @@
 					</thead>
 					<tbody>
 
-						<c:forEach var="c" items="${boardlist}">
+						<c:forEach var="c" items="${boardlist}" varStatus="status">
 							<tr>
 								<td>${c.boardNum }</td>
 								 <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
@@ -103,9 +104,9 @@
 								<td>${c.boardType}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
-								<td>${c.like}</td>
+								<td>${likelist[status.index]}</td>
 							</tr>
-						</c:forEach>
+					</c:forEach>
 					</tbody>
 				</table>
 				
@@ -150,20 +151,18 @@
                   <a href="${pageMaker.startPage-1 }">Previous</a></li>
                   </c:if>
                   <c:forEach var='num' begin='${pageMaker.startPage }' end='${pageMaker.endPage }'>
-                     <li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a href="${num }">${num }</a>|</li>
+                     <li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}"><a href="${num }">${num }|</a></li>
                   </c:forEach>
                   <c:if test="${pageMaker.next }">
                   <li class='paginate_button next'><a href="${pageMaker.endPage+1 }">Next</a></li>
                   </c:if>
                </ul>
             </div>
-                
+              <!--   페이지파트 -->
              
            			<form id="actionForm" action="/board/list" method="get">
                <input type="hidden" name="pageNum"
                   value="${pageMaker.cri.pageNum }"> 
-                  <input type="hidden"
-                  name="amount" value="${pageMaker.cri.amount }">
                   <input type="hidden"
                   name="amount" value="${pageMaker.cri.amount }">
                      <input type="hidden"

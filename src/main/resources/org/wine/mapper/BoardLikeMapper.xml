@@ -13,7 +13,7 @@
   
   
   <select id="getTotalLike" resultType="int">
-  select sum(like_stack) from tbl_Board_Like where 
+  select nvl(sum(like_stack),0) from tbl_Board_Like where 
   board_Num =#{boardNum}
   </select>
   
@@ -24,13 +24,13 @@
   </select>
   
   <update id="update">
-  update tbl_Board_Like set like_stack = 1
-  where USER_ID=#{userID} 
+  update tbl_Board_Like set like_stack = 1 
+  where USER_ID=#{userID} and  board_NUM = #{boardNum}
   </update> 
   
   <update id="updateD">
   update tbl_Board_Like set like_stack = 0
-  where USER_ID=#{userID}
+  where USER_ID=#{userID} and  board_NUM = #{boardNum}
   </update> 
   
   <insert id="insert">

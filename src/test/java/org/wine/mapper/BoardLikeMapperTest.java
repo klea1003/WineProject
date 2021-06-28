@@ -41,11 +41,17 @@ public void testread() {
 
 @Test
 public void testUpdate() {
-	mapper.update("user000");
+	 BoardLikeVO like = new BoardLikeVO();
+	 like.setUserID("user000");
+	 like.setLikeNum(1L);
+	mapper.update(like);
 }
 @Test
 public void testUpdateD() {
-	mapper.updateD("user000");
+	 BoardLikeVO like = new BoardLikeVO();
+	 like.setUserID("user000");
+	 like.setLikeNum(1L);
+	mapper.updateD(like);
 }
 @Test
 public void testgettotal() {

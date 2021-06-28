@@ -1,5 +1,6 @@
 package org.wine.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.wine.domain.BoardAttachVO;
@@ -105,13 +106,12 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public int like(BoardLikeVO boardLike) {
-		String userId = boardLike.getUserID();
 		Long boardNum = boardLike.getBoardNum();
 		int read = likemapper.read(boardLike);
         if(read==0) {
         	likemapper.insert(boardLike);
         }else {
-        	likemapper.update(userId);
+        	likemapper.update(boardLike);
         }
         log.info(boardNum);
         return likemapper.getTotalLike(boardNum);
@@ -120,11 +120,10 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public int disLike(BoardLikeVO boardLike) {
-		String userId = boardLike.getUserID();
 		Long boardNum = boardLike.getBoardNum();
 		int read = likemapper.read(boardLike);
         if(read!=0) {
-        	likemapper.updateD(userId);
+        	likemapper.updateD(boardLike);
         }
         return likemapper.getTotalLike(boardNum);
 	}
@@ -133,5 +132,20 @@ public class BoardServiceImpl implements BoardService {
 	public int totalLike(Long boardNum) {
 		
         return likemapper.getTotalLike(boardNum);
+	}
+	@Override
+	public int readLike(BoardLikeVO boardLike) {
+	
+        return likemapper.read(boardLike);
+	}
+	
+	@Override
+	public List<Integer> likelist(List<BoardVO> getList) {
+		List<Integer> List = new ArrayList<Integer>();
+		 for(int i=0;i<getList.size();i++) {
+			 List.add(this.totalLike(getList.get(i).getBoardNum()));
+		 }
+		
+        return List;
 	}
 }

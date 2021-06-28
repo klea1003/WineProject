@@ -184,10 +184,7 @@
                      showList(1);  
                   });
                   
-                  $("#like_button").click(function(){
-                      $("#like_form").attr("action", "/board/like");
-                      $("#like_form").submit();
-                  });
+                 
                   
                 /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
                   $(document).ajaxSend(function(e,xhr,options){
@@ -433,7 +430,7 @@
             
             <button class='btn btn-success' data-oper='modify'>Modify</button>
             <button class='btn btn-primary' data-oper='list'>List</button>
-            
+            <div>${like}</div>
             <form id='operForm' action='/board/modify' method='get'>
                <input type='hidden' id='boardNum' name='boardNum'
                   value='<c:out value="${board.boardNum }" />'> <input
@@ -444,14 +441,22 @@
                   type="hidden" name="type" value="${cri.type }"> <input
                   type="hidden" name="keyword" value="${cri.keyword }">
             </form>
-             <form id='operForm' action='/board/like' method='post'>
+            
+           <form id='operForm' action='/board/like' method='post'>
                <input type='hidden' id='boardNum' name='boardNum'
                   value='<c:out value="${board.boardNum }" />'> 
                <input type='hidden' id='userID' name='userID'
                   value='<c:out value="user000"/>'> 
                 <input type='submit'
-                  value='좋아요'>
-                  
+                  value='좋아요'>            
+            </form>
+            <form id='operForm' action='/board/dislike' method='post'>
+               <input type='hidden' id='boardNum' name='boardNum'
+                  value='<c:out value="${board.boardNum }" />'> 
+               <input type='hidden' id='userID' name='userID'
+                  value='<c:out value="user000"/>'> 
+                <input type='submit'
+                  value='싫어요'>            
             </form>
 
             <!-- /.table-responsive -->

@@ -8,8 +8,8 @@ import org.wine.domain.Criteria;
 public interface BoardLikeMapper {
 	
 	 public void insert(BoardLikeVO boardLike);
-	 public void update(String userID);
-	 public void updateD(String userID);
+	 public void update(BoardLikeVO boardLike);
+	 public void updateD(BoardLikeVO boardLike);
 	 public int getTotalLike(Long boardNum);
 	 public int read(BoardLikeVO like);
 	 
