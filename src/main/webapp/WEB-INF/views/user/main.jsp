@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome BookMall</title>
-<link rel="stylesheet" href=/resources/user_bootstrap/css/yoseptest.css">
+<link rel="stylesheet" href="/resources/wine_bootstrap/css/yoseptest.css">
 <style type="text/css">
 .login_success_area{
     height: 62%;
@@ -50,6 +50,7 @@
 					<!-- 로그인한 상태 -->
 					<c:if test="${ user != null }">
 						<div class="login_success_area">
+						<span>번호 : ${user.userNum}</span>
                         <span>닉네임 : ${user.userNickName}</span>
                         <span>실명 : ${user.userRealName}</span>
                         <span>핸드폰번호 : ${user.userPhoneNum}</span>
@@ -63,6 +64,7 @@
 			</div>
 			<div class="content_area">
 				<h1>content area</h1>
+				<span><a href="/user/userlist">리스트</a></span>
 			</div>
 		</div>
 	</div>

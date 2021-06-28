@@ -3,12 +3,13 @@ package org.wine.domain;
 import lombok.Data;
 
 @Data
-public class WineProductVO {
+public class OrderDetailVO {
 	
-	private Long wineProductNum;
+	private Long orderDetailNum;
+	private Long orderNum;
 	private String sellerId;
 	private Long wineNum;
-	private Long winePrice;
-	private Long wineQty;
+	private int cartQty;
+	
 
 }

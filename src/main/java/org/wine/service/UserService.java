@@ -1,11 +1,16 @@
 package org.wine.service;
 
+import java.util.List;
+
 import org.wine.domain.UserVO;
 
 public interface UserService {
 		
-		
+		public List<UserVO> getList();
+	
 		public void join(UserVO user);
+		
+		public UserVO get(Long userNum);
 		
 		public int idCheck(String userId);
 		

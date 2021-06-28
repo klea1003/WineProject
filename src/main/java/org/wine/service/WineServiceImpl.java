@@ -3,7 +3,7 @@ package org.wine.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 
@@ -34,15 +34,15 @@ public class WineServiceImpl implements WineService {
 	}
 
 	@Override
-	public List<WineVO> getList(Criteria cri) {
+	public List<WineVO> getList(CriteriaWine cri) {
 		
-		log.info("get List with Criteria: "+ cri);
+		log.info("get List with CriteriaWine: "+ cri);
 		
 		return mapper.getListWithPaging(cri);
 
 	}
 	@Override
-	public int getTotal(Criteria cri) {
+	public int getTotal(CriteriaWine cri) {
 		
 		log.info("get total count");
 		return mapper.getTotalCount(cri);

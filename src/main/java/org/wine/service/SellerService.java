@@ -6,8 +6,6 @@ import org.wine.domain.SellerVO;
 
 public interface SellerService {
 	
-	public void register(SellerVO seller);
-	
 	public SellerVO get(Long sellerNum);
 	
 	public boolean modify(SellerVO seller);

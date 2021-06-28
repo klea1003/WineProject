@@ -59,9 +59,13 @@
 			    SELECT /*+INDEX_DESC(TBL_WINE_TEST_PK_WINE)*/ ROWNUM RN,WINE_NUM,WINE_TITLE,
 			    WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
 				WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME
-			    FROM TBL_WINE_TEST WHERE ROWNUM <= #{pageNum}*#{amount})
-			WHERE RN> (#{pageNum} -1)* #{amount}
-		 ]]>
+			    FROM TBL_WINE_TEST WHERE  ]]>
+				
+				<include refid="criteriaWineType"></include>
+				
+				<![CDATA[rownum <= #{pageNum}*#{amount})
+			where rn>(#{pageNum}-1)*#{amount}]]>
+		
 	</select>
 	
 	<select id ="getTotalCount" resultType="int"> 
@@ -69,5 +73,17 @@
 		select count(*) from tbl_wine_test where wine_num > 0
 		]]>
 	</select>
+
+	<sql id="criteriaWineType">
+		<if test="wineTypeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineType" collection="wineTypeArr">
+					<trim prefix="OR">
+						wineType = #{wineType}		
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
 
 </mapper>

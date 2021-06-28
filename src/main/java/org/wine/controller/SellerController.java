@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.SellerVO;
 import org.wine.service.SellerService;
+import org.wine.service.WineProductService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -20,6 +21,7 @@ import lombok.extern.log4j.Log4j;
 public class SellerController {
 	
 	private SellerService service;
+	private WineProductService productService;
 	
 	@GetMapping("/list")
 	public void list(Model model){
@@ -29,24 +31,14 @@ public class SellerController {
 		model.addAttribute("list", service.getList());
 		
 	}
-	
-	@PostMapping("/register")
-	public String register(SellerVO seller, RedirectAttributes rttr){
-		
-		log.info("register: " + seller);
-		
-		service.register(seller);
-		
-		rttr.addFlashAttribute("result", seller.getSellerNum());
-		
-		return "redirect:/seller/list";
-	}
 
-	@GetMapping("/get") public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
+	@GetMapping("/get") 
+	public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
 		  
 		  log.info("/get");
 		  
 		  model.addAttribute("seller", service.get(sellerNum));
+		  model.addAttribute("product", productService.get(sellerNum));
 		  
 	}
 	
