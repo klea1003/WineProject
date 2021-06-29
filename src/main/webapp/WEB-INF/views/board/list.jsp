@@ -173,9 +173,6 @@
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
 							<button class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
-					</div>
-				</div>
-
                    		<div align="right">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>
              		</div>
@@ -193,18 +190,18 @@
     	<ul class="pagination justify-content-center">
        		<c:if test="${pageMaker.prev}">
 				<li class='paginate_button previous'>
-				<a href="${pageMaker.startPage-1 }">Previous</a></li>
+				<a class="page-link" href="${pageMaker.startPage-1 }">Previous</a></li>
 			</c:if>
           
             <c:forEach var='num' begin='${pageMaker.startPage }' end='${pageMaker.endPage }'>
-				<li class="paginate_button ${pageMaker.cri.pageNum==num?"active":""}">
-				<a href="${num }">${num }|</a></li>
+				<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : "" } ">
+						<a class="page-link" href='${num}'>${num}</a></li>
 			</c:forEach>
           	
           	<c:if test="${pageMaker.next }">
-				<li class='paginate_button next'>
-				<a href="${pageMaker.endPage+1 }">Next</a></li>
-			</c:if>
+				<li class="page-item next">
+          		<a class="page-link" href="${pageMaker.endPage+1 }">Next</a></li>
+          	</c:if>
        </ul>
     </div>
         
