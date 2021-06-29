@@ -32,7 +32,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/user/*")
+@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*"})
 @AllArgsConstructor
 public class UserController {
 
@@ -128,14 +128,15 @@ public class UserController {
 	}
 
 	@PostMapping("/join")
-	public String join(UserVO user, RedirectAttributes rttr) {
+	public String join(@RequestParam("path") String path,UserVO user, RedirectAttributes rttr) {
 		log.info("join : " + user);
 
 		service.join(user);
 
 		rttr.addFlashAttribute("result", user.getUserNum());
-
-		return "redirect:/user/login";
+		
+		log.info(path);
+		return  "redirect:"+ path;
 	}
 
 	@ResponseBody
