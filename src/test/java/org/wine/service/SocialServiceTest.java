@@ -31,7 +31,7 @@ public class SocialServiceTest {
 	public void testFollowing() {
 		SocialVO social = new SocialVO();
 		social.setUserFollowingId(1L);
-		social.setUserFollowerId("test");
+		social.setUserFollowerId(3L);
 		service.following(social);
 		log.info(social);
 	
@@ -41,7 +41,7 @@ public class SocialServiceTest {
 	public void testunFollowing() {
 		SocialVO social = new SocialVO();
 		social.setUserFollowingId(1L);
-		social.setUserFollowerId("test");
+		social.setUserFollowerId(3L);
 		service.unfollowing(social);
 	
 		//service.unfollowing("test","test");
@@ -57,12 +57,12 @@ public class SocialServiceTest {
 	@Test 
 	public void testgetCountByFollower() {
 		
-	service.getCountByFollower(9L);
+	service.getCountByFollower(3L);
 	}
 	
 	@Test 
 	public void testgetCountByFollowing() {
 		
-	service.getCountByFollowing("yosep");
+	service.getCountByFollowing(3L);
 	}
 }

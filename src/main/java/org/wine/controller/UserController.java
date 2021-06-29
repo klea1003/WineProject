@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.ProfileVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.service.SocialService;
@@ -59,9 +60,9 @@ public class UserController {
 		model.addAttribute("userlist", service.getList());
 
 	}
-
+	
 	@GetMapping({ "/userpage" })
-	public void get(@RequestParam("userNum") Long userNum,String userFollowerId, Model model) {
+	public void get(@RequestParam("userNum") Long userNum ,UserVO user,Model model) {
 
 		log.info("userpage ");
 
@@ -69,12 +70,27 @@ public class UserController {
 		
 		model.addAttribute("followck", socialservice.followingBtn(userNum));
 		
+		int followercnt = socialservice.getCountByFollower(userNum);
 		
+		model.addAttribute("followercnt",followercnt);
 		
-		log.info("social ");
+		int followingcnt = socialservice.getCountByFollowing(userNum);
+		
+		model.addAttribute("followingcnt",followingcnt);
+		
 	}
-
 	
+	@PostMapping({ "/userpage" })
+	public String register(UserVO user,RedirectAttributes rttr) {
+		log.info("test");
+		if(user.getProfileList() !=null) {
+			user.getProfileList().forEach(attach ->log.info(attach));
+		}
+		
+		service.register(user);
+		rttr.addFlashAttribute("result",user.getUserNum());
+		return "redirect:/user/userlist";
+	}
 	
 	@GetMapping("/login")
 	public void login() {
@@ -87,15 +103,18 @@ public class UserController {
 
 		HttpSession session = request.getSession();
 		UserVO lvo = service.userLogin(user);
-
+		
+		
+		
+				
 		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
-			return "redirect:/user/login";
+			log.info(result);
+			return "redirect:/user/main";
 
 		}
-
 		session.setAttribute("user", lvo);
 
 		return "redirect:/user/main";

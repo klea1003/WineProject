@@ -26,7 +26,7 @@ var socialService = (function() {
 	
 	function remove(social, callback,error) {
 
-		console.log(" add social.........");
+		console.log(" remove social.........");
 
 		$.ajax({
 			type: 'post',

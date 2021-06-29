@@ -2,6 +2,7 @@ package org.wine.service;
 
 import java.util.List;
 
+
 import org.wine.domain.UserVO;
 
 public interface UserService {
@@ -17,4 +18,6 @@ public interface UserService {
 		public int nicknameCheck(String userNickName);
 		
 		public UserVO userLogin(UserVO user);
+		
+		public void register(UserVO user);
 }
