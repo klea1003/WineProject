@@ -182,8 +182,7 @@ body.modal-open {
 
             
         $("#modal_show_join").click(function() {
-           	$('body').css("overflow", "hidden");
-            $("#joinModal").modal("show");
+           $("#joinModal").modal("show");
             
         });
         $("#modal_show_logintojion").click(function() {
@@ -329,7 +328,9 @@ body.modal-open {
 									</a> <a href="index.html"
 										class="btn btn-facebook btn-user btn-block">  Login with Facebook
 									</a>
-								</form>
+									<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" /> 
+          							 <input type='hidden' name='path' value="<c:out value='${path}'/>">
+									</form>
 								<hr>
 								<div class="text-center">
 								 <a class="small" id="modal_show_logintojion">Create an Account!</a>

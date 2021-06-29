@@ -99,26 +99,26 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+	public String loginPOST(@RequestParam("path") String path,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
 
 		HttpSession session = request.getSession();
 		UserVO lvo = service.userLogin(user);
 		
 		
 		
-				
+		log.info("path :"+path);
+		
 		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
 			log.info(result);
-			return "redirect:/user/main";
+			return  "redirect:"+ path;
 
 		}
 		session.setAttribute("user", lvo);
 
-		return "redirect:/user/main";
-
+		return  "redirect:"+ path;
 	}
 
 	@GetMapping("/join")
