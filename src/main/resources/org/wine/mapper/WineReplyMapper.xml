@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WineReplyMapper">
+
+<resultMap type="org.wine.domain.WineReplyVO" id="winereplyinfo">
+  <result property="rno" column="rno"/>
+  <result property="wno" column="WINE_NUM"/>
+  <result property="replyer" column="REPLYER"/>
+  <result property="reply" column="REPLY"/>
+  <result property="replyDate" column="REPLYDATE"/>
+  <result property="replyStar" column="REPLY_STAR"/>
+ </resultMap>
+
+
+ <select id="getMost" resultType="Long">
+ select rno from TBL_WINE_REPLY_test a left outer join TBL_REPLY_LIKE b
+ on a.rno=b.rno group by a.rno where wno = #{wno} order by sum(b.like_stack) desc;
+ </select>
+  
+  <select id="getList5" resultMap="winereplyinfo">
+ <![CDATA[ select*from
+ (select*from TBL_WINE_REPLY_test where wno = #{wno})
+ where rownum<=5]]>
+  </select>
+  
+  <select id="getListAll" resultMap="winereplyinfo">
+  select*from TBL_WINE_REPLY_test where wno = #{wno} 
+  </select>
+  
+  <select id="read" resultMap="winereplyinfo">
+  select*from TBL_WINE_REPLY_test where rno=#{rno} 
+  </select>
+  
+  <insert id="insert">
+  insert into TBL_WINE_REPLY_test(rno, WINE_NUM, REPLYER, REPLY, REPLY_STAR)
+  values(seq_board.nextval, #{wno}, #{replyer}, #{reply}, #{replyStar})
+  </insert>
+  
+  <update id="update">
+  update TBL_WINE_REPLY_test set  REPLY=#{reply}, REPLY_STAR=#{replyStar}}
+  where rno=#{rno}
+  </update>
+  
+  <delete id="delete">
+  delete from TBL_WINE_REPLY_test where rno=#{rno}
+  </delete>
+  
+  <select id="getTotalCount" resultType="int">
+  select count(*) from TBL_WINE_REPLY_test where 
+  wno = #{wno}
+  </select>
+  
+  <select id="getTotalStar" resultType="double">
+  select avg(REPLY_STAR) from TBL_WINE_REPLY_test where 
+  wno = #{wno}
+  </select>
+  
+  <select id="getFromStar" resultType="winereplyinfo">
+  select * from TBL_WINE_REPLY_test where 
+  wno = #{wno} and REPLY_STAR = #{replyStar}
+  </select>
+ 
+  
+  
+ 
+</mapper>

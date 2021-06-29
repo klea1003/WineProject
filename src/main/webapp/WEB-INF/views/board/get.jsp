@@ -174,14 +174,14 @@
                   
                   //새로운 댓글 등록 버튼 클릭 시
                   $("#addReplyBtn").on("click",function(e){
-                	  alert('test')
+
                       modal.find("input").val(""); 
                      /* modal.find("input[name='replyer']").val(replyer); 시큐리티*/
                       modalInputReplyDate.closest("div").hide();
                      modal.find("button[id !='modalCloseBtn']").hide();
                      modalRegisterBtn.show();
                      $(".modal").modal("show");
-                     showList(1);  
+                    /*  showList(1);  */ 
                   });
                   
                  
@@ -195,7 +195,8 @@
                   modalRegisterBtn.on("click",function(e){
                            var reply ={
                                  reply:modalInputReply.val(),
-                                 replyer:modalInputReplyer.val(),
+                                 replyer:modalInputReply.val(),
+                                 /* replyer:modalInputReplyer.val(), */ 
                                  boardNum:boardNumValue
                            };
                            replyService.add(reply,function(result){
@@ -228,7 +229,7 @@
                    /*   var originalReplyer = modalInputReplyer.val(); */
                      var reply={rno:modal.data("rno"), 
                            reply:modalInputReply.val()
-                           /* ,replyer:originalReplyer */}
+                           /*  ,replyer:originalReplyer */ }
                     /*  if(!replyer){
                         alert("로그인 후 수정 가능")
                         modal.modal("hide")
@@ -241,10 +242,10 @@
                         return
                      } 시큐리티 기능*/
                      replyService.update(reply,function(result){
-                        alert(result)
-                        modal.modal("hide")
-                        showList(pageNum)
-                     })
+                        alert(result);
+                        modal.modal("hide");
+                        showList(pageNum);
+                     });
                   });
                 //삭제
                   modalRemoveBtn.on("click", function(e){

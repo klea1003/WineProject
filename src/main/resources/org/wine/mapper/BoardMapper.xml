@@ -15,7 +15,7 @@
 
 
   <select id="getList" resultMap="boardinfo">
-  select*from tbl_Board_Test where board_Num > 0
+  select*from tbl_Board_Test where board_Num > 0 order by board_num desc
   </select>
   
   <select id="read" resultMap="boardinfo">
@@ -51,7 +51,7 @@
 	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
 	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
 	board_Read_Count,replycnt
-	from tbl_Board_Test
+	from (select*from tbl_Board_Test order by board_num desc) 
 	where ]]> 
 	
 	<include refid="criteria"></include>
