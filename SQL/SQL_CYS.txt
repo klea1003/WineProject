@@ -24,4 +24,13 @@ from tbl_social_test
 where user_following_id = 2;
 -- 팔로워 수
 
+create table tbl_profile_test(
+profile_uuid varchar2(100) not null,
+profile_uploadPath varchar2(200) not null,
+profile_fileName varchar2(100) not null,
+profile_filetype char(1) DEFAULT 'I',
+user_num number
+);
+
+drop table tbl_profile_test;
 

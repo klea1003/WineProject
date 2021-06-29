@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wine.domain.UserVO;
+import org.wine.mapper.UserAttachMapper;
 import org.wine.mapper.UserMapper;
 
 import lombok.Setter;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserAttachMapper attachMapper;
 
 	@Override
 	public List<UserVO> getList() {
@@ -56,6 +60,32 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		log.info("get...."+userNum);
 		return mapper.read(userNum);
+	}
+
+	@Override
+	public void register(UserVO user) {
+		// TODO Auto-generated method stub
+		if(user.getProfileList() == null||user.getProfileList().size()<=0) {
+			log.info("return");
+			return;
+		}
+		log.info(user.getProfileList().get(0).getProfileFileName());
+		user.getProfileList().forEach(attach->{
+		log.info("attachtest");
+		
+		log.info("usernum"+attach.getUserNum());
+		log.info("filename"+attach.getProfileFileName());
+		log.info("path"+attach.getProfileUploadPath());
+		log.info("uuid"+attach.getProfileUuid());
+		log.info("type"+attach.isProfileFileType());
+		
+		log.info(attach);
+		
+		
+		
+		attachMapper.insert(attach);
+		
+		});
 	}
 
 }

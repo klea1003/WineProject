@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.wine.domain.SocialVO;
 import org.wine.mapper.SocialMapper;
 
-
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -16,7 +15,6 @@ public class SocialServiceImpl implements SocialService {
 	@Setter(onMethod_ = @Autowired)
 	private SocialMapper mapper;
 
-	
 
 	@Override
 	public int following(SocialVO social) {
@@ -60,17 +58,7 @@ public class SocialServiceImpl implements SocialService {
 	   return mapper.getCountByFollowing(userFollowerId);
 	}
 
-
-
-
-	
-//	@Override
-//	public int unfollowing(String userFollowingId,String userFollowerId) {
-//		// TODO Auto-generated method stub네
-//		log.info("userFollowingId : "+ userFollowingId);
-//		log.info("userFollowerId : "+ userFollowerId);
-//
-//		return mapper.unfollowing(userFollowingId,userFollowerId);
-//	}
-
 }
+
+
+

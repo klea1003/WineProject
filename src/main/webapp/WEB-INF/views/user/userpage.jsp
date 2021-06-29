@@ -12,12 +12,6 @@
 <script type= "text/javascript" src="/resources/wine_bootstrap/js/social.js"></script>
 
 <script type="text/javascript">
-
-console.log("============");
-console.log("JS TEST");
-
-
-
 /* 테스트용 socialService.add(
 		
 		{userFollowingId:"test" , userFollowerId:"test"}
@@ -40,7 +34,6 @@ $(document).ready(function() {
 	var unfollowBtn = $("#unfollowBtn");
 	
 	followingBtn.on("click", function(e){
-		alert('clickfollowing')
 		var social = {
 			userFollowingId:"${userpage.userNum }",
 			userFollowerId:"${user.userNum}"
@@ -49,7 +42,7 @@ $(document).ready(function() {
 		if(${user != null}){
 			if("${user.userId}" != "${userpage.userId }"){
 				socialService.add(social,function(result){
-					alert(result);
+					location.reload();
 				})
 			}else{
 				alert('자기 자신을 팔로잉 할 수 없습니다.')
@@ -63,20 +56,138 @@ $(document).ready(function() {
 	
 	
 	unfollowBtn.on("click", function(e){
-		alert('click')
 		var social = {
 			userFollowingId:"${userpage.userNum }",
 			userFollowerId:"${user.userNum}"
 			};
 		if("${user.userId}" != "${userpage.userId }"){
 		socialService.remove(social,function(result){
-			alert(result);
+			location.reload();
 		})
 		}else{
-			alert('자기 자신을 팔로잉 할수 없는다.')
+			alert('자기 자신을 팔로잉 할수 없습니다.')
 		}
 	})
-});
+	
+	/* 파일 업로드 영역  */
+	$("button[type='submit']").on("click",function(e){
+		
+	e.preventDefault()
+		
+	console.log("submit clocked")
+	
+	});
+	
+	var formObj=$("form[role='form']")
+	
+	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
+	
+    var maxSize = 5242880;
+    
+	var cloneObj = $(".uploadDiv").clone()
+	
+      function checkExtension(fileName, fileSize) {
+         if (fileSize >= maxSize) {
+            alert("파일 크기 초과")
+            return false
+            }
+         if (regex.test(fileName)) {
+            alert("해당 종류의 파일은 업로드 할 수 없음")
+            return false
+            }
+         return true;
+      }
+	
+	 $("input[type='file']").change(function(e){
+         var formData = new FormData()
+         var inputFile = $('input[name="uploadFile"]')
+         var files = inputFile[0].files
+         console.log(files);
+         for (var i = 0; i < files.length; i++) {
+            if (!checkExtension(files[i].name,   files[i].size)) {
+               return false;
+               }
+         formData.append("uploadFile",files[i])
+         }
+         $.ajax({
+             url : '/userupload/uploadAjaxAction',
+             processData : false, /* 전달한 데이터틑 query string으로 만들지 말것 */
+             contentType : false,
+             data : formData,
+             type : 'POST',
+             dataType : 'json',
+             success : function(result) {
+                console.log(result)
+                showUploadedFile(result)
+       
+                 }
+          }); //$.ajax
+	 }); //input change
+	 
+	  function showUploadedFile(uploadResultArr) {
+	         if(!uploadResultArr||uploadResultArr.length==0){return}
+	         var uploadUL=$(".uploadResult ul")
+	         var str = ''
+	         $(uploadResultArr).each(function(i, obj) {
+	            if (obj.image) {
+	            	var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);	                         
+	            	str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
+	                str +="<span>" +obj.fileName+ "</span>"
+	                str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
+	                str +="<img src='/userupload/display?fileName="+fileCallPath+"'>"
+	                str +="</div></li>"
+	            } else {
+	            	var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
+	                var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+	                str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
+	                str +="<span>" + obj.fileName + "</span>"
+	                   str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
+	                   str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
+	                   str +="</div></li>"
+	            }
+	         })
+	         uploadUL.append(str)
+	      }
+	 
+	  $(".uploadResult").on("click", "button", function(e){
+		 
+		  console.log("delete file");    
+		  
+		  var targetFile=$(this).data("file")
+	         var type=$(this).data("type")
+	         var targetLi=$(this).closest("li")
+	         console.log(targetFile)
+	         $.ajax({
+	            url:'/userupload/deleteFile',
+	            data: {fileName: targetFile, type: type},
+	            dataType: 'text',
+	            type: 'post',
+	            success: function(result){
+	               alert(result)
+	               targetLi.remove()   
+	            }
+	         })  // $ajax
+	      })
+	  
+	 
+	  var formObj=$("form[role='form']")
+      $("button[type='submit']").on("click",function(e){
+         e.preventDefault()
+         console.log("submit clocked")
+         var str =""
+         $(".uploadResult ul li").each(function(i, obj){
+            var jobj=$(obj)
+            console.dir(jobj)
+           str +="<input type='hidden' name='profileList["+i+"].userNum' value='${user.userNum}'>"
+            str +="<input type='hidden' name='profileList["+i+"].profileFileName' value='"+jobj.data("filename")+"'>"
+            str +="<input type='hidden' name='profileList["+i+"].profileUuid' value='"+jobj.data("uuid")+"'>"
+            str +="<input type='hidden' name='profileList["+i+"].profileUploadPath' value='"+jobj.data("path")+"'>"
+            str +="<input type='hidden' name='profileList["+i+"].profileFileType' value='"+jobj.data("type")+"'>"
+         })
+         formObj.append(str).submit()
+      }) //파일 보내기
+      
+});  //document ready function
 
 </script>
 
@@ -97,6 +208,32 @@ $(document).ready(function() {
     text-align: left;
     
 } 
+
+.uploadResult {
+   width: 100%;
+   background-color: #ddd;
+}
+
+.uploadResult ul {
+   display: flex;
+   flex-flow: row;
+   justify-content: center;
+   align-items: center;
+}
+
+.uploadResult ul li {
+   list-style: none;
+   padding: 5px;
+}
+
+.uploadResult ul li img {
+   width: 400px;
+}
+
+.uploadResult ul li span {
+   color: white;
+}
+
 </style>
 
 
@@ -140,6 +277,39 @@ $(document).ready(function() {
             <section class="py-5 bg-light">
                 <div class="container px-5">
                     <div class="row gx-5">
+                        <div class="col-xl-4">
+                            <div class="card border-0 h-100">
+                                <div class="card-body p-4">
+                                    <div class="d-flex h-100 align-items-center justify-content-center">
+                                        <div class="text-center">
+                                            <div class="h6 fw-bolder">SNS
+                                             <form role="form" action="/user/userpage" method="post">
+                                         
+              								  <div class='form-group uploadDiv'>
+								              <input type='file' name='uploadFile' multiple>
+								           	  </div>
+           									  <button type='submit' class='btn btn-default'>Submit</button>
+           									  </form>
+           									  
+              								 <div class='uploadResult'>
+								               <ul></ul>
+								            </div>
+           									 </div>
+                                            <p class="text-muted mb-4">
+                                            <br/>
+                                            </p>
+                                            <div class="h6 fw-bolder">Following &nbsp;&nbsp;<c:out value='${followingcnt}'/> </div> 
+                                            <div class="h6 fw-bolder">Follower &nbsp;&nbsp; <c:out value='${followercnt}'/> </div>  
+                                            <br/>
+                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
+                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>
+                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a>
+                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xl-8">
                             <h2 class="fw-bolder fs-5 mb-4">Board News</h2>
                             <!-- News item-->
@@ -164,27 +334,7 @@ $(document).ready(function() {
                                 </a>
                             </div>
                         </div>
-                        <div class="col-xl-4">
-                            <div class="card border-0 h-100">
-                                <div class="card-body p-4">
-                                    <div class="d-flex h-100 align-items-center justify-content-center">
-                                        <div class="text-center">
-                                            <div class="h6 fw-bolder">SNS</div>
-                                            <p class="text-muted mb-4">
-                                            <br/>
-                                            </p>
-                                            <div class="h6 fw-bolder">Following &nbsp;&nbsp;<c:out value='${followingcnt}'/> </div> 
-                                            <div class="h6 fw-bolder">Follower &nbsp;&nbsp; <c:out value='${followercnt}'/> </div>  
-                                            <br/>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    
                     </div>
                 </div>
             </section>
