@@ -135,11 +135,11 @@
 	margin-top: 10%;
 	
 }
-/* body.modal-open {
+body.modal-open {
     overflow: hidden;
     position:fixed;
     width: 100%;
-} */
+}
 </style>
 <link href="/resources/wine_bootstrap/css/all.min.css" rel="stylesheet"	type="text/css">    <!-- 로그인, 회원가입 css -->
 
@@ -168,20 +168,20 @@
             
             
         $("#modal_show_join").click(function() {
-          	 //$("#loginModal").modal("hide");
-        	//$('body').css("overflow", "hidden");
+          	//$("#loginModal").modal("hide");
+        	$('body').css("overflow", "hidden");
             $("#joinModal").modal("show");
             
         });
         $("#modal_show_logintojion").click(function() {
         	$("#loginModal").modal("hide");
-        	//$('body').css("overflow", "hidden");
+        	$('body').css("overflow", "hidden");
             $("#joinModal").modal("show");
             
         });
         $("#modal_show_jointologin").click(function() {
            	 $("#joinModal").modal("hide");
-        	//$('body').css("overflow", "hidden");
+        	$('body').css("overflow", "hidden");
             $("#loginModal").modal("show");
             
         });
