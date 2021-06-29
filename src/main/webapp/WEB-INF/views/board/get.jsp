@@ -1,58 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> --%>
+<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> --%>
 
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <script src="/resources/js/reply.js"></script>
 <style>
 .uploadResult {
-   width: 100%;
-   background-color: #ddd;
+	width: 100%;
+	background-color: #ddd;
 }
 
 .uploadResult ul {
-   display: flex;
-   flex-flow: row;
-   justify-content: center;
-   align-items: center;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .uploadResult ul li {
-   list-style: none;
-   padding: 10px;
+	list-style: none;
+	padding: 10px;
 }
 
 .uploadResult ul li img {
-   width: 20px;
+	width: 20px;
 }
 
 .uploadResult li span {
-   color: white;
+	color: white;
 }
 
 .bigPictureWrapper {
-   position: absolute;
-   display: none;
-   justify-content: center;
-   align-items: center;
-   top: 0%;
-   width: 100%;
-   height: 100%;
-   background-color: gray;
-   z-index: 100;
-   background: rgba(255, 255, 255, 0.5);
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
 }
 
 .bigPicture {
-   position: relative;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .bigPicture img {
-   width: 400px;
+	width: 400px;
 }
 </style>
 <script type="text/javascript">
@@ -317,9 +317,7 @@
                       var str=''
                       $(arr).each(function(i,obj){
                          if (!obj.fileType) {
-                           var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
-                           /* str += "<li><div><a href='/download?fileName="+ fileCallPath+ "'><img src='/resources/images/attach.png'>"+ obj.fileName
-                              + "</a><span data-file=\""+fileCallPath+"\" data-type='file'>X</span></div></li>" */
+                           var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);              
                               str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>"
                               str +="<img src='/resources/images/attach.png'>"
                               str +="</div></li>"
@@ -328,8 +326,6 @@
                               var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
                               var originPath = obj.uploadPath   + "/"+ obj.uuid+ "_"+ obj.fileName
                               originPath = originPath.replace(new RegExp(/\\/g),"/")
-                              /* str += "<li><a href=\"javascript:showImage(\'"+ originPath+ "\')\"><img src='/display?fileName="+ fileCallPath
-                                    + "'></a><span data-file=\""+fileCallPath+"\" data-type='image'>X</span></li>" */
                               str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>"             
                               str +="<img src='/display?fileName="+fileCallPath+"'>"
                               str +="</div></li>"
@@ -387,170 +383,175 @@
 
 <!--       ------------------------------------------------------------------------------- -->
 <div class="row">
-   <div class="col-lg-12">
-      <h1 class="page-header">Board Register</h1>
-   </div>
-   <!-- /.col-lg-12 -->
+	<div class="col-lg-12">
+		<h1 class="page-header">Board Register</h1>
+	</div>
+	<!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 <div class="row">
-   <div class="col-lg-12">
-      <div class="panel panel-default">
-         <div class="panel-heading"'>게시글 등록</div>
-         <!-- /.panel-heading -->
-         <div class="panel-body">
-            <div class="form-group">
-               <label>boardNum</label><input class='form-control' name='boardNum'
-                  value='<c:out value="${board.boardNum }"/>' readonly='readonly'>
-            </div>
-            <div class="form-group">
-               <label>Type</label><input class='form-control' name='type'
-                  value='<c:out value="${board.boardType }"/>' readonly='readonly'>
-            </div>
-            <div class="form-group">
-               <label>Title</label><input class='form-control' name='title'
-                  value='<c:out value="${board.title }"/>' readonly='readonly'>
-            </div>
-            <div class='form-group'>
-               <label>Content</label>
-               <textarea class='form-control' rows='3' name='content'
-                  readonly='readonly'><c:out value="${board.content }" /></textarea>
-            </div>
-            <div class='form-group'>
-               <label>writer</label><input class='form-control' name='writer'
-                  value='<c:out value="${board.writer }"/>' readonly='readonly'>
-            </div>
-             <!-- board파트 -->
-            
-            <%-- <sec:authentication property="principal" var="pinfo"/>
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">게시글 등록</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				<div class="form-group">
+					<label>boardNum</label><input class='form-control' name='boardNum'
+						value='<c:out value="${board.boardNum }"/>' readonly='readonly'>
+				</div>
+				<div class="form-group">
+					<label>Type</label><input class='form-control' name='type'
+						value='<c:out value="${board.boardType }"/>' readonly='readonly'>
+				</div>
+				<div class="form-group">
+					<label>Title</label><input class='form-control' name='title'
+						value='<c:out value="${board.title }"/>' readonly='readonly'>
+				</div>
+				<div class='form-group'>
+					<label>Content</label>
+					<textarea class='form-control' rows='3' name='content'
+						readonly='readonly'><c:out value="${board.content }" /></textarea>
+				</div>
+				<div class='form-group'>
+					<label>writer</label><input class='form-control' name='writer'
+						value='<c:out value="${board.writer }"/>' readonly='readonly'>
+				</div>
+				<!-- board파트 -->
+
+				<%-- <sec:authentication property="principal" var="pinfo"/>
             <sec:authorize access="isAuthenticated()">
             <c:if test="${pinfo.username eq board.writer }">
             <button class='btn btn-success' data-oper='modify'>Modify</button>
             </c:if>
             </sec:authorize> 시큐리티 기능--%>
-            
-            <button class='btn btn-success' data-oper='modify'>Modify</button>
-            <button class='btn btn-primary' data-oper='list'>List</button>
-            <div>${like}</div>
-            <form id='operForm' action='/board/modify' method='get'>
-               <input type='hidden' id='boardNum' name='boardNum'
-                  value='<c:out value="${board.boardNum }" />'> <input
-                  type='hidden' name='pageNum'
-                  value='<c:out value="${cri.pageNum }"/>'> <input
-                  type='hidden' name='amount'
-                  value='<c:out value="${cri.amount }"/>'> <input
-                  type="hidden" name="type" value="${cri.type }"> <input
-                  type="hidden" name="keyword" value="${cri.keyword }">
-            </form>
-            
-           <form id='operForm' action='/board/like' method='post'>
-               <input type='hidden' id='boardNum' name='boardNum'
-                  value='<c:out value="${board.boardNum }" />'> 
-               <input type='hidden' id='userID' name='userID'
-                  value='<c:out value="user000"/>'> 
-                <input type='submit'
-                  value='좋아요'>            
-            </form>
-            <form id='operForm' action='/board/dislike' method='post'>
-               <input type='hidden' id='boardNum' name='boardNum'
-                  value='<c:out value="${board.boardNum }" />'> 
-               <input type='hidden' id='userID' name='userID'
-                  value='<c:out value="user000"/>'> 
-                <input type='submit'
-                  value='싫어요'>            
-            </form>
 
-            <!-- /.table-responsive -->
-         </div>
-         <!-- /.panel-body -->
-      </div>
-      <div class="row">
-   <div class="col-lg-12">
-      <div class="panel panel-default">
-         <div class="panel-heading">File Attach</div>
-         <div class="panel-body">
-            
-            <div class="uploadResult">
-               <ul>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
+				<button class='btn btn-success' data-oper='modify'>Modify</button>
+				<button class='btn btn-primary' data-oper='list'>List</button>
+				<div>${like}</div>
+				<form id='operForm' action='/board/modify' method='get'>
+					<input type='hidden' id='boardNum' name='boardNum'
+						value='<c:out value="${board.boardNum }" />'> <input
+						type='hidden' name='pageNum'
+						value='<c:out value="${cri.pageNum }"/>'> <input
+						type='hidden' name='amount'
+						value='<c:out value="${cri.amount }"/>'> <input
+						type="hidden" name="type" value="${cri.type }"> <input
+						type="hidden" name="keyword" value="${cri.keyword }">
+				</form>
 
-</div>
-   <div class="bigPictureWrapper">
-      <div class="bigPicture"></div>
-   </div>
-      
-      <!-- /.panel -->
-      <!-- /.panel-heading reply 영역시작 -->
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i>Reply
-            <!-- <sec:authorize access="isAuthenticated()">
+				<form id='operForm' action='/board/like' method='post'>
+					<input type='hidden' id='boardNum' name='boardNum'
+						value='<c:out value="${board.boardNum }" />'> <input
+						type='hidden' id='userID' name='userID'
+						value='<c:out value="user000"/>'> <input type='submit'
+						value='좋아요'>
+				</form>
+				<form id='operForm' action='/board/dislike' method='post'>
+					<input type='hidden' id='boardNum' name='boardNum'
+						value='<c:out value="${board.boardNum }" />'> <input
+						type='hidden' id='userID' name='userID'
+						value='<c:out value="user000"/>'> <input type='submit'
+						value='싫어요'>
+				</form>
+
+				<!-- /.table-responsive -->
+			</div>
+			<!-- /.panel-body -->
+		</div>
+	</div>
+		<div class="row">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-info">
+						<div class="panel-heading">Files</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="panel-body">
+								<div class="form-group uploadDiv"></div>
+
+								<div class="uploadResult">
+									<ul></ul>
+								</div>
+								<div class="bigPictureWrapper">
+									<div class="bigPicture"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.panel -->
+			<!-- /.panel-heading reply 영역시작 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-comments fa-fw"></i>Reply
+					<!-- <sec:authorize access="isAuthenticated()">
             <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
                </sec:authorize> 시큐리티-->
-               <button id="addReplyBtn" class='btn btn-primary btn-xs pull-right'>New
-               Reply</button>
-         </div>
-         <div class="panel-body">
-            <ul class="chat">
-               <li class="left clearfix" data-rno="12">
-                  <div>
-                     <div class="header">
-                        <!-- <strong class="primary-font"> user00</strong> <small
+					<button id="addReplyBtn" class='btn btn-primary btn-xs pull-right'>New
+						Reply</button>
+				</div>
+				<div class="panel-body">
+					<ul class="chat">
+						<li class="left clearfix" data-rno="12">
+							<div>
+								<div class="header">
+									<!-- <strong class="primary-font"> user00</strong> <small
                            class="pull-right text-muted">2021-05-18-13:13</small> -->
-                     </div>
-                     <!-- <p>Good job</p> -->
-                  </div>
-               </li>
-            </ul>
-         </div>
-               <!-- FOOTER영역 -->
-         <div class='panel-footer'></div>
-      </div>
-      <!-- reply 영역 -->
-      <!-- 모달영역 -->
-      <div class='modal fade' id='myModal' tabindex='-1' role='dialog'
-         aria-labelledby='myModallabel' aria-hidden='true'>
-         <div class='modal-dialog'>
-            <div class='modal-content'>
-               <div class='modal-header'>
-                  <button type='button' class='close' data-dismiss='modal' aria-hidden='ture'>&times;</button>
-                  <h4 class='modal-title' id='myModalLabel'>REPLY MODAL</h4>
-               </div>
-               <div class='modal-body'>
-                  <div class='form-group'>
-                     <label>Reply</label>
-                     <input class='form-control' name='reply' value='New Reply'>
-                  </div>
-                  <div class='form-group'>
-                     <label>Replyer</label>
-                     <input class='form-control' name='replyer' value='New Replyer'>
-                  </div>
-                  <div class='form-group'>
-                     <label>ReplyDate</label>
-                     <input class='form-control' name='replyDate' value=''>
-                  </div>
-               </div>
-               <div class='modal-footer'>
-                  <button id='modalModBtn' type='button' class='btn btn-info'>Modify</button>
-                  <button id='modalRemoveBtn' type='button' class='btn btn-info'>Remove</button>
-                  <button id='modalRegisterBtn' type='button' class='btn btn-info' data-dismiss='modal'>Register</button>
-                  <button id='modalCloseBtn' type='button' class='btn btn-info' data-dismiss='modal'>Close</button>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- 모달영역 -->
-   </div>
-   <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
+								</div>
+								<!-- <p>Good job</p> -->
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- FOOTER영역 -->
+				<div class='panel-footer'></div>
+			</div>
+			<!-- reply 영역 -->
+			<!-- 모달영역 -->
+			<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
+				aria-labelledby='myModallabel' aria-hidden='true'>
+				<div class='modal-dialog'>
+					<div class='modal-content'>
+						<div class='modal-header'>
+							<button type='button' class='close' data-dismiss='modal'
+								aria-hidden='ture'>&times;</button>
+							<h4 class='modal-title' id='myModalLabel'>REPLY MODAL</h4>
+						</div>
+						<div class='modal-body'>
+							<div class='form-group'>
+								<label>Reply</label> <input class='form-control' name='reply'
+									value='New Reply'>
+							</div>
+							<div class='form-group'>
+								<label>Replyer</label> <input class='form-control'
+									name='replyer' value='New Replyer'>
+							</div>
+							<div class='form-group'>
+								<label>ReplyDate</label> <input class='form-control'
+									name='replyDate' value=''>
+							</div>
+						</div>
+						<div class='modal-footer'>
+							<button id='modalModBtn' type='button' class='btn btn-info'>Modify</button>
+							<button id='modalRemoveBtn' type='button' class='btn btn-info'>Remove</button>
+							<button id='modalRegisterBtn' type='button' class='btn btn-info'
+								data-dismiss='modal'>Register</button>
+							<button id='modalCloseBtn' type='button' class='btn btn-info'
+								data-dismiss='modal'>Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 모달영역 -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
 
-<!-- /.row -->
+	<!-- /.row -->
 
-<!-- /.row -->
-<!--    footer 시작      -------------------------------------------------------------- -->
+	<!-- /.row -->
+	<!--    footer 시작      -------------------------------------------------------------- -->
