@@ -199,34 +199,53 @@ $(document).ready(function(e){
 
 </script>
 
+
 <body>
-		<section class="py-5">
+
+<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
             <h1 class="fw-bolder">Board Register</h1>
             </div>
-            
-	
 			<div class="container-fluid">
 				<div class="w-50">
-			<form role="form" action="/board/register" method="post">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<div class="form-group">
-					<label>Title</label><input class="form-control" name='title'>
-				</div>
-				
-				 <div class='form-group'>
-                 		<label>Content</label>
-                 			<textarea class='form-control' rows='3' name='content'></textarea>
-              		 </div>
-				
-				<div class="form-group">
-					<label>Writer</label>
-					<input class='form-control' name='writer' value='<sec:authentication property="principal.username"/>'readonly="readonly">
+					<form role="form" action="/board/register" method="post">
+					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
+					<div class="form-group">
+						<label>Title</label><input class="form-control" name='title'>
+					</div>
+					<div class="form-group">
+                     <select name='boardType'>
+                        <option value="Q&A"
+                        <c:out value="Q&A"/>>Q&A</option>
+                        <option value="자유게시판"
+                        <c:out value="자유게시판"/>>자유게시판</option>
+                        <option value="이벤트공지"
+                        <c:out value="이벤트공지"/>>이벤트공지</option>               
+                     </select> 
+                     </div>
+					
+					 <div class='form-group'>
+                  		<label>Content</label>
+                  			<textarea class='form-control' rows='3' name='content'></textarea>
+               		 </div>
+					
+					<div class="form-group">
+						<label>Writer</label>
+						<input class='form-control' name='writer'><!--  value=
+						'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
 
-				</div>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn btn-danger">Reset</button>
+					</form>
 				
-			<!-- File attach -->
+				</div>
+			</div>
+		</div>
+	
+		<!-- File attach -->
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
@@ -248,13 +267,7 @@ $(document).ready(function(e){
 					</div>
 				</div>
 			<!-- File attach End -->
-			
-				<button type="submit" class="btn btn-success">Submit</button>
-				<button type="reset" class="btn btn-danger">Reset</button>
-			</form>
-			</div>
-			</div>
-		</div>
+		
 		</section>
 	<%@include file="../includes/footer.jsp" %>
 </body>
