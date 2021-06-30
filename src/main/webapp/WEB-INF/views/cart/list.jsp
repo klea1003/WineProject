@@ -33,7 +33,9 @@ $(document).ready(function(){
 				
 				<table border="1">
 					<tr>
+					
 			            <th>SELLER</th>
+			            <th>WINE</th>
 						<th>PRODUCT</th>
 						<th>PRICE</th>
 						<th>QUANTITY</th>
@@ -44,6 +46,8 @@ $(document).ready(function(){
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
 						    <td>${row.sellerId}</td>
+						    
+						    <td> <img src= "http://klea-home.iptime.org:8081/<c:out value="${row.wineImageName}" />" height="80" width="50"> </td>
 						
 							<td>${row.wineTitle}</td>
 
@@ -63,7 +67,7 @@ $(document).ready(function(){
 					</c:forEach>
 
 					<tr>
-						<td colspan="5" align="right">장바구니 금액 합계 : 
+						<td colspan="10" align="right">장바구니 금액 합계 : 
 							<fmt:formatNumber pattern="###,###,###" value="${map.sumTotalPrice}" /><br>
 						</td>
 					</tr>
@@ -77,6 +81,6 @@ $(document).ready(function(){
 	
 	<button type="button" onclick="location.href='/seller/list'">상품목록</button>
 	<!--  -<button type="button" id="btnSellerList">상품목록</button> -->
-	<button type="button" onclick="location.href='/order/orderList'">예약하기</button>
+	<button type="button" onclick="location.href='/order/ordering'">예약하기</button>
 </body>
 </html>

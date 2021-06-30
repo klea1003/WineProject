@@ -45,14 +45,14 @@
 
 <!-- 주문 정보 -->
 <insert id="orderInfo">
- insert into tbl_order_test(ORDER_NUM, USER_NUM, USER_REALNAME, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, PICKUP_DATE)
-     values(#{orderNum}, #{userNum}, #{userRealName}, #{pickUpName}, #{pickUpPhoneNum}, #{orderPrice}, #{pickUpDate})
+ insert into tbl_order_test(ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, PICKUP_DATE)
+     values(#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{orderPrice}, #{pickUpDate})
 </insert>
    
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Detail">
  insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_ID,WINE_NUM,CART_QTY)
-     select seq_tbl_order_detail.nextval, #{orderNum}, wineNum, sellerId, cartQty
+     select seq_tbl_order_detail.nextval, #{orderNum}, sellerId, wineNum, cartQty
          from tbl_cart_test
 </insert> 
 
@@ -66,14 +66,14 @@ where USER_NUM = #{userNum}
 <!-- 유저의 주문 목록 -->
 <select id="orderList" resultMap="ordering">
  select
-    ORDER_NUM, USER_NUM, USER_REALNAME, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, ORDER_DATE, PICKUP_DATE
+    ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, ORDER_DATE, PICKUP_DATE
  from tbl_order_test
      where USER_NUM = #{userNum}
 </select>
 
 <!-- 특정 주문 상세 목록 -->
 <select id = "orderView" resultMap="orderView">
-select O.ORDER_NUM , O.USER_NUM, O.USER_REALNAME, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.ORDER_PRICE, O.ORDER_DATE, O.PICKUP_DATE,
+select O.ORDER_NUM , O.USER_NUM, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.ORDER_PRICE, O.ORDER_DATE, O.PICKUP_DATE,
 D.ORDERDETAIL_NUM, D.WINE_NUM, D.CART_QTY,
 W.WINE_TITLE, W.WINE_IMAGENAME, W.WINE_PRICE
 from tbl_order_test o

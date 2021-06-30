@@ -8,10 +8,11 @@ import org.wine.domain.OrderVO;
 
 public interface OrderService {
 
+	//주문 정보
 	public void orderInfo(OrderVO order) throws Exception;
-	public void orderInfo_Detail(OrderDetailVO orderDetail) throws Exception;
 	
-
+	//주문 상세 정보
+	public void orderInfo_Detail(OrderDetailVO orderDetail) throws Exception;
 	
 	//주문 목록
 	public List<OrderVO> orderList(OrderVO order)throws Exception;

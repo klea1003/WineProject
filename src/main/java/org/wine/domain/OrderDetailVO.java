@@ -6,7 +6,7 @@ import lombok.Data;
 public class OrderDetailVO {
 	
 	private Long orderDetailNum;
-	private Long orderNum;
+	private String orderNum;
 	private String sellerId;
 	private Long wineNum;
 	private int cartQty;

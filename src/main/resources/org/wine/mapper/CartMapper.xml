@@ -13,6 +13,7 @@
 <result property="wineTitle" column="WINE_TITLE" />
 <result property="winePrice" column="WINE_PRICE" />
 <result property="totalPrice" column="TOTAL_PRICE" />
+<result property="wineImageName" column="WINE_IMAGENAME" />
 </resultMap>
 
 
@@ -35,16 +36,17 @@
 
 
 	<!-- 장바구니 목록 -->
-	<select id = "listCart" resultMap="cartList">
-	select CART_NUM, U.USER_NUM, USER_REALNAME, S.SELLER_NUM, SELLER_ID,
-	W.WINE_NUM, WINE_TITLE, WINE_PRICE, CART_QTY, (WINE_PRICE*CART_QTY)TOTAL_PRICE
+<select id = "listCart" resultMap="cartList">
+
+	select CART_NUM, U.USER_NUM, S.SELLER_NUM, SELLER_ID,
+	W.WINE_NUM, WINE_TITLE, WINE_PRICE, WINE_IMAGENAME, CART_QTY, (WINE_PRICE*CART_QTY)TOTAL_PRICE
 	from
 	TBL_USER_TEST U, TBL_CART_TEST C, TBL_SELLER_TEST S, TBL_WINE_TEST W
 	where
 	U.USER_NUM = C.USER_NUM and C.WINE_NUM = W.WINE_NUM and C.SELLER_NUM = S.SELLER_NUM
 	and C.USER_NUM = #{userNum} order by CART_NUM 
-	</select>
-	
+</select>
+
 	
 	<!-- 장바구니 전체 금액 -->
 	<select id="sumTotalPrice" resultType="int">

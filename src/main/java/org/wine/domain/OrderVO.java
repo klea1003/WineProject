@@ -7,9 +7,8 @@ import lombok.Data;
 @Data
 public class OrderVO {
 	
-	private Long orderNum;
+	private String orderNum;
 	private Long userNum;
-	private String userRealName;
 	private String pickUpName;
 	private String pickUpPhoneNum;
 	private int orderPrice;
