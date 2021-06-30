@@ -24,7 +24,7 @@ PRIMARY KEY(WINE_NUM);
 COMMIT;
 
 
-----------------------------------------------------
+--------------------------------------------------------
 
 
 와인 데이터 추가(페이징처리)  
@@ -55,7 +55,7 @@ PRIMARY KEY(REVIEW_NUM);
 
 
 
----------------------------
+--------------------------------------------------------
 
 CREATE TABLE TBL_WINE_AROMA (
     AROMA_NUM NUMBER(20) NOT NULL,
@@ -64,34 +64,103 @@ CREATE TABLE TBL_WINE_AROMA (
     AROMA_LOW VARCHAR2(100)
 );
 
-CREATE TABLE TBL_WINE_TYPE (
+--------------------------------------------------------
+
+CREATE TABLE TBL_WINE_PROPERTY (
     IDX NUMBER(20) NOT NULL,
+    AREA VARCHAR2(100),
     KEY_VALUE VARCHAR2(100),
     DISPLAY_TEXT VARCHAR2(100)
 );
 
-CREATE TABLE TBL_WINE_GRAPE (
-    IDX NUMBER(20) NOT NULL,
-    KEY_VALUE VARCHAR2(100),
-    DISPLAY_TEXT VARCHAR2(100)
-);
-
-CREATE TABLE TBL_WINE_REGION (
-    IDX NUMBER(20) NOT NULL,
-    KEY_VALUE VARCHAR2(100),
-    DISPLAY_TEXT VARCHAR2(100)
-);
-
-CREATE TABLE TBL_WINE_COUNTRY (
-    IDX NUMBER(20) NOT NULL,
-    KEY_VALUE VARCHAR2(100),
-    DISPLAY_TEXT VARCHAR2(100)
-);
-
-CREATE TABLE TBL_WINE_STYLE (
-    IDX NUMBER(20) NOT NULL,
-    KEY_VALUE VARCHAR2(100),
-    DISPLAY_TEXT VARCHAR2(100)
-);
 
 COMMIT;
+
+
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (1,'wine_type', 'Red wine', 'Red');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (2,'wine_type', 'white wine', 'White');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (3,'wine_type', 'Sparkling', 'Sparkling');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (4,'wine_type', 'Rosé', 'Rosé');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (5,'wine_type', 'Dessert', 'Dessert');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (6,'wine_type', 'Fortified', 'Fortified');
+
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (7,'wine_grape', 'Cabernet Franc', 'Cabernet Franc');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (8,'wine_grape', 'Cabernet Sauvignon', 'Cabernet Sauvignon');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (9,'wine_grape', 'Chardonnay', 'Chardonnay');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (10,'wine_grape', 'Grenache', 'Grenache');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (11,'wine_grape', 'Malbec', 'Malbec');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (12,'wine_grape', 'Merlot', 'Merlot');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (13,'wine_grape', 'Pinot Noir', 'Pinot Noir');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (14,'wine_grape', 'Riesling', 'Riesling');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (15,'wine_grape', 'Sauvignon Blanc', 'Sauvignon Blanc');
+
+
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (16,'wine_region', 'Bordeaux', 'Bordeaux');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (17,'wine_region', 'Bourgogne', 'Bourgogne');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (18,'wine_region', 'Napa Valley', 'Napa Valley');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (19,'wine_region', 'Piemonte', 'Piemonte');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (20,'wine_region', 'Rhone Valley', 'Rhone Valley');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (21,'wine_region', 'Toscana', 'Toscana');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (22,'wine_region', 'Spain', 'Spain');
+
+
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (23,'wine_country', 'Argentina', 'Argentina');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (24,'wine_country', 'Australia', 'Australia');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (25,'wine_country', 'Austria', 'Austria');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (26,'wine_country', 'Chile', 'Chile');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (27,'wine_country', 'France', 'France');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (28,'wine_country', 'Germany', 'Germany');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (29,'wine_country', 'Italy', 'Italy');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (30,'wine_country', 'Portugal', 'Portugal');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (31,'wine_country', 'Spain', 'Spain');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (32,'wine_country', 'United States', 'United States');
+
+
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (33,'wine_style', 'Australian Shiraz', 'Australian Shiraz');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (34,'wine_style', 'Argentinian Malbec', 'Argentinian Malbec');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (35,'wine_style', 'Californian Cabernet Sauvignon', 'Californian Cabernet Sauvignon');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (36,'wine_style', 'Central Italy Red', 'Central Italy Red');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (37,'wine_style', 'Spanish Red', 'Spanish Red');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (38,'wine_style', 'Spanish Rioja Red', 'Spanish Rioja Red');
+
+COMMIT;
+
+--------------------------------------------------------

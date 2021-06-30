@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WinePropertyMapper">
+	
+	<resultMap type="org.wine.domain.WinePropertyVO" id="WineProperty" >		
+		<result property="idx" column="IDX" />
+		<result property="area" column="AREA" />
+		<result property="keyValue" column="KEY_VALUE" />
+		<result property="displayText" column="DISPLAY_TEXT" />			
+	</resultMap>
+	
+
+	<select id="getWineTypeList" resultMap="WineProperty">
+	  <![CDATA[
+	  	select * from TBL_WINE_PROPERTY where area = 'wine_type'
+	  ]]>
+	</select>
+	
+	<select id="getWineGrapeList" resultMap="WineProperty">
+	  <![CDATA[
+	  	select * from TBL_WINE_PROPERTY where area = 'wine_grape'
+	  ]]>
+	</select>
+	
+	<select id="getWineRegionList" resultMap="WineProperty">
+	  <![CDATA[
+	  	select * from TBL_WINE_PROPERTY where area = 'wine_region'
+	  ]]>
+	</select>
+	
+	<select id="getWineCountryList" resultMap="WineProperty">
+	  <![CDATA[
+	  	select * from TBL_WINE_PROPERTY where area = 'wine_country'
+	  ]]>
+	</select>
+	
+	<select id="getWineStyleList" resultMap="WineProperty">
+	  <![CDATA[
+	  	select * from TBL_WINE_PROPERTY where area = 'wine_style'
+	  ]]>
+	</select>
+</mapper>
