@@ -12,6 +12,7 @@
 <body>
 	<%@ include file="../includes/header.jsp"%>
 	<!-- Searching Wine Types -->
+	<h3>Wine Tpye</h3>
 	<div>
 		<label><input type="checkbox" name="wine_type" value="Red wine" /> Red</label>
 		<label><input type="checkbox" name="wine_type" value="White wine" /> White</label>
@@ -20,6 +21,46 @@
 		<label><input type="checkbox" name="wine_type" value="4" /> Rosé</label>
 		<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
 		<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
+	</div><br>
+	
+	<!-- Price Range -->
+	
+	
+	<label><input type="checkbox" name="wine_type" value="Red wine" <c:if test='${temp eq true}'>checked</c:if>/>Red</label>
+	
+	
+	<input type="text" id="demo" size="10" value="test">
+	
+	<br><br>
+	
+	
+	<!-- Searching User Rating -->
+	<div class="star-ratings">
+		<div class="star-ratings-fill space-x-2 text-lg" :style="{ width: ratingToPercent + '%' }">
+			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		</div>
+		<div class="star-ratings-base space-x-2 text-lg">
+			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		</div>
+	</div>
+	<div class="star-rating space-x-4 mx-auto">
+	<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+	<label for="5-stars" class="star pr-4">★</label>
+	<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+	<label for="4-stars" class="star">★</label>
+	<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+	<label for="3-stars" class="star">★</label>
+	<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+	<label for="2-stars" class="star">★</label>
+	<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+	<label for="1-star" class="star">★</label>
+	</div>
+	<div> 
+		<label><input type="radio" name="WineRating" value="1" /><div>4.5</div>Rare & extraordinary</label>
+		<label><input type="radio" name="WineRating" value="2" /><div>4.0</div>Very good stuff</label>
+		<label><input type="radio" name="WineRating" value="3" /><div>3.5</div>Good stuff</label>
+		<label><input type="radio" name="WineRating" value="4" /><div>3.0</div>Average</label>
+		<label><input type="radio" name="WineRating" value="5" /><div> </div>Any rating</label>
 	</div><br>
 	
 	<!-- Searching Grapes -->
@@ -71,6 +112,7 @@
 	</div><br>
 	
 	
+	
 	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->
@@ -98,7 +140,7 @@
 
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/wine_bootstrap/js/wine.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">   
 
 	$(document).ready(function() {
 
@@ -164,11 +206,13 @@
 						str += "<div class='card-body' style='width: 40%; height: 100%; float: right;'>"
 						str += list[i].winenery
 						str += "<h4 class='card-title'><a href='/wine/get?wno=" + list[i].wno + "'>" + list[i].title + " </a></h4><br>"
+						str += list[i].wineType + " " + "From" + " "
+						str += list[i].country + "<br>"
+						
 						str += "<p class='card-text'>"
 						str += list[i].grapes + "<br>"
-						str += list[i].region + "<br>"
-						str += list[i].country + "<br>"
-						str += list[i].price + "<br>"
+						str += list[i].region + "<br>"						
+						str += list[i].price  + "<br>"
 						str += "</p>"
 							
 						str += "</div>"
@@ -192,6 +236,8 @@
 			
 			showWineList();
 		});
+		
+		
 	});
 </script>
 

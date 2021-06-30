@@ -15,6 +15,7 @@ var wineService = (function(){
 		var _wineRegionArr = [];
 		var _wineCountryArr = [];
 		var _wineStyleArr = [];
+		var _wineRatingArr = [];
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
@@ -35,6 +36,10 @@ var wineService = (function(){
 		$("input[name='WineStyle']:checked").each(function(i) {
 	    	_wineStyleArr.push($(this).val()); 
 		})
+		
+		$("input[name='WineRating']:checked").each(function(i) {
+	    	_wineRatingArr.push($(this).val()); 
+		})
 
 		var actionForm = $("#actionForm");
 		var pageNum = actionForm.find("input[name='pageNum']").val();
@@ -45,6 +50,7 @@ var wineService = (function(){
 		console.log("Wine Region", _wineRegionArr);
 		console.log("Wine Country", _wineCountryArr);
 		console.log("Wine Style", _wineStyleArr);
+		console.log("Wine Rating", _wineRatingArr);
 	    
 	    $.ajax({
 	        url: 'requestWineList'
@@ -57,6 +63,7 @@ var wineService = (function(){
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
 				wineStyleArr:_wineStyleArr,
+				wineRatingArr:_wineRatingArr
 				}
 				
 			, success : function(result, status, xhr) {
@@ -78,6 +85,7 @@ var wineService = (function(){
 		var _wineRegionArr = [];
 		var _wineCountryArr = [];
 		var _wineStyleArr = [];
+		var _wineRatingArr = [];
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
@@ -98,6 +106,10 @@ var wineService = (function(){
 		$("input[name='WineStyle']:checked").each(function(i) {
 	    	_wineStyleArr.push($(this).val()); 
 		})
+		
+		$("input[name='WineRating']:checked").each(function(i) {
+	    	_wineRatingArr.push($(this).val()); 
+		})
 
 		var actionForm = $("#actionForm");
 		var totalPageNum = actionForm.find("input[name='totalPageNum']");
@@ -107,7 +119,7 @@ var wineService = (function(){
 		console.log("Wine Region", _wineRegionArr);
 		console.log("Wine Country", _wineCountryArr);
 		console.log("Wine Style", _wineStyleArr);
-
+		console.log("Wine Rating", _wineRatingArr);
 	    
 	    $.ajax({
 	        url: 'getTotalPageNum'
@@ -118,7 +130,8 @@ var wineService = (function(){
 				wineGrapeArr: _wineGrapeArr,
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
-				wineStyleArr:_wineStyleArr
+				wineStyleArr:_wineStyleArr,
+				wineRatingArr:_wineRatingArr
 				}
 				
 			, success : function(result, status, xhr) {
@@ -136,6 +149,8 @@ var wineService = (function(){
 		requestWineList : requestWineList,
 		requestTotalPageNum: requestTotalPageNum
 	};
+	
+	
 })();
 
 
