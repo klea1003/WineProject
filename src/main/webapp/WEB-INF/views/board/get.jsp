@@ -312,7 +312,7 @@
                   var boardNum ='<c:out value="${board.boardNum}"/>';
                   $.getJSON("/board/getAttachList",{boardNum:boardNum}, function(arr){
                       console.log(arr);
-                      
+                      console.log(fileCallPath);
                     //게시물 조회 이미지 출력 부분 
                       var str=''
                       $(arr).each(function(i,obj){
@@ -415,6 +415,8 @@
 				<div class='form-group'>
 					<label>writer</label><input class='form-control' name='writer'
 						value='<c:out value="${board.writer }"/>' readonly='readonly'>
+						<br/>
+						 
 				</div>
 				<!-- board파트 -->
 
@@ -459,8 +461,10 @@
 			<!-- /.panel-body -->
 		</div>
 	</div>
+</div>
+	
+	<!-- Files -->
 		<div class="row">
-			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-info">
 						<div class="panel-heading">Files</div>
