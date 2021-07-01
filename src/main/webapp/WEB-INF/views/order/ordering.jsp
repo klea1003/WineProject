@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,18 +20,48 @@ $(function(){
 	maxDate : "+6d"
 	}); 
 });
+
+
 </script>
 
 
 </head>
 <body>
 
+<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">SELLER</th>
+				      <th scope="col">WINE</th>
+				      <th scope="col">PRODUCT</th>
+				      <th scope="col">ITEM PRICE</th>
+				      <th scope="col">QTY</th>
+				      <th scope="col">TOTAL</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				
+				    <tr>
+				      <td><%=request.getParameter("seller") %></td>
+				      <td><%=request.getParameter("winename") %></td>
+				      <td> <img src= "http://klea-home.iptime.org:8081/<%=request.getParameter("image") %>" height="80" width="50"> </td>
+				      <td><fmt:formatNumber pattern="#,###,###" value='<%=request.getParameter("wineprice") %>' /></td>
+				      <td><%=request.getParameter("Qty") %></td>
+				      <td><fmt:formatNumber pattern="###,###,###" value='<%=request.getParameter("totalprice") %>' /></td>
+				    </tr>
+				    
+				   
+				    
+		
+				  </tbody>
+				</table>
+
 	<div class="orderInfo">
 		<form role="form" method="post" autocomplete="off">
 
 			<div class="inputArea">
-				<label for="pickUpName">수령인</label> <input type="text" name="" id="pickUpName"
-					required="required" />
+				<label for="pickUpName">수령인</label> <input type="text" name="pickUpName" id="pickUpName"
+					 required="required" />
 			</div>
 
 			<div class="inputArea">

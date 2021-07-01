@@ -43,7 +43,7 @@ $(document).ready(function(){
 
 	 
 	<c:otherwise>
-		<form id="form1" name="form1" method="post" action="${path}/cart/update">
+		<form id="form1" name="form1" method="post" action="update">
 		
 				<table class="table">
 				  <thead>
@@ -70,7 +70,7 @@ $(document).ready(function(){
 					  <button type="submit" class="btn btn-outline-secondary btn-sm" id="btnCartUpdate">수정</button>
 					  <input type="hidden" name="count" value="${map.count }"></td>
 				      <td><fmt:formatNumber pattern="###,###,###" value="${row.totalPrice}" /></td>
-				      <td><a href="${path }/cart/delete?cartNum=${row.cartNum}">삭제</a></td>
+				      <td><a href="/cart/delete?cartNum=${row.cartNum}">삭제</a></td>
 				    </tr>
 				    </c:forEach>
 				    
@@ -80,17 +80,38 @@ $(document).ready(function(){
 					</tr>
 				  </tbody>
 				</table>
-				
+				 
 				<button type="button" class="btn btn-outline-dark" onclick="location.href='/seller/list'">상품목록</button>
-
+</form>
 			<div class="btn-position">
-				<button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
-
+			
+				   
+				<!--  <button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
+       -->
+       <form method="Get" action="/order/ordering">
+			   <c:forEach var="row" items="${map.list}" varStatus="i">
+			    <input type='hidden' value='${row.wineTitle}' name="winename">
+			    <input type='hidden' value='${row.winePrice}' name="wineprice">
+			    <input type='hidden' value='${row.wineImageName}' name="image">
+			    <input type='hidden' value='${row.cartQty }' name="Qty">
+			    <input type='hidden' value='${row.totalPrice}' name="totalprice">
+			    <input type='hidden' value='${row.sellerId}' name="seller">
+			    </c:forEach> 
+			     
+			    <button type="submit" class="btn btn-outline-danger">예약하기</button>
+	</form>
 			</div>
-		</form>
+		<!-- </form> -->
 	</c:otherwise>
 	</c:choose>
 	</div>
+	<%-- <form method="Get" action="/order/ordering">
+			   <c:forEach var="row" items="${map.list}" varStatus="i">
+			    <input type='hidden' value='${row.wineTitle}' name="winename">
+			    </c:forEach> 
+			     
+			    <button type="submit" class="btn btn-outline-danger">예약하기</button>
+	</form> --%>
 <%@include file="../includes/footer.jsp" %>
 
 

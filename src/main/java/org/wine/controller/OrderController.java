@@ -2,7 +2,9 @@ package org.wine.controller;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.wine.domain.CartVO;
 import org.wine.domain.OrderDetailVO;
 import org.wine.domain.OrderListVO;
 import org.wine.domain.OrderVO;
@@ -26,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/order/*")
 @AllArgsConstructor
 public class OrderController {
-
+	
 	private OrderService service;
 	private CartService cartService;
 
@@ -35,7 +39,7 @@ public class OrderController {
 	@RequestMapping(value = "/ordering", method = RequestMethod.GET)
 	public void orderPage() throws Exception {
 		log.info("ordering");
-
+		
 
 	}
 	
@@ -51,6 +55,7 @@ public class OrderController {
 			//Long userNum = user.getUserNum();
 			
 			  Long userNum = (Long) session.getAttribute("userNum");
+			  String pickUpName =  (String) session.getAttribute("pickUpName");
 			  
 			 userNum = (long) 1;
 			 
@@ -69,6 +74,7 @@ public class OrderController {
 
 			order.setOrderNum(orderNum);
 			order.setUserNum(userNum);
+			order.setPickUpName(pickUpName);
 
 			service.orderInfo(order);
 
@@ -76,6 +82,8 @@ public class OrderController {
 			service.orderInfo_Detail(orderDetail);
 
 			service.cartAllDelete(userNum);
+			
+			
 
 			return "redirect:/order/orderList";  
 
