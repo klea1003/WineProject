@@ -11,7 +11,6 @@
   <result property="regdate" column="REGDATE"/>
   <result property="boardReadCount" column="BOARD_READ_COUNT"/>
   <result property="replyCnt" column="REPLYCNT"/>
-  <result property="like" column="BOARD_LIKE"/>
  </resultMap>
 
 
@@ -84,7 +83,7 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   select seq_board.nextval from dual
   </selectKey>
    insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
-  values(seq_board.nextval, #{boardType}, #{title}, #{content}, #{writer})
+  values(#{boardNum}, #{boardType}, #{title}, #{content}, #{writer})
   </insert>
   
   <update id="updateReplyCnt">
@@ -95,9 +94,6 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   	update tbl_Board_Test set Board_Read_Count = Board_Read_Count + 1 where board_Num = #{boardNum}
   </update>
   
-  <update id="updateLike">
-  	update tbl_Board_Test set board_like = board_like + 1 where board_Num = #{boardNum}
-  </update>
   
   
  

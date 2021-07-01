@@ -12,5 +12,5 @@ public interface SocialService {
 		
 		public int getCountByFollower(Long userFollowingId);
 		
-		public int getCountByFollowing(String userFollowerId);
+		public int getCountByFollowing(Long userFollowerId);
 }

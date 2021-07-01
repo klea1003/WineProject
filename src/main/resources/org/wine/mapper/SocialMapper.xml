@@ -31,20 +31,19 @@
 		select * from tbl_social_test
 		where user_following_id = #{userFollowingId}  
 	</select>
-	
-	<select id='getCountByFollower' resultType='int'>
-      
-      select count(user_follower_id) as followerCnt
+
+	<select id='getCountByFollower' resultType="int" >
+      select count(USER_FOLLOWER_ID) as SOCIAL_CNT
       from tbl_social_test 
       where USER_FOLLOWING_ID=#{userNum}
    
    </select>
   
-   	<select id='getCountByFollowing'  resultType='int'>
+   	<select id='getCountByFollowing' resultType="int">
       
-       select count(user_following_id) as followingCnt
+       select  count(USER_FOLLOWING_ID) as SOCIAL_CNT
        from tbl_social_test 
-       where USER_FOLLOWER_ID=#{userId}
+       where USER_FOLLOWER_ID=#{userNum}
      
    </select>
 

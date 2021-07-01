@@ -2,6 +2,7 @@ package org.wine.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.wine.domain.BoardLikeVO;
 import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.service.BoardService;
@@ -41,7 +42,7 @@ public class BoardServiceTest {
 	
 	@Test
 	public void testGet() {
-		log.info("GET RESULT "+service.get(86L).getTitle());
+		log.info("GET RESULT "+service.get(40L).getTitle());
 	}
 	
 	@Test
@@ -61,5 +62,22 @@ public class BoardServiceTest {
 	public void testGetList() {
 		service.getList(new Criteria(2,5)).forEach(board->log.info(board));
 	}
-
+	
+	@Test
+	public void testLike() {
+		BoardLikeVO board = new BoardLikeVO();
+		board.setBoardNum(1L);
+		board.setUserID("user000");
+		int total = service.like(board);
+		log.info("TOTAL LIKE : " +total);
+	}
+	
+	@Test
+	public void testDisLike() {
+		BoardLikeVO board = new BoardLikeVO();
+		board.setBoardNum(1L);
+		board.setUserID("user000");
+		int total = service.disLike(board);
+		log.info("TOTAL LIKE : " +total);
+	}
 }

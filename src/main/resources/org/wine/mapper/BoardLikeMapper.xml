@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.BoardLikeMapper">
+
+<resultMap type="org.wine.domain.BoardLikeVO" id="likeinfo">
+  <result property="likeNum" column="LIKE_NUM"/>
+  <result property="boardNum" column="BOARD_NUM"/>
+  <result property="userID" column="USER_ID"/>
+  <result property="likeStack" column="LIKE_STACK"/>
+ </resultMap>
+
+ 
+  
+  
+  <select id="getTotalLike" resultType="int">
+  select nvl(sum(like_stack),0) from tbl_Board_Like where 
+  board_Num =#{boardNum}
+  </select>
+  
+  <select id="read" resultType="int">
+  select count(*) from tbl_Board_Like where 
+  user_ID =#{userID} and  board_NUM = #{boardNum}
+  <!-- user_ID ='user000' and  board_NUM = 1 -->
+  </select>
+  
+  <update id="update">
+  update tbl_Board_Like set like_stack = 1 
+  where USER_ID=#{userID} and  board_NUM = #{boardNum}
+  </update> 
+  
+  <update id="updateD">
+  update tbl_Board_Like set like_stack = 0
+  where USER_ID=#{userID} and  board_NUM = #{boardNum}
+  </update> 
+  
+  <insert id="insert">
+  insert into tbl_Board_Like(LIKE_NUM, BOARD_NUM, USER_ID, LIKE_STACK)
+  values(seq_board_like.nextval, #{boardNum}, #{userID}, 1)
+  </insert>
+  
+   
+  
+  
+  
+  
+ 
+</mapper>

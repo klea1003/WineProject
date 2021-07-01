@@ -24,7 +24,7 @@ public class SocialMapperTest {
 	public void testFollowing() {
 		SocialVO social = new SocialVO();
 		social.setUserFollowingId(1L);
-		social.setUserFollowerId("yosepId3");
+		social.setUserFollowerId(3L);
 		mapper.following(social);
 	}
 	
@@ -32,7 +32,7 @@ public class SocialMapperTest {
 	public void testunFollowing() {
 		SocialVO social = new SocialVO();
 		social.setUserFollowingId(1L);
-		social.setUserFollowerId("yosepId3");
+		social.setUserFollowerId(3L);
 		mapper.unfollowing(social);
 		//mapper.unfollowing("yosepId","test");
 				
@@ -46,6 +46,6 @@ public class SocialMapperTest {
 	@Test 
 	public void testgetCountByFollowing() {
 		
-	mapper.getCountByFollowing("yosep");
+	mapper.getCountByFollowing(9L);
 	}
 }

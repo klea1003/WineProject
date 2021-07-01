@@ -67,6 +67,7 @@ public class WineControllerTests {
 			.param("price", "100")
 			.param("alcohol", "1.2")
 			.param("wineStyle", "wineStyle2")
+			.param("imageName", "wineimage2")
 		).andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);		

@@ -23,9 +23,8 @@ public class OrderMapperTest {
 	public void testOrderInfo() throws Exception {
 		OrderVO order = new OrderVO();
 		
-		order.setOrderNum((long) 4);
+		order.setOrderNum("123456");
 		order.setUserNum((long) 9);
-		order.setUserRealName("hytest");
 		order.setPickUpName("test수령인");
 		order.setOrderPrice(150000);
 		order.setPickUpPhoneNum("010-1234-5678");
