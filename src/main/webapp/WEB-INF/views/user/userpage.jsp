@@ -12,21 +12,7 @@
 <script type= "text/javascript" src="/resources/wine_bootstrap/js/social.js"></script>
 
 <script type="text/javascript">
-/* 테스트용 socialService.add(
-		
-		{userFollowingId:"test" , userFollowerId:"test"}
-		,
-		function(result){
-			alert("RESULT: "+ result);
-		} 
-	);  */
- 
-/*  socialService.remove(
-		 { {userFollowingId:"test",userFollowerId:"test"},},
-		 function(result){
-        	alert("REMOVE: "+ result);
-         
-         });  */  
+
 
 $(document).ready(function() {
 	
@@ -187,6 +173,36 @@ $(document).ready(function() {
          formObj.append(str).submit()
       }) //파일 보내기
       
+        	  
+      
+      var userNum ='<c:out value="${userpage.userNum}"/>';
+      $.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){
+      
+      console.log("ARRAY"+ arr);
+      var str=''
+          $(arr).each(function(i,obj){
+        	  console.log("i"+ obj.profileUuid); 
+        	  if (obj.profileFileType) {
+                     	
+                       var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
+               
+                       str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
+   	                   str +="<img src='/userupload/display?fileName="+fileCallPath+"'>"
+   	                   str +="</div></li>"
+                       console.log(obj.profileFileType)
+                    } else {
+                    	 str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
+      	                   str +="<span>" + obj.profileFileName + "</span>"
+       	                   str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
+       	                   str +="</div></li>"
+       	                	 console.log(obj.image)
+                    }
+               })
+               $(".uploadResult ul").html(str);
+      }); //eng json
+     
+      
+      
 });  //document ready function
 
 </script>
@@ -227,13 +243,35 @@ $(document).ready(function() {
 }
 
 .uploadResult ul li img {
-   width: 400px;
+   width: 20px;
 }
 
 .uploadResult ul li span {
    color: white;
 }
+.bigPictureWrapper {
+   position: absolute;
+   display: none;
+   justify-content: center;
+   align-items: center;
+   top: 0%;
+   width: 100%;
+   height: 100%;
+   background-color: gray;
+   z-index: 100;
+   background: rgba(255, 255, 255, 0.5);
+}
 
+.bigPicture {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.bigPicture img {
+   width: 400px;
+}
 </style>
 
 
@@ -243,6 +281,8 @@ $(document).ready(function() {
 
 <%@include file="../includes/header.jsp" %>
    <!-- Page Content-->
+   <c:set var="path" value="${requestScope['javax.servlet.forward.query_string']}" />
+       <c:out value='${path}'/>    
             <section class="py-5">
                 <div class="container px-5">
                     <h1 class="fw-bolder fs-5 mb-4">	
@@ -291,9 +331,24 @@ $(document).ready(function() {
            									  <button type='submit' class='btn btn-default'>Submit</button>
            									  </form>
            									  
-              								 <div class='uploadResult'>
-								               <ul></ul>
-								            </div>
+              								      <div class="row">
+												   <div class="col-lg-12">
+												      <div class="panel panel-default">
+												         <div class="panel-heading">File Attach</div>
+												         <div class="panel-body">
+												            
+												            <div class="uploadResult">
+												               <ul>
+												               </ul>
+												            </div>
+												         </div>
+												      </div>
+												   </div>
+												</div>
+								             <div class="bigPictureWrapper">
+										      <div class="bigPicture">
+										      </div>
+										   </div>
            									 </div>
                                             <p class="text-muted mb-4">
                                             <br/>

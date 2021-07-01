@@ -1,5 +1,7 @@
 package org.wine.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -10,6 +12,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,26 +104,32 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(@RequestParam("path") String path,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+	public String loginPOST(@RequestParam("path") String path, @RequestParam("query") String query,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
 
 		HttpSession session = request.getSession();
 		UserVO lvo = service.userLogin(user);
 		
-		
+		if(query==""||query==null) {
+			return query;
+		}else {
+			query = "?" + query;
+		}
 		
 		log.info("path :"+path);
+		
+		log.info("query :"+query);
 		
 		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
 			log.info(result);
-			return  "redirect:"+ path;
+			return  "redirect:"+ path+query;
 
 		}
 		session.setAttribute("user", lvo);
 
-		return  "redirect:"+ path;
+		return  "redirect:"+ path+query;
 	}
 
 	@GetMapping("/join")
@@ -128,7 +139,7 @@ public class UserController {
 	}
 
 	@PostMapping("/join")
-	public String join(@RequestParam("path") String path,UserVO user, RedirectAttributes rttr) {
+	public String join(@RequestParam("path") String path, @RequestParam("query") String query,UserVO user, RedirectAttributes rttr) {
 		log.info("join : " + user);
 
 		service.join(user);
@@ -136,7 +147,7 @@ public class UserController {
 		rttr.addFlashAttribute("result", user.getUserNum());
 		
 		log.info(path);
-		return  "redirect:"+ path;
+		return  "redirect:"+ path + query;
 	}
 
 	@ResponseBody
@@ -215,5 +226,18 @@ public class UserController {
 		return num;
 	}
 
+	
+	@GetMapping(value ="/getAttachList",produces =MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProfileVO>> getAttach(Long userNum){
+		log.info("getAttachList "+userNum);
+		
+		List<ProfileVO> list=service.getAttachList(userNum);
+		
+		log.info("type :" + list.get(0).isProfileFileType());
+		log.info("type :" + list.get(1).isProfileFileType());
+		
+		return new ResponseEntity<>(service.getAttachList(userNum),HttpStatus.OK);
+	}
 	
 }

@@ -356,8 +356,13 @@ body.modal-open {
 								class="btn btn-warning float-end" value="Login">
 						</div>
 						<c:set var="path"
-							value="${requestScope['javax.servlet.forward.servlet_path']}" />
-						<input type='hidden' name='path' value="<c:out value='${path}'/>">
+									value="${requestScope['javax.servlet.forward.servlet_path']}" />
+									<c:set var="query"
+									value="${requestScope['javax.servlet.forward.query_string']}" />
+								<input type='hidden' name='path'
+									value="<c:out value='${path}'/>">	
+									<input type='hidden' name='query'
+									value="<c:out value='${query}'/>">		
 					</form>
 				</div>
 			</div>
@@ -464,8 +469,12 @@ body.modal-open {
 									id="join_button" value="가입하기">
 								<c:set var="path"
 									value="${requestScope['javax.servlet.forward.servlet_path']}" />
+									<c:set var="query"
+									value="${requestScope['javax.servlet.forward.query_string']}" />
 								<input type='hidden' name='path'
-									value="<c:out value='${path}'/>">						
+									value="<c:out value='${path}'/>">	
+									<input type='hidden' name='query'
+									value="<c:out value='${query}'/>">						
 						</div>
 					</form>
 					<br>
