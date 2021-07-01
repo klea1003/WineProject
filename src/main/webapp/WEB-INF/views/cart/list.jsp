@@ -40,6 +40,7 @@ $(document).ready(function(){
         장바구니에 담긴 상품이 없습니다.
         </c:when>
 
+
 	 
 	<c:otherwise>
 		<form id="form1" name="form1" method="post" action="${path}/cart/update">
@@ -81,15 +82,17 @@ $(document).ready(function(){
 				</table>
 				
 				<button type="button" class="btn btn-outline-dark" onclick="location.href='/seller/list'">상품목록</button>
+
 			<div class="btn-position">
 				<button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
+
 			</div>
 		</form>
 	</c:otherwise>
 	</c:choose>
 	</div>
-
 <%@include file="../includes/footer.jsp" %>
+
 
 </body>
 </html>
