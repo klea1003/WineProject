@@ -16,6 +16,8 @@ public class CartVO {
 	private int cartQty;
 	private int totalPrice;
 	
+	private String wineImageName;
+	
  
 	
 	
