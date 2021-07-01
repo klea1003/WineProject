@@ -484,7 +484,8 @@
 					</div>
 				</div>
 			</div>
-
+<div class='row'>
+		<div class="col-lg-12">
 			<!-- /.panel -->
 			<!-- /.panel-heading reply 영역시작 -->
 			<div class="panel panel-default">
@@ -499,19 +500,22 @@
 				</div>
 				<div class="panel-body">
 					<ul class="chat">
+					<!-- start reply -->
 						<li class="left clearfix" data-rno="12">
 							<div>
 								<div class="header">
-									<!-- <strong class="primary-font"> user00</strong> <small
-                           class="pull-right text-muted">2021-05-18-13:13</small> -->
+									<strong class="primary-font"> user00</strong> <small
+                           class="pull-right text-muted">2021-05-18-13:13</small>
 								</div>
-								<!-- <p>Good job</p> -->
+								 <p>Good job</p> 
 							</div>
 						</li>
 					</ul>
 				</div>
 				<!-- FOOTER영역 -->
 				<div class='panel-footer'></div>
+			</div>
+			</div>
 			</div>
 			<!-- reply 영역 -->
 			<!-- 모달영역 -->
@@ -550,9 +554,9 @@
 				</div>
 			</div>
 			<!-- 모달영역 -->
-		</div>
+		
 		<!-- /.col-lg-12 -->
-	</div>
+	
 	<!-- /.row -->
 
 	<!-- /.row -->
