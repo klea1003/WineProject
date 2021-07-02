@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+<%@include file="../includes/header.jsp"%>
 <head>
 <meta charset="UTF-8">
 
@@ -10,7 +11,6 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
@@ -18,7 +18,7 @@
 		$("#datepicker").datepicker({
 			dateFormat : 'yy-mm-dd',
 			minDate : +1,
-			maxDate : "+6d"
+			maxDate : "+7d"
 		});
 	});
 </script>
@@ -26,9 +26,9 @@
 
 </head>
 <body>
-	<%@include file="../includes/header.jsp"%>
+
 	<div class="container px-5 my-5">
-		<div class="text-left mb-5"> 
+		<div class="text-left mb-5">
 			<h1 class="fw-bolder">예약하기</h1>
 			<br>
 			<table class="table">
@@ -43,16 +43,21 @@
 					</tr>
 				</thead>
 				<tbody>
-                  <c:forEach var="row" items="${list}" varStatus="i">
-				    <tr>
-				      <td>${row.sellerId}(${row.sellerNum})</td>
-				      <th scope="row">${row.wineTitle}</th>
-				      <td> <img src= "http://klea-home.iptime.org:8081/<c:out value="${row.wineImageName}" />" height="80" width="50"> </td>
-				      <td><fmt:formatNumber pattern="#,###,###" value="${row.winePrice}" /></td>
-				      <td><input type="number" style="width: 40px;" name="cartQty" value="${row.cartQty }" min="1"> 
-				      <td><fmt:formatNumber pattern="###,###,###" value="${row.totalPrice}" /></td>
-				    </tr>
-				    </c:forEach>
+					<c:forEach var="row" items="${list}" varStatus="i">
+						<tr>
+							<td>${row.sellerId}(${row.sellerNum})</td>
+							<th scope="row">${row.wineTitle}</th>
+							<td><img
+								src="http://klea-home.iptime.org:8081/<c:out value="${row.wineImageName}" />"
+								height="80" width="50"></td>
+							<td><fmt:formatNumber pattern="#,###,###"
+									value="${row.winePrice}" /></td>
+							<td><input type="number" style="width: 40px;" name="cartQty"
+								value="${row.cartQty }" min="1" readonly>
+							<td><fmt:formatNumber pattern="###,###,###"
+									value="${row.totalPrice}" /></td>
+						</tr>
+					</c:forEach>
 
 
 
@@ -66,22 +71,26 @@
 					<input type="hidden" name="sellerNum"
 						value="<%=request.getParameter("sellerNum")%>">
 					<div class="inputArea">
-						<label for="pickUpName">수령인</label> <input type="text"
+						<label for="pickUpName">수령인</label> <input type="text" size=10
 							name="pickUpName" id="pickUpName" required="required" />
 					</div>
 
 					<div class="inputArea">
-						<label for="pickUpPhoneNum">수령인 연락처</label> <input type="text"
+						<label for="pickUpPhoneNum">수령인 연락처 : </label> <input type="text"
 							name="pickUpPhoneNum" id="pickUpPhoneNum"
 							pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
 							placeholder="예) 010-1234-5678"
 							onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" />
 					</div>
 
-					 <div>
+					<div>
 						<p>
-							픽업 일자 : <input type="text" id="datepicker" name="pickUpDate">
-						</p>
+							픽업 일자 : <input type="text" id="datepicker" name="pickUpDate"
+								placeholder="날짜를 선택하세요">
+						<p style="font-size: 10px">*당일 픽업은 불가하며, 픽업일자는 주문일자로부터 7일 이내에서
+							선택 가능합니다.</p>
+					
+						
 					</div>
 				 <hr>
 					<div>
