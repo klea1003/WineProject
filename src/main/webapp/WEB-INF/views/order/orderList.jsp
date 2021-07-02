@@ -11,7 +11,9 @@
 
 </head>
 <body>
-
+<%@include file="../includes/header.jsp"%>
+			<h1 class="fw-bolder">주문 내역</h1>
+			<br>
 <section id="content">
  
  <ul class="orderList">
@@ -22,6 +24,7 @@
    <p><span>수령인</span>${orderList.pickUpName}</p>
    <p><span>수령매장</span>(${sellerIDList[i.index]})</p>
    <p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원</p>
+   <hr>
   </div>
   </li>
   </c:forEach>
@@ -29,6 +32,6 @@
 
 </section>
 
-
+<%@include file="../includes/footer.jsp"%>
 </body>
 </html>

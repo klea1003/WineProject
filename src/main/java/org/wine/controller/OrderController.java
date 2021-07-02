@@ -21,6 +21,7 @@ import org.wine.domain.OrderListVO;
 import org.wine.domain.OrderVO;
 import org.wine.domain.SellerVO;
 import org.wine.domain.UserVO;
+import org.wine.domain.pageDTO;
 import org.wine.service.CartService;
 import org.wine.service.OrderService;
 import org.wine.service.SellerService;
@@ -41,10 +42,13 @@ public class OrderController {
 
 	// 주문
 	@RequestMapping(value = "/ordering", method = RequestMethod.GET)
-	public void orderPage() throws Exception {
+	public void orderPage(Model model) throws Exception {
 		log.info("ordering");
-		
+		Long userNum = 1L;
+		List<CartVO> list = cartService.listCart(userNum);
 
+		log.info(list);
+		model.addAttribute("list", list);
 	}
 	
 	
@@ -52,7 +56,8 @@ public class OrderController {
 
 	// 주문
 		@RequestMapping(value = "/ordering", method = RequestMethod.POST)
-		public String order1(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+		public String order1(HttpSession session, OrderVO order, 
+				OrderDetailVO orderDetail) throws Exception {
 			log.info("order");
 			
 			//UserVO user = (UserVO)session.getAttribute("userNum"); 
@@ -86,7 +91,7 @@ public class OrderController {
 			service.orderInfo_Detail(order);
 			service.cartAllDelete(userNum);
 		
-			
+	
            log.info(order);
 			return "redirect:/order/orderList";  
 
