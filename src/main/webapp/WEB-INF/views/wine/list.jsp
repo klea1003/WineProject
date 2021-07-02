@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<%@ include file="../includes/header.jsp"%>
 <style>
 .pagination {
   display: flex;
