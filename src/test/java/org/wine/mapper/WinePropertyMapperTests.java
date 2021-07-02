@@ -18,32 +18,6 @@ public class WinePropertyMapperTests {
 	private WinePropertyMapper mapper;
 	
 	@Test
-	public void testWineTypeList() {
-		mapper.getWineTypeList().forEach(wine->log.info(wine));
-		
-	}
-	@Test
-	public void getWineGrapeList() {
-		mapper.getWineGrapeList().forEach(wine->log.info(wine));
-		
-	}
-	@Test
-	public void getWineRegionList() {
-		mapper.getWineRegionList().forEach(wine->log.info(wine));
-		
-	}
-	@Test
-	public void getWineCountryList() {
-		mapper.getWineCountryList().forEach(wine->log.info(wine));
-		
-	}
-	@Test
-	public void getWineStyleList() {
-		mapper.getWineStyleList().forEach(wine->log.info(wine));
-		
-	}
-	
-	@Test
 	public void getWinePropertyList() {
 		mapper.getWinePropertyList("wine_type").forEach(wine->log.info(wine));
 		
