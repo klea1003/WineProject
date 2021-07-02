@@ -35,6 +35,7 @@
      <span>product</span>${orderView.wineTitle}<br />
      <span>price</span><fmt:formatNumber pattern="###,###,###" value="${orderView.winePrice}" /> 원<br />
      <span>Qty</span>${orderView.cartQty} 개<br />
+     <span>PickUpDate</span>: ${orderView.pickUpDate}<br />
      <span>totalPrice</span><fmt:formatNumber pattern="###,###,###" value="${orderView.winePrice * orderView.cartQty}" /> 원                  
     </p>
    </div>
