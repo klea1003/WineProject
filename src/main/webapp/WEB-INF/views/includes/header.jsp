@@ -4,39 +4,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
 
 <title>너와, IN</title>
 
-<!-- Bootstrap core CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-	crossorigin="anonymous">
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+		crossorigin="anonymous" />
+	
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
+	<!-- Bootstrap core JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 
-<!-- Bootstrap core JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-	crossorigin="anonymous"></script>
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		rel="stylesheet" />
 
-<!-- Bootstrap icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
-
-<!-- Core theme CSS (includes Bootstrap)-->
-<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
 </head>
 <style type="text/css">
 .login_success_area {
@@ -175,22 +169,19 @@ body.modal-open {
 	position: fixed;
 	width: 100%;
 }
+
+.dropdown-large { 
+	padding:1rem; 
+}
+
+		
+@media all and (min-width: 992px) {
+	.dropdown-large{
+	min-width:800px;
+	}
+}	
+
 </style>
-<link href="/resources/wine_bootstrap/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<!-- 로그인, 회원가입 css -->
-
-<!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> 로그인, 회원가입 css
-<link href="/resources/wine_bootstrap/css/sb-admin-2.min.css" rel="stylesheet">   로그인, 회원가입 css
- -->
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
-<!--로그인 회원가입 jquery -->
-
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<!-- 모달 css -->
 
 <script>
         $(document).ready(function() {
@@ -242,72 +233,83 @@ body.modal-open {
         
         });
         
+        
+        
+        document.addEventListener("DOMContentLoaded", function(){
+        	// make it as accordion for smaller screens
+        	if (window.innerWidth > 992) {
+
+        		document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
+
+        			everyitem.addEventListener('mouseover', function(e){
+
+        				let el_link = this.querySelector('a[data-bs-toggle]');
+
+        				if(el_link != null){
+        					let nextEl = el_link.nextElementSibling;
+        					el_link.classList.add('show');
+        					nextEl.classList.add('show');
+        				}
+
+        			});
+        			everyitem.addEventListener('mouseleave', function(e){
+        				let el_link = this.querySelector('a[data-bs-toggle]');
+
+        				if(el_link != null){
+        					let nextEl = el_link.nextElementSibling;
+        					el_link.classList.remove('show');
+        					nextEl.classList.remove('show');
+        				}
+
+
+        			})
+        		});
+
+        	}
+        	// end if innerWidth
+        	}); // DOMContentLoaded  end
+        
     </script>
-
-
 
 </head>
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0 main-color">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-dark ">
+		<nav class="navbar navbar-expand-lg navbar-dark">
 			<div class="container px-5">
-				<a class="navbar-brand " href="index.html"><span
-					class="title-color">너와, IN</span></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-			</div>
-		</nav>
-
-		<nav class="navbar navbar-expand-lg navbar-dark header-color">
-			<div class="container px-5">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mb-2 mb-lg-0">
-
-						<li class="nav-item"><a class="nav-link" href="index.html">Wines</a></li>
-						<li class="nav-item"><a class="nav-link" href="about.html">Grapes</a></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">Regions</a></li>
-						<li class="nav-item"><a class="nav-link" href="pricing.html">Seller</a></li>
-						<li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
-
-					</ul>
-
+				<a class="navbar-brand " href="index.html">
+				<span class="title text-dark">너와, IN</span></a>
 					<div class="input-group-prepend">
 						<button id="button-addon8" type="submit" class="btn btn-danger">
 							<i class="bi bi-search"></i>
 						</button>
 					</div>
-					<input type="search" placeholder="Search any wine"
-						aria-describedby="button-addon8" class="form-control"
+					<input type="search" placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
 						style="width: 200px;">
+					
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+				
+					 <!-- 로그인 하지 않은 상태 -->
+					 <c:if test="${user == null }">
+						
+						<h2><i class="bi bi-person" id="modal_show_login"></i></h2>
+												
+					</c:if> 
+					
 
-				</div>
-
-
-				<div class="dropdown text-end">
 					<!-- 로그인 된 경우 -->
-					<!-- 로그인 하지 않은 상태 -->
-					<c:if test="${user == null }">
-						<span><a id="modal_show_login">로그인</a></span>
-
-						<span><a id="modal_show_join">회원가입</a></span>
-
-					</c:if>
-
 					<c:if test="${user != null }">
-						<a href="#"
-							class="d-block link-dark text-decoration-none dropdown-toggle"
-							id="dropdownUser1" data-bs-toggle="dropdown"
-							aria-expanded="false"> <img src="https://github.com/mdo.png"
-							alt="mdo" width="32" height="32" class="rounded-circle">
+						<div class="dropdown text-end">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
+							aria-expanded="false"> 
+							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
 						</a>
-						<ul class="dropdown-menu text-small"
-							aria-labelledby="dropdownUser1">
+						<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 							<li><a class="dropdown-item" href="#">My wines</a></li>
 							<li><a class="dropdown-item" href="#">orders</a></li>
 							<li><a class="dropdown-item" href="#">profiles</a></li>
@@ -315,9 +317,165 @@ body.modal-open {
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">Log out</a></li>
 						</ul>
+						</div>
 					</c:if>
 				</div>
+		</nav>
 
+		<nav class="navbar navbar-expand-lg navbar-dark header-color">
+			<div class="container px-5">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mb-2 mb-lg-0">
+
+					<li class="nav-item dropdown">
+					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  wines  </a>
+					   <div class="dropdown-menu dropdown-large">
+					   		<div class="row g-3">
+					   		<div class="col-4">
+					   			<ul class="list-unstyled">
+								  
+								  <li><a class="dropdown-item fw-bold" href="#"> Red </a></li>
+								  <li><a class="dropdown-item" href="#"> Southern Italy Red </a></li>
+								  <li><a class="dropdown-item" href="#"> Tuscan Red </a></li>
+								  <li><a class="dropdown-item" href="#"> Spanish Rioja Red </a></li>
+								  <li><a class="dropdown-item" href="#"> South African Pinotage </a></li>
+								  <li><a class="dropdown-item" href="#"> Italian Amarone </a></li>
+								  
+								</ul>
+							</div><!-- end col-3 -->
+							<div class="col-5">
+								<ul class="list-unstyled">
+								  
+								  <li><a class="dropdown-item fw-bold" href="#"> White </a></li>
+								  <li><a class="dropdown-item" href="#"> German Riesling </a></li>
+								  <li><a class="dropdown-item" href="#"> Northern Italy white </a></li>
+								  <li><a class="dropdown-item" href="#"> German Sauvignon Blanc </a></li>
+								  <li><a class="dropdown-item" href="#"> German Grauburgunder </a></li>
+								  <li><a class="dropdown-item" href="#"> New Zealand Sauvignon Blanc </a></li>
+								  
+					    		</ul>
+					    	</div><!-- end col-3 -->
+					    		
+					    	<div class="col-2">
+								<ul class="list-unstyled">
+								  
+								  <li><a class="dropdown-item fw-bold" href="#"> Sparkling </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Rosé </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Port </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Dessert </a></li>
+								  
+								 </ul>
+					    	</div><!-- end col-3 -->
+					    	</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					    </li><!-- end Wines -->
+					    
+					<li class="nav-item dropdown">
+					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Grapes  </a>
+					   <div class="dropdown-menu dropdown-large">
+					   		<div class="row g-3">
+					   		<div class="col-4">
+					   			
+					    		<ul class="list-unstyled">
+
+								  <li><a class="dropdown-item" href="#"> Cabernet Sauvignon </a></li>
+								  <li><a class="dropdown-item" href="#"> Montepulciano </a></li>
+								  <li><a class="dropdown-item" href="#"> Chardonnay </a></li>
+								  <li><a class="dropdown-item" href="#"> Pinot Noir </a></li>
+								  <li><a class="dropdown-item" href="#"> Malbec </a></li>
+								</ul>
+							</div><!-- end col-3 -->
+							<div class="col-5">
+								
+								<ul class="list-unstyled">
+								 
+								  <li><a class="dropdown-item" href="#"> Sauvignon Blanc </a></li>
+								  <li><a class="dropdown-item" href="#"> Shiraz/Syrah </a></li>
+								  <li><a class="dropdown-item" href="#"> Zinfandel </a></li>
+								  <li><a class="dropdown-item" href="#"> Nebbiolo </a></li>
+								  <li><a class="dropdown-item" href="#"> Sangiovese </a></li>
+					    		</ul>
+					    	</div><!-- end col-3 -->
+					    		
+					    	<div class="col-2">
+								
+								<ul class="list-unstyled">
+								 
+								  <li><a class="dropdown-item" href="#"> Pinot Grigio </a></li>
+								  <li><a class="dropdown-item" href="#"> Riesling </a></li>
+								  <li><a class="dropdown-item" href="#"> Grauburgunder </a></li>
+								  <li><a class="dropdown-item" href="#"> Tempranillo </a></li>
+								  <li><a class="dropdown-item" href="#"> Primitivo </a></li>
+								 </ul>
+					    	</div><!-- end col-3 -->
+					    	</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					    </li><!-- end Grapes -->
+						
+					<li class="nav-item dropdown">
+					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Regions  </a>
+					   <div class="dropdown-menu dropdown-large">
+					   		<div class="row g-3">
+					   		<div class="col-3">
+					   			
+					    		<ul class="list-unstyled">
+					    		
+								  <li><a class="dropdown-item fw-bold" href="#"> Germany </a></li>
+								  <li><a class="dropdown-item" href="#"> Mosel </a></li>
+								  <li><a class="dropdown-item" href="#"> Pfalz </a></li>
+								  <li><a class="dropdown-item" href="#"> Rheingau </a></li>
+								
+								</ul>
+							</div><!-- end col-3 -->
+							<div class="col-3">
+								
+								<ul class="list-unstyled">
+								 
+								  <li><a class="dropdown-item fw-bold" href="#"> Italy </a></li>
+								  <li><a class="dropdown-item" href="#"> Lugana </a></li>
+								  <li><a class="dropdown-item" href="#"> Piemonte </a></li>
+								  <li><a class="dropdown-item" href="#"> Tuscany </a></li>
+								  <li><a class="dropdown-item" href="#"> Puglia </a></li>
+								  
+					    		</ul>
+					    	</div><!-- end col-3 -->
+					    		
+					    	<div class="col-3">
+								
+								<ul class="list-unstyled">
+								  
+								  <li><a class="dropdown-item fw-bold" href="#"> France </a></li>
+								  <li><a class="dropdown-item" href="#"> Vin de pays </a></li>
+								  <li><a class="dropdown-item" href="#"> Southern Rhone </a></li>
+								  <li><a class="dropdown-item" href="#"> Bordeaus </a></li>
+								  <li><a class="dropdown-item" href="#"> Burgundy </a></li>
+								  
+								 </ul>
+					    	</div><!-- end col-3 -->
+					    	
+					    	<div class="col-3">
+								
+								<ul class="list-unstyled">
+								  
+								  <li><a class="dropdown-item fw-bold" href="#"> Spain </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Portugal </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Chile </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> New Zealand </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> Australia </a></li>
+								  <li><a class="dropdown-item fw-bold" href="#"> USA </a></li>
+								 
+								  
+								 </ul>
+					    	</div><!-- end col-3 -->
+					    	</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					    </li><!-- end Regions -->
+						
+					<li class="nav-item"><a class="nav-link" href="#">Seller</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+					
+					</ul>
+				</div>
 			</div>
 		</nav>
 	</main>
@@ -489,8 +647,7 @@ body.modal-open {
 	<!-- 회원가입 js -->
 
 	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/resources/wine_bootstrap/js/scripts.js"></script>
 
