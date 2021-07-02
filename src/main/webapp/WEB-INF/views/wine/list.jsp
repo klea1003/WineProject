@@ -50,20 +50,17 @@
 	<%@ include file="../includes/header.jsp"%>
 	
 	<!-- Searching Wine Types -->
-	<h3>Wine Type</h3>
-	
+	<h3>Wine Type</h3>	
 	<div>
-		<c:forEach items="${wineTypeList}" var="wineTypeDTO">
+		<c:forEach items="${wineTypeList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="wine_type" value=<c:out value="${wineTypeDTO.wineProperty.keyValue}" />
-				<c:if test='${wineTypeDTO.flag eq true}'>checked</c:if>/><c:out value="${wineTypeDTO.wineProperty.displayText}" />
+				<input type="checkbox" name="wine_type" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
 	</div><br>
 	
 	<!-- Price Range -->
-	
-	<input type="text" id="demo" size="10" value="test">
 	
 	<br><br>
 	
@@ -98,51 +95,47 @@
 	</div><br>
 	
 	<!-- Searching Grapes -->
+	<h3>Wine Grapes</h3>	
 	<div>
-		<label><input type="checkbox" name="Grapes" value="Cabernet Franc" /> Cabernet Franc</label>
-		<label><input type="checkbox" name="Grapes" value="Cabernet Sauvignon" /> Cabernet Sauvignon</label>
-		<label><input type="checkbox" name="Grapes" value="Chardonnay" /> Chardonnay</label>
-		<label><input type="checkbox" name="Grapes" value="Grenache" /> Grenache</label>
-		<label><input type="checkbox" name="Grapes" value="Malbec" /> Malbec</label>
-		<label><input type="checkbox" name="Grapes" value="Merlot" /> Merlot</label>
-		<label><input type="checkbox" name="Grapes" value="Pinot Noir" /> Pinot Noir</label>
-		<label><input type="checkbox" name="Grapes" value="Riesling" /> Riesling</label>
-		<label><input type="checkbox" name="Grapes" value="Sauvignon Blanc" /> Sauvignon Blanc</label>
+		<c:forEach items="${wineGrapeList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" name="Grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Regions -->
-	<div> 
-		<label><input type="checkbox" name="Region" value="Bordeaux" /> Bordeaux</label>
-		<label><input type="checkbox" name="Region" value="Bourgogne" /> Bourgogne</label>
-		<label><input type="checkbox" name="Region" value="Napa Valley" /> Napa Valley</label>
-		<label><input type="checkbox" name="Region" value="Piemonte" /> Piemonte</label>
-		<label><input type="checkbox" name="Region" value="Rhone Valley" /> Rhone Valley</label>
-		<label><input type="checkbox" name="Region" value="Toscana" /> Toscana</label>
-		<label><input type="checkbox" name="Region" value="Spain" /> Spain</label>				
+	<h3>Wine Regions</h3>	
+	<div>
+		<c:forEach items="${wineRegionList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Countries -->
-	<div> 
-		<label><input type="checkbox" name="Country" value="Argentina" /> Argentina</label>
-		<label><input type="checkbox" name="Country" value="Australia" /> Australia</label>
-		<label><input type="checkbox" name="Country" value="Austria" /> Austria</label>
-		<label><input type="checkbox" name="Country" value="Chile" /> Chile</label>
-		<label><input type="checkbox" name="Country" value="France" /> France</label>
-		<label><input type="checkbox" name="Country" value="Germany" /> Germany</label>
-		<label><input type="checkbox" name="Country" value="Italy" /> Italy</label>		
-		<label><input type="checkbox" name="Country" value="Portugal" /> Portugal</label>		
-		<label><input type="checkbox" name="Country" value="Spain" /> Spain</label>		
-		<label><input type="checkbox" name="Country" value="United States" /> United States</label>						
+	<h3>Wine Countries</h3>	
+	<div>
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Wine Style -->
-	<div> 
-		<label><input type="checkbox" name="WineStyle" value="Australian Shiraz" /> Australian Shiraz</label>
-		<label><input type="checkbox" name="WineStyle" value="Argentinian Malbec" /> Argentinian Malbec</label>
-		<label><input type="checkbox" name="WineStyle" value="Californian Cabernet Sauvignon" /> Californian Cabernet Sauvignon</label>
-		<label><input type="checkbox" name="WineStyle" value="Central Italy Red" /> Central Italy Red</label>
-		<label><input type="checkbox" name="WineStyle" value="Spanish Red" /> Spanish Red</label>
-		<label><input type="checkbox" name="WineStyle" value="Spanish Rioja Red" /> Spanish Rioja Red</label>						
+	<h3>Wine Style</h3>	
+	<div>
+		<c:forEach items="${wineStyleList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 
 	<input type="button" class="temp" value="search" style="width:100px" / >

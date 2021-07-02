@@ -58,7 +58,7 @@ public class WineServiceImpl implements WineService {
 	public ArrayList<WinePropertyDTO> getWinPropertyDTO(String propertyArea, ArrayList<Integer> ids){
 		
 		ArrayList<String> listArea = new ArrayList<>(Arrays.asList(
-				"wine_type", "wine_grap", "wine_region", "wine_country", "wine_style"));
+				"wine_type", "wine_grape", "wine_region", "wine_country", "wine_style"));
 		
 		if(listArea.contains(propertyArea) == false) {
 			return null;

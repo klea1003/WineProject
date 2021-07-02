@@ -32,15 +32,27 @@ public class WineController {
 	public void list(
 			CriteriaWine cri,
 			@RequestParam(value="wine_type_ids", required=false)ArrayList<Integer> wineTypeIds,
+			@RequestParam(value="wine_grape_ids", required=false)ArrayList<Integer> wineGrapeIds,
+			@RequestParam(value="wine_region_ids", required=false)ArrayList<Integer> wineRegionIds,
+			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
+			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
 			Model model
 		) {
 		
 		log.info("wineTypeIds: " + wineTypeIds);
 		model.addAttribute("wineTypeList", service.getWinPropertyDTO("wine_type", wineTypeIds));
 		
-		log.info("list"+ cri);
+		log.info("wineGrapeIds: " + wineGrapeIds);
+		model.addAttribute("wineGrapeList", service.getWinPropertyDTO("wine_grape", wineGrapeIds));
 		
-		model.addAttribute("list", service.getList(cri));
+		log.info("wineRegionIds: " + wineRegionIds);
+		model.addAttribute("wineRegionList", service.getWinPropertyDTO("wine_region", wineRegionIds));
+		
+		log.info("wineCountryIds: " + wineCountryIds);
+		model.addAttribute("wineCountryList", service.getWinPropertyDTO("wine_country", wineCountryIds));
+		
+		log.info("wineStyleIds: " + wineStyleIds);
+		model.addAttribute("wineStyleList", service.getWinPropertyDTO("wine_style", wineStyleIds));
 		
 		int total = service.getTotal(cri);		
 		log.info("total:" + total); 
@@ -62,12 +74,12 @@ public class WineController {
 		CriteriaWine cri = new CriteriaWine();
 		
 		log.info("requestWineList pageNum: "  + pageNum);
-		log.info("requestWineList valueArr: " + wineTypeArr);
-		log.info("requestWineList valueArr: " + wineGrapeArr);
-		log.info("requestWineList valueArr: " + wineRegionArr);
-		log.info("requestWineList valueArr: " + wineCountryArr);
-		log.info("requestWineList valueArr: " + wineStyleArr);
-		log.info("requestWineList valueArr: " + wineRatingArr);
+		log.info("requestWineList wineTypeArr: " + wineTypeArr);
+		log.info("requestWineList wineGrapeArr: " + wineGrapeArr);
+		log.info("requestWineList wineRegionArr: " + wineRegionArr);
+		log.info("requestWineList wineCountryArr: " + wineCountryArr);
+		log.info("requestWineList wineStyleArr: " + wineStyleArr);
+		log.info("requestWineList wineRatingArr: " + wineRatingArr);
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
