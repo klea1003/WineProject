@@ -1,5 +1,6 @@
 package org.wine.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -10,6 +11,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.ProfileVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.service.SocialService;
@@ -31,7 +36,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/user/*")
+@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*"})
 @AllArgsConstructor
 public class UserController {
 
@@ -59,9 +64,9 @@ public class UserController {
 		model.addAttribute("userlist", service.getList());
 
 	}
-
+	
 	@GetMapping({ "/userpage" })
-	public void get(@RequestParam("userNum") Long userNum,String userFollowerId, Model model) {
+	public void get(@RequestParam("userNum") Long userNum ,UserVO user,Model model) {
 
 		log.info("userpage ");
 
@@ -69,12 +74,35 @@ public class UserController {
 		
 		model.addAttribute("followck", socialservice.followingBtn(userNum));
 		
+		List<ProfileVO> imageck =  service.imageCk(userNum);
+		
+		log.info("imageck : " +imageck);
+		
+		model.addAttribute("imageck",imageck);
+		
+		int followercnt = socialservice.getCountByFollower(userNum);
+		
+		model.addAttribute("followercnt",followercnt);
+		
+		int followingcnt = socialservice.getCountByFollowing(userNum);
+		
+		model.addAttribute("followingcnt",followingcnt);
 		
 		
-		log.info("social ");
+		
 	}
-
 	
+	@PostMapping({ "/userpage" })
+	public String register(UserVO user,RedirectAttributes rttr) {
+		log.info("test");
+		if(user.getProfileList() !=null) {
+			user.getProfileList().forEach(attach ->log.info(attach));
+		}
+		
+		service.register(user);
+		rttr.addFlashAttribute("result",user.getUserNum());
+		return "redirect:/user/userlist";
+	}
 	
 	@GetMapping("/login")
 	public void login() {
@@ -83,23 +111,32 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+	public String loginPOST(@RequestParam("path") String path, @RequestParam("query") String query,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
 
 		HttpSession session = request.getSession();
 		UserVO lvo = service.userLogin(user);
-
+		
+		if(query==""||query==null) {
+			return query;
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
 		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
-			return "redirect:/user/login";
+			log.info(result);
+			return  "redirect:"+ path+query;
 
 		}
-
 		session.setAttribute("user", lvo);
 
-		return "redirect:/user/main";
-
+		return  "redirect:"+ path+query;
 	}
 
 	@GetMapping("/join")
@@ -109,14 +146,15 @@ public class UserController {
 	}
 
 	@PostMapping("/join")
-	public String join(UserVO user, RedirectAttributes rttr) {
+	public String join(@RequestParam("path") String path, @RequestParam("query") String query,UserVO user, RedirectAttributes rttr) {
 		log.info("join : " + user);
 
 		service.join(user);
 
 		rttr.addFlashAttribute("result", user.getUserNum());
-
-		return "redirect:/user/login";
+		
+		log.info(path);
+		return  "redirect:"+ path + query;
 	}
 
 	@ResponseBody
@@ -195,5 +233,15 @@ public class UserController {
 		return num;
 	}
 
+	
+	@GetMapping(value ="/getAttachList",produces =MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProfileVO>> getAttach(Long userNum){
+		log.info("getAttachList "+userNum);
+		
+		List<ProfileVO> list=service.getAttachList(userNum);
+		
+		return new ResponseEntity<>(service.getAttachList(userNum),HttpStatus.OK);
+	}
 	
 }

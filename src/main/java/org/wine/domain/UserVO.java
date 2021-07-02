@@ -1,6 +1,8 @@
 package org.wine.domain;
 
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -14,7 +16,6 @@ public class UserVO {
 	private String userBirthDay;
 	private String userEmail;
 	private String userPhoneNum;
-
-	private int followingCnt;
-	private int followCnt;
+	
+	private List<ProfileVO> profileList;
 }

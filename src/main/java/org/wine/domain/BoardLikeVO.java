@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class BoardLikeVO {
 
-	private Long WINElIKE_NUM;
+	private Long likeNum;
 	private Long boardNum;
-	private Long USER_NUM;
-	private String LIKES;
+	private String userID;
+	private int likeStack;
 	
 }

@@ -77,7 +77,7 @@
 
                   /* 리플라이 */
 
-                  var boardNumValue = '<c:out value="${board.boardNum}"/>'
+                  var boardNumValue = '<c:out value="${board.boardNum}"/>';
               /*          replyService.add({
                           reply : "JS TEST",
                           replyer : "js tester",
@@ -129,9 +129,9 @@
                                    console.log("replyCnt : "+ replyCnt)
                                    console.log("list: "+list)
                                     if(page==-1) {
-                                       pageNum=Math.ceil(replyCnt/10.0)
-                                       showList(pageNum)
-                                       return
+                                       pageNum=Math.ceil(replyCnt/10.0);
+                                       showList(pageNum);
+                                       return;
                                     }
                                     var str = "";
                                     if (list == null|| list.length == 0) {
@@ -139,7 +139,7 @@
                                        return;
                                     }
                                     for (var i = 0, len = list.length || 0; i < len; i++) {
-                                       str += "<li class='letf clearfix' data-rno='"+list[i].rno+"'>";
+                                       str += "<li class='letf clearfix' data-rno='"+list[i].rno+"'>"
                                        str += "<div><div class='header'><strong class='primary-font'>"
                                              + list[i].replyer
                                              + "</strong>";
@@ -174,14 +174,17 @@
                   
                   //새로운 댓글 등록 버튼 클릭 시
                   $("#addReplyBtn").on("click",function(e){
-                     modal.find("input").val("");
+                	  alert('test')
+                      modal.find("input").val(""); 
                      /* modal.find("input[name='replyer']").val(replyer); 시큐리티*/
-                     modalInputReplyDate.closest("div").hide();
+                      modalInputReplyDate.closest("div").hide();
                      modal.find("button[id !='modalCloseBtn']").hide();
                      modalRegisterBtn.show();
                      $(".modal").modal("show");
-                    /*  showList(1); */
+                     showList(1);  
                   });
+                  
+                 
                   
                 /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
                   $(document).ajaxSend(function(e,xhr,options){
@@ -222,10 +225,10 @@
                   });
                 //수정
                   modalModBtn.on("click",function(e){
-                     var originalReplyer = modalInputReplyer.val();
+                   /*   var originalReplyer = modalInputReplyer.val(); */
                      var reply={rno:modal.data("rno"), 
-                           reply:modalInputReply.val(),
-                           replyer:originalReplyer}
+                           reply:modalInputReply.val()
+                           /* ,replyer:originalReplyer */}
                     /*  if(!replyer){
                         alert("로그인 후 수정 가능")
                         modal.modal("hide")
@@ -245,7 +248,7 @@
                   });
                 //삭제
                   modalRemoveBtn.on("click", function(e){
-                        var originalReplyer = modalInputReplyer.val();
+                       /*  var originalReplyer = modalInputReplyer.val(); */
                    
                          var rno=modal.data("rno")
 
@@ -427,7 +430,7 @@
             
             <button class='btn btn-success' data-oper='modify'>Modify</button>
             <button class='btn btn-primary' data-oper='list'>List</button>
-            
+            <div>${like}</div>
             <form id='operForm' action='/board/modify' method='get'>
                <input type='hidden' id='boardNum' name='boardNum'
                   value='<c:out value="${board.boardNum }" />'> <input
@@ -437,6 +440,23 @@
                   value='<c:out value="${cri.amount }"/>'> <input
                   type="hidden" name="type" value="${cri.type }"> <input
                   type="hidden" name="keyword" value="${cri.keyword }">
+            </form>
+            
+           <form id='operForm' action='/board/like' method='post'>
+               <input type='hidden' id='boardNum' name='boardNum'
+                  value='<c:out value="${board.boardNum }" />'> 
+               <input type='hidden' id='userID' name='userID'
+                  value='<c:out value="user000"/>'> 
+                <input type='submit'
+                  value='좋아요'>            
+            </form>
+            <form id='operForm' action='/board/dislike' method='post'>
+               <input type='hidden' id='boardNum' name='boardNum'
+                  value='<c:out value="${board.boardNum }" />'> 
+               <input type='hidden' id='userID' name='userID'
+                  value='<c:out value="user000"/>'> 
+                <input type='submit'
+                  value='싫어요'>            
             </form>
 
             <!-- /.table-responsive -->
@@ -471,7 +491,7 @@
             <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
                </sec:authorize> 시큐리티-->
-               <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
+               <button id="addReplyBtn" class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
          </div>
          <div class="panel-body">

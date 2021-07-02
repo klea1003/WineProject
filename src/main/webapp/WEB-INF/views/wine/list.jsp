@@ -3,14 +3,53 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
 <!DOCTYPE html>
 
 <html lang="en">
+<%@ include file="../includes/header.jsp"%>
+<style>
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}
 
+.page-link {
+  position: relative;
+  display: block;
+  color: #080300;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #fff;
+  background-color: #b30000;
+  border-color: #b30000;
+}
+
+.page-link:focus {
+  z-index: 3;
+  color: #080300;
+  background-color: #d7301f;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(179, 0, 0, 0.25);
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #b30000;
+  border-color: #b30000;
+}
+</style>
 
 <body>
 	<%@ include file="../includes/header.jsp"%>
+	
 	<!-- Searching Wine Types -->
 	<h3>Wine Type</h3>
 	
@@ -106,9 +145,7 @@
 		<label><input type="checkbox" name="WineStyle" value="Spanish Red" /> Spanish Red</label>
 		<label><input type="checkbox" name="WineStyle" value="Spanish Rioja Red" /> Spanish Rioja Red</label>						
 	</div><br>
-	
-	
-	
+
 	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->

@@ -4,8 +4,11 @@ import lombok.Data;
 
 @Data
 public class ProfileVO {
-	
-	private Long USER_NUM;
-	private String PROFILE_IMAGE;
+	private Long profileNum;
+	private Long userNum;
+	private String profileUuid;
+	private String profileUploadPath;
+	private String profileFileName;
+	private boolean profileFileType;
 	
 }
