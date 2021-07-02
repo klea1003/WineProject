@@ -28,7 +28,7 @@
 	<!--장바구니 추가 -->
 	<insert id="insert">
 		insert into tbl_cart_test(
-		CART_NUM, USER_NUM, SELLER_NUM, WINE_NUM, CART_QTY
+		CART_NUM, USER_NUM, SELLER_Num, WINE_NUM, CART_QTY
 		)values(
 		SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, #{cartQty}
 		)

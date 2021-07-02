@@ -12,10 +12,10 @@ public interface OrderService {
 	public void orderInfo(OrderVO order) throws Exception;
 	
 	//주문 상세 정보
-	public void orderInfo_Detail(OrderDetailVO orderDetail) throws Exception;
+	public void orderInfo_Detail(OrderVO orderDetail) throws Exception;
 	
 	//주문 목록
-	public List<OrderVO> orderList(OrderVO order)throws Exception;
+	public List<OrderListVO> orderList(OrderVO order)throws Exception;
 	
 	//특정 주문 상세 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;

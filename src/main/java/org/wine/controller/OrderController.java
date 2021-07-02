@@ -1,6 +1,7 @@
 package org.wine.controller;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,11 @@ import org.wine.domain.CartVO;
 import org.wine.domain.OrderDetailVO;
 import org.wine.domain.OrderListVO;
 import org.wine.domain.OrderVO;
+import org.wine.domain.SellerVO;
 import org.wine.domain.UserVO;
 import org.wine.service.CartService;
 import org.wine.service.OrderService;
+import org.wine.service.SellerService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -33,6 +36,7 @@ public class OrderController {
 	
 	private OrderService service;
 	private CartService cartService;
+	private SellerService sellerService;
 
 
 	// 주문
@@ -50,12 +54,12 @@ public class OrderController {
 		@RequestMapping(value = "/ordering", method = RequestMethod.POST)
 		public String order1(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 			log.info("order");
-
+			
 			//UserVO user = (UserVO)session.getAttribute("userNum"); 
 			//Long userNum = user.getUserNum();
 			
 			  Long userNum = (Long) session.getAttribute("userNum");
-			  String pickUpName =  (String) session.getAttribute("pickUpName");
+			  
 			  
 			 userNum = (long) 1;
 			 
@@ -74,17 +78,16 @@ public class OrderController {
 
 			order.setOrderNum(orderNum);
 			order.setUserNum(userNum);
-			order.setPickUpName(pickUpName);
+		
 
 			service.orderInfo(order);
 
-			orderDetail.setOrderNum(orderNum);   
-			service.orderInfo_Detail(orderDetail);
-
+			 
+			service.orderInfo_Detail(order);
 			service.cartAllDelete(userNum);
+		
 			
-			
-
+           log.info(order);
 			return "redirect:/order/orderList";  
 
 		}
@@ -94,23 +97,32 @@ public class OrderController {
 	@RequestMapping(value= "/orderList", method= RequestMethod.GET)	
 	public void getOrderSuccessList(HttpSession session, OrderVO order, Model model)throws Exception{
 		log.info("get order  List");
-
+		 
 		//UserVO user = (UserVO)session.getAttribute("userNum");
 		//Long userNum = user.getUserNum();
 		Long userNum = (Long) session.getAttribute("userNum");
 		userNum = (long) 1;
 
 		order.setUserNum(userNum);
-		List<OrderVO> orderList = service.orderList(order);
-
+		List<OrderListVO> orderList = service.orderList(order);
+		ArrayList<String> sellerIDList = new ArrayList<String>();
+		log.info(orderList);
+		for(int i=0;i<orderList.size();i++) {
+			sellerIDList.add(sellerService.get(orderList.get(i).getSellerNum()).getSellerId());
+		}
+		log.info(sellerIDList);
 		model.addAttribute("orderList",orderList);
+		model.addAttribute("sellerIDList",sellerIDList);
+		
+		
 	}
 
 
 	//특정 주문 상세 목록
 	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
 	public void getOrderList(HttpSession session,
-			@RequestParam("n") Long orderNum,
+			@RequestParam("n") String orderNum,
+			@RequestParam("s") String sellerId,
 			OrderVO order, Model model) throws Exception {
 		log.info("get order view");
 
@@ -120,11 +132,13 @@ public class OrderController {
 		userNum = (long) 1;
 
 		order.setUserNum(userNum);
+		order.setOrderNum(orderNum);
 		//order.setOrderNum(orderNum);
 
 		List<OrderListVO> orderView = service.orderView(order);
 
 		model.addAttribute("orderView", orderView);
+		model.addAttribute("sellerId", sellerId);
 	}
 
 }

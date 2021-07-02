@@ -49,7 +49,7 @@ public class OrderMapperTest {
 		OrderListVO orderList = new OrderListVO();
 		
 		orderList.setUserNum((long) 1);
-		orderList.setOrderNum((long) 1);
+		orderList.setOrderNum("1");
 		log.info(orderList);
 	
 	}
