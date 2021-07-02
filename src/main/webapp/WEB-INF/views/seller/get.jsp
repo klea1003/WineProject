@@ -2,27 +2,65 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<jsp:include page="../includes/header.jsp" flush="false"/>
 <!DOCTYPE html>
 <html>
 <head>
-      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> 
-        <script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
 </head>
 
 <style>
-.list-card{height:350px;}
-p.card-text {margin-bottom: 0;} 
-.swiper-slide { text-align: center; font-size: 18px; background: #fff; 
-/* Center slide text vertically */ display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center; } 
-.swiper-container-vertical>.swiper-pagination-bullets{ top: unset !important; bottom: 10px; left: 0; width: 100%; }
-.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{ display : inline-block !important; margin: 6px 2px !important; }
+.list-card {
+	height:600px;
+}
+
+p.card-text {
+	margin-bottom: 0;
+} 
+.swiper-slide { 
+	text-align: center; 
+	font-size: 18px; 
+	background: #fff; 
+/* Center slide text vertically */ 
+	display: -webkit-box; 
+	display: -ms-flexbox;
+	display: -webkit-flex; 
+	display: flex; 
+	-webkit-box-pack: center; 
+	-ms-flex-pack: center; 
+	-webkit-justify-content: center; 
+	justify-content: center; 
+	-webkit-box-align: center; 
+	-ms-flex-align: center; 
+	-webkit-align-items: center; 
+	align-items: center; 
+} 
+
+.swiper-button-next {
+  color: #BDBDBD;
+}
+
+.swiper-button-prev {
+  
+  color: #BDBDBD;
+} 
+
+.swiper-container-vertical>.swiper-pagination-bullets { 
+	top: unset !important; 
+	bottom: 10px; 
+	left: 0; 
+	width: 100%; 
+}
+.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet { 
+	display : inline-block !important; 
+	margin: 6px 2px !important; 
+}
 </style>
 
 
  <body>
-       <%@include file="../includes/header.jsp" %>
+
        
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
@@ -46,8 +84,7 @@ p.card-text {margin-bottom: 0;}
                 
                 <div class="col-lg-5">
                    <h1 class="font-weight-light">${seller.sellerStoreName}</h1>
-                   <p></p>
-                    <a class="btn btn-danger" href="#!">예약현황</a>
+                   <a class="btn btn-danger" href="#!">예약현황</a>
                 </div>
             </div>
             
@@ -66,31 +103,32 @@ p.card-text {margin-bottom: 0;}
                 <c:forEach items="${product}" var="p">
                    <div class="swiper-slide"> 
                    <div class="col mb-5">
-                    <div class="card h-100 list-card">
+                    <div class="card-list">
                   <div class="text-center">
                      <img src="http://klea-home.iptime.org:8081/<c:out value="${p.imageName}" />" height="350" width="150">
                   </div>
-                  <div class="card-body">
-                     <h4 class="fw-bolder"><c:out value="${p.wineTitle}" /></h4>
-                     <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /></p>
-                     <p class="card-text">와인타입 : <c:out value="${p.wineType}" /></p>
-                     <c:if test="${p.wineAlcohol ne null}"><P class="card-text"> 도수 : <c:out value="${p.wineAlcohol}"/>% </p></c:if>
-                     <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
-                  </div>
+                     <div class="card-body">
+					      <p class="card-text"><b><c:out value="${p.wineTitle}" /></b></p>
+					      <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /></p>
+					      <p class="card-text">와인타입 : <c:out value="${p.wineType}" /></p>
+					      <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
+					 </div>
                   <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
                </div>
                    </div>
                    </div>
                 </c:forEach>
                 </div>
-                      <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
+                       <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
                        <div class="swiper-button-prev"></div> 
                        <div class="swiper-button-next"></div> 
                 
                 </div>
              </div>
           </div>
-   <%@include file="../includes/footer.jsp" %>
+          
+            
+
        
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5333d53ac31b106857d8f1c63a600d7&libraries=services"></script>
 <script>
@@ -143,7 +181,7 @@ p.card-text {margin-bottom: 0;}
      //한번에 보여지는 페이지 숫자
      slidesPerView: 3,
      //페이지와 페이지 사이의 간격
-     spaceBetween: 100,
+     spaceBetween: 30,
      //드레그 기능 true 사용가능 false 사용불가
      debugger: false,
      //마우스 휠기능 true 사용가능 false 사용불가
@@ -183,5 +221,6 @@ p.card-text {margin-bottom: 0;}
       
    
 </script>              
-  </body>
+</body>
+ <jsp:include page="../includes/footer.jsp" flush="false"/>
 </html>
