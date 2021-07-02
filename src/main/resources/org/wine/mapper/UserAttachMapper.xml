@@ -3,6 +3,7 @@
 <mapper namespace="org.wine.mapper.UserAttachMapper">
 
 	<resultMap type="org.wine.domain.ProfileVO" id="profileInfo">
+		<result property="profileNum" column="PROFILE_NUM" />
 		<result property="userNum" column="USER_NUM" />
 		<result property="profileUuid" column="PROFILE_UUID" />
 		<result property="profileUploadPath" column="PROFILE_UPLOADPATH" />
@@ -13,8 +14,8 @@
 
 
 	<insert id="insert">
-	insert into tbl_profile_test (PROFILE_UUID,PROFILE_UPLOADPATH,PROFILE_FILENAME,PROFILE_FILETYPE, USER_NUM)
-	values(#{profileUuid},#{profileUploadPath},#{profileFileName},#{profileFileType},#{userNum})
+	insert into tbl_profile_test (PROFILE_NUM,PROFILE_UUID,PROFILE_UPLOADPATH,PROFILE_FILENAME,PROFILE_FILETYPE, USER_NUM)
+	values( SEQ_PROFILE_TEST.nextval,#{profileUuid},#{profileUploadPath},#{profileFileName},#{profileFileType},#{userNum})
 	</insert>
 	
 	<delete id="delete">
@@ -25,9 +26,15 @@
 	
 	<select id="findByUserNum" resultMap="profileInfo">
 	
-	select * from tbl_profile_test where USER_NUM=#{userNum}
+	SELECT * FROM
+	(SELECT *FROM tbl_profile_test ORDER BY profile_uploadpath DESC, profile_num  DESC)
+	WHERE ROWNUM= 1 and USER_NUM=#{userNum}
 	
 	</select>
 	
+	<select id="findByUserNumCK" resultMap="profileInfo">
 	
+	select * from tbl_profile_test where USER_NUM=#{userNum}
+	
+	</select>
 </mapper>

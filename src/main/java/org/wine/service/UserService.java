@@ -22,4 +22,6 @@ public interface UserService {
 		public void register(UserVO user);
 		
 		public List<ProfileVO> getAttachList(Long userNum);
+		
+		public List<ProfileVO> imageCk(Long userNum);
 }
