@@ -28,7 +28,7 @@
 <body>
 	<%@include file="../includes/header.jsp"%>
 	<div class="container px-5 my-5">
-		<div class="text-left mb-5">
+		<div class="text-left mb-5"> 
 			<h1 class="fw-bolder">예약하기</h1>
 			<br>
 			<table class="table">
@@ -43,19 +43,16 @@
 					</tr>
 				</thead>
 				<tbody>
-
-					<tr>
-						<td><%=request.getParameter("sellerId")%>(<%=request.getParameter("sellerNum")%>)</td>
-						<td><%=request.getParameter("wineName")%></td>
-						<td><img
-							src="http://klea-home.iptime.org:8081/<%=request.getParameter("image")%>"
-							height="80" width="50"></td>
-						<td><fmt:formatNumber pattern="#,###,###"
-								value='<%=request.getParameter("winePrice")%>' /></td>
-						<td><%=request.getParameter("cartQty")%></td>
-						<td><fmt:formatNumber pattern="###,###,###"
-								value='<%=request.getParameter("orderPrice")%>' /></td>
-					</tr>
+                  <c:forEach var="row" items="${list}" varStatus="i">
+				    <tr>
+				      <td>${row.sellerId}(${row.sellerNum})</td>
+				      <th scope="row">${row.wineTitle}</th>
+				      <td> <img src= "http://klea-home.iptime.org:8081/<c:out value="${row.wineImageName}" />" height="80" width="50"> </td>
+				      <td><fmt:formatNumber pattern="#,###,###" value="${row.winePrice}" /></td>
+				      <td><input type="number" style="width: 40px;" name="cartQty" value="${row.cartQty }" min="1"> 
+				      <td><fmt:formatNumber pattern="###,###,###" value="${row.totalPrice}" /></td>
+				    </tr>
+				    </c:forEach>
 
 
 
@@ -81,12 +78,12 @@
 							onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" />
 					</div>
 
-					<div>
+					 <div>
 						<p>
 							픽업 일자 : <input type="text" id="datepicker" name="pickUpDate">
 						</p>
 					</div>
-					<hr>
+				 <hr>
 					<div>
 						<p>주문하시기 전 꼭 읽어주세요!</p>
 						<pre>
@@ -96,8 +93,8 @@
 - 수령하시는 매장의 정보를 확인해 주세요.(잘못 선택하셨을 경우 주문 취소 후 재주문 바랍니다.)
 - 수령이 불가할 경우 지정한 픽업 날짜 1일 전까지 취소가 가능합니다.
 - 환불 및 교환은 수령 매장에서 가능하므로 매장으로 문의주시기 바랍니다.
-			</pre>
-					</div>
+			</pre> 
+					</div>  
 					<div class="inputArea">
 						<button type="submit" class="order_btn">주문</button>
 						<button type="button" class="btn btn-outline-danger"
@@ -107,7 +104,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> 
 	<%@include file="../includes/footer.jsp"%>
 </body>
 </html>
