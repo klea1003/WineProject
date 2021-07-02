@@ -117,7 +117,7 @@ public class UserController {
 		UserVO lvo = service.userLogin(user);
 		
 		if(query==""||query==null) {
-			return query;
+			
 		}else {
 			query = "?" + query;
 		}
