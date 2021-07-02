@@ -49,7 +49,12 @@
                 </div>
             </div>
         </section>
-		
+		<c:forEach var="re" items="${reply5}" varStatus="i">
+		<div>${re.reviewRating }</div><p>
+		<div>${re.review }</div><p>
+		<div>${re.userNum }</div><div>${re.reviewDate }</div><p>
+		<div>${re.reviewLike }</div><p>
+		</c:forEach>
 		
 	<%-- <%@ include file="../includes/footer.jsp"%> --%>
 		

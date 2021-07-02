@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> --%>
+<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
-<script src="/resources/js/reply.js"></script>
+ <jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
+ <script src="/resources/wine_bootstrap/js/reply.js"></script>
 <style>
 .uploadResult {
 	width: 100%;
@@ -136,9 +136,9 @@ $(document).ready(function(){
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
         replyer = '<sec:authentication property="principal.username"/>';
-    </sec:authorize>
+    </sec:authorize> */
     
-    //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
+    /* //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
     var csrfHeaderName = "${_csrf.headerName}";
     var csrfTokenValue = "${_csrf.token}";시큐리티 */
 	
@@ -160,7 +160,7 @@ $(document).ready(function(){
 	/* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
     $(document).ajaxSend(function(e, xhr, options){
         xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-    });  */  
+    });    */
  
 	
 	 //새로운 댓글 처리
@@ -206,7 +206,7 @@ $(document).ready(function(){
 				replyer:modalInputReplyer.val()
 				};
 		
-		 if(!replyer) {
+		/*  if(!replyer) {
 			alert("로그인 후 수정 가능");
 			modal.modal("hide");
 			return;
@@ -216,7 +216,7 @@ $(document).ready(function(){
               alert("자신이 작성한 댓글만 수정 가능");
               modal.modal("hide");
               return;
-          } 
+          }  */
 		
 		replyService.update(reply,function(result){
 			alert(result);
@@ -232,7 +232,7 @@ $(document).ready(function(){
         console.log("rno" + rno);
         console.log("REPLYER : "+ replyer);
         
-         if(!replyer){
+       /*   if(!replyer){
             alert("로그인 후 삭제 가능");
             modal.modal("hide");
             return;
@@ -244,7 +244,7 @@ $(document).ready(function(){
             alert("자신이 작성한 댓글만 삭제 가능");
             modal.modal("hide");
             return;
-        }	 
+        }	 */ 
 		
 		replyService.remove(rno, originalReplyer, function(result){
 			alert(result);
@@ -531,7 +531,7 @@ $(document).ready(function(){
             <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                Reply</button>
                </sec:authorize> 시큐리티-->
-					<button id="addReplyBtn" class='btn btn-primary btn-xs pull-right'>New
+					<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
 						Reply</button>
 				</div>
 				<div class="panel-body">
@@ -555,7 +555,7 @@ $(document).ready(function(){
 			</div>
 			<!-- reply 영역 -->
 			<!-- 모달영역 -->
-			<<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
+			<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
 				aria-labelledby='myModallabel' aria-hidden='true'>
 				<div class='modal-dialog'>
 					<div class='modal-content'>

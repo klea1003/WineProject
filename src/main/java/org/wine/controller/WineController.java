@@ -80,6 +80,6 @@ public class WineController {
 		
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
-		model.addAttribute("reply",replyService.getList5(wno));
+		model.addAttribute("reply5",replyService.getList5(wno));
 	}
 }
