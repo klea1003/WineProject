@@ -56,307 +56,343 @@
 }
 </style>
 <script type="text/javascript">
-   $(document)
-         .ready(
-               function() {
-                 
+$(document).ready(function(){
+	var operForm = $('#operForm');
+	$('button[data-oper="modify"]').on("click",function(e){
+		operForm.attr("action","/board/modify").submit();
+	});
+	
+	$('button[data-oper="list"]').on("click",function(e){
+		operForm.find("#boardNum").remove();
+		operForm.attr("action","/board/list");
+		operForm.submit();
+	});
+	
+	//reply
+	console.log(replyService);
+	
+	
+	var boardNumValue='<c:out value="${board.boardNum}"/>';
+	
+	
+	//댓글 조회
+	//ul태그
+	var replyUL=$(".chat")
+	//showList 함수 호출
+	showList(1);
+	
+	function showList(page) {
+        replyService
+              .getList(
+                    {
+                       boardNum : boardNumValue,
+                       page : page || 1
+                    },
+                    function(replyCnt,list) {
+                       console.log("replyCnt:"+replyCnt);
+                       console.log("list:"+list);
+                       if(page==-1){
+                          pageNum = Math.ceil(replyCnt/10.0);
+                          showList(pageNum);
+                          return;
+                       }
+                       var str = ""
+                       if (list == null
+                             || list.length == 0) {
+                  
+                    	 replyUL.html("");
+                          return;
+                       }
+                       for (var i = 0, len = list.length || 0; i < len; i++) {
+                          str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>"
+                          str += "<div><div class='header'><strong class='primary-font'>"
+                                + list[i].replyer
+                                + "</strong>"
+                          str += "<small class='pull-right text-muted'>"
+                                + replyService
+                                      .displayTime(list[i].replyDate)
+                                + "</small></div>"
+                          str += "<p>"
+                                + list[i].reply
+                                + "</p></div></li>"
+                       }
+                       replyUL.html(str);
+                       showReplyPage(replyCnt);
+                    })
+     }
+	//모달창 팝업
+	var modal=$(".modal");
+	var modalInputReply = modal.find("input[name='reply']");
+	var modalInputReplyer = modal.find("input[name='replyer']");
+	var modalInputReplyDate = modal.find("input[name='replyDate']");
+	
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalRegisterBtn = $("#modalRegisterBtn");
+	
+	//작성자 null로 선언
+    var replyer = "user000";
+    
+   /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
+    <sec:authorize access = "isAuthenticated()">
+        replyer = '<sec:authentication property="principal.username"/>';
+    </sec:authorize>
+    
+    //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
+    var csrfHeaderName = "${_csrf.headerName}";
+    var csrfTokenValue = "${_csrf.token}";시큐리티 */
+	
+	
+	 //새로운 댓글 등록 버튼 클릭 시
+	$("#addReplyBtn").on("click",function(e){
+		modal.find("input").val("");
+		
+		 //replyer (security id가 담긴)
+		/* modal.find("input[name='replyer']").val(replyer); */ 
+		
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id!='modalCloseBtn']").hide();
+		modalRegisterBtn.show();
+		$(".modal").modal("show");
+		showList(1);
+	});
+	 
+	/* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
+    $(document).ajaxSend(function(e, xhr, options){
+        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+    });  */  
+ 
+	
+	 //새로운 댓글 처리
+	modalRegisterBtn.on("click",function(e){
+		var reply={
+			reply:modalInputReply.val(),
+			replyer:modalInputReplyer.val(),
+			boardNum:boardNumValue
+		};
+		replyService.add(reply,function(result){
+			alert(result);
+			modal.find("input").val(""); //댓글 등록이 정상적으로 이뤄지면 내용을 지움
+			modal.modal("hide");//모달 창 닫음
+			showList(pageNum); //댓글이 포함된 페이지로 이동
 
-                  var operForm = $("#operForm");
-                  $('button[data-oper="modify"]').on(
-                        "click",
-                        function(e) {
-                           operForm.attr("action", "/board/modify")
-                                 .submit();
-                        });
-                  $('button[data-oper="list"]').on("click", function(e) {
-                     operForm.find("#boardNum").remove();
-                     operForm.attr("action", "/board/list");
-                     operForm.submit();
-                  });
-                  console.log(replyService);
+		});
+	});
+	
+	//특정 댓글의 클릭 이벤트
+	$(".chat").on("click","li",function(e){
+		var rno = $(this).data("rno");
+		replyService.get(rno,function(reply){
+			modalInputReply.val(reply.reply);
+			modalInputReplyer.val(reply.replyer);
+			modalInputReplyDate.val(replyService.displayTime(reply.replyDate))
+			.attr("readonly","readonly");
+			modal.data("rno",reply.rno);
+			
+			modal.find("button[id!='modalCloseBtn']").hide();
+			modalModBtn.show();
+			modalRemoveBtn.show();
+			$(".modal").modal("show");
+		});
+	});
+	
+	// 댓글 수정/삭제 처리 이벤트
+	//수정
+	modalModBtn.on("click",function(e){
+		var originalReplyer = modalInputReplyer.val();
+		var reply = {
+				rno:modal.data("rno"),
+				reply:modalInputReply.val(),
+				replyer:modalInputReplyer.val()
+				};
+		
+		 if(!replyer) {
+			alert("로그인 후 수정 가능");
+			modal.modal("hide");
+			return;
+		}
+		console.log("Original Replyer : " + originalReplyer);
+		  if(replyer != originalReplyer){
+              alert("자신이 작성한 댓글만 수정 가능");
+              modal.modal("hide");
+              return;
+          } 
+		
+		replyService.update(reply,function(result){
+			alert(result);
+			modal.modal("hide");//모달 창 닫음
+			showList(pageNum); //댓글이 포함된 페이지로 이동
+		});
+	});
+	
+	//삭제
+	modalRemoveBtn.on("click",function(e){
+		var rno = modal.data("rno"); 
+		
+        console.log("rno" + rno);
+        console.log("REPLYER : "+ replyer);
+        
+         if(!replyer){
+            alert("로그인 후 삭제 가능");
+            modal.modal("hide");
+            return;
+        }
+		
+        var originalReplyer = modalInputReplyer.val();
+        console.log("Orginal Replyer : " + originalReplyer); //원래 댓글 작성자
+        if(replyer != originalReplyer){
+            alert("자신이 작성한 댓글만 삭제 가능");
+            modal.modal("hide");
+            return;
+        }	 
+		
+		replyService.remove(rno, originalReplyer, function(result){
+			alert(result);
+			modal.modal("hide"); //모달 창 닫음
+			showList(pageNum);//댓글이 포함된 페이지로 이동
+			});
+		
+	});
+	
+	
+	//댓글의 페이지 번호 처리
+	var pageNum=1;
+    var replyPageFooter = $(".panel-footer");
+    function showReplyPage(replyCnt){
+       console.log("showReplyPage:"+replyCnt);
+       var endNum =Math.ceil(pageNum/10.0)*10;
+       var startNum =endNum-9;
+       var prev =startNum !=1;
+       var next =false;
+       if(endNum * 10 >= replyCnt){
+          endNum = Math.ceil(replyCnt/10.0);
+       }
+       if(endNum * 10 <replyCnt){
+          next = true;
+       }
+       var str ="<ul class='pagination pull-right'>";
+       if(prev){
+          str +="<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
+       }
+       for(var i =startNum;i<=endNum;i++){
+          var active = pageNum ==i? "active":"";
+          str +="<li class='page-itme "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+       }
+       if(next){
+          str +="<li class='page-itme'><a class='page-link' href='"+(endNum+1)+"'>Next</a></li>";
+       }
+       str+= "</ul></div>";
+       console.log(str);
+       replyPageFooter.html(str);
+    }//showReplyPage
+	
+    //페이지 번호 클릭 시
+    replyPageFooter.on("click","li a",function(e){
+        e.preventDefault();
+        console.log("page click");
+        var targetPageNum =$(this).attr("href");
+        console.log("targetPageNum:"+targetPageNum);
+        pageNum = targetPageNum;
+        showList(pageNum);
+     }); 
+    
+    //게시물 조회 시 파일 관련 자료를 JSON 데이터로 만들어서 화면에 전송
+    var boardNum = '<c:out value = "${board.boardNum}"/>';
+    $.getJSON("/board/getAttachList", {boardNum : boardNum}, function(arr) {
+    	console.log(arr);
+   
+    
+    //게시물 조회 이미지 출력 부분
+    var str ="";
+    $(arr).each(function(i, obj) {
+		if(!obj.fileType) {	//이미지가 아닌 경우
+			
+			  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
+			  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+	          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
+	          str += "<img src='/resources/images/2.png'>";
+	          str += "</div></li>";
+	        
+    		   
+		} else { //이미지인 경우
+			  var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
+	          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+	          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";				          
+	          str += "<img src='/display?fileName="+ fileCallPath +"'>";
+	          str += "</div></li>";
+		}
+	});
+	$(".uploadResult ul").html(str);
+	});//end getJSON
+	
+	$(".uploadResult").on("click","li", function(e){  
+	       console.log("view image");     
+	       var liObj = $(this);      
+	       var path = 
+	       encodeURIComponent(liObj.data("path")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));      
+	       if(!liObj.data("type")){
+	           //download 
+	            self.location ="/download?fileName="+path;
+	       }else {
+	        showImage(path);
+	       }
+	     });
+	
+	$(".bigPictureWrapper").on("click", function(e) {
+		$(".bigPicture").animate({width : '0%', height : '0%'}, 1000);
+		setTimeout(function() {
+			$('.bigPictureWrapper').hide();
+		}, 1000);
+	});//bigPictureWrapper click
 
-                  /* 리플라이 */
+	
+	
+	//기능 확인용
+	//댓글 추가
+	/*replyService.add({
+		reply:"JS TEST",
+		replyer:"js tester",
+		boardNum:boardNumValue}
+	, function(result){
+		// alert("RESULT : "+result); 
+	
+	}); */
+	
+	//댓글 조회
+	/* replyService.getList(
+	{boardNum:boardNumValue , page:1}		
+	,function(list){
+		for(var i = 0 , len = list.length||0; i<len;i++){
+			console.log(list[i]);
+		}
+	}); */
+	
+	//댓글 삭제
+	/* replyService.remove(
+		7
+		,function(count){
+			console.log(count);
+			if(count==="success"){alert("REMOVED");}
+		}, function(err){
+			alert("error occured....");
+		}); */
+		
+		
+	//댓글 수정
+	/* replyService.update({
+		rno:3,
+		boardNum:boardNumValue,
+		reply:"modified reply..."
+	}, function(result){
+		alert("수정 완료");
+	});  */
+		
+	//특정 댓글 조회
+	/* replyService.get(10,function(data){
+		console.log(data);
+	}); */
 
-                  var boardNumValue = '<c:out value="${board.boardNum}"/>';
-              /*          replyService.add({
-                          reply : "JS TEST",
-                          replyer : "js tester",
-                          boardNum : boardNumValue
-                       }, function(result) {
-                          alert("RESULT : " + result);
-                       });  */
-
-                  /*       replyService.getList(
-                           {boardNum:boardNumValue,page:1}
-                        ,function(list){
-                           for(var i =0, len=list.length||0; i<len; i++){
-                              console.log(list[i]);
-                           }
-                        }); */
-
-                  /* replyService.remove(32
-                   ,function(count){
-                   console.log(count);
-                   if(count==="success"){
-                   alert("REMOVED");}
-                   },function(err){
-                   alert('error occurred...');
-                   }); */
-
-                  /*  replyService.update({
-                       rno:22,
-                       boardNum:boardNumValue,
-                       reply:"modify reply...."
-                    }, function(result){
-                       alert("수정완료")
-                    }); */
-
-                  /* replyService.get(23, function(data) {
-                     console.log(data);
-                  }); */
-                //댓글 조회
-              	//ul태그
-                  var replyUL = $(".chat");
-                  showList(1);
-                  function showList(page) {
-                     replyService
-                           .getList(
-                                 {
-                                    boardNum : boardNumValue,
-                                    page : page || 1
-                                 },
-                                 function(replyCnt,list) {
-                                   console.log("replyCnt : "+ replyCnt)
-                                   console.log("list: "+list)
-                                    if(page==-1) {
-                                       pageNum=Math.ceil(replyCnt/10.0);
-                                       showList(pageNum);
-                                       return;
-                                    }
-                                    var str = "";
-                                    if (list == null|| list.length == 0) {
-                                       
-                                       return;
-                                    }
-                                    for (var i = 0, len = list.length || 0; i < len; i++) {
-                                       str += "<li class='letf clearfix' data-rno='"+list[i].rno+"'>"
-                                       str += "<div><div class='header'><strong class='primary-font'>"
-                                             + list[i].replyer
-                                             + "</strong>";
-                                       str += "<small class='pull-right text-muted'>"
-                                             + replyService
-                                                   .displayTime(list[i].replyDate)
-                                             + "</small><div>";
-                                       str += "<p>"
-                                             + list[i].reply
-                                             + "</p><div></li>";
-                                    }
-                                    replyUL.html(str);
-                                    showReplyPage(replyCnt);
-                                 });
-                  } //end  showList
-                  
-                  var modal =$(".modal");
-                  var modalInputReply =modal.find("input[name='reply']");
-                  var modalInputReplyer =  modal.find("input[name='replyer']");
-                  var modalInputReplyDate =  modal.find("input[name='replyDate']");
-                  
-                  var modalModBtn = $("#modalModBtn");
-                  var modalRemoveBtn = $("#modalRemoveBtn");
-                  var modalRegisterBtn = $("#modalRegisterBtn");
-                  
-                  var replyer=null;
-                  /* <sec:authorize access="isAuthenticated()">
-                  replyer='<sec:authentication property="principal.username"/>';
-                  </sec:authorize>
-                  var csrfHeaderName ="${_csrf.headerName}";
-                  var csrfTokenValue="${_csrf.token}"; 시큐리티 기능*/
-                  
-                  //새로운 댓글 등록 버튼 클릭 시
-                  $("#addReplyBtn").on("click",function(e){
-
-                      modal.find("input").val(""); 
-                     /* modal.find("input[name='replyer']").val(replyer); 시큐리티*/
-                      modalInputReplyDate.closest("div").hide();
-                     modal.find("button[id !='modalCloseBtn']").hide();
-                     modalRegisterBtn.show();
-                     $(".modal").modal("show");
-                    /*  showList(1);  */ 
-                  });
-                  
-                 
-                  
-                /* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
-                  $(document).ajaxSend(function(e,xhr,options){
-                     xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-                  }) 시큐리티 기능*/
-                  
-                  //새로운 댓글 처리
-                  modalRegisterBtn.on("click",function(e){
-                           var reply ={
-                                 reply:modalInputReply.val(),
-                                 replyer:modalInputReply.val(),
-                                 /* replyer:modalInputReplyer.val(), */ 
-                                 boardNum:boardNumValue
-                           };
-                           replyService.add(reply,function(result){
-                              alert(result);
-                              modal.find("input").val("");//댓글등록이 정상적으로 이뤄지면, 내용을 지움
-                              modal.modal("hide");//모달창 닫음
-                              
-                              showList(-1);
-                           });
-                        });
-                  
-                //특정 댓글의 클릭 이벤트
-                  $(".chat").on("click","li",function(e){
-                     var rno = $(this).data("rno");
-                     replyService.get(rno,function(reply){
-                        modalInputReply.val(reply.reply)
-                        modalInputReplyer.val(reply.replyer)
-                        modalInputReplyDate.val(replyService.displayTime(reply.replyDate)).attr("readonly","readonly")
-                        modal.data("rno",reply.rno)
-                        
-                        modal.find("button[id!='modalCloseBtn']").hide()
-                        modalModBtn.show()
-                        modalRemoveBtn.show()
-                        $(".modal").modal("show")
-                     })
-                     console.log(rno);
-                  });
-                //수정
-                  modalModBtn.on("click",function(e){
-                   /*   var originalReplyer = modalInputReplyer.val(); */
-                     var reply={rno:modal.data("rno"), 
-                           reply:modalInputReply.val()
-                           /*  ,replyer:originalReplyer */ }
-                    /*  if(!replyer){
-                        alert("로그인 후 수정 가능")
-                        modal.modal("hide")
-                        return
-                     }
-                     console.log("original Replyer:"+originalReplyer)
-                     if(replyer !=originalReplyer){
-                        alert("자신이 작성한 댁글만 수정 가능")
-                        modal.modal("hide")
-                        return
-                     } 시큐리티 기능*/
-                     replyService.update(reply,function(result){
-                        alert(result);
-                        modal.modal("hide");
-                        showList(pageNum);
-                     });
-                  });
-                //삭제
-                  modalRemoveBtn.on("click", function(e){
-                       /*  var originalReplyer = modalInputReplyer.val(); */
-                   
-                         var rno=modal.data("rno")
-
-                        /*  if(!replyer){
-                            alert("로그인 후 삭제 가능")
-                            modal.modal("hide")
-                            return
-                         }
-                         console.log("original Replyer:"+originalReplyer)
-                         if(replyer !=originalReplyer){
-                            alert("자신이 작성한 댁글만 삭제 가능")
-                            modal.modal("hide")
-                            return
-                         } 시큐리티 기능*/
-                     replyService.remove(rno/* , originalReplyer */, function(result){
-                        alert(result)
-                        modal.modal("hide")
-                        showList(pageNum)
-                     })
-                     
-                  });
-                //댓글의 페이지 번호 처리
-                  var pageNum=1
-                  var replyPageFooter= $(".panel-footer")
-                  function showReplyPage(replyCnt){
-                     console.log("showReplyPage: " + replyCnt)
-                     var endNum=Math.ceil(pageNum/10.0)*10
-                     var startNum=endNum-9
-                     var prev=startNum!=1
-                     var next=false
-                     if(endNum*10>replyCnt){endNum=Math.ceil(replyCnt/10.0)}
-                     if(endNum*10<replyCnt){next=true}
-                     var str="<ul class='pagination pull-right'>"
-                     if(prev) {
-                        str+="<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>"
-                     }
-                     for(var i=startNum; i<=endNum; i++) {
-                        var active =pageNum ==i?"active":"";
-                        str +="<li class='page-item "+active+"'><a class='page-link' href='"+i+"'>"+i+"</a></li>"
-                        }
-                     if(next){
-                        str +="<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>NEXT</a></li>"
-                     }
-                     str +="</ul></div>"
-                     console.log(str)
-                     replyPageFooter.html(str)
-                  }//showReplyPage
-                  
-                  //페이지 번호 클릭 시
-                  replyPageFooter.on("click","li a",function(e){
-                      e.preventDefault();
-                      console.log("page click");
-                      var targetPageNum =$(this).attr("href");
-                      console.log("targetPageNum:"+targetPageNum);
-                      pageNum = targetPageNum;
-                      showList(pageNum);
-                   });
-                  
-                  //게시물 조회 시 파일 관련 자료를 JSON 데이터로 만들어서 화면에 전송
-                  var boardNum ='<c:out value="${board.boardNum}"/>';
-                  $.getJSON("/board/getAttachList",{boardNum:boardNum}, function(arr){
-                      console.log(arr);
-                      console.log(fileCallPath);
-                    //게시물 조회 이미지 출력 부분 
-                      var str=''
-                      $(arr).each(function(i,obj){
-                         if (!obj.fileType) {
-                           var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);              
-                              str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>"
-                              str +="<img src='/resources/images/attach.png'>"
-                              str +="</div></li>"
-                           } else {
-                              //str +="<li>" + obj.fileName + '</li>'
-                              var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
-                              var originPath = obj.uploadPath   + "/"+ obj.uuid+ "_"+ obj.fileName
-                              originPath = originPath.replace(new RegExp(/\\/g),"/")
-                              str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'><div>"             
-                              str +="<img src='/display?fileName="+fileCallPath+"'>"
-                              str +="</div></li>"
-                           }
-                      })
-                      $(".uploadResult ul").html(str);
-                   });
-                   
-                   
-                   $(".uploadResult").on("click", "li", function(e) {
-                      console.log("view image");
-                     var liObj = $(this);
-                     var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
-                     if(!liObj.data("type")){
-                        self.location="/download?fileName="+path;
-                     }else{
-                        showImage(path);
-                     }
-                     
-                  })
-                   $(".bigPictureWrapper").on("click", function(e) {
-                        $(".bigPicture").animate({
-                           width : '0%',
-                           height : '0%'
-                        }, 1000);
-                        setTimeout(function() {
-                           $(".bigPictureWrapper").hide();
-                        }, 1000);
-                     });
-                  
-               });
+});
    
      function showImage(fileCallPath) {
       alert(fileCallPath);
@@ -391,8 +427,8 @@
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">게시글 등록</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">게시글 상세정보</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="form-group">
@@ -519,7 +555,7 @@
 			</div>
 			<!-- reply 영역 -->
 			<!-- 모달영역 -->
-			<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
+			<<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
 				aria-labelledby='myModallabel' aria-hidden='true'>
 				<div class='modal-dialog'>
 					<div class='modal-content'>
@@ -533,10 +569,10 @@
 								<label>Reply</label> <input class='form-control' name='reply'
 									value='New Reply'>
 							</div>
-							<div class='form-group'>
+							 <div class='form-group'>
 								<label>Replyer</label> <input class='form-control'
 									name='replyer' value='New Replyer'>
-							</div>
+							</div> 
 							<div class='form-group'>
 								<label>ReplyDate</label> <input class='form-control'
 									name='replyDate' value=''>
@@ -555,11 +591,5 @@
 			</div>
 			<!-- 모달영역 -->
 		
-		<!-- /.col-lg-12 -->
 	
-	<!-- /.row -->
-
-	<!-- /.row -->
-
-	<!-- /.row -->
 	<!--    footer 시작      -------------------------------------------------------------- -->

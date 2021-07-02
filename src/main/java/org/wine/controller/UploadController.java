@@ -43,7 +43,7 @@ public class UploadController {
 
 	@PostMapping("uploadFormAction")
 	public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
-		String uploadFolder = "c:/upload";
+		String uploadFolder = "c:/temp/upload";
 		for(MultipartFile multipartFile : uploadFile) {
 			log.info("..................");
 			log.info("Upload File Name : " + multipartFile.getOriginalFilename());
@@ -67,7 +67,7 @@ public class UploadController {
 	@PostMapping(value = "uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		String uploadFolder = "c:/upload";
+		String uploadFolder = "c:/temp/upload";
 		List<AttachFileDTO> list = new ArrayList<>(); 
 
 		//폴더 생성하기 부문
@@ -118,7 +118,7 @@ public class UploadController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 		log.info("fileName : " + fileName);
-		File file = new File("c:/upload/" + fileName);
+		File file = new File("c:/temp/upload/" + fileName);
 		log.info("file : " + file);
 		ResponseEntity<byte[]> result = null;
 		try {
@@ -136,7 +136,7 @@ public class UploadController {
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(String fileName){
 		log.info("download file : " + fileName);
-		Resource resource = new FileSystemResource("c:/upload/" + fileName);
+		Resource resource = new FileSystemResource("c:/temp/upload/" + fileName);
 
 		if(resource.exists() == false) { 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
@@ -166,7 +166,7 @@ public class UploadController {
 		File file;
 
 		try {
-			file = new File("c:/upload/" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File("c:/temp/upload/" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();
 			if(type.equals("image")) {
 				String largeFileName = file.getAbsolutePath().replace("s_", "");

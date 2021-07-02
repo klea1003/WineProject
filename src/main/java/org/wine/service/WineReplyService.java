@@ -1,10 +1,12 @@
-package org.wine.mapper;
+package org.wine.service;
 
 import java.util.List;
 
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineReplyVO;
+import org.wine.domain.WineVO;
 
-public interface WineReplyMapper {
+public interface WineReplyService {
 	
 	 public List<WineReplyVO> getList5(Long wno);
 	 public List<WineReplyVO> getListAll(Long wno);
@@ -13,9 +15,8 @@ public interface WineReplyMapper {
 	 public void delete(Long reviewNum);
 	 public void update(WineReplyVO WineReply);
 	 public void upLike(WineReplyVO WineReply);
-	 public void downLike(WineReplyVO WineReply);
-	 public int checkLike(WineReplyVO WineReply);
 	 public int getTotalCount(Long wno);
 	 public double getTotalStar(Long wno);
 	 public List<WineReplyVO> getFromStar(WineReplyVO WineReply);
+
 }

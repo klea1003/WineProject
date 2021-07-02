@@ -7,11 +7,13 @@ import lombok.Data;
 
 @Data
 public class WineReplyVO {
-	private Long rno;
+	private Long reviewNum;
+	private Long userNum;
 	private Long wno;
-	private String replyer;
-	private String reply;
-	private Date replyDate;
-	private double replyStar;
+	private String review;
+	private String reviewDate;
+	private double reviewRating;
+	private Long reviewLike;
+	
 
 }

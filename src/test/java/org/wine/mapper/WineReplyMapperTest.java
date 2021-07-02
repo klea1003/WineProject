@@ -26,44 +26,67 @@ public class WineReplyMapperTest {
 	@Setter(onMethod = @__({ @Autowired }))
 	private WineReplyMapper mapper;
 
-	@Test
-	public void testinsert() {
-		WineReplyVO like = new WineReplyVO();
-		like.setWno(1L);
-		like.setReply("Good");
-		like.setReplyer("user006");
-		like.setReplyStar(5L);
-		mapper.insert(like);
-		log.info(like);
-	}
+	/*
+	 * @Test public void testinsert() { WineReplyVO like = new WineReplyVO();
+	 * like.setWno(1L); like.setUserNum(1L); like.setReview("so cool!!!!!!!! ");
+	 * like.setReviewRating(4.5); mapper.insert(like); log.info(like); }
+	 */
 
 	@Test
 	public void testread() {
 		log.info(mapper.read(1L));
 	}
+	@Test
+	public void testgetList5() {
+		log.info(mapper.getList5(1L));
+	}
+	@Test
+	public void testgetListAll() {
+		log.info(mapper.getListAll(1L));
+	}
 
 	@Test
 	public void testUpdate() {
 		WineReplyVO like = new WineReplyVO();
-		like.setReply("so so");
-		like.setReplyStar(4L);
-		like.setRno(1L);
-		mapper.update(like);
+		like.setWno(1L);
+		like.setUserNum(1L);
+		like.setReview("so cool!!!!!!!! ");
+		like.setReviewRating(4.5);
+		mapper.insert(like);
 		log.info(like);
+	}
+	
+	@Test
+	public void testUpLike() {
+		WineReplyVO like = new WineReplyVO();
+		like.setUserNum(1L);
+		like.setReviewNum(1L);
+		log.info("your like is " + mapper.checkLike(like));
 	}
 
 	@Test
-	public void testgetFromStar() {
+	public void testupLike() {
 		WineReplyVO like = new WineReplyVO();
-		like.setWno(1L);
-		like.setReplyStar(4L);
-		mapper.getFromStar(like);
-		log.info(like);
+		like.setReviewNum(1L);
+		mapper.upLike(like);
 	}
 
 	@Test
 	public void testgettotal() {
-		mapper.getTotalCount(1L);
+		log.info(mapper.getTotalCount(1L));
+	}
+	
+	@Test
+	public void testgetTotalStar() {
+		log.info(mapper.getTotalStar(1L));
+	}
+	
+	@Test
+	public void testgetFromStar() {
+		WineReplyVO like = new WineReplyVO();
+		like.setWno(1L);
+		like.setReviewRating(4.5);
+		log.info(mapper.getFromStar(like));
 	}
 
 }

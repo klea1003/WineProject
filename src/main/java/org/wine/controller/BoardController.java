@@ -38,7 +38,7 @@ public class BoardController {
 	private BoardService service;
 	
 
- 
+    
 	@PostMapping("/like")
 	public String like(BoardLikeVO likeVO) {
 		log.info("like : " + likeVO);
