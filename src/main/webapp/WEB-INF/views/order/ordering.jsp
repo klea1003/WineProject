@@ -42,12 +42,12 @@ $(function(){
 				  <tbody>
 				
 				    <tr>
-				      <td><%=request.getParameter("seller") %></td>
-				      <td><%=request.getParameter("winename") %></td>
+				      <td><%=request.getParameter("sellerId") %>(<%=request.getParameter("sellerNum") %>)</td>
+				      <td><%=request.getParameter("wineName") %></td>
 				      <td> <img src= "http://klea-home.iptime.org:8081/<%=request.getParameter("image") %>" height="80" width="50"> </td>
-				      <td><fmt:formatNumber pattern="#,###,###" value='<%=request.getParameter("wineprice") %>' /></td>
-				      <td><%=request.getParameter("Qty") %></td>
-				      <td><fmt:formatNumber pattern="###,###,###" value='<%=request.getParameter("totalprice") %>' /></td>
+				      <td><fmt:formatNumber pattern="#,###,###" value='<%=request.getParameter("winePrice") %>' /></td>
+				      <td><%=request.getParameter("cartQty") %></td>
+				      <td><fmt:formatNumber pattern="###,###,###" value='<%=request.getParameter("orderPrice") %>' /></td>
 				    </tr>
 				    
 				   
@@ -58,10 +58,10 @@ $(function(){
 
 	<div class="orderInfo">
 		<form role="form" method="post" autocomplete="off">
-
+            <input type="hidden" name="sellerNum" value="<%=request.getParameter("sellerNum") %>">
 			<div class="inputArea">
 				<label for="pickUpName">수령인</label> <input type="text" name="pickUpName" id="pickUpName"
-					 required="required" />
+					  required="required" />
 			</div>
 
 			<div class="inputArea">
@@ -72,7 +72,7 @@ $(function(){
 
 
 			<div>
-			<p>픽업 일자 : <input type="text" id="datepicker"></p>
+			<p>픽업 일자 : <input type="text" id="datepicker" name="pickUpDate"></p>
 			</div>
 
 
