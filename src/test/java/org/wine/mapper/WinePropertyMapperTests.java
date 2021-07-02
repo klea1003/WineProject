@@ -43,4 +43,10 @@ public class WinePropertyMapperTests {
 		
 	}
 	
+	@Test
+	public void getWinePropertyList() {
+		mapper.getWinePropertyList("wine_type").forEach(wine->log.info(wine));
+		
+	}
+	
 }

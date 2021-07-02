@@ -9,34 +9,9 @@
 		<result property="displayText" column="DISPLAY_TEXT" />			
 	</resultMap>
 	
-
-	<select id="getWineTypeList" resultMap="WineProperty">
+	<select id="getWinePropertyList" resultMap="WineProperty">
 	  <![CDATA[
-	  	select * from TBL_WINE_PROPERTY where area = 'wine_type'
-	  ]]>
-	</select>
-	
-	<select id="getWineGrapeList" resultMap="WineProperty">
-	  <![CDATA[
-	  	select * from TBL_WINE_PROPERTY where area = 'wine_grape'
-	  ]]>
-	</select>
-	
-	<select id="getWineRegionList" resultMap="WineProperty">
-	  <![CDATA[
-	  	select * from TBL_WINE_PROPERTY where area = 'wine_region'
-	  ]]>
-	</select>
-	
-	<select id="getWineCountryList" resultMap="WineProperty">
-	  <![CDATA[
-	  	select * from TBL_WINE_PROPERTY where area = 'wine_country'
-	  ]]>
-	</select>
-	
-	<select id="getWineStyleList" resultMap="WineProperty">
-	  <![CDATA[
-	  	select * from TBL_WINE_PROPERTY where area = 'wine_style'
+	  	select * from TBL_WINE_PROPERTY where area = #{propertyArea}
 	  ]]>
 	</select>
 </mapper>

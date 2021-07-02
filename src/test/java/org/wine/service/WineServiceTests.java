@@ -66,5 +66,15 @@ public class WineServiceTests {
 	public void testGet() {
 		log.info(service.get(1L));
 	}
+	
+	@Test
+	public void testWinePropertyList() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
+		
+		service.getWinPropertyDTO("wine_type", ids).forEach(propertyDTO -> log.info(propertyDTO));
+		
+	}
 
 }
