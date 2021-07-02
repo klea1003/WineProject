@@ -29,12 +29,18 @@ public class WineController {
 	private WineService service;
 	
 	@GetMapping("/list")
-	public void list(CriteriaWine cri, Model model) {
+	public void list(
+			CriteriaWine cri,
+			@RequestParam(value="wine_type_ids", required=false)ArrayList<Integer> wineTypeIds,
+			Model model
+		) {
+		
+		log.info("wineTypeIds: " + wineTypeIds);
+		model.addAttribute("wineTypeList", service.getWinPropertyDTO("wine_type", wineTypeIds));
+		
 		log.info("list"+ cri);
 		
 		model.addAttribute("list", service.getList(cri));
-		
-		model.addAttribute("temp", true);
 		
 		int total = service.getTotal(cri);		
 		log.info("total:" + total); 

@@ -12,22 +12,18 @@
 <body>
 	<%@ include file="../includes/header.jsp"%>
 	<!-- Searching Wine Types -->
-	<h3>Wine Tpye</h3>
+	<h3>Wine Type</h3>
+	
 	<div>
-		<label><input type="checkbox" name="wine_type" value="Red wine" /> Red</label>
-		<label><input type="checkbox" name="wine_type" value="White wine" /> White</label>
-		<!-- 아래의 value는 추후 크롤링 DB 입력 후 변경해야 됨 -->
-		<label><input type="checkbox" name="wine_type" value="3" /> Sparkling</label>
-		<label><input type="checkbox" name="wine_type" value="4" /> Rosé</label>
-		<label><input type="checkbox" name="wine_type" value="5" /> Dessert</label>
-		<label><input type="checkbox" name="wine_type" value="6" /> Fortified</label>
+		<c:forEach items="${wineTypeList}" var="wineTypeDTO">
+			<label>
+				<input type="checkbox" name="wine_type" value=<c:out value="${wineTypeDTO.wineProperty.keyValue}" />
+				<c:if test='${wineTypeDTO.flag eq true}'>checked</c:if>/><c:out value="${wineTypeDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Price Range -->
-	
-	
-	<label><input type="checkbox" name="wine_type" value="Red wine" <c:if test='${temp eq true}'>checked</c:if>/>Red</label>
-	
 	
 	<input type="text" id="demo" size="10" value="test">
 	

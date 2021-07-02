@@ -70,9 +70,8 @@ public class WineServiceImpl implements WineService {
 		
 		for (int i=0; i < list.size(); i++) {
 			WinePropertyVO propertyVO = list.get(i);
-			boolean flagAdd = false;
 			
-			if(ids.contains(propertyVO.getIdx())) {
+			if(ids != null && ids.contains(propertyVO.getIdx())) {
 				WinePropertyDTO newPropertyDTO = new WinePropertyDTO(propertyVO, true);
 				results.add(newPropertyDTO);
 			} else {

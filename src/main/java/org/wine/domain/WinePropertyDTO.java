@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class WinePropertyDTO {
 	WinePropertyVO wineProperty;
-	boolean Flag;
+	boolean flag;
 	
 	public WinePropertyDTO(WinePropertyVO wineProperty, boolean Flag) {
 		this.wineProperty = wineProperty;
-		this.Flag = Flag;
+		this.flag = Flag;
 	}
 }
