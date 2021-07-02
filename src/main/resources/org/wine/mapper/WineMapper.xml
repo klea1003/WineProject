@@ -62,6 +62,10 @@
 			    FROM TBL_WINE_TEST WHERE  ]]>
 				
 				<include refid="criteriaWineType"></include>
+				<include refid="criteriaWineGrape"></include>
+				<include refid="criteriaWineRegion"></include>
+				<include refid="criteriaWineCountry"></include>
+				<include refid="criteriaWineStyle"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -72,6 +76,19 @@
 		<![CDATA[
 		select count(*) from tbl_wine_test where wine_num > 0
 		]]>
+	</select>
+	
+	<select id="getTotalCountWithPaging" resultType="int">
+		 <![CDATA[
+			SELECT COUNT(*) FROM (
+			    SELECT * FROM TBL_WINE_TEST WHERE ]]>
+				<include refid="criteriaWineType"></include>
+				<include refid="criteriaWineGrape"></include>
+				<include refid="criteriaWineRegion"></include>
+				<include refid="criteriaWineCountry"></include>
+				<include refid="criteriaWineStyle"></include>
+				
+			wine_num > 0)	
 	</select>
 
 	<sql id="criteriaWineType">
@@ -86,4 +103,65 @@
 		</if>
 	</sql>
 
+	
+	<sql id="criteriaWineGrape">
+		<if test="wineGrapeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineGrape" collection="wineGrapeArr">
+					<trim prefix="OR">
+						 Wine_Grapes like '%'||#{wineGrape}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineRegion">
+		<if test="wineRegionArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineRegion" collection="wineRegionArr">
+					<trim prefix="OR">
+						 Wine_Regions like '%'||#{wineRegion}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineCountry">
+		<if test="wineCountryArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineCountry" collection="wineCountryArr">
+					<trim prefix="OR">
+						 Wine_Country like '%'||#{wineCountry}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineStyle">
+		<if test="wineStyleArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineStyle" collection="wineStyleArr">
+					<trim prefix="OR">
+						 WineStyle like '%'||#{wineStyle}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineRating">
+		<if test="wineRatingArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineRating" collection="wineRatingArr">
+					<trim prefix="OR">
+						 WineRating like '%'||#{wineRating}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>				
+	
 </mapper>

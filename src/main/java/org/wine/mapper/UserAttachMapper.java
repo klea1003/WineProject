@@ -11,5 +11,7 @@
   public void delete(String profileUuid);
   
   public List<ProfileVO> findByUserNum(Long userNum); 
+  
+  public List<ProfileVO> findByUserNumCK(Long userNum);
   }
  

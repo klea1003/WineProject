@@ -25,6 +25,7 @@ where user_following_id = 2;
 -- 팔로워 수
 
 create table tbl_profile_test(
+profile_num number not null,
 profile_uuid varchar2(100) not null,
 profile_uploadPath varchar2(200) not null,
 profile_fileName varchar2(100) not null,
@@ -32,5 +33,38 @@ profile_filetype char(1) DEFAULT 'I',
 user_num number
 );
 
+CREATE SEQUENCE SEQ_PROFILE_TEST
+START WITH 1
+INCREMENT BY 1;
+
+
 drop table tbl_profile_test;
 
+
+CREATE TABLE TBL_USER(
+	USER_NUM NUMBER,
+	USER_ID VARCHAR2(50) NOT NULL,
+	USER_NICKNAME VARCHAR2(50) NOT NULL,
+	USER_EMAIL VARCHAR2(100) NOT NULL,
+	USER_PASSWORD VARCHAR2(50) NOT NULL,
+	USER_PHONENUM VARCHAR2(50) NOT NULL,
+	USER_REALNAME VARCHAR2(50) NOT NULL,
+	USER_BIRTHDAY DATE NOT NULL);
+
+insert into TBL_USER(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
+		values(USER_UNM.nextval,USER_ID.nextval,USER_NICKNAME.nextval,USER_EMAIL.nextval,USER_PASSWORD.nextval,'010-1111-1111','test',
+        '1996-11-11');
+
+insert into {table_name}(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY) values ({userNum},USER_ID.nextval,USER_NICKNAME.nextval,USER_EMAIL.nextval,USER_PASSWORD.nextval,'010-1111-1111','{realname}','1996-11-11')
+
+SELECT * FROM
+(SELECT *FROM tbl_profile_test ORDER BY profile_uploadpath DESC , profile_num  desc)
+WHERE ROWNUM = 1 and user_num=6;
+
+delete  from tbl_profile_test a
+where a.user_num =6
+and a.profile_num<(select max(x.profile_num)
+from tbl_profile_test x
+where x.user_num = a.user_num);

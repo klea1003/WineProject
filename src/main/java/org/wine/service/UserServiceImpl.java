@@ -98,4 +98,10 @@ public class UserServiceImpl implements UserService {
 		return attachMapper.findByUserNum(userNum);
 	}
 
+	@Override
+	public List<ProfileVO> imageCk(Long userNum) {
+		// TODO Auto-generated method stub
+		return attachMapper.findByUserNumCK(userNum);
+	}
+
 }

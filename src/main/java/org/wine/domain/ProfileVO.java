@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProfileVO {
-	
+	private Long profileNum;
 	private Long userNum;
 	private String profileUuid;
 	private String profileUploadPath;

@@ -1,6 +1,5 @@
 package org.wine.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -75,6 +74,12 @@ public class UserController {
 		
 		model.addAttribute("followck", socialservice.followingBtn(userNum));
 		
+		List<ProfileVO> imageck =  service.imageCk(userNum);
+		
+		log.info("imageck : " +imageck);
+		
+		model.addAttribute("imageck",imageck);
+		
 		int followercnt = socialservice.getCountByFollower(userNum);
 		
 		model.addAttribute("followercnt",followercnt);
@@ -82,6 +87,8 @@ public class UserController {
 		int followingcnt = socialservice.getCountByFollowing(userNum);
 		
 		model.addAttribute("followingcnt",followingcnt);
+		
+		
 		
 	}
 	
@@ -110,7 +117,7 @@ public class UserController {
 		UserVO lvo = service.userLogin(user);
 		
 		if(query==""||query==null) {
-			return query;
+			
 		}else {
 			query = "?" + query;
 		}
@@ -233,9 +240,6 @@ public class UserController {
 		log.info("getAttachList "+userNum);
 		
 		List<ProfileVO> list=service.getAttachList(userNum);
-		
-		log.info("type :" + list.get(0).isProfileFileType());
-		log.info("type :" + list.get(1).isProfileFileType());
 		
 		return new ResponseEntity<>(service.getAttachList(userNum),HttpStatus.OK);
 	}

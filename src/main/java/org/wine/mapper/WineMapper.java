@@ -21,5 +21,7 @@ public interface WineMapper {
 	
 	public int getTotalCount(CriteriaWine cri);
 	
+	public int getTotalCountWithPaging(CriteriaWine cri);
+	
 
 }
