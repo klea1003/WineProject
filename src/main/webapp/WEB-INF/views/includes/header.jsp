@@ -188,23 +188,21 @@ body.modal-open {
 </style>
 
 <script>
-        $(document).ready(function() {
-        	
-            var result = '${result}';
-            
-            console.log(result);
-            
-             
-            $("#modal_show_login").click(function() {
-            	$("#loginModal").modal("show");
-            
-            });
-             
-            $("#close_login").click(function() {
-                $("#loginModal").modal("hide");
-            });
+     $(document).ready(function() {
+     	
+         var result = '${result}';
+         
+         console.log(result);
+        
+         $("#modal_show_login").click(function() {
+         	$("#loginModal").modal("show");
+         
+         });
+          
+         $("#close_login").click(function() {
+             $("#loginModal").modal("hide");
+         });
 
-            
         $("#modal_show_join").click(function() {
            $("#joinModal").modal("show");
             
@@ -224,21 +222,16 @@ body.modal-open {
         $("#close_join").click(function() {
             $("#joinModal").modal("hide");
         });
-
+        <c:if test="${user == null }">
         if(result ==0){
            if (result === '' || history.state) {
 			return;
 			} 
           	$("#loginModal").modal("show");
         }  
- 
-        
-    
-        
+ 		</c:if>
         });
-        
-        
-        
+  
         document.addEventListener("DOMContentLoaded", function(){
         	// make it as accordion for smaller screens
         	if (window.innerWidth > 992) {
@@ -264,17 +257,14 @@ body.modal-open {
         					el_link.classList.remove('show');
         					nextEl.classList.remove('show');
         				}
-
-
         			})
         		});
 
         	}
         	// end if innerWidth
-        	}); // DOMContentLoaded  end
+        }); // DOMContentLoaded  end
         
-    </script>
-
+</script>
 </head>
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0 main-color">
@@ -300,9 +290,7 @@ body.modal-open {
 				
 					 <!-- 로그인 하지 않은 상태 -->
 					 <c:if test="${user == null }">
-						
 						<h2><i class="bi bi-person" id="modal_show_login"></i></h2>
-												
 					</c:if> 
 					
 
@@ -316,10 +304,10 @@ body.modal-open {
 						<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 							<li><a class="dropdown-item" href="#">My wines</a></li>
 							<li><a class="dropdown-item" href="#">orders</a></li>
-							<li><a class="dropdown-item" href="#">profiles</a></li>
+							<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 							<li><a class="dropdown-item" href="#">Settings</a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Log out</a></li>
+							<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
 						</ul>
 						</div>
 					</c:if>
