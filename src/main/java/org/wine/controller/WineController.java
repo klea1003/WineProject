@@ -36,6 +36,7 @@ public class WineController {
 			@RequestParam(value="wine_region_ids", required=false)ArrayList<Integer> wineRegionIds,
 			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
 			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
+			@RequestParam(value="keyword", required=false) String wineKeyword,
 			Model model
 		) {
 		
@@ -54,6 +55,9 @@ public class WineController {
 		log.info("wineStyleIds: " + wineStyleIds);
 		model.addAttribute("wineStyleList", service.getWinPropertyDTO("wine_style", wineStyleIds));
 		
+		log.info("wineKeyword: " + wineKeyword);
+		model.addAttribute("wine_keyword", wineKeyword);
+		
 		int total = service.getTotal(cri);		
 		log.info("total:" + total); 
 		
@@ -63,14 +67,15 @@ public class WineController {
 	@GetMapping(value = "/requestWineList")
 	public ResponseEntity<List<WineVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
-			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
-			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
-			@RequestParam(value= "wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
-			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
-			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
-			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
-			@RequestParam(value= "priceMin") String winePriceMin,
-			@RequestParam(value= "priceMax") String winePriceMax
+			@RequestParam(value="wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
+			@RequestParam(value="wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
+			@RequestParam(value="wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
+			@RequestParam(value="wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
+			@RequestParam(value="wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
+			@RequestParam(value="wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
+			@RequestParam(value="priceMin") String winePriceMin,
+			@RequestParam(value="priceMax") String winePriceMax,
+			@RequestParam(value="wineKeyword") String wineKeyword
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
@@ -84,6 +89,7 @@ public class WineController {
 		log.info("requestWineList wineRatingArr: " + wineRatingArr);
 		log.info("requestWineList priceMin: " + winePriceMin);
 		log.info("requestWineList priceMax: " + winePriceMax);
+		log.info("requestWineList wineKeyword: " + wineKeyword);
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
@@ -93,6 +99,7 @@ public class WineController {
 		cri.setWineStyleArr(wineStyleArr);
 		cri.setWineStyleArr(wineRatingArr);
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
+		cri.setKeyword(wineKeyword);
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
@@ -109,7 +116,8 @@ public class WineController {
 			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
 			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
 			@RequestParam(value= "priceMin") String winePriceMin,
-			@RequestParam(value= "priceMax") String winePriceMax
+			@RequestParam(value= "priceMax") String winePriceMax,
+			@RequestParam(value="wineKeyword") String wineKeyword
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
@@ -122,6 +130,7 @@ public class WineController {
 		log.info("requestWineList valueArr: " + wineRatingArr);
 		log.info("requestWineList priceMin: " + winePriceMin);
 		log.info("requestWineList priceMax: " + winePriceMax);
+		log.info("requestWineList wineKeyword: " + wineKeyword);
 		
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
@@ -129,6 +138,7 @@ public class WineController {
 		cri.setWineCountryArr(wineCountryArr);
 		cri.setWineStyleArr(wineStyleArr);
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
+		cri.setKeyword(wineKeyword);
 		
 		int total = service.getTotal(cri);
 		log.info("total:" + total);

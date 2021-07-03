@@ -67,6 +67,7 @@
 				<include refid="criteriaWineCountry"></include>
 				<include refid="criteriaWineStyle"></include>
 				<include refid="criteriaWinePrice"></include>
+				<include refid="criteriaKeyword"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -167,6 +168,12 @@
 	
 	<sql id="criteriaWinePrice">
 		WINE_PRICE BETWEEN #{priceMin} AND #{priceMax} AND
-	</sql>		
+	</sql>
+	
+	<sql id="criteriaKeyword">
+		<if test="keyword!=null">
+			UPPER(WINE_TITLE) like '%'||UPPER(#{keyword})||'%' AND
+		</if>
+	</sql>
 	
 </mapper>

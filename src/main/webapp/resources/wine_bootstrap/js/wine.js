@@ -46,6 +46,10 @@ var wineService = (function(){
 		var price_max = $( "#price_max" ).val();
 		console.log("priceMin", price_min);
 		console.log("priceMax", price_max);
+		
+		// keyword
+		var wine_keyword = $("input[name='wine_keyword']").val()
+		console.log("keyword", wine_keyword);
 
 		var actionForm = $("#actionForm");
 		var pageNum = actionForm.find("input[name='pageNum']").val();
@@ -71,7 +75,8 @@ var wineService = (function(){
 				wineStyleArr:_wineStyleArr,
 				wineRatingArr:_wineRatingArr,
 				priceMin: price_min,
-				priceMax: price_max
+				priceMax: price_max,
+				wineKeyword: wine_keyword
 				}
 				
 			, success : function(result, status, xhr) {
@@ -124,6 +129,10 @@ var wineService = (function(){
 		var price_max = $( "#price_max" ).val();
 		console.log("priceMin", price_min);
 		console.log("priceMax", price_max);
+		
+		// keyword
+		var wine_keyword = $("input[name='wine_keyword']").val()
+		console.log("keyword", wine_keyword);
 
 		var actionForm = $("#actionForm");
 		var totalPageNum = actionForm.find("input[name='totalPageNum']");
@@ -147,7 +156,8 @@ var wineService = (function(){
 				wineStyleArr:_wineStyleArr,
 				wineRatingArr:_wineRatingArr,
 				priceMin: price_min,
-				priceMax: price_max
+				priceMax: price_max,
+				wineKeyword: wine_keyword
 				}
 				
 			, success : function(result, status, xhr) {

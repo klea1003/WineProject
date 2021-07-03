@@ -283,14 +283,14 @@ body.modal-open {
 			<div class="container px-5">
 				<a class="navbar-brand " href="index.html">
 				<span class="title text-dark">너와, IN</span></a>
-					<div class="input-group-prepend">
-						<button id="button-addon8" type="submit" class="btn btn-danger">
+					
+					<form id='searchForm' action="/wine/list" method='get'>
+						<button class="btn btn-danger">
 							<i class="bi bi-search"></i>
 						</button>
-					</div>
-					<input type="search" placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
+						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
 						style="width: 200px;">
-					
+					</form>					
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
 					aria-label="Toggle navigation">
@@ -665,4 +665,14 @@ body.modal-open {
 	<!-- <script src="/resources/wine_bootstrap/js/scripts.js"></script> -->
 
 </body>
+
+<script type="text/javascript">   
+	var searchForm = $("#searchForm");
+	
+	$('#searchForm button').on("click", function(e){
+		e.preventDefault;
+		
+		console.log("searchForm button clicked")
+	});
+</script>
 </html>

@@ -21,6 +21,8 @@ public class CriteriaWine {
 	private ArrayList<String> wineRatingArr;
 	private int priceMin;
 	private int priceMax;
+	private String keyword;
+	
 	public CriteriaWine() {
 		this(1,10);
 	}
@@ -33,6 +35,9 @@ public class CriteriaWine {
 		this.wineCountryArr = new ArrayList<String>();
 		this.wineStyleArr = new ArrayList<String>();
 		this.wineRatingArr = new ArrayList<String>();
+		this.priceMin = 1000;
+		this.priceMax = 100000;
+		this.keyword = null;
 	}
 	
 	public void setWineTypeArr(ArrayList<String> wineTypeArr) {

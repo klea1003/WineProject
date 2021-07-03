@@ -67,6 +67,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 <body>
 	<%@ include file="../includes/header.jsp"%>
 	
+	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
+	
 	<!-- Searching Wine Types -->
 	<h3>Wine Type</h3>	
 	<div>
