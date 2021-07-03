@@ -104,4 +104,13 @@ public class UserServiceImpl implements UserService {
 		return attachMapper.findByUserNumCK(userNum);
 	}
 
+	@Override
+	public int remove(Long userNum) {
+		// TODO Auto-generated method stub
+		
+		log.info("remove...."+ userNum) ;
+		
+		return attachMapper.deleteimage(userNum);
+	}
+
 }

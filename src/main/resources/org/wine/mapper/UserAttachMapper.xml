@@ -37,4 +37,8 @@
 	select * from tbl_profile_test where USER_NUM=#{userNum}
 	
 	</select>
+	
+	  <delete id="deleteimage">
+      delete from tbl_profile_test where USER_NUM=#{userNum}
+   </delete>
 </mapper>

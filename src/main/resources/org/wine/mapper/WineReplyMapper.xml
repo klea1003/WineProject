@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WineReplyMapper">
+
+<resultMap type="org.wine.domain.WineReplyVO" id="wineReplyInfo">
+  <result property="reviewNum" column="REVIEW_NUM"/>
+  <result property="userNum" column="USER_NUM"/>
+  <result property="wno" column="WINE_NUM"/>
+  <result property="review" column="REVIEW_CONTENT"/>
+  <result property="reviewDate" column="REVIEW_DATE"/>
+  <result property="reviewRating" column="REVIEW_RATING"/>
+  <result property="reviewLike" column="REVIEW_COUNT_LIKE"/>
+ </resultMap>
+
+
+ <select id="getList5" resultMap="wineReplyInfo">
+<![CDATA[select*from
+ (select*from TBL_WINE_REVIEW  where wine_num = #{wno} order by review_count_like desc)
+ where rownum<=5]]>
+ </select>
+  
+  <select id="getListAll" resultMap="wineReplyInfo">
+  select*from TBL_WINE_REVIEW where wine_num = #{wno} 
+  </select>
+  
+  <select id="read" resultMap="wineReplyInfo">
+  select*from TBL_WINE_REVIEW where REVIEW_NUM=#{reviewNum} 
+  </select>
+  
+  <insert id="insert">
+  insert into TBL_WINE_REVIEW
+  (review_Num, USER_NUM, WINE_NUM, REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE)
+  values(SEQ_WINE_REPLY.nextval, #{userNum}, #{wno}, #{review},TO_CHAR(SYSDATE, 'MON DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH'), #{reviewRating}, 0)
+  </insert>
+  
+  <update id="update">
+  update TBL_WINE_REVIEW set  REVIEW_CONTENT=#{review}, REVIEW_RATING=#{reviewRating}
+  where REVIEW_NUM=#{reviewNum}
+  </update>
+  
+  <select id="checkLike" resultType="int">
+  select nvl(count(*),0) from TBL_REPLY_LIKE where 
+  REVIEW_NUM =#{reviewNum} and USER_NUM=#{userNum}
+  </select>
+  
+  <update id="upLike">
+  update TBL_WINE_REVIEW set REVIEW_COUNT_LIKE = REVIEW_COUNT_LIKE+1
+  where REVIEW_NUM=#{reviewNum}
+  </update>
+  
+  <update id="downLike">
+  update TBL_WINE_REVIEW set REVIEW_COUNT_LIKE = REVIEW_COUNT_LIKE-1
+  where REVIEW_NUM=#{reviewNum}
+  </update>
+  
+  <delete id="delete">
+  delete from TBL_WINE_REVIEW where REVIEW_NUM=#{reviewNum}
+  </delete>
+  
+  <select id="getTotalCount" resultType="int">
+  select count(*) from TBL_WINE_REVIEW where 
+  WINE_NUM = #{wno}
+  </select>
+  
+  <select id="getTotalStar" resultType="double">
+  select trunc(avg(REVIEW_RATING),1) from TBL_WINE_REVIEW where 
+  WINE_NUM = #{wno}
+  </select>
+  
+  <select id="getFromStar" resultMap="wineReplyInfo">
+  select * from TBL_WINE_REVIEW where 
+  WINE_NUM = #{wno} and REVIEW_RATING = #{reviewRating}
+  order by REVIEW_COUNT_LIKE desc
+  </select>
+ 
+  
+  
+ 
+</mapper>

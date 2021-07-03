@@ -24,4 +24,6 @@ public interface UserService {
 		public List<ProfileVO> getAttachList(Long userNum);
 		
 		public List<ProfileVO> imageCk(Long userNum);
+		
+		public int remove(Long userNum);
 }

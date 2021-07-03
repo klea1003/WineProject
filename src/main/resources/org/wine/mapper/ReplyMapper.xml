@@ -3,13 +3,6 @@
 
 <mapper namespace="org.wine.mapper.ReplyMapper">
 
-<resultMap type="org.wine.domain.ReplyVO" id="replyinfo">
-  <result property="rno" column="RNO"/>
-  <result property="boardNum" column="BOARD_NUM"/>
-  <result property="replyer" column="REPLYER"/>
-  <result property="reply" column="REPLY"/>
-  <result property="replyDate" column="REPLY_DATE"/>
- </resultMap>
  
 <insert id="insert">
  insert into tbl_Reply_Test(rno, board_Num, replyer, reply)
@@ -35,7 +28,7 @@ from tblReplyTest
 where boardNum=#{boardNum}
 </select> -->
 
-<select id="getListWithPaging" resultMap="replyinfo">
+<select id="getListWithPaging" resultType="org.wine.domain.ReplyVO">
 <![CDATA[
 select rno, board_Num, reply, replyer, reply_Date
 from

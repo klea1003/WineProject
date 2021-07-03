@@ -13,5 +13,7 @@
   public List<ProfileVO> findByUserNum(Long userNum); 
   
   public List<ProfileVO> findByUserNumCK(Long userNum);
+  
+  public int deleteimage(Long userNum);
   }
  

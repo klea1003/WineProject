@@ -38,7 +38,7 @@ public class BoardController {
 	private BoardService service;
 	
 
- 
+    
 	@PostMapping("/like")
 	public String like(BoardLikeVO likeVO) {
 		log.info("like : " + likeVO);
@@ -116,10 +116,10 @@ public class BoardController {
 
 	}
 	
-	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/getBoardAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long boardNum){
-		log.info("getAttachList" + boardNum);
+		log.info("getBoardAttachList" + boardNum);
 		return new ResponseEntity<>(service.getAttachList(boardNum), HttpStatus.OK);
 	}//첨부파일들 확인
 	
@@ -128,10 +128,10 @@ public class BoardController {
 		log.info("delete attah files........."); log.info(attachList);
 		attachList.forEach(attach->{
 			try {
-				Path file = Paths.get("c:/upload/"+attach.getUploadPath()+"/"+attach.getUuid()+"_"+attach.getFileName());
+				Path file = Paths.get("c:/temp/upload/"+attach.getUploadPath()+"/"+attach.getUuid()+"_"+attach.getFileName());
 				Files.deleteIfExists(file);
 				if(Files.probeContentType(file).startsWith("image")) {
-					Path thumbNail = Paths.get("c:/upload/"+attach.getUploadPath()+"/s_"+attach.getUuid()+"_"+attach.getFileName());
+					Path thumbNail = Paths.get("c:/temp/upload/"+attach.getUploadPath()+"/s_"+attach.getUuid()+"_"+attach.getFileName());
 					Files.delete(thumbNail);
 				}
 			} catch (Exception e) { log.error("delete file error : " + e.getMessage()); }

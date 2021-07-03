@@ -27,7 +27,7 @@
 	<beans:property name="maxInMemorySize" value="200000000"/>
 	<beans:property name="maxUploadSizePerFile" value="4000000"/>
 	<beans:property name="defaultEncoding" value="utf-8"/>
-	<beans:property name="uploadTempDir" value="file:/c:/upload"/>
+	<beans:property name="uploadTempDir" value="file:/c:/temp/upload"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="org.wine.*" />
