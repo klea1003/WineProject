@@ -593,3 +593,4 @@ $(document).ready(function(){
 		
 	
 	<!--    footer 시작      -------------------------------------------------------------- -->
+	 <%@include file="../includes/footer.jsp" %>
