@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 .pagination {
@@ -78,6 +79,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div><br>
 	
 	<!-- Price Range -->
+	<h3>Price Range</h3>	
 	<div class="col-md-4">
 		<p>
 			<label for="amount">Price range:</label> <input type="text"
@@ -89,33 +91,61 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	
 	
 	<!-- Searching User Rating -->
-	<div class="star-ratings">
-		<div class="star-ratings-fill space-x-2 text-lg" :style="{ width: ratingToPercent + '%' }">
-			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-		</div>
-		<div class="star-ratings-base space-x-2 text-lg">
-			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-		</div>
-	</div>
-	<div class="star-rating space-x-4 mx-auto">
-	<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-	<label for="5-stars" class="star pr-4">★</label>
-	<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-	<label for="4-stars" class="star">★</label>
-	<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-	<label for="3-stars" class="star">★</label>
-	<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-	<label for="2-stars" class="star">★</label>
-	<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-	<label for="1-star" class="star">★</label>
-	</div>
+	<h3>User Rating</h3>	
 	<div> 
-		<label><input type="radio" name="WineRating" value="1" /><div>4.5</div>Rare & extraordinary</label>
-		<label><input type="radio" name="WineRating" value="2" /><div>4.0</div>Very good stuff</label>
-		<label><input type="radio" name="WineRating" value="3" /><div>3.5</div>Good stuff</label>
-		<label><input type="radio" name="WineRating" value="4" /><div>3.0</div>Average</label>
-		<label><input type="radio" name="WineRating" value="5" /><div> </div>Any rating</label>
-	</div><br>
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)" ><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
+		<strong> 4.5 </strong>
+		<Strong>Rare & extraordinary</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 4.0 </strong>
+		<Strong>Very good stuff</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 3.5 </strong>
+		<Strong>Good stuff</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 3.0 </strong>
+		<Strong>Average</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<Strong>Any rating</Strong>
+		</label>
+	</div>
+	
 	
 	<!-- Searching Grapes -->
 	<h3>Wine Grapes</h3>	
