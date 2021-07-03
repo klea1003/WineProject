@@ -54,7 +54,7 @@
 	<div>
 		<c:forEach items="${wineTypeList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="wine_type" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="wine_type" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -99,7 +99,7 @@
 	<div>
 		<c:forEach items="${wineGrapeList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="Grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="Grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -110,7 +110,7 @@
 	<div>
 		<c:forEach items="${wineRegionList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -121,7 +121,7 @@
 	<div>
 		<c:forEach items="${wineCountryList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -132,13 +132,12 @@
 	<div>
 		<c:forEach items="${wineStyleList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
 	</div><br>
 
-	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->
 	<section class="py-5">
@@ -250,10 +249,8 @@
 			)
 		}
 		
-		$(".temp").on("click", function(e) {
-			e.preventDefault();
-
-			console.log('click search btn');
+		$(".check_box").on("click", function(e) {
+			console.log('click checkbox btn');
 			
 			wineDiv.html("");	// to empty
 			actionForm.find("input[name='pageNum']").val("1");
