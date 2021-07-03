@@ -66,6 +66,7 @@
 				<include refid="criteriaWineRegion"></include>
 				<include refid="criteriaWineCountry"></include>
 				<include refid="criteriaWineStyle"></include>
+				<include refid="criteriaWinePrice"></include>
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -162,6 +163,10 @@
 				</foreach>
 			</trim>
 		</if>
-	</sql>				
+	</sql>		
+	
+	<sql id="criteriaWinePrice">
+		WINE_PRICE BETWEEN #{priceMin} AND #{priceMax} AND
+	</sql>		
 	
 </mapper>

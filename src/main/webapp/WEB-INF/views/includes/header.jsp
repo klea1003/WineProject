@@ -332,13 +332,13 @@ body.modal-open {
 					<ul class="navbar-nav mb-2 mb-lg-0">
 
 					<li class="nav-item dropdown">
-					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  wines  </a>
+					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Wines  </a>
 					   <div class="dropdown-menu dropdown-large">
 					   		<div class="row g-3">
 					   		<div class="col-4">
 					   			<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> Red </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=1"> Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Southern Italy Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Tuscan Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Spanish Rioja Red </a></li>
@@ -350,7 +350,7 @@ body.modal-open {
 							<div class="col-5">
 								<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> White </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=2"> White </a></li>
 								  <li><a class="dropdown-item" href="#"> German Riesling </a></li>
 								  <li><a class="dropdown-item" href="#"> Northern Italy white </a></li>
 								  <li><a class="dropdown-item" href="#"> German Sauvignon Blanc </a></li>
@@ -363,10 +363,10 @@ body.modal-open {
 					    	<div class="col-2">
 								<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> Sparkling </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Rosé </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Port </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Dessert </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=3"> Sparkling </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=4"> Rosé </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=6"> Port </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=5"> Dessert </a></li>
 								  
 								 </ul>
 					    	</div><!-- end col-3 -->

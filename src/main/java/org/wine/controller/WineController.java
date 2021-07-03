@@ -68,7 +68,9 @@ public class WineController {
 			@RequestParam(value= "wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
 			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
 			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
-			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr
+			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
+			@RequestParam(value= "priceMin") String winePriceMin,
+			@RequestParam(value= "priceMax") String winePriceMax
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
@@ -80,6 +82,8 @@ public class WineController {
 		log.info("requestWineList wineCountryArr: " + wineCountryArr);
 		log.info("requestWineList wineStyleArr: " + wineStyleArr);
 		log.info("requestWineList wineRatingArr: " + wineRatingArr);
+		log.info("requestWineList priceMin: " + winePriceMin);
+		log.info("requestWineList priceMax: " + winePriceMax);
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
@@ -88,6 +92,7 @@ public class WineController {
 		cri.setWineCountryArr(wineCountryArr);
 		cri.setWineStyleArr(wineStyleArr);
 		cri.setWineStyleArr(wineRatingArr);
+		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
@@ -102,7 +107,9 @@ public class WineController {
 			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr,
 			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
 			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
-			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr
+			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
+			@RequestParam(value= "priceMin") String winePriceMin,
+			@RequestParam(value= "priceMax") String winePriceMax
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
@@ -113,13 +120,15 @@ public class WineController {
 		log.info("requestWineList valueArr: " + wineCountryArr);
 		log.info("requestWineList valueArr: " + wineStyleArr);
 		log.info("requestWineList valueArr: " + wineRatingArr);
+		log.info("requestWineList priceMin: " + winePriceMin);
+		log.info("requestWineList priceMax: " + winePriceMax);
 		
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
 		cri.setWineRegionArr(wineRegionArr);
 		cri.setWineCountryArr(wineCountryArr);
 		cri.setWineStyleArr(wineStyleArr);
-		cri.setWineStyleArr(wineRatingArr);
+		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		
 		int total = service.getTotal(cri);
 		log.info("total:" + total);

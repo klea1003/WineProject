@@ -86,6 +86,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				id="amount" readonly
 				style="border: 0; color: #990000; font-weight: bold;">
 		</p>
+		<input type="hidden" id="price_min" value="10000">
+		<input type="hidden" id="price_max" value="30000">
 		<div id="price-range"></div>
 	</div>
 	
@@ -314,21 +316,31 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		
 
 		$( function() {
-		    $( "#price-range" ).slider({
-		      range: true,
-		      min: 0,
-		      max: 500000,
-		      step: 1000,
-		      values: [ 20000, 200000 ],
-		      slide: function( event, ui ) {
-		        $( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
-		      }
-		    });
-		    $( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
-		      " - ￦" + $( "#price-range" ).slider( "values", 1 ) );
-	  } ); //end jquery price range
-
-		
+			$( "#price-range" ).slider({
+				range: true,
+				min: 0,
+				max: 100000,
+				step: 1000,
+				values: [ 10000, 30000 ],
+				slide: function( event, ui ) {
+		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+		        	$( "#price_min" ).val(ui.values[ 0 ]);
+		        	$( "#price_max" ).val(ui.values[ 1 ]);
+		        	
+	        	},
+	        	stop: function(event, ui) {
+					wineDiv.html("");	// to empty
+					actionForm.find("input[name='pageNum']").val("1");
+					wineService.requestTotalPageNum();
+					
+					showWineList();
+				}
+			});
+			$( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
+				" - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+			$( "#price_min" ).val($( "#price-range" ).slider( "values", 0 ));
+			$( "#price_max" ).val($( "#price-range" ).slider( "values", 1 ));
+		}); //end jquery price range
 	});
 </script>
 

@@ -13,20 +13,20 @@ import lombok.ToString;
 public class CriteriaWine {
 	private int pageNum;
 	private int amount;
-	private int winePrice;
 	private ArrayList<String> wineTypeArr;
 	private ArrayList<String> wineGrapeArr;
 	private ArrayList<String> wineRegionArr;
 	private ArrayList<String> wineCountryArr;
 	private ArrayList<String> wineStyleArr;
 	private ArrayList<String> wineRatingArr;
+	private int priceMin;
+	private int priceMax;
 	public CriteriaWine() {
 		this(1,10);
 	}
 	public CriteriaWine(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
-		this.winePrice = winePrice;
 		this.wineTypeArr = new ArrayList<String>(); // null 이 되면 .size 에서 에러가 나므로 empty list 로 일단 만들어 놓음
 		this.wineGrapeArr = new ArrayList<String>();
 		this.wineRegionArr = new ArrayList<String>();
@@ -86,6 +86,10 @@ public class CriteriaWine {
 			this.wineRatingArr = wineRatingArr;
 		}
 		
+	}
+	public void setWinePriceRange(int priceMin, int priceMax) {
+		this.priceMin = priceMin;
+		this.priceMax = priceMax;		
 	}
 	
 }
