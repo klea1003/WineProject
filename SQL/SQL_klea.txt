@@ -80,7 +80,7 @@ COMMIT;
 INSERT INTO TBL_WINE_PROPERTY 
 VALUES (1,'wine_type', 'Red wine', 'Red');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (2,'wine_type', 'white wine', 'White');
+VALUES (2,'wine_type', 'White wine', 'White');
 INSERT INTO TBL_WINE_PROPERTY 
 VALUES (3,'wine_type', 'Sparkling', 'Sparkling');
 INSERT INTO TBL_WINE_PROPERTY 
@@ -91,75 +91,75 @@ INSERT INTO TBL_WINE_PROPERTY
 VALUES (6,'wine_type', 'Fortified', 'Fortified');
 
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (7,'wine_grape', 'Cabernet Franc', 'Cabernet Franc');
+VALUES (1,'wine_grape', 'Cabernet Franc', 'Cabernet Franc');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (8,'wine_grape', 'Cabernet Sauvignon', 'Cabernet Sauvignon');
+VALUES (2,'wine_grape', 'Cabernet Sauvignon', 'Cabernet Sauvignon');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (9,'wine_grape', 'Chardonnay', 'Chardonnay');
+VALUES (3,'wine_grape', 'Chardonnay', 'Chardonnay');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (10,'wine_grape', 'Grenache', 'Grenache');
+VALUES (4,'wine_grape', 'Grenache', 'Grenache');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (11,'wine_grape', 'Malbec', 'Malbec');
+VALUES (5,'wine_grape', 'Malbec', 'Malbec');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (12,'wine_grape', 'Merlot', 'Merlot');
+VALUES (6,'wine_grape', 'Merlot', 'Merlot');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (13,'wine_grape', 'Pinot Noir', 'Pinot Noir');
+VALUES (7,'wine_grape', 'Pinot Noir', 'Pinot Noir');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (14,'wine_grape', 'Riesling', 'Riesling');
+VALUES (8,'wine_grape', 'Riesling', 'Riesling');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (15,'wine_grape', 'Sauvignon Blanc', 'Sauvignon Blanc');
+VALUES (9,'wine_grape', 'Sauvignon Blanc', 'Sauvignon Blanc');
 
 
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (16,'wine_region', 'Bordeaux', 'Bordeaux');
+VALUES (1,'wine_region', 'Bordeaux', 'Bordeaux');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (17,'wine_region', 'Bourgogne', 'Bourgogne');
+VALUES (2,'wine_region', 'Bourgogne', 'Bourgogne');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (18,'wine_region', 'Napa Valley', 'Napa Valley');
+VALUES (3,'wine_region', 'Napa Valley', 'Napa Valley');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (19,'wine_region', 'Piemonte', 'Piemonte');
+VALUES (4,'wine_region', 'Piemonte', 'Piemonte');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (20,'wine_region', 'Rhone Valley', 'Rhone Valley');
+VALUES (5,'wine_region', 'Rhone Valley', 'Rhone Valley');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (21,'wine_region', 'Toscana', 'Toscana');
+VALUES (6,'wine_region', 'Toscana', 'Toscana');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (22,'wine_region', 'Spain', 'Spain');
+VALUES (7,'wine_region', 'Spain', 'Spain');
 
 
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (23,'wine_country', 'Argentina', 'Argentina');
+VALUES (1,'wine_country', 'Argentina', 'Argentina');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (24,'wine_country', 'Australia', 'Australia');
+VALUES (2,'wine_country', 'Australia', 'Australia');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (25,'wine_country', 'Austria', 'Austria');
+VALUES (3,'wine_country', 'Austria', 'Austria');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (26,'wine_country', 'Chile', 'Chile');
+VALUES (4,'wine_country', 'Chile', 'Chile');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (27,'wine_country', 'France', 'France');
+VALUES (5,'wine_country', 'France', 'France');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (28,'wine_country', 'Germany', 'Germany');
+VALUES (6,'wine_country', 'Germany', 'Germany');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (29,'wine_country', 'Italy', 'Italy');
+VALUES (7,'wine_country', 'Italy', 'Italy');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (30,'wine_country', 'Portugal', 'Portugal');
+VALUES (8,'wine_country', 'Portugal', 'Portugal');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (31,'wine_country', 'Spain', 'Spain');
+VALUES (9,'wine_country', 'Spain', 'Spain');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (32,'wine_country', 'United States', 'United States');
+VALUES (10,'wine_country', 'United States', 'United States');
 
 
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (33,'wine_style', 'Australian Shiraz', 'Australian Shiraz');
+VALUES (1,'wine_style', 'Australian Shiraz', 'Australian Shiraz');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (34,'wine_style', 'Argentinian Malbec', 'Argentinian Malbec');
+VALUES (2,'wine_style', 'Argentinian Malbec', 'Argentinian Malbec');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (35,'wine_style', 'Californian Cabernet Sauvignon', 'Californian Cabernet Sauvignon');
+VALUES (3,'wine_style', 'Californian Cabernet Sauvignon', 'Californian Cabernet Sauvignon');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (36,'wine_style', 'Central Italy Red', 'Central Italy Red');
+VALUES (4,'wine_style', 'Central Italy Red', 'Central Italy Red');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (37,'wine_style', 'Spanish Red', 'Spanish Red');
+VALUES (5,'wine_style', 'Spanish Red', 'Spanish Red');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (38,'wine_style', 'Spanish Rioja Red', 'Spanish Rioja Red');
+VALUES (6,'wine_style', 'Spanish Rioja Red', 'Spanish Rioja Red');
 
 COMMIT;
 

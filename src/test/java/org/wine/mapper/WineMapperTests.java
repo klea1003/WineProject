@@ -219,4 +219,15 @@ public class WineMapperTests {
 		log.info(list);
 	}
 	
+	@Test
+	public void testWineKeyword() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		cri.setKeyword("Lady");;
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
+	
 }

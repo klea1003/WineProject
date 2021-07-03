@@ -50,13 +50,6 @@ public class UserController {
 	@Autowired
 	private SocialService socialservice;
 
-	@GetMapping("/main")
-	public void mainPageGET() {
-
-		log.info("메인 테스트 페이지");
-
-	}
-
 	@GetMapping("/userlist")
 	public void userlist(Model model) {
 

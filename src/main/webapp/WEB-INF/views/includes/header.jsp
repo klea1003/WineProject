@@ -31,6 +31,10 @@
 
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
+	
+	<!-- jquery-UI -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <style type="text/css">
 .login_success_area {
@@ -279,14 +283,14 @@ body.modal-open {
 			<div class="container px-5">
 				<a class="navbar-brand " href="index.html">
 				<span class="title text-dark">너와, IN</span></a>
-					<div class="input-group-prepend">
-						<button id="button-addon8" type="submit" class="btn btn-danger">
+					
+					<form id='searchForm' action="/wine/list" method='get'>
+						<button class="btn btn-danger">
 							<i class="bi bi-search"></i>
 						</button>
-					</div>
-					<input type="search" placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
+						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
 						style="width: 200px;">
-					
+					</form>					
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
 					aria-label="Toggle navigation">
@@ -328,13 +332,13 @@ body.modal-open {
 					<ul class="navbar-nav mb-2 mb-lg-0">
 
 					<li class="nav-item dropdown">
-					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  wines  </a>
+					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Wines  </a>
 					   <div class="dropdown-menu dropdown-large">
 					   		<div class="row g-3">
 					   		<div class="col-4">
 					   			<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> Red </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=1"> Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Southern Italy Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Tuscan Red </a></li>
 								  <li><a class="dropdown-item" href="#"> Spanish Rioja Red </a></li>
@@ -346,7 +350,7 @@ body.modal-open {
 							<div class="col-5">
 								<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> White </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=2"> White </a></li>
 								  <li><a class="dropdown-item" href="#"> German Riesling </a></li>
 								  <li><a class="dropdown-item" href="#"> Northern Italy white </a></li>
 								  <li><a class="dropdown-item" href="#"> German Sauvignon Blanc </a></li>
@@ -359,10 +363,10 @@ body.modal-open {
 					    	<div class="col-2">
 								<ul class="list-unstyled">
 								  
-								  <li><a class="dropdown-item fw-bold" href="#"> Sparkling </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Rosé </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Port </a></li>
-								  <li><a class="dropdown-item fw-bold" href="#"> Dessert </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=3"> Sparkling </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=4"> Rosé </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=6"> Port </a></li>
+								  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=5"> Dessert </a></li>
 								  
 								 </ul>
 					    	</div><!-- end col-3 -->
@@ -656,11 +660,19 @@ body.modal-open {
 	<!-- 회원가입 js -->
 
 	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> -->
 	<!-- Core theme JS-->
-	<script src="/resources/wine_bootstrap/js/scripts.js"></script>
-
-
+	<!-- <script src="/resources/wine_bootstrap/js/scripts.js"></script> -->
 
 </body>
+
+<script type="text/javascript">   
+	var searchForm = $("#searchForm");
+	
+	$('#searchForm button').on("click", function(e){
+		e.preventDefault;
+		
+		console.log("searchForm button clicked")
+	});
+</script>
 </html>

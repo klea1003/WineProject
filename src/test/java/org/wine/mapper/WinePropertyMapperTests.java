@@ -15,8 +15,9 @@ import lombok.extern.log4j.Log4j;
 public class WinePropertyMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private WinePropertyMapper mapper;
-	
+
+	private WinePropertyMapper mapper;	
+
 	@Test
 	public void getWinePropertyList() {
 		mapper.getWinePropertyList("wine_type").forEach(wine->log.info(wine));
