@@ -40,6 +40,16 @@ var wineService = (function(){
 		$("input[name='WineRating']:checked").each(function(i) {
 	    	_wineRatingArr.push($(this).val()); 
 		})
+		
+		// price range
+		var price_min = $( "#price_min" ).val();
+		var price_max = $( "#price_max" ).val();
+		console.log("priceMin", price_min);
+		console.log("priceMax", price_max);
+		
+		// keyword
+		var wine_keyword = $("input[name='wine_keyword']").val()
+		console.log("keyword", wine_keyword);
 
 		var actionForm = $("#actionForm");
 		var pageNum = actionForm.find("input[name='pageNum']").val();
@@ -63,7 +73,10 @@ var wineService = (function(){
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
 				wineStyleArr:_wineStyleArr,
-				wineRatingArr:_wineRatingArr
+				wineRatingArr:_wineRatingArr,
+				priceMin: price_min,
+				priceMax: price_max,
+				wineKeyword: wine_keyword
 				}
 				
 			, success : function(result, status, xhr) {
@@ -110,6 +123,16 @@ var wineService = (function(){
 		$("input[name='WineRating']:checked").each(function(i) {
 	    	_wineRatingArr.push($(this).val()); 
 		})
+		
+		// price range
+		var price_min = $( "#price_min" ).val();
+		var price_max = $( "#price_max" ).val();
+		console.log("priceMin", price_min);
+		console.log("priceMax", price_max);
+		
+		// keyword
+		var wine_keyword = $("input[name='wine_keyword']").val()
+		console.log("keyword", wine_keyword);
 
 		var actionForm = $("#actionForm");
 		var totalPageNum = actionForm.find("input[name='totalPageNum']");
@@ -131,7 +154,10 @@ var wineService = (function(){
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
 				wineStyleArr:_wineStyleArr,
-				wineRatingArr:_wineRatingArr
+				wineRatingArr:_wineRatingArr,
+				priceMin: price_min,
+				priceMax: price_max,
+				wineKeyword: wine_keyword
 				}
 				
 			, success : function(result, status, xhr) {

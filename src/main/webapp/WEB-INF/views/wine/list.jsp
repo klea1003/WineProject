@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 
 <html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 .pagination {
   display: flex;
@@ -44,108 +46,155 @@
   background-color: #b30000;
   border-color: #b30000;
 }
+
+#price-range { 
+	width: 400px; 
+	margin: 10px;
+} 
+.ui-slider-range  { 
+	background-color: #990000;
+} 
+ 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, 
+html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: 1px solid #990000;
+    background: #990000;
+    font-weight: normal;
+    color: #990000;
+}
 </style>
 
 <body>
 	<%@ include file="../includes/header.jsp"%>
 	
-	<!-- Searching Wine Types -->
-	<h3>Wine Type</h3>
+	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
 	
+	<!-- Searching Wine Types -->
+	<h3>Wine Type</h3>	
 	<div>
-		<c:forEach items="${wineTypeList}" var="wineTypeDTO">
+		<c:forEach items="${wineTypeList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" name="wine_type" value=<c:out value="${wineTypeDTO.wineProperty.keyValue}" />
-				<c:if test='${wineTypeDTO.flag eq true}'>checked</c:if>/><c:out value="${wineTypeDTO.wineProperty.displayText}" />
+				<input type="checkbox" class="check_box" name="wine_type" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
 	</div><br>
 	
 	<!-- Price Range -->
-	
-	<input type="text" id="demo" size="10" value="test">
-	
-	<br><br>
+	<h3>Price Range</h3>	
+	<div class="col-md-4">
+		<p>
+			<label for="amount">Price range:</label> <input type="text"
+				id="amount" readonly
+				style="border: 0; color: #990000; font-weight: bold;">
+		</p>
+		<input type="hidden" id="price_min" value="10000">
+		<input type="hidden" id="price_max" value="30000">
+		<div id="price-range"></div>
+	</div>
 	
 	
 	<!-- Searching User Rating -->
-	<div class="star-ratings">
-		<div class="star-ratings-fill space-x-2 text-lg" :style="{ width: ratingToPercent + '%' }">
-			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-		</div>
-		<div class="star-ratings-base space-x-2 text-lg">
-			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-		</div>
-	</div>
-	<div class="star-rating space-x-4 mx-auto">
-	<input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-	<label for="5-stars" class="star pr-4">★</label>
-	<input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-	<label for="4-stars" class="star">★</label>
-	<input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-	<label for="3-stars" class="star">★</label>
-	<input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-	<label for="2-stars" class="star">★</label>
-	<input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-	<label for="1-star" class="star">★</label>
-	</div>
+	<h3>User Rating</h3>	
 	<div> 
-		<label><input type="radio" name="WineRating" value="1" /><div>4.5</div>Rare & extraordinary</label>
-		<label><input type="radio" name="WineRating" value="2" /><div>4.0</div>Very good stuff</label>
-		<label><input type="radio" name="WineRating" value="3" /><div>3.5</div>Good stuff</label>
-		<label><input type="radio" name="WineRating" value="4" /><div>3.0</div>Average</label>
-		<label><input type="radio" name="WineRating" value="5" /><div> </div>Any rating</label>
-	</div><br>
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)" ><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
+		<strong> 4.5 </strong>
+		<Strong>Rare & extraordinary</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 4.0 </strong>
+		<Strong>Very good stuff</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 3.5 </strong>
+		<Strong>Good stuff</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
+		<strong> 3.0 </strong>
+		<Strong>Average</Strong>
+		</label>
+	</div>
+	
+	<div> 
+		<label><input type="radio" name="wine_rating" value="1" />
+		<Strong>Any rating</Strong>
+		</label>
+	</div>
+	
 	
 	<!-- Searching Grapes -->
+	<h3>Wine Grapes</h3>	
 	<div>
-		<label><input type="checkbox" name="Grapes" value="Cabernet Franc" /> Cabernet Franc</label>
-		<label><input type="checkbox" name="Grapes" value="Cabernet Sauvignon" /> Cabernet Sauvignon</label>
-		<label><input type="checkbox" name="Grapes" value="Chardonnay" /> Chardonnay</label>
-		<label><input type="checkbox" name="Grapes" value="Grenache" /> Grenache</label>
-		<label><input type="checkbox" name="Grapes" value="Malbec" /> Malbec</label>
-		<label><input type="checkbox" name="Grapes" value="Merlot" /> Merlot</label>
-		<label><input type="checkbox" name="Grapes" value="Pinot Noir" /> Pinot Noir</label>
-		<label><input type="checkbox" name="Grapes" value="Riesling" /> Riesling</label>
-		<label><input type="checkbox" name="Grapes" value="Sauvignon Blanc" /> Sauvignon Blanc</label>
+		<c:forEach items="${wineGrapeList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" class="check_box" name="Grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Regions -->
-	<div> 
-		<label><input type="checkbox" name="Region" value="Bordeaux" /> Bordeaux</label>
-		<label><input type="checkbox" name="Region" value="Bourgogne" /> Bourgogne</label>
-		<label><input type="checkbox" name="Region" value="Napa Valley" /> Napa Valley</label>
-		<label><input type="checkbox" name="Region" value="Piemonte" /> Piemonte</label>
-		<label><input type="checkbox" name="Region" value="Rhone Valley" /> Rhone Valley</label>
-		<label><input type="checkbox" name="Region" value="Toscana" /> Toscana</label>
-		<label><input type="checkbox" name="Region" value="Spain" /> Spain</label>				
+	<h3>Wine Regions</h3>	
+	<div>
+		<c:forEach items="${wineRegionList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Countries -->
-	<div> 
-		<label><input type="checkbox" name="Country" value="Argentina" /> Argentina</label>
-		<label><input type="checkbox" name="Country" value="Australia" /> Australia</label>
-		<label><input type="checkbox" name="Country" value="Austria" /> Austria</label>
-		<label><input type="checkbox" name="Country" value="Chile" /> Chile</label>
-		<label><input type="checkbox" name="Country" value="France" /> France</label>
-		<label><input type="checkbox" name="Country" value="Germany" /> Germany</label>
-		<label><input type="checkbox" name="Country" value="Italy" /> Italy</label>		
-		<label><input type="checkbox" name="Country" value="Portugal" /> Portugal</label>		
-		<label><input type="checkbox" name="Country" value="Spain" /> Spain</label>		
-		<label><input type="checkbox" name="Country" value="United States" /> United States</label>						
+	<h3>Wine Countries</h3>	
+	<div>
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 	
 	<!-- Searching Wine Style -->
-	<div> 
-		<label><input type="checkbox" name="WineStyle" value="Australian Shiraz" /> Australian Shiraz</label>
-		<label><input type="checkbox" name="WineStyle" value="Argentinian Malbec" /> Argentinian Malbec</label>
-		<label><input type="checkbox" name="WineStyle" value="Californian Cabernet Sauvignon" /> Californian Cabernet Sauvignon</label>
-		<label><input type="checkbox" name="WineStyle" value="Central Italy Red" /> Central Italy Red</label>
-		<label><input type="checkbox" name="WineStyle" value="Spanish Red" /> Spanish Red</label>
-		<label><input type="checkbox" name="WineStyle" value="Spanish Rioja Red" /> Spanish Rioja Red</label>						
+	<h3>Wine Style</h3>	
+	<div>
+		<c:forEach items="${wineStyleList}" var="winePropertyDTO">
+			<label>
+				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
 	</div><br>
 
-	<input type="button" class="temp" value="search" style="width:100px" / >
 
 	<!-- Section-->
 	<section class="py-5">
@@ -257,10 +306,8 @@
 			)
 		}
 		
-		$(".temp").on("click", function(e) {
-			e.preventDefault();
-
-			console.log('click search btn');
+		$(".check_box").on("click", function(e) {
+			console.log('click checkbox btn');
 			
 			wineDiv.html("");	// to empty
 			actionForm.find("input[name='pageNum']").val("1");
@@ -269,7 +316,33 @@
 			showWineList();
 		});
 		
-		
+
+		$( function() {
+			$( "#price-range" ).slider({
+				range: true,
+				min: 0,
+				max: 100000,
+				step: 1000,
+				values: [ 10000, 30000 ],
+				slide: function( event, ui ) {
+		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+		        	$( "#price_min" ).val(ui.values[ 0 ]);
+		        	$( "#price_max" ).val(ui.values[ 1 ]);
+		        	
+	        	},
+	        	stop: function(event, ui) {
+					wineDiv.html("");	// to empty
+					actionForm.find("input[name='pageNum']").val("1");
+					wineService.requestTotalPageNum();
+					
+					showWineList();
+				}
+			});
+			$( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
+				" - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+			$( "#price_min" ).val($( "#price-range" ).slider( "values", 0 ));
+			$( "#price_max" ).val($( "#price-range" ).slider( "values", 1 ));
+		}); //end jquery price range
 	});
 </script>
 

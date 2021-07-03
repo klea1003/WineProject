@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,13 +50,6 @@ public class UserController {
 	@Autowired
 	private SocialService socialservice;
 
-	@GetMapping("/main")
-	public void mainPageGET() {
-
-		log.info("메인 테스트 페이지");
-
-	}
-
 	@GetMapping("/userlist")
 	public void userlist(Model model) {
 
@@ -93,15 +87,24 @@ public class UserController {
 	}
 	
 	@PostMapping({ "/userpage" })
-	public String register(UserVO user,RedirectAttributes rttr) {
-		log.info("test");
+	public String register(@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
 		if(user.getProfileList() !=null) {
 			user.getProfileList().forEach(attach ->log.info(attach));
 		}
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
 		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
 		service.register(user);
-		rttr.addFlashAttribute("result",user.getUserNum());
-		return "redirect:/user/userlist";
+		
+		rttr.addFlashAttribute("resultimage",user.getUserNum());
+		
+		return  "redirect:"+ path+query;
 	}
 	
 	@GetMapping("/login")
@@ -111,7 +114,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(@RequestParam("path") String path, @RequestParam("query") String query,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+	public String loginPOST(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query,HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
 
 		HttpSession session = request.getSession();
 		UserVO lvo = service.userLogin(user);
@@ -138,6 +141,28 @@ public class UserController {
 
 		return  "redirect:"+ path+query;
 	}
+	
+	  @RequestMapping(value="/logout", method=RequestMethod.GET)
+	    public String logoutMainGET( @RequestParam(value="path" ,required=false) String path,@RequestParam(value="query",required=false) String query, HttpServletRequest request) throws Exception{
+	        
+	        log.info("logoutMainGET메서드 진입");
+	        
+	        if(query==""||query==null) {
+				
+			}else {
+				query = "?" + query;
+			}
+			
+	        
+	        HttpSession session = request.getSession();
+			
+	        session.invalidate();
+	        
+	       
+	        
+	        return  "redirect:/wine/list";
+	       
+	    }
 
 	@GetMapping("/join")
 	public void join() {
@@ -148,12 +173,17 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(@RequestParam("path") String path, @RequestParam("query") String query,UserVO user, RedirectAttributes rttr) {
 		log.info("join : " + user);
-
+  
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
 		service.join(user);
 
 		rttr.addFlashAttribute("result", user.getUserNum());
 		
-		log.info(path);
 		return  "redirect:"+ path + query;
 	}
 
@@ -244,4 +274,26 @@ public class UserController {
 		return new ResponseEntity<>(service.getAttachList(userNum),HttpStatus.OK);
 	}
 	
+	   @PostMapping("/imageremove")
+	   public String remove(@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
+	      log.info("remove......."+userNum);
+
+	 if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path remove :"+path);
+		
+		log.info("query  remove:"+query);
+		
+	     service.remove(userNum);
+	    	
+	     rttr.addFlashAttribute("result", 0 );
+
+	     return  "redirect:"+ path + query;
+	      
+	   }
+
 }
