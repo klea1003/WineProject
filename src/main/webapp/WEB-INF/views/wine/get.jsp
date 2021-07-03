@@ -54,7 +54,57 @@
 			</div>
 		</div>
 	</section>
-
+	
+	<h3>Facts about the wine</h3>
+	
+	<table width="300">	
+		<c:if test='${wine.winenery ne null}'>
+			<tr>
+				<td>Winery</td>
+				<td><c:out value="${wine.winenery}" /></td>			
+			</tr>
+		</c:if>
+		
+		<c:if test='${wine.grapes ne null}'>
+			<tr>
+				<td>Grapes</td>
+				<td><c:out value="${wine.grapes}" /></td>			
+			</tr>
+		</c:if>
+		
+		<c:if test='${wine.region ne null}'>
+			<tr>
+				<td>Region</td>
+				<td><c:out value="${wine.region}" /></td>			
+			</tr>
+		</c:if>
+		
+		<c:if test='${wine.wineStyle ne null}'>
+			<tr>
+				<td>Wine style</td>
+				<td><c:out value="${wine.wineStyle}" /></td>			
+			</tr>
+		</c:if>
+		
+		<c:if test='${wine.allergens ne null}'>
+			<tr>
+				<td>Allergens</td>
+				<td><c:out value="${wine.allergens}" /></td>			
+			</tr>
+		</c:if>
+		
+		<c:if test='${wine.alcohol ne null}'>
+			<tr>
+				<td>Alcohol content</td>
+				<td><c:out value="${wine.alcohol}" />%</td>			
+			</tr>
+		</c:if>
+		
+	</table>
+	
+	
+	
+	
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>
