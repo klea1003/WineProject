@@ -28,6 +28,42 @@ public class WineController {
 
 	private WineService service;
 	
+	@GetMapping("/main")
+	public void main(
+			CriteriaWine cri,
+			@RequestParam(value="wine_type_ids", required=false)ArrayList<Integer> wineTypeIds,
+			@RequestParam(value="wine_grape_ids", required=false)ArrayList<Integer> wineGrapeIds,
+			@RequestParam(value="wine_region_ids", required=false)ArrayList<Integer> wineRegionIds,
+			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
+			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
+			@RequestParam(value="keyword", required=false) String wineKeyword,
+			Model model
+		) {
+		
+		log.info("wineTypeIds: " + wineTypeIds);
+		model.addAttribute("wineTypeList", service.getWinPropertyDTO("wine_type", wineTypeIds));
+		
+		log.info("wineGrapeIds: " + wineGrapeIds);
+		model.addAttribute("wineGrapeList", service.getWinPropertyDTO("wine_grape", wineGrapeIds));
+		
+		log.info("wineRegionIds: " + wineRegionIds);
+		model.addAttribute("wineRegionList", service.getWinPropertyDTO("wine_region", wineRegionIds));
+		
+		log.info("wineCountryIds: " + wineCountryIds);
+		model.addAttribute("wineCountryList", service.getWinPropertyDTO("wine_country", wineCountryIds));
+		
+		log.info("wineStyleIds: " + wineStyleIds);
+		model.addAttribute("wineStyleList", service.getWinPropertyDTO("wine_style", wineStyleIds));
+		
+		log.info("wineKeyword: " + wineKeyword);
+		model.addAttribute("wine_keyword", wineKeyword);
+		
+		int total = service.getTotal(cri);		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageMaker",new pageWineDTO(cri,total)); 		
+	}
+	
 	@GetMapping("/list")
 	public void list(
 			CriteriaWine cri,
@@ -75,7 +111,7 @@ public class WineController {
 			@RequestParam(value="wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
 			@RequestParam(value="priceMin") String winePriceMin,
 			@RequestParam(value="priceMax") String winePriceMax,
-			@RequestParam(value="wineKeyword") String wineKeyword
+			@RequestParam(value="wineKeyword", required=false) String wineKeyword
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
