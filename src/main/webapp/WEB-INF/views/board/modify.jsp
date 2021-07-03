@@ -115,7 +115,7 @@ $(document).ready(function() {//모델 보여주기 추가
 	
 	 //게시물 조회 시 파일 관련 자료를 JSON 데이터로 만들어서 화면에 전송
 	  var boardNum='<c:out value="${board.boardNum}"/>';
-      $.getJSON("/board/getAttachList", {boardNum:boardNum}, function(arr){
+      $.getJSON("/board/getBoardAttachList", {boardNum:boardNum}, function(arr){
      	 console.log(arr);
      	//게시물 조회 이미지 출력 부분 
      	 var str = "";

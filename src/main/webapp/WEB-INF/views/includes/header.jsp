@@ -489,14 +489,14 @@ body.modal-open {
 							<input type="text" class="form-control "
 								placeholder="아이디를 입력해주세요" name="userId">
 						</div>
-						<div class="mb-3">
+						<%-- <div class="mb-3">
 							<input type="password" class="form-control"
 								id="exampleInputPassword" placeholder="비밀번호를 입력해주세요"
 								name="userPassword">
 							<c:if test="${result == 0 }">
 								<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
 							</c:if>
-						</div>
+						</div> --%>
 						<div class="modal-footer d-block">
 							<p class="float-start">
 								Not yet account <a class="small" id="modal_show_logintojion">Sign

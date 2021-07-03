@@ -298,7 +298,7 @@ $(document).ready(function(){
     
     //게시물 조회 시 파일 관련 자료를 JSON 데이터로 만들어서 화면에 전송
     var boardNum = '<c:out value = "${board.boardNum}"/>';
-    $.getJSON("/board/getAttachList", {boardNum : boardNum}, function(arr) {
+    $.getJSON("/board/getBoardAttachList", {boardNum : boardNum}, function(arr) {
     	console.log(arr);
    
     
