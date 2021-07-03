@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <style>
 .pagination {
   display: flex;
@@ -45,7 +46,7 @@
   border-color: #b30000;
 }
 
-#price-range, #rating-range { 
+#price-range { 
 	width: 400px; 
 	margin: 10px;
 } 
