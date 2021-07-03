@@ -16,6 +16,8 @@ public interface WineMapper {
 	
 	public WineVO read(Long wno);
 	
+	public WineRatingVO readWithRating(Long wno);
+	
 	public int delete(Long wno); 
 	
 	public int update(WineVO wine);

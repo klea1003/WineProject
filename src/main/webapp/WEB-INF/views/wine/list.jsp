@@ -294,6 +294,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += list[i].grapes + "<br>"
 						str += list[i].region + "<br>"						
 						str += list[i].price  + "<br>"
+						str += list[i].avgRating + "<br>"
 						str += "</p>"
 							
 						str += "</div>"

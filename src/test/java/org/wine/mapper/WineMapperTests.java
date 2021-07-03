@@ -244,4 +244,12 @@ public class WineMapperTests {
 		log.info(list);
 	}
 	
+	@Test
+	public void testGetwineRead() {
+		
+		WineRatingVO wine = mapper.readWithRating(8L);		
+		log.info(wine);				
+	}
+	
+	
 }

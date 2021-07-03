@@ -65,6 +65,19 @@
 	<select id="read" resultMap="WineInfo">
 		select * from tbl_wine_test where WINE_NUM = #{wno}
 	</select>
+	
+	<select id="readWithRating" resultMap="WineRatingInfo">
+	
+		SELECT WINE.WINE_NUM WINE_NUM, WINE_TITLE,
+		WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
+		WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
+		FROM TBL_WINE_TEST WINE
+		LEFT
+		JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+		ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE WINE.WINE_NUM = #{wno}
+				
+	</select>
+	
 
 	<select id="getListWithPaging" resultMap="WineInfo">
 			

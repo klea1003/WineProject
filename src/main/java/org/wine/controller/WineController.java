@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
 import org.wine.service.WineReplyService;
@@ -103,7 +104,7 @@ public class WineController {
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineVO>> getWineList(
+	public ResponseEntity<List<WineRatingVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value="wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value="wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
@@ -139,7 +140,7 @@ public class WineController {
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		cri.setKeyword(wineKeyword);
 		
-		ResponseEntity<List<WineVO>> result = null;
+		ResponseEntity<List<WineRatingVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
 		
 		return result;
