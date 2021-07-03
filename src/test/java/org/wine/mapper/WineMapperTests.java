@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.Criteria;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -227,6 +227,20 @@ public class WineMapperTests {
 		
 		List<WineVO> list = mapper.getListWithPaging(cri); 
 		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testGetWineRatingList() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info("list size" +  list.size());
 		log.info(list);
 	}
 	
