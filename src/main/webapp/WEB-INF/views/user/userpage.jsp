@@ -116,6 +116,7 @@ $(document).ready(function() {
 	        	 return
 	        	 }
 	         var uploadUL=$(".uploadResult ul")
+			  $('#insertimage').css('display', 'block');
 	          $('.uploadResult').css('display', 'none');
 	         
 	         var str = ''
@@ -309,8 +310,8 @@ $(document).ready(function() {
 															</div>
 															<c:if test="${ imageck.size() != 0}">
 															<c:if test="${user.userNum == userpage.userNum }">
-															<button type='submit' id='insertimage' class='btn btn-primary'>Submit</button>
-															<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-danger'>Remove</button>
+															<button type='submit' id='insertimage' class='btn btn-primary' style="display:none;">Submit</button>
+															<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-danger' >Remove</button>
 															</c:if>
 															</c:if>
 														</form>
@@ -335,7 +336,7 @@ $(document).ready(function() {
 													<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
 													<input type='hidden' name='path' value="<c:out value='${path}'/>">	
 													<input type='hidden' name='query'value="<c:out value='${query}'/>">	
-													<button type="submit" id='insertimage' class="btn btn-primary">Submit</button>
+													<button type="submit" id='insertimage' class="btn btn-primary" style="display:none;">Submit</button>
 												</form>
 											</c:if>
 											<c:if test="${user.userNum != userpage.userNum }">

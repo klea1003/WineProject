@@ -148,6 +148,28 @@ public class UserController {
 
 		return  "redirect:"+ path+query;
 	}
+	
+	  @RequestMapping(value="/logout", method=RequestMethod.GET)
+	    public String logoutMainGET( @RequestParam(value="path" ,required=false) String path,@RequestParam(value="query",required=false) String query, HttpServletRequest request) throws Exception{
+	        
+	        log.info("logoutMainGET메서드 진입");
+	        
+	        if(query==""||query==null) {
+				
+			}else {
+				query = "?" + query;
+			}
+			
+	        
+	        HttpSession session = request.getSession();
+			
+	        session.invalidate();
+	        
+	       
+	        
+	        return  "redirect:/wine/list";
+	       
+	    }
 
 	@GetMapping("/join")
 	public void join() {
