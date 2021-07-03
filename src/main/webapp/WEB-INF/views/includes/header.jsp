@@ -29,6 +29,10 @@
 	<!-- jquery-UI -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!-- swiper -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
 </head>
 <style type="text/css">
 .login_success_area {
@@ -271,12 +275,12 @@ body.modal-open {
 				<div class="input-group-prepend">
 					<form id='searchForm' action="/wine/list" method='get'>
 					<div style="float:left;">
+						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"	style="width: 200px;"></div>
+					<div style="float:right;">
 						<button class="btn btn-danger">
 							<i class="bi bi-search"></i>
 						</button>
 					</div>
-					<div style="float:right;">
-						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"	style="width: 200px;"></div>
 					</form>		
 				</div>			
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

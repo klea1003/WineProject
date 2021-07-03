@@ -6,8 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
+    
 </head>
 
 <style>
