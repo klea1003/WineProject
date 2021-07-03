@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wine.domain.ProfileVO;
 import org.wine.domain.UserVO;
 import org.wine.mapper.UserMapper;
 
@@ -18,6 +19,9 @@ public class UserMapperTest {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserAttachMapper attachmapper;
 
 	@Test
 	public void testGetList() {
@@ -98,4 +102,9 @@ public class UserMapperTest {
 		log.info(user);
 	}
 
+	@Test
+	public void testdelete() {
+		attachmapper.deleteimage(6L);
+		
+	}
 }
