@@ -44,6 +44,22 @@
   background-color: #b30000;
   border-color: #b30000;
 }
+
+#price-range, #rating-range { 
+	width: 400px; 
+	margin: 10px;
+} 
+.ui-slider-range  { 
+	background-color: #990000;
+} 
+ 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, 
+html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: 1px solid #990000;
+    background: #990000;
+    font-weight: normal;
+    color: #990000;
+}
 </style>
 
 <body>
@@ -61,8 +77,14 @@
 	</div><br>
 	
 	<!-- Price Range -->
-	
-	<br><br>
+	<div class="col-md-4">
+		<p>
+			<label for="amount">Price range:</label> <input type="text"
+				id="amount" readonly
+				style="border: 0; color: #990000; font-weight: bold;">
+		</p>
+		<div id="price-range"></div>
+	</div>
 	
 	
 	<!-- Searching User Rating -->
@@ -259,6 +281,22 @@
 			showWineList();
 		});
 		
+
+		$( function() {
+		    $( "#price-range" ).slider({
+		      range: true,
+		      min: 0,
+		      max: 500000,
+		      step: 1000,
+		      values: [ 20000, 200000 ],
+		      slide: function( event, ui ) {
+		        $( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+		      }
+		    });
+		    $( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
+		      " - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+	  } ); //end jquery price range
+
 		
 	});
 </script>
