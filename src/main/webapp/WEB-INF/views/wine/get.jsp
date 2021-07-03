@@ -72,12 +72,32 @@
 				<td><c:out value="${wine.grapes}" /></td>			
 			</tr>
 		</c:if>
-		<c:forEach var="re" items="${reply5}" varStatus="i">
-		<div>${re.reviewRating }</div><p>
-		<div>${re.review }</div><p>
-		<div>${re.userNum }</div><div>${re.reviewDate }</div><p>
-		<div>${re.reviewLike }</div><p>
-		</c:forEach>
+		
+		<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">별점</th>
+				      <th scope="col">내용</th>
+				      <th scope="col">유저번호</th>
+				      <th scope="col">리뷰날짜</th>
+				      <th scope="col">좋아요</th>
+				    </tr>
+				  </thead>
+				  
+				  <tbody>
+				    <c:forEach var="re" items="${reply5}" varStatus="i">
+				    <tr>
+				      <td>${re.reviewRating }</td>
+				       <td>${re.review }</td>
+				         <td>${re.userNum }</td>
+				         <td>${re.reviewDate }</td>
+				         <td>${re.reviewLike }</td>
+				    
+				    </tr>
+				    </c:forEach>
+				  </tbody>
+				</table>
+		
 		
 		<c:if test='${wine.region ne null}'>
 			<tr>
