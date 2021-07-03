@@ -31,6 +31,10 @@
 
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
+	
+	<!-- jquery-UI -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <style type="text/css">
 .login_success_area {
@@ -656,11 +660,9 @@ body.modal-open {
 	<!-- 회원가입 js -->
 
 	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> -->
 	<!-- Core theme JS-->
-	<script src="/resources/wine_bootstrap/js/scripts.js"></script>
-
-
+	<!-- <script src="/resources/wine_bootstrap/js/scripts.js"></script> -->
 
 </body>
 </html>
