@@ -57,14 +57,24 @@ public class WineServiceTests {
 	public void testGetList() {
 		CriteriaWine cri = new CriteriaWine(2,10);
 		cri.setWineTypeArr(new ArrayList<String>(Arrays.asList("Red wine")));
+		cri.setWineGrapeArr(new ArrayList<String>(Arrays.asList("Malbec")));		
 		
-		
-		service.getList(new CriteriaWine(2,10)).forEach(wine -> log.info(wine));
+		service.getList(cri).forEach(wine -> log.info(wine));
 	}
 	
 	@Test
 	public void testGet() {
 		log.info(service.get(1L));
+	}
+	
+	@Test
+	public void testWinePropertyList() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
+		
+		service.getWinPropertyDTO("wine_type", ids).forEach(propertyDTO -> log.info(propertyDTO));
+		
 	}
 
 }

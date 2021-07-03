@@ -5,7 +5,6 @@
 <resultMap type="org.wine.domain.OrderVO" id="ordering">
 <result property="orderNum" column="ORDER_NUM" />
 <result property="userNum" column="USER_NUM" />
-<result property="userRealName" column="USER_REALNAME" />
 <result property="pickUpName" column="PICKUP_NAME" />
 <result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
 <result property="orderPrice" column="ORDER_PRICE" />
@@ -16,15 +15,14 @@
 <resultMap type="org.wine.domain.OrderDetailVO" id="orderList">
 <result property="orderDetailNum" column="ORDERDETAIL_NUM" />
 <result property="userNum" column="USER_NUM" />
-<result property="sellerId" column="SELLER_ID" />
+<result property="sellerNum" column="SELLER_NUM" />
 <result property="wineNum" column="WINE_NUM" />
 <result property="cartQty" column="CART_QTY" />
 </resultMap>
 
 <resultMap type="org.wine.domain.OrderListVO" id="orderView">
-<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
+<result property="orderNum" column="ORDER_NUM" />
 <result property="userNum" column="USER_NUM" />
-<result property="userRealName" column="USER_REALNAME" />
 <result property="pickUpName" column="PICKUP_NAME" />
 <result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
 <result property="orderPrice" column="ORDER_PRICE" />
@@ -32,7 +30,7 @@
 <result property="pickUpDate" column="PICKUP_DATE" />
 
 <result property="orderDetailNum" column="ORDERDETAIL_NUM" />
-<result property="sellerId" column="SELLER_ID" />
+<result property="sellerNum" column="SELLER_NUM" />
 <result property="wineNum" column="WINE_NUM" />
 <result property="cartQty" column="CART_QTY" />
 
@@ -51,9 +49,9 @@
    
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Detail">
- insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_ID,WINE_NUM,CART_QTY)
-     select seq_tbl_order_detail.nextval, #{orderNum}, sellerId, wineNum, cartQty
-         from tbl_cart_test
+ insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_NUM,WINE_NUM,CART_QTY)
+   select seq_tbl_order_detail.nextval, #{orderNum}, SELLER_NUM, wine_Num, cart_Qty
+         from tbl_cart_test where user_num = #{userNum}
 </insert> 
 
 <!-- 카트 비우기 -->
@@ -64,10 +62,10 @@ where USER_NUM = #{userNum}
 
 
 <!-- 유저의 주문 목록 -->
-<select id="orderList" resultMap="ordering">
- select
-    ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, ORDER_DATE, PICKUP_DATE
- from tbl_order_test
+<select id="orderList" resultMap="orderView">
+  select
+    a.ORDER_NUM, a.USER_NUM, a.PICKUP_NAME, a.PICKUP_PHONENUM, a.ORDER_PRICE, a.ORDER_DATE, a.PICKUP_DATE
+ ,b.SELLER_NUM from tbl_order_test a left outer join TBL_ORDER_DETAIL b on a.order_num = b.order_num
      where USER_NUM = #{userNum}
 </select>
 

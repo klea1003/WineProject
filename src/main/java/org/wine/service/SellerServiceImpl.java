@@ -33,6 +33,8 @@ public class SellerServiceImpl implements SellerService{
 		
 		return mapper.read(sellerNum);
 	}
+	
+	
 
 	@Override
 	public boolean modify(SellerVO seller) {

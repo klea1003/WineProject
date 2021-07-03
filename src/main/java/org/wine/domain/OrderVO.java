@@ -14,6 +14,7 @@ public class OrderVO {
 	private int orderPrice;
 	private Date orderDate;
 	private String pickUpDate;
+	
 
 	
 	

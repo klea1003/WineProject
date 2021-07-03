@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>와인 main test</title>
+
+	<!-- Bootstrap core CSS -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+		crossorigin="anonymous" />
+	
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	
+	<!-- Bootstrap core JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+	
+	<!-- Bootstrap icons-->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		rel="stylesheet" />
+	
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
+	
+	<!-- Swiper -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+	
+	<!-- jquery-UI -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<style>
+.card {
+	height: 450px;
+	width: 230px;
+}
+
+/* swiper css  */
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.swiper-button-next {
+	color: #BDBDBD;
+}
+
+.swiper-button-prev {
+	color: #BDBDBD;
+}
+
+.swiper-container-vertical>.swiper-pagination-bullets {
+	top: unset !important;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+}
+
+.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet
+	{
+	display: inline-block !important;
+	margin: 6px 2px !important;
+}
+
+.welcome-repeat {
+	background-image: url("/resources/images/wineMainImg.jpg");
+	background-repeat: repeat repeat;
+}
+
+/* Range Slider CSS*/
+
+#price-range, #rating-range { 
+	width: 400px; 
+	margin: 10px;
+} 
+
+.ui-slider-range  { 
+	background-color: #990000;
+} 
+ 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, 
+html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: 1px solid #990000;
+    background: #990000;
+    font-weight: normal;
+    color: #990000;
+}
+ 
+</style>
+
+<body>
+
+	<!-- Header-->
+	<header class="bg py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="bg-white text-dark">
+				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>
+				<p class="lead fw-normal text-dark-50 mb-3">updated every
+					Thursday</p>
+				<div>
+					<label><input type="checkbox" name="top list" value="20000">
+						20000</label> <label><input type="checkbox" name="top list"
+						value="40000"> 40000</label> <label><input type="checkbox"
+						name="top list" value="60000"> 60000</label> <label><input
+						type="checkbox" name="top list" value="80000"> 80000</label>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container">
+
+			<div class="row justify-content-center">
+				<!-- swiper슬라이더 메인컨테이너 -->
+				<div class="swiper-container">
+					<!-- 보여지는 영역 -->
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="col mb-5">
+								<div class="card wine">
+									<!-- Product image-->
+									<img class="card-img-top"
+										src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-5">
+										<div class="text-center">
+											<!-- Product name-->
+											<h5 class="fw-bolder">Special Item</h5>
+											<!-- Product reviews-->
+											<div
+												class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+											</div>
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-danger mt-auto" href="#">$10.00</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="col mb-5">
+								<div class="card wine">
+									<!-- Product image-->
+									<img class="card-img-top"
+										src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-5">
+										<div class="text-center">
+											<!-- Product name-->
+											<h5 class="fw-bolder">Special Item</h5>
+											<!-- Product reviews-->
+											<div
+												class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+											</div>
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-danger mt-auto" href="#">$20.00</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="col mb-5">
+								<div class="card wine">
+									<!-- Product image-->
+									<img class="card-img-top"
+										src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-5">
+										<div class="text-center">
+											<!-- Product name-->
+											<h5 class="fw-bolder">Sale Item</h5>
+											<!-- Product reviews-->
+											<div
+												class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+											</div>
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-danger mt-auto" href="#">$30.00</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="col mb-5">
+								<div class="card wine">
+									<!-- Product image-->
+									<img class="card-img-top"
+										src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-5">
+										<div class="text-center">
+											<!-- Product name-->
+											<h5 class="fw-bolder">Popular Item</h5>
+											<!-- Product reviews-->
+											<div
+												class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+											</div>
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-danger mt-auto" href="#">$40.00</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="col mb-5">
+								<div class="card wine">
+									<!-- Product image-->
+									<img class="card-img-top"
+										src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+										alt="..." />
+									<!-- Product details-->
+									<div class="card-body p-5">
+										<div class="text-center">
+											<!-- Product name-->
+											<h5 class="fw-bolder">Sale Item</h5>
+											<!-- Product reviews-->
+											<div
+												class="d-flex justify-content-center small text-warning mb-2">
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+												<div class="bi-star-fill"></div>
+											</div>
+										</div>
+									</div>
+									<!-- Product actions-->
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-danger mt-auto" href="#">$50.00</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- wineMainImg -->
+	<div class="col mb-5 welcome-repeat">
+		<img src="/resources/images/wineMainImg.jpg" alt="Responsive image"
+			style="height: 400px;">
+	</div>
+	
+	<!-- range area -->
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-2 dropdown">
+				<button class="btn dropdown-toggle" type="button"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
+					aria-expanded="false">Red Wine</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<li><a class="dropdown-item" href="#">Red Wine</a></li>
+					<li><a class="dropdown-item" href="#">White Wine</a></li>
+					<li><a class="dropdown-item" href="#">Sparkling Wine</a></li>
+					<li><a class="dropdown-item" href="#">Rosé Wine</a></li>
+					<li><a class="dropdown-item" href="#">Dessert Wine</a></li>
+					<li><a class="dropdown-item" href="#">Port Wine</a></li>
+				</ul>
+			</div>
+			
+			<div class="col-md-4">
+				<p>
+					<label for="amount">Price range:</label> <input type="text"
+						id="amount" readonly
+						style="border: 0; color: #990000; font-weight: bold;">
+				</p>
+				<div id="price-range"></div>
+			</div>
+			
+			<div class="col-md-4">
+				<p>
+					<label for="rating">Rating:</label> <input type="text" id="rating"
+						readonly style="border: 0; color: #990000; font-weight: bold;">
+				</p>
+				<div id="rating-range"></div>
+			</div>
+			
+			<div class="col-md-2">
+				<button type="button" class="btn btn-outline-danger btn-lg">Show
+					wines</button>
+			</div>
+			
+		</div>
+	</div><!-- end range area -->
+
+	<script type="text/javascript">
+	const swiper = new Swiper('.swiper-container', {
+    //기본 셋팅
+    //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
+    direction: 'horizontal',
+    //한번에 보여지는 페이지 숫자
+    slidesPerView: 5,
+    //페이지와 페이지 사이의 간격
+    spaceBetween: 0,
+    //드레그 기능 true 사용가능 false 사용불가
+    debugger: false,
+    //마우스 휠기능 true 사용가능 false 사용불가
+    mousewheel: false,
+    //반복 기능 true 사용가능 false 사용불가
+    loop: true,
+    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+    centeredSlides: true,
+    // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
+    // effect: 'fade',
+    
+    
+    //자동 스크를링
+    autoplay: {
+      //시간 1000 이 1초
+      delay: 5000,
+      disableOnInteraction: false,
+     },
+    
+    //페이징
+    pagination: {
+      //페이지 기능
+      el: '.swiper-pagination',
+      //클릭 가능여부
+      clickable: true,
+    },
+
+    //방향표
+    navigation: {
+      //다음페이지 설정
+      nextEl: '.swiper-button-next',
+      //이전페이지 설정
+      prevEl: '.swiper-button-prev',
+    },
+    
+  }); //swiper End
+  
+//jquery price range 
+  $( function() {
+    $( "#price-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500000,
+      step: 1000,
+      values: [ 20000, 200000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
+      " - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+  } ); //end jquery price range
+
+  //jquery rating-range
+  $( function() {
+  	    $( "#rating-range" ).slider({
+  	      range: true,
+  	      min: 0,
+  	      max: 5,
+  	      values: [ 0, 5 ],
+  	      slide: function( event, ui ) {
+  	        $( "#rating" ).val( "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+  	      }
+  	    });
+  	    $( "#rating" ).val( "" + $( "#rating-range" ).slider( "values", 0 ) +
+  	      " - " + $( "#rating-range" ).slider( "values", 1 ) );
+  	  } ); //end jquery rating-range
+
+
+</script>
+
+</body>
+</html>

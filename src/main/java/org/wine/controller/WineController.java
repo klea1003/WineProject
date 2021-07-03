@@ -29,34 +29,93 @@ public class WineController {
 	private WineService service;
 	
 	@GetMapping("/list")
-	public void list(CriteriaWine cri, Model model) {
+	public void list(
+			CriteriaWine cri,
+			@RequestParam(value="wine_type_ids", required=false)ArrayList<Integer> wineTypeIds,
+			Model model
+		) {
+		
+		log.info("wineTypeIds: " + wineTypeIds);
+		model.addAttribute("wineTypeList", service.getWinPropertyDTO("wine_type", wineTypeIds));
+		
 		log.info("list"+ cri);
 		
 		model.addAttribute("list", service.getList(cri));
 		
-		int total = service.getTotal(cri);
-		
+		int total = service.getTotal(cri);		
 		log.info("total:" + total); 
 		
 		model.addAttribute("pageMaker",new pageWineDTO(cri,total)); 		
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineVO>> checkWineTypeArr(
+	public ResponseEntity<List<WineVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
-			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> valueArr
+			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
+			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
+			@RequestParam(value= "wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
+			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
+			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
+			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
 		
-		log.info("requestWineList pageNum: " + pageNum);
-		log.info("requestWineList valueArr: " + valueArr);
+		log.info("requestWineList pageNum: "  + pageNum);
+		log.info("requestWineList valueArr: " + wineTypeArr);
+		log.info("requestWineList valueArr: " + wineGrapeArr);
+		log.info("requestWineList valueArr: " + wineRegionArr);
+		log.info("requestWineList valueArr: " + wineCountryArr);
+		log.info("requestWineList valueArr: " + wineStyleArr);
+		log.info("requestWineList valueArr: " + wineRatingArr);
 		
 		cri.setPageNum(pageNum);
-		cri.setWineTypeArr(valueArr);
+		cri.setWineTypeArr(wineTypeArr);
+		cri.setWineGrapeArr(wineGrapeArr);
+		cri.setWineRegionArr(wineRegionArr);
+		cri.setWineCountryArr(wineCountryArr);
+		cri.setWineStyleArr(wineStyleArr);
+		cri.setWineStyleArr(wineRatingArr);
 		
 		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
+		
+		return result;
+	}
+	
+	@GetMapping(value = "/getTotalPageNum")
+	public ResponseEntity<pageWineDTO> getTotalPageNum(
+			@RequestParam(value= "wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
+			@RequestParam(value= "wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
+			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr,
+			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
+			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
+			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr
+			) {
+		
+		CriteriaWine cri = new CriteriaWine();
+		
+		log.info("requestWineList valueArr: " + wineTypeArr);
+		log.info("requestWineList valueArr: " + wineGrapeArr);
+		log.info("requestWineList valueArr: " + wineRegionArr);
+		log.info("requestWineList valueArr: " + wineCountryArr);
+		log.info("requestWineList valueArr: " + wineStyleArr);
+		log.info("requestWineList valueArr: " + wineRatingArr);
+		
+		cri.setWineTypeArr(wineTypeArr);
+		cri.setWineGrapeArr(wineGrapeArr);
+		cri.setWineRegionArr(wineRegionArr);
+		cri.setWineCountryArr(wineCountryArr);
+		cri.setWineStyleArr(wineStyleArr);
+		cri.setWineStyleArr(wineRatingArr);
+		
+		int total = service.getTotal(cri);
+		log.info("total:" + total);
+		log.info(new pageWineDTO(cri,total));
+		
+		
+		ResponseEntity<pageWineDTO> result = null;
+		result = ResponseEntity.status(HttpStatus.OK).body(new pageWineDTO(cri,total));
 		
 		return result;
 	}	

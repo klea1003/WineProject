@@ -7,7 +7,7 @@ public class OrderDetailVO {
 	
 	private Long orderDetailNum;
 	private String orderNum;
-	private String sellerId;
+	private Long sellerNum;
 	private Long wineNum;
 	private int cartQty;
 	

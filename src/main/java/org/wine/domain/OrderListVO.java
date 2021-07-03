@@ -7,16 +7,16 @@ import lombok.Data;
 @Data
 public class OrderListVO {
 
-	private Long orderNum;
+	private String orderNum;
 	private Long userNum;
 	private String pickUpName;
 	private String pickUpPhoneNum;
 	private int orderPrice;
 	private Date orderDate;
-	private Date pickUpDate;
+	private String pickUpDate;
 	
 	private Long orderDetailNum;
-	private String sellerId;
+	private Long sellerNum;
 	private Long wineNum;
 	private int cartQty;
 	

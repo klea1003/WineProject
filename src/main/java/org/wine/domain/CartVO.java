@@ -7,7 +7,6 @@ public class CartVO {
 
 	private Long cartNum;
 	private Long userNum;
-	private String userRealName;
 	private Long sellerNum;
 	private String sellerId;
 	private Long wineNum;

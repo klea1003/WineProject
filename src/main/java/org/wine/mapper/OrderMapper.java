@@ -12,13 +12,13 @@ public interface OrderMapper {
 public void orderInfo(OrderVO order) throws Exception;
 
 //주문 상세 정보
-public void orderInfo_Detail(OrderDetailVO orderDetail) throws Exception;
+public void orderInfo_Detail(OrderVO order) throws Exception;
 
 //주문완료 후 카트에서 삭제
 public void cartAllDelete(Long userNum) throws Exception;
 
 //주문 목록
-public List<OrderVO> orderList(OrderVO order) throws Exception;
+public List<OrderListVO> orderList(OrderVO order) throws Exception;
 
 //특정 주문 상세 목록
 public List<OrderListVO> orderView(OrderVO order) throws Exception;
