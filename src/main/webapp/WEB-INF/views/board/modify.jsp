@@ -361,3 +361,4 @@ $(document).ready(function() {//모델 보여주기 추가
 <!-- /.row -->
 
 <!-- /.row -->
+<%@include file="../includes/footer.jsp" %>
