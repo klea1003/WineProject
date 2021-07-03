@@ -148,7 +148,7 @@ $(document).ready(function(){
 		modal.find("input").val("");
 		
 		 //replyer (security id가 담긴)
-		/* modal.find("input[name='replyer']").val(replyer); */ 
+		 modal.find("input[name='replyer']").val(replyer); 
 		
 		modalInputReplyDate.closest("div").hide();
 		modal.find("button[id!='modalCloseBtn']").hide();
@@ -310,7 +310,7 @@ $(document).ready(function(){
 			  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
 			  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
 	          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
-	          str += "<img src='/resources/images/2.png'>";
+	          str += "<img src='/resources/wine_bootstrap/images/2.png'>";
 	          str += "</div></li>";
 	        
     		   
