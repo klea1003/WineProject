@@ -234,7 +234,7 @@
 				</div>/. modal-dialog
 			</div>/. modal fade -->
 
-<%-- <%@include file="../includes/footer.jsp" %>  --%>
+ <%@include file="../includes/footer.jsp" %>
 </body>
 </html>
 

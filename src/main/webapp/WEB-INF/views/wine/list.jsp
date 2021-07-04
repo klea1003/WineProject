@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ include file="../includes/header.jsp"%>
 <!DOCTYPE html>
-
 <html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <style>
 .pagination {
   display: flex;
@@ -65,8 +65,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 </style>
 
 <body>
-	<%@ include file="../includes/header.jsp"%>
-	
+
 	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
 	
 	<!-- Searching Wine Types -->
@@ -219,7 +218,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 
 </body>
 
-<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/wine_bootstrap/js/wine.js"></script>
 <script type="text/javascript">   
 

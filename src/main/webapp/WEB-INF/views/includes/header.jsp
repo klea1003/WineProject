@@ -17,14 +17,8 @@
 		crossorigin="anonymous" />
 	
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-		crossorigin="anonymous"></script>
-
-	<!-- Bootstrap core JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-		crossorigin="anonymous"></script>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+ 	
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 		rel="stylesheet" />
@@ -35,6 +29,10 @@
 	<!-- jquery-UI -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!-- swiper -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
 </head>
 <style type="text/css">
 .login_success_area {
@@ -269,18 +267,22 @@ body.modal-open {
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0 main-color">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-dark">
+		<header style="height: 112px; width: 100%;">
+		<div class="navbar navbar-expand navbar-dark" style="height: 50%; width: 100%;">
 			<div class="container px-5">
 				<a class="navbar-brand " href="index.html">
 				<span class="title text-dark">너와, IN</span></a>
-					
+				<div class="input-group-prepend">
 					<form id='searchForm' action="/wine/list" method='get'>
+					<div style="float:left;">
+						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"	style="width: 200px;"></div>
+					<div style="float:right;">
 						<button class="btn btn-danger">
 							<i class="bi bi-search"></i>
 						</button>
-						<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"
-						style="width: 200px;">
-					</form>					
+					</div>
+					</form>		
+				</div>			
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
 					aria-label="Toggle navigation">
@@ -312,9 +314,9 @@ body.modal-open {
 						</div>
 					</c:if>
 				</div>
-		</nav>
+			</div>
 
-		<nav class="navbar navbar-expand-lg navbar-dark header-color">
+		<div class="navbar navbar-expand navbar-dark header-color" style="height: 50%; width: 100%;">
 			<div class="container px-5">
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mb-2 mb-lg-0">
@@ -469,7 +471,9 @@ body.modal-open {
 					</ul>
 				</div>
 			</div>
-		</nav>
+		</div>
+		
+		</header>
 	</main>
 
 	<!-- login Modal -->
@@ -489,14 +493,12 @@ body.modal-open {
 							<input type="text" class="form-control "
 								placeholder="아이디를 입력해주세요" name="userId">
 						</div>
-						<%-- <div class="mb-3">
-							<input type="password" class="form-control"
-								id="exampleInputPassword" placeholder="비밀번호를 입력해주세요"
-								name="userPassword">
+						<div class="mb-3">
+							<input type="password" class="form-control"	id="exampleInputPassword" placeholder="비밀번호를 입력해주세요" name="userPassword">
 							<c:if test="${result == 0 }">
 								<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
 							</c:if>
-						</div> --%>
+						</div>
 						<div class="modal-footer d-block">
 							<p class="float-start">
 								Not yet account <a class="small" id="modal_show_logintojion">Sign
@@ -646,11 +648,6 @@ body.modal-open {
 	<!-- 회원가입 login -->
 	<script src="/resources/wine_bootstrap/js/join.js"></script>
 	<!-- 회원가입 js -->
-
-	<!-- Bootstrap core JS-->
-	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script> -->
-	<!-- Core theme JS-->
-	<!-- <script src="/resources/wine_bootstrap/js/scripts.js"></script> -->
 
 </body>
 

@@ -2,9 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
-
- <jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
- <script src="/resources/wine_bootstrap/js/reply.js"></script>
+<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
+<script src="/resources/wine_bootstrap/js/reply.js"></script>
 <style>
 .uploadResult {
 	width: 100%;
@@ -53,6 +52,11 @@
 
 .bigPicture img {
 	width: 400px;
+}
+
+.w-50 {
+	margin-top: 7%;
+	margin-left: 25%;
 }
 </style>
 <script type="text/javascript">
@@ -416,180 +420,195 @@ $(document).ready(function(){
      }
 </script>
 
-
-<!--       ------------------------------------------------------------------------------- -->
-<div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Board Register</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-info">
-			<div class="panel-heading">게시글 상세정보</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<div class="form-group">
-					<label>boardNum</label><input class='form-control' name='boardNum'
-						value='<c:out value="${board.boardNum }"/>' readonly='readonly'>
-				</div>
-				<div class="form-group">
-					<label>Type</label><input class='form-control' name='type'
-						value='<c:out value="${board.boardType }"/>' readonly='readonly'>
-				</div>
-				<div class="form-group">
-					<label>Title</label><input class='form-control' name='title'
-						value='<c:out value="${board.title }"/>' readonly='readonly'>
-				</div>
-				<div class='form-group'>
-					<label>Content</label>
-					<textarea class='form-control' rows='3' name='content'
-						readonly='readonly'><c:out value="${board.content }" /></textarea>
-				</div>
-				<div class='form-group'>
-					<label>writer</label><input class='form-control' name='writer'
-						value='<c:out value="${board.writer }"/>' readonly='readonly'>
-						<br/>
-						 
-				</div>
-				<!-- board파트 -->
-
-				<%-- <sec:authentication property="principal" var="pinfo"/>
-            <sec:authorize access="isAuthenticated()">
-            <c:if test="${pinfo.username eq board.writer }">
-            <button class='btn btn-success' data-oper='modify'>Modify</button>
-            </c:if>
-            </sec:authorize> 시큐리티 기능--%>
-
-				<button class='btn btn-success' data-oper='modify'>Modify</button>
-				<button class='btn btn-primary' data-oper='list'>List</button>
-				<div>${like}</div>
-				<form id='operForm' action='/board/modify' method='get'>
-					<input type='hidden' id='boardNum' name='boardNum'
-						value='<c:out value="${board.boardNum }" />'> <input
-						type='hidden' name='pageNum'
-						value='<c:out value="${cri.pageNum }"/>'> <input
-						type='hidden' name='amount'
-						value='<c:out value="${cri.amount }"/>'> <input
-						type="hidden" name="type" value="${cri.type }"> <input
-						type="hidden" name="keyword" value="${cri.keyword }">
-				</form>
-
-				<form id='operForm' action='/board/like' method='post'>
-					<input type='hidden' id='boardNum' name='boardNum'
-						value='<c:out value="${board.boardNum }" />'> <input
-						type='hidden' id='userID' name='userID'
-						value='<c:out value="user000"/>'> <input type='submit'
-						value='좋아요'>
-				</form>
-				<form id='operForm' action='/board/dislike' method='post'>
-					<input type='hidden' id='boardNum' name='boardNum'
-						value='<c:out value="${board.boardNum }" />'> <input
-						type='hidden' id='userID' name='userID'
-						value='<c:out value="user000"/>'> <input type='submit'
-						value='싫어요'>
-				</form>
-
-				<!-- /.table-responsive -->
+<body>
+	<section class="py-5">
+		<div class="container px-3 my-3">
+			<div class="text-center mb-5">
+				<h1 class="fw-bolder">Board Register</h1>
 			</div>
-			<!-- /.panel-body -->
-		</div>
-	</div>
-</div>
-	
-	<!-- Files -->
-		<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-info">
-						<div class="panel-heading">Files</div>
-						<!-- /.panel-heading -->
-						<div class="panel-body">
+
+			<div class="container-fluid">
+				<div class="w-50">
+					<div class="form-group mb-2">
+						<label>No</label><input class='form-control' name='boardNum'
+							value='<c:out value="${board.boardNum }"/>' readonly='readonly'>
+					</div>
+					<div class="form-group mb-2">
+						<label>종류</label><input class='form-control' name='type'
+							value='<c:out value="${board.boardType }"/>' readonly='readonly'>
+					</div>
+					<div class="form-group mb-2">
+						<label>제목</label><input class='form-control' name='title'
+							value='<c:out value="${board.title }"/>' readonly='readonly'>
+					</div>
+					<div class='form-group mb-2'>
+						<label>글 내용</label>
+						<textarea class='form-control' rows='3' name='content'
+							readonly='readonly'><c:out value="${board.content }" /></textarea>
+					</div>
+					<div class='form-group mb-2'>
+						<label>작성자</label><input class='form-control' name='writer'
+							value='<c:out value="${board.writer }"/>' readonly='readonly'>
+						<br />
+					</div>
+
+					<%-- <sec:authentication property="principal" var="pinfo"/>
+		            <sec:authorize access="isAuthenticated()">
+		            <c:if test="${pinfo.username eq board.writer }">
+		            <button class='btn btn-success' data-oper='modify'>Modify</button>
+		            </c:if>
+		            </sec:authorize> 시큐리티 기능--%>
+					
+					<div class="mb-3">
+					<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
+					<button class='btn btn-outline-dark' data-oper='list'>List</button>
+					</div>
+					
+					<!-- like 영역 -->
+					<div class="row">
+						<div class="col-md-1">${like}Likes</div>
+						
+						<div class="col-md-3" style="display: none;">
+						<form id='operForm' action='/board/modify' method='get'>
+							<input type='hidden' id='boardNum' name='boardNum'
+								value='<c:out value="${board.boardNum }" />'> <input
+								type='hidden' name='pageNum'
+								value='<c:out value="${cri.pageNum }"/>'> <input
+								type='hidden' name='amount'
+								value='<c:out value="${cri.amount }"/>'> <input
+								type="hidden" name="type" value="${cri.type }"> <input
+								type="hidden" name="keyword" value="${cri.keyword }">
+						</form>
+						</div>
+
+						<div class="col-md-1">
+							<form id='operForm' action='/board/like' method='post'>
+								<input type='hidden' id='boardNum' name='boardNum'
+									value='<c:out value="${board.boardNum }" />'> <input
+									type='hidden' id='userID' name='userID'
+									value='<c:out value="user000"/>'>
+								<!-- <input type='submit' value='좋아요'> -->
+								<button type="submit" class='btn btn-outline-primary'>
+									<i class="bi bi-hand-thumbs-up"></i>
+								</button>
+							</form>
+						</div>
+
+						<div class="col-md-1">
+							<form id='operForm' action='/board/dislike' method='post'>
+								<input type='hidden' id='boardNum' name='boardNum'
+									value='<c:out value="${board.boardNum }" />'> <input
+									type='hidden' id='userID' name='userID'
+									value='<c:out value="user000"/>'>
+								<!-- <input type='submit' value='싫어요'> -->
+								<button type="submit" class='btn btn-outline-danger'>
+									<i class="bi bi-hand-thumbs-down"></i>
+								</button>
+							</form>
+						</div>
+						
+						
+					</div>
+					<!-- end like -->
+				</div>
+
+				<!-- Files -->
+				<div class="row">
+					<div class="col-md-1">
+						<div class="panel panel-info">
+							<div class="panel-heading">Files</div>
+							<!-- /.panel-heading -->
 							<div class="panel-body">
-								<div class="form-group uploadDiv"></div>
+								<div class="panel-body">
+									<div class="form-group uploadDiv"></div>
 
-								<div class="uploadResult">
-									<ul></ul>
-								</div>
-								<div class="bigPictureWrapper">
-									<div class="bigPicture"></div>
+									<div class="uploadResult">
+										<ul></ul>
+									</div>
+									<div class="bigPictureWrapper">
+										<div class="bigPicture"></div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-<div class='row'>
-		<div class="col-lg-12">
-			<!-- /.panel -->
-			<!-- /.panel-heading reply 영역시작 -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-comments fa-fw"></i>Reply
-					<!-- <sec:authorize access="isAuthenticated()">
-            <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-               Reply</button>
-               </sec:authorize> 시큐리티-->
-					<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-						Reply</button>
-				</div>
-				<div class="panel-body">
-					<ul class="chat">
-					<!-- start reply -->
-						<li class="left clearfix" data-rno="12">
-							<div>
-								<div class="header">
-									<strong class="primary-font"> user00</strong> <small
-                           class="pull-right text-muted">2021-05-18-13:13</small>
+				<!-- end Files -->
+
+				<!-- reply 영역 -->
+
+				<div class="card w-50">
+					<div class="card-header bg-light">
+						Reply <i class="bi bi-chat-fill"></i>
+						<div class="float-end">
+						<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
+							New Reply</button>
+						</div>
+				
+						
+					</div>
+
+						<!-- <sec:authorize access="isAuthenticated()">
+            			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
+               			Reply</button>
+                		</sec:authorize> 시큐리티-->
+
+					<div class="card-body">
+						<ul class="chat">
+							<!-- start reply -->
+							<li class="left clearfix" data-rno="12">
+								<div>
+									<div class="header">
+										<strong class="primary-font"> user00</strong> <small
+											class="pull-right text-muted">2021-05-18-13:13</small>
+									</div>
+									<p>Good job</p>
 								</div>
-								 <p>Good job</p> 
-							</div>
-						</li>
-					</ul>
-				</div>
-				<!-- FOOTER영역 -->
-				<div class='panel-footer'></div>
-			</div>
-			</div>
-			</div>
-			<!-- reply 영역 -->
-			<!-- 모달영역 -->
-			<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
-				aria-labelledby='myModallabel' aria-hidden='true'>
-				<div class='modal-dialog'>
-					<div class='modal-content'>
-						<div class='modal-header'>
-							<button type='button' class='close' data-dismiss='modal'
-								aria-hidden='ture'>&times;</button>
-							<h4 class='modal-title' id='myModalLabel'>REPLY MODAL</h4>
-						</div>
-						<div class='modal-body'>
-							<div class='form-group'>
-								<label>Reply</label> <input class='form-control' name='reply'
-									value='New Reply'>
-							</div>
-							 <div class='form-group'>
-								<label>Replyer</label> <input class='form-control'
-									name='replyer' value='New Replyer'>
-							</div> 
-							<div class='form-group'>
-								<label>ReplyDate</label> <input class='form-control'
-									name='replyDate' value=''>
-							</div>
-						</div>
-						<div class='modal-footer'>
-							<button id='modalModBtn' type='button' class='btn btn-info'>Modify</button>
-							<button id='modalRemoveBtn' type='button' class='btn btn-info'>Remove</button>
-							<button id='modalRegisterBtn' type='button' class='btn btn-info'
-								data-dismiss='modal'>Register</button>
-							<button id='modalCloseBtn' type='button' class='btn btn-info'
-								data-dismiss='modal'>Close</button>
-						</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-			<!-- 모달영역 -->
-		
-	
-	<!--    footer 시작      -------------------------------------------------------------- -->
+		</div><!-- end container -->
+
+		<!-- 모달영역 -->
+		<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
+			aria-labelledby='myModallabel' aria-hidden='true'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<button type='button' class='close' data-dismiss='modal'
+							aria-hidden='ture'>&times;</button>
+						<h4 class='modal-title' id='myModalLabel'>REPLY MODAL</h4>
+					</div>
+					<div class='modal-body'>
+						<div class='form-group'>
+							<label>Reply</label> <input class='form-control' name='reply'
+								value='New Reply'>
+						</div>
+						<div class='form-group'>
+							<label>Replyer</label> <input class='form-control' name='replyer'
+								value='New Replyer'>
+						</div>
+						<div class='form-group'>
+							<label>ReplyDate</label> <input class='form-control'
+								name='replyDate' value=''>
+						</div>
+					</div>
+					<div class='modal-footer'>
+						<button id='modalModBtn' type='button' class='btn btn-info'>Modify</button>
+						<button id='modalRemoveBtn' type='button' class='btn btn-info'>Remove</button>
+						<button id='modalRegisterBtn' type='button' class='btn btn-info'
+							data-dismiss='modal'>Register</button>
+						<button id='modalCloseBtn' type='button' class='btn btn-info'
+							data-dismiss='modal'>Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 모달영역 -->
+
+	</section>
+
+	<%@include file="../includes/footer.jsp"%>
+</body>
