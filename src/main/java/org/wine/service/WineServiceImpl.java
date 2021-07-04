@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.WinePropertyDTO;
 import org.wine.domain.WinePropertyVO;
+import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 import org.wine.mapper.WinePropertyMapper;
@@ -32,19 +33,19 @@ public class WineServiceImpl implements WineService {
 	}
 
 	@Override
-	public WineVO get(Long wno) {
+	public WineRatingVO get(Long wno) {
 
 		log.info("get......." + wno);
 		
-		return mapper.read(wno);
+		return mapper.readWithRating(wno);
 	}
 
 	@Override
-	public List<WineVO> getList(CriteriaWine cri) {
+	public List<WineRatingVO> getList(CriteriaWine cri) {
 		
 		log.info("get List with CriteriaWine: "+ cri);
 		
-		return mapper.getListWithPaging(cri);
+		return mapper.getRatingListWithPaging(cri);
 
 	}
 	@Override

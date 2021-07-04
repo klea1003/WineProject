@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
-import org.wine.service.WineReplyService;
+import org.wine.service.ReviewService;
 import org.wine.service.WineService;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 public class WineController {
 
 	private WineService service;
-	private WineReplyService replyService;
+	private ReviewService reviewSerivce;
 	
 	@GetMapping("/main")
 	public void main(
@@ -75,6 +77,7 @@ public class WineController {
 			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
 			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
 			@RequestParam(value="keyword", required=false) String wineKeyword,
+			@RequestParam(value="rating", required=false) String wineRating,
 			Model model
 		) {
 		
@@ -96,6 +99,13 @@ public class WineController {
 		log.info("wineKeyword: " + wineKeyword);
 		model.addAttribute("wine_keyword", wineKeyword);
 		
+		log.info("wineRating: " + wineRating);
+		if (wineRating == null) {
+			model.addAttribute("wine_rating", 3);
+		} else {
+			model.addAttribute("wine_rating", Integer.parseInt(wineRating));
+		}
+		
 		int total = service.getTotal(cri);		
 		log.info("total:" + total); 
 		
@@ -103,14 +113,14 @@ public class WineController {
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineVO>> getWineList(
+	public ResponseEntity<List<WineRatingVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value="wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value="wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
 			@RequestParam(value="wineRegionArr[]", required=false) ArrayList<String> wineRegionArr,
 			@RequestParam(value="wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
 			@RequestParam(value="wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
-			@RequestParam(value="wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
+			@RequestParam(value="wineRating", required=false) String wineRating,
 			@RequestParam(value="priceMin") String winePriceMin,
 			@RequestParam(value="priceMax") String winePriceMax,
 			@RequestParam(value="wineKeyword", required=false) String wineKeyword
@@ -124,10 +134,17 @@ public class WineController {
 		log.info("requestWineList wineRegionArr: " + wineRegionArr);
 		log.info("requestWineList wineCountryArr: " + wineCountryArr);
 		log.info("requestWineList wineStyleArr: " + wineStyleArr);
-		log.info("requestWineList wineRatingArr: " + wineRatingArr);
+		log.info("requestWineList wineRating: " + wineRating);
 		log.info("requestWineList priceMin: " + winePriceMin);
 		log.info("requestWineList priceMax: " + winePriceMax);
 		log.info("requestWineList wineKeyword: " + wineKeyword);
+		
+		int wineRatingInt = 1;
+		if (wineRating == null) {
+			wineRatingInt = 1;
+		} else {
+			wineRatingInt = Integer.parseInt(wineRating);
+		}
 		
 		cri.setPageNum(pageNum);
 		cri.setWineTypeArr(wineTypeArr);
@@ -135,11 +152,11 @@ public class WineController {
 		cri.setWineRegionArr(wineRegionArr);
 		cri.setWineCountryArr(wineCountryArr);
 		cri.setWineStyleArr(wineStyleArr);
-		cri.setWineStyleArr(wineRatingArr);
+		cri.setWineRating(wineRatingInt);
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		cri.setKeyword(wineKeyword);
 		
-		ResponseEntity<List<WineVO>> result = null;
+		ResponseEntity<List<WineRatingVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
 		
 		return result;
@@ -152,7 +169,7 @@ public class WineController {
 			@RequestParam(value= "wineRegionArr[]",required=false) ArrayList<String> wineRegionArr,
 			@RequestParam(value= "wineCountryArr[]", required=false) ArrayList<String> wineCountryArr,
 			@RequestParam(value= "wineStyleArr[]", required=false) ArrayList<String> wineStyleArr,
-			@RequestParam(value= "wineRatingArr[]", required=false) ArrayList<String> wineRatingArr,
+			@RequestParam(value="wineRating", required=false) String wineRating,
 			@RequestParam(value= "priceMin") String winePriceMin,
 			@RequestParam(value= "priceMax") String winePriceMax,
 			@RequestParam(value="wineKeyword") String wineKeyword
@@ -165,16 +182,24 @@ public class WineController {
 		log.info("requestWineList valueArr: " + wineRegionArr);
 		log.info("requestWineList valueArr: " + wineCountryArr);
 		log.info("requestWineList valueArr: " + wineStyleArr);
-		log.info("requestWineList valueArr: " + wineRatingArr);
+		log.info("requestWineList valueArr: " + wineRating);
 		log.info("requestWineList priceMin: " + winePriceMin);
 		log.info("requestWineList priceMax: " + winePriceMax);
 		log.info("requestWineList wineKeyword: " + wineKeyword);
+		
+		int wineRatingInt = 1;
+		if (wineRating == null) {
+			wineRatingInt = 1;
+		} else {
+			wineRatingInt = Integer.parseInt(wineRating);
+		}
 		
 		cri.setWineTypeArr(wineTypeArr);
 		cri.setWineGrapeArr(wineGrapeArr);
 		cri.setWineRegionArr(wineRegionArr);
 		cri.setWineCountryArr(wineCountryArr);
 		cri.setWineStyleArr(wineStyleArr);
+		cri.setWineRating(wineRatingInt);
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		cri.setKeyword(wineKeyword);
 		
@@ -206,6 +231,11 @@ public class WineController {
 		
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
-		model.addAttribute("reply5",replyService.getList5(wno));
+		
+		CriteriaReview cri = new CriteriaReview();
+		cri.setWineNum(wno.intValue());
+		
+		model.addAttribute("review_list", reviewSerivce.getList(cri));
+		
 	}
 }
