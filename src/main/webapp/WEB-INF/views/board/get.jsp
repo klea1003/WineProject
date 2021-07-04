@@ -424,7 +424,7 @@ $(document).ready(function(){
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-				<h1 class="fw-bolder">Board Register</h1>
+				<h1 class="fw-bolder">Board</h1>
 			</div>
 
 			<div class="container-fluid">
