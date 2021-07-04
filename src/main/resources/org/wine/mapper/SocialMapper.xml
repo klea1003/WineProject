@@ -4,13 +4,7 @@
 
 	<resultMap type="org.wine.domain.UserVO" id="userInfo">
 		<result property="userNum" column="USER_NUM" />
-		<result property="userId" column="USER_ID" />
-		<result property="userNickName" column="USER_NICKNAME" />
-		<result property="userEmail" column="USER_EMAIL" />
-		<result property="userPassword" column="USER_PASSWORD" />
-		<result property="userPhoneNum" column="USER_PHONENUM" />
 		<result property="userRealName" column="USER_REALNAME" />
-		<result property="userBirthDay" column="USER_BIRTHDAY" />
 	</resultMap>
 	<resultMap type="org.wine.domain.SocialVO" id="socialInfo">
 		<result property="userFollowingId" column="USER_FOLLOWING_ID" />
@@ -18,23 +12,24 @@
 	</resultMap>
 	
 	<insert id="following">
-		insert into tbl_social_test(USER_FOLLOWING_ID, USER_FOLLOWER_ID)
+		insert into tbl_social(USER_FOLLOWING_ID, USER_FOLLOWER_ID)
 		values(#{userFollowingId},#{userFollowerId})
 	</insert>
 	
 	<delete id="unfollowing">
-		delete tbl_social_test 
+		delete tbl_social
 		where USER_FOLLOWING_ID = #{userFollowingId} and USER_FOLLOWER_ID=#{userFollowerId}
 	</delete>
 	
 	<select id="followingBtn" resultMap="socialInfo">
-		select * from tbl_social_test
-		where user_following_id = #{userFollowingId}  
+		select user_following_id from tbl_social
+		where user_following_id = #{userFollowingId} 
+		group by  user_following_id
 	</select>
 
 	<select id='getCountByFollower' resultType="int" >
       select count(USER_FOLLOWER_ID) as SOCIAL_CNT
-      from tbl_social_test 
+      from tbl_social 
       where USER_FOLLOWING_ID=#{userNum}
    
    </select>
@@ -42,10 +37,22 @@
    	<select id='getCountByFollowing' resultType="int">
       
        select  count(USER_FOLLOWING_ID) as SOCIAL_CNT
-       from tbl_social_test 
+       from tbl_social 
        where USER_FOLLOWER_ID=#{userNum}
      
    </select>
+   
+ 	<select id='followingList' resultMap="userInfo">
+ 		select u.user_realname, u.user_num
+		from tbl_social s,tbl_user u
+		where s.user_following_id = u.user_num and s.user_follower_id=#{userNum}
+ 	</select>
+ 	
+ 	 <select id='followerList' resultMap="userInfo">
+ 		select u.user_realname, u.user_num
+		from tbl_social s,tbl_user u
+		where s.user_follower_id = u.user_num and s.user_following_id=#{userNum}
+ 	</select>
 
 </mapper>
  

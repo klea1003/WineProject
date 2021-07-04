@@ -65,4 +65,10 @@ public class SocialServiceTest {
 		
 	service.getCountByFollowing(3L);
 	}
+	
+	@Test 
+	public void testgFollowingList() {
+		
+	service.followingList(1L);
+	}
 }

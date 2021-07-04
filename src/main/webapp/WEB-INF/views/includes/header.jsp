@@ -294,8 +294,6 @@ body.modal-open {
 					 <c:if test="${user == null }">
 						<h2><i class="bi bi-person" id="modal_show_login"></i></h2>
 					</c:if> 
-					
-
 					<!-- 로그인 된 경우 -->
 					<c:if test="${user != null }">
 						<div class="dropdown text-end">
@@ -318,7 +316,6 @@ body.modal-open {
 					</c:if>
 				</div>
 			</div>
-
 		<div class="navbar navbar-expand navbar-dark header-color" style="height: 50%; width: 100%;">
 			<div class="container px-5">
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -478,7 +475,6 @@ body.modal-open {
 		
 		</header>
 	</main>
-
 	<!-- login Modal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -486,8 +482,7 @@ body.modal-open {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Login</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- 로그인 영역  -->
@@ -523,8 +518,6 @@ body.modal-open {
 			</div>
 		</div>
 	</div>
-
-
 	<!-- join Modal -->
 
 	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
@@ -637,23 +630,15 @@ body.modal-open {
 						<a class="small" id="modal_show_jointologin">Already have an
 							account? Login!</a>
 					</div>
-
-
 				</div>
 			</div>
-
 		</div>
-
 	</div>
-
-
 	<script src="/resources/wine_bootstrap/js/login.js"></script>
-	<!-- 회원가입 login -->
+	<!-- 로그인 js -->
 	<script src="/resources/wine_bootstrap/js/join.js"></script>
 	<!-- 회원가입 js -->
-
 </body>
-
 <script type="text/javascript">   
 	var searchForm = $("#searchForm");
 	

@@ -1,8 +1,12 @@
 package org.wine.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.wine.domain.SocialListVO;
 import org.wine.domain.SocialVO;
+import org.wine.domain.UserVO;
 import org.wine.mapper.SocialMapper;
 
 import lombok.Setter;
@@ -41,7 +45,7 @@ public class SocialServiceImpl implements SocialService {
 		
 		log.info("userFollowingId : "+ userFollowingId);
 		
-		return mapper.followingBtn(userFollowingId);
+		return  mapper.followingBtn(userFollowingId);
 	}
 
 
@@ -56,6 +60,21 @@ public class SocialServiceImpl implements SocialService {
 	public int getCountByFollowing(Long userFollowerId) {
 		// TODO Auto-generated method stub
 	   return mapper.getCountByFollowing(userFollowerId);
+	}
+
+
+	@Override
+	public List<SocialListVO> followingList(Long userFollowerId) {
+		
+		// TODO Auto-generated method stub
+		return mapper.followingList(userFollowerId);
+	}
+
+
+	@Override
+	public List<SocialListVO> followerList(Long userFollowingId) {
+		// TODO Auto-generated method stub
+		return mapper.followerList(userFollowingId);
 	}
 
 }
