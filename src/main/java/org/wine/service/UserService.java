@@ -2,6 +2,7 @@ package org.wine.service;
 
 import java.util.List;
 
+import org.wine.domain.CartVO;
 import org.wine.domain.ProfileVO;
 import org.wine.domain.UserVO;
 
@@ -26,4 +27,6 @@ public interface UserService {
 		public List<ProfileVO> imageCk(Long userNum);
 		
 		public int remove(Long userNum);
+		
+		public List<CartVO> getwishList(Long userNum); //목록
 }

@@ -73,30 +73,7 @@
 			</tr>
 		</c:if>
 		
-		<table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">별점</th>
-				      <th scope="col">내용</th>
-				      <th scope="col">유저번호</th>
-				      <th scope="col">리뷰날짜</th>
-				      <th scope="col">좋아요</th>
-				    </tr>
-				  </thead>
-				  
-				  <tbody>
-				    <c:forEach var="re" items="${reply5}" varStatus="i">
-				    <tr>
-				      <td>${re.reviewRating }</td>
-				       <td>${re.review }</td>
-				         <td>${re.userNum }</td>
-				         <td>${re.reviewDate }</td>
-				         <td>${re.reviewLike }</td>
-				    
-				    </tr>
-				    </c:forEach>
-				  </tbody>
-				</table>
+	
 		
 		
 		<c:if test='${wine.region ne null}'>
@@ -129,8 +106,29 @@
 		
 	</table>
 	
-	
-	
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">유저번호</th>
+				<th scope="col">유저이름</th>
+				<th scope="col">리뷰 내용</th>
+				<th scope="col">평점</th>			
+				<th scope="col">like</th>			
+			</tr>
+		</thead>
+		<c:forEach items="${review_list}" var="reviewVO">
+			<label>
+				<tr>
+					<td><c:out value="${reviewVO.userNum}" /></td>
+					<td><c:out value="${reviewVO.userRealName}" /></td>
+					<td><c:out value="${reviewVO.content}" /></td>
+					<td><c:out value="${reviewVO.rating}" /></td>
+					<td><c:out value="${reviewVO.cntLike}" /></td>
+				</tr>
+			
+			</label>			
+		</c:forEach>
+	</table>	
 	
 	<%@ include file="../includes/footer.jsp"%>
 

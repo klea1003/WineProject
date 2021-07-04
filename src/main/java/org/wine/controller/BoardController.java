@@ -116,10 +116,10 @@ public class BoardController {
 
 	}
 	
-	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/getBoardAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long boardNum){
-		log.info("getAttachList" + boardNum);
+		log.info("getBoardAttachList" + boardNum);
 		return new ResponseEntity<>(service.getAttachList(boardNum), HttpStatus.OK);
 	}//첨부파일들 확인
 	

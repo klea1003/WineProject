@@ -1,6 +1,6 @@
-create table tbl_social_test(
-user_following_id varchar2(50),
-user_follower_id varchar2(50)
+create table tbl_social(
+user_following_id number,
+user_follower_id number
 );
 
 drop table tbl_social_test;
@@ -68,3 +68,15 @@ where a.user_num =6
 and a.profile_num<(select max(x.profile_num)
 from tbl_profile_test x
 where x.user_num = a.user_num);
+
+
+-----------        
+select WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+from
+TBL_USER U, tbl_wishlist_test WL, TBL_WINE_TEST W
+where
+U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM = 1 
+        GROUP by WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+        order by WL.WISH_NUM;
+
+userpage wishlist
