@@ -251,7 +251,7 @@ $(document).ready(function() {
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
-				<span><c:out value='${userpage.userNum }' />님의 Wine</span>
+				<span><c:out value='${userpage.userRealName }' />님의 Wine</span>
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
@@ -405,31 +405,37 @@ $(document).ready(function() {
 	<section class="py-5">
 		<div class="container px-5">
 			<h2 class="fw-bolder fs-5 mb-4">Wish List</h2>
-			<div class="row gx-5">
-				<div class="col-lg-4 mb-5">
-					<div class="card h-100 shadow border-0">
-						<img class="card-img-top"
-							src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-						<div class="card-body p-4">
-							<div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-							<a class="text-decoration-none link-dark stretched-link" href="#!">
-								<div class="h5 card-title mb-3">Blog post title</div></a>
-							<p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						</div>
-						<div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-							<div class="d-flex align-items-end justify-content-between">
-								<div class="d-flex align-items-center">
-									<img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-									<div class="small">
-										<div class="fw-bold">Kelly Rowan</div>
-										<div class="text-muted">March 12, 2021 &middot; 6 min	read</div>
-									</div>
-								</div>
-							</div>
-						</div>
+			<!--  Content Row -->
+            <div class="row gx-4 gx-lg-5">
+            <!-- swiper슬라이더 메인컨테이너 -->
+             <div class="swiper-container"> 
+             <!-- 보여지는 영역 --> 
+            <div class="swiper-wrapper"> 
+                <!--  Card One    -->              
+                <c:forEach items="${wish}" var="w">
+                   <div class="swiper-slide"> 
+                   <div class="col mb-5">
+                    <div class="card-list">
+                  <div class="text-center">
+                     <img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
+                  </div>
+                     <div class="card-body">
+					      <p class="card-text"><b><c:out value="${w.wineTitle}" /></b></p>
+					      <p class="card-text">생산지역 : <c:out value="${w.wineCountry}" /></p>
+					      <p class="card-text">와인타입 : <c:out value="${w.wineType}" /></p>
 					</div>
-				</div>
-			</div>
+                  <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
+               </div>
+                   </div>
+                   </div>
+                </c:forEach>
+                </div>
+                       <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
+                       <div class="swiper-button-prev"></div> 
+                       <div class="swiper-button-next"></div> 
+                
+                </div>
+             </div>
 		</div>
 	</section>
 	<%@include file="../includes/footer.jsp"%>
