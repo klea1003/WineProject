@@ -110,6 +110,7 @@
 		<thead>
 			<tr>
 				<th scope="col">유저번호</th>
+				<th scope="col">유저이름</th>
 				<th scope="col">리뷰 내용</th>
 				<th scope="col">평점</th>			
 				<th scope="col">like</th>			
@@ -119,6 +120,7 @@
 			<label>
 				<tr>
 					<td><c:out value="${reviewVO.userNum}" /></td>
+					<td><c:out value="${reviewVO.userRealName}" /></td>
 					<td><c:out value="${reviewVO.content}" /></td>
 					<td><c:out value="${reviewVO.rating}" /></td>
 					<td><c:out value="${reviewVO.cntLike}" /></td>

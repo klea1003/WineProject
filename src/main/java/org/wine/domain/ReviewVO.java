@@ -9,7 +9,8 @@ public class ReviewVO {
 	
 	private Long reviewNum;
 	private Long userNum;
-	private Long wineNum;	
+	private Long wineNum;
+	private String userRealName;
 	private String content;
 	private String date;
 	private String rating;

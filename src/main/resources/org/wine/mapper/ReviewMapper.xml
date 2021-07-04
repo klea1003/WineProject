@@ -5,7 +5,8 @@
 	<resultMap type="org.wine.domain.ReviewVO" id="reviewinfo">
 		<result property="reviewNum" column="REVIEW_NUM"/>
 		<result property="userNum" column="USER_NUM"/>
-		<result property="wineNum" column="WINE_NUM"/>  
+		<result property="wineNum" column="WINE_NUM"/> 
+		<result property="userRealName" column="USER_REALNAME"/> 
 		<result property="content" column="REVIEW_CONTENT"/>
 		<result property="date" column="REVIEW_DATE"/>
 		<result property="rating" column="REVIEW_RATING"/>
@@ -15,23 +16,28 @@
 
 	<select id="getList" resultMap="reviewinfo">
 		<![CDATA[
-			select * from TBL_WINE_REVIEW where REVIEW_NUM > 0
+			SELECT REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_REALNAME AS USER_REALNAME, REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+			FROM TBL_WINE_REVIEW WINE, TBL_USER
+			WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND REVIEW_NUM > 0
 		]]>
 	</select>
 	
 	<select id="getListWithPaging" resultMap="reviewinfo">
+	
 		<![CDATA[
-			SELECT REVIEW_NUM, USER_NUM, WINE_NUM, REVIEW_CONTENT, REVIEW_DATE,
-			REVIEW_RATING, REVIEW_COUNT_LIKE
+			SELECT REVIEW_NUM, USER_NUM, WINE_NUM, USER_REALNAME, REVIEW_CONTENT, 
+			REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
 			FROM (
-				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, USER_NUM, WINE_NUM, REVIEW_CONTENT, REVIEW_DATE,
-				REVIEW_RATING, REVIEW_COUNT_LIKE FROM TBL_WINE_REVIEW
-				WHERE ]]>
+				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_REALNAME AS USER_REALNAME, 
+				REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+				FROM TBL_WINE_REVIEW WINE, TBL_USER
+				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND ]]>
 				
-				<include refid="criteriaWine"></include>
-				
+					<include refid="criteriaWine"></include>
+					
 				<![CDATA[rownum <= #{pageNum}*#{amount})
-			where rn>(#{pageNum}-1)*#{amount}]]>		
+			where rn>(#{pageNum}-1)*#{amount}]]>	
+		
 	</select>
   
 	<insert id="insert">
