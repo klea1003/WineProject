@@ -101,8 +101,7 @@ p.card-text {
 					<c:if test="${ followck == null}">
 						<c:out value='${followck.userFollowerId }' />
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm" id='followingBtn'
-								type="button">
+							<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
 								팔로우<i class="bi bi-person-plus-fill"></i>
 							</button>
 						</div>
@@ -161,7 +160,10 @@ p.card-text {
 										<c:if test="${ imageck.size() == 0}">
 											<c:if test="${user.userNum == userpage.userNum }">
 												<a href="#"	class="d-block link-dark text-decoration-none dropdown-toggle"	id="dropdownUser1" data-bs-toggle="dropdown"aria-expanded="false"> 
-													<img src="https://github.com/mdo.png" alt="mdo" width="150"	height="150" class="rounded-circle">
+										 			<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+								 							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+													</svg>
 												</a>
 													<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 														<li><input type="button" value="업로드" onclick=document.all.uploadFile.click();></li>
@@ -178,7 +180,10 @@ p.card-text {
 												</form>
 											</c:if>
 											<c:if test="${user.userNum != userpage.userNum }">
-												<img src="https://github.com/mdo.png" alt="mdo"	width="150" height="150" class="rounded-circle">
+												<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							 							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+												</svg>
 											</c:if>
 										</c:if>
 										<br>
@@ -196,12 +201,16 @@ p.card-text {
 											</div>
 										</div>
 									</div>
-									<div class="h6 fw-bolder">
-										Following &nbsp;&nbsp; <c:out value='${followingcnt}' />
-									</div>
-									<div class="h6 fw-bolder">
-										Follower &nbsp;&nbsp;&nbsp;&nbsp; <c:out value='${followercnt}' />
-									</div>
+									
+									
+									<div class="h6 fw-bolder">	Following &nbsp;&nbsp; 
+									<span  id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
+									
+									
+									
+									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
+									<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
+				
 									<br/> 
 									<a class="fs-5 px-2 link-dark" href="#!"><i	class="bi-twitter"></i></a> 
 									<a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a> 
@@ -212,6 +221,57 @@ p.card-text {
 						</div>
 					</div>
 				</div>
+				<!-- following Modal -->
+				<div class="modal fade" id="followingModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 40%;">Following</h5>
+								<button type="button" id="close_following" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							<c:forEach items="${followinglist}" var="fli">
+								<div class="container ">
+								<a class="small" id="modal_show_logintojion" href="/user/userpage?userNum=${fli.userNum}">
+								<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userRealName }"/></a>
+								<br>
+								<br>
+								</div>
+							</c:forEach>
+						
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				
+				<!-- follower Modal -->
+				<div class="modal fade" id="followerModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 40%;">Follower</h5>
+								<button type="button" id="close_follower" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							<c:forEach items="${followerlist}" var="flr">
+								<div class="container">
+								<a class="small" id="modal_show_logintojion" href="/user/userpage?userNum=${flr.userNum}">
+								<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userRealName }"/></a>
+								<br>
+								<br>
+								</div>
+							</c:forEach>
+						
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				
+				
 				<div class="col-xl-8">
 					<h2 class="fw-bolder fs-5 mb-4">Board News</h2>
 					<!-- News item-->
@@ -276,10 +336,26 @@ p.card-text {
              </div>
 		</div>
 	</section>
-	<script type="text/javascript">
-
-
+ <script type="text/javascript">
 $(document).ready(function() {
+	
+	$("#modal_show_followingList").click(function() {
+     	$("#followingModal").modal("show");
+     
+     });
+      
+     $("#close_following").click(function() {
+         $("#followingModal").modal("hide");
+     });
+
+     $("#modal_show_followerList").click(function() {
+      	$("#followerModal").modal("show");
+      
+      });
+       
+      $("#close_follower").click(function() {
+          $("#followerModal").modal("hide");
+      });
 	
 	var followingBtn = $("#followingBtn");
 	var unfollowBtn = $("#unfollowBtn");
@@ -533,6 +609,6 @@ const swiper = new Swiper('.swiper-container', {
   }); //swiper End
 
 </script>
-	<%@include file="../includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
 </body>
 </html>

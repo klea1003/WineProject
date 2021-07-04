@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.ProfileVO;
+import org.wine.domain.SocialListVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.service.SocialService;
@@ -66,13 +67,21 @@ public class UserController {
 
 		model.addAttribute("userpage", service.get(userNum));
 		
-		model.addAttribute("followck", socialservice.followingBtn(userNum));
+		model.addAttribute("followck", socialservice.followingBtn(userNum)); //팔로잉 버튼 체크 유무
+		
+		List<SocialListVO> followinglist = socialservice.followingList(userNum);
+	
+		model.addAttribute("followinglist",followinglist );  //팔로잉 리스트
+		
+		List<SocialListVO> followerlist = socialservice.followerList(userNum);
+		
+		model.addAttribute("followerlist",followerlist );  //팔로워 리스트
 		
 		List<ProfileVO> imageck =  service.imageCk(userNum);
 		
 		log.info("imageck : " +imageck);
 		
-		model.addAttribute("imageck",imageck);
+		model.addAttribute("imageck",imageck);  //이미지 체크 유무
 		
 		int followercnt = socialservice.getCountByFollower(userNum);
 		
@@ -81,7 +90,6 @@ public class UserController {
 		int followingcnt = socialservice.getCountByFollowing(userNum);
 		
 		model.addAttribute("followingcnt",followingcnt);
-		
 		
 		model.addAttribute("wish",service.getwishList(userNum));
 	}
@@ -143,24 +151,13 @@ public class UserController {
 	}
 	
 	  @RequestMapping(value="/logout", method=RequestMethod.GET)
-	    public String logoutMainGET( @RequestParam(value="path" ,required=false) String path,@RequestParam(value="query",required=false) String query, HttpServletRequest request) throws Exception{
-	        
-	        log.info("logoutMainGET메서드 진입");
-	        
-	        if(query==""||query==null) {
-				
-			}else {
-				query = "?" + query;
-			}
-			
-	        
+	    public String logoutMainGET(HttpServletRequest request) throws Exception{
+	       
 	        HttpSession session = request.getSession();
 			
 	        session.invalidate();
-	        
-	       
-	        
-	        return  "redirect:/wine/list";
+	         
+	        return  "redirect:/wine/main";
 	       
 	    }
 
