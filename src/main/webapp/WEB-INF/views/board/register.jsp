@@ -270,8 +270,8 @@ $(document).ready(function(e) {
 					</div>
 					<!-- File attach End -->
 					
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<button type="reset" class="btn btn-danger">Reset</button>
+					<button type="submit" class="btn btn-outline-danger">Submit</button>
+					<button type="reset" class="btn btn-outline-dark">Reset</button>
 					</form>
 				
 				</div>
