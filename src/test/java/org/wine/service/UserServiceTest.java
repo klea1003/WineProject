@@ -40,4 +40,9 @@ public class UserServiceTest {
 		log.info(user);
 	
 	}
+	
+	@Test
+	public void getCartList() {
+		service.getwishList(2L);
+	}
 }

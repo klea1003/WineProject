@@ -83,7 +83,7 @@ public class UserController {
 		model.addAttribute("followingcnt",followingcnt);
 		
 		
-		
+		model.addAttribute("wish",service.getwishList(userNum));
 	}
 	
 	@PostMapping({ "/userpage" })

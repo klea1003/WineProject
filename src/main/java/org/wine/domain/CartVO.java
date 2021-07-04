@@ -17,8 +17,7 @@ public class CartVO {
 	
 	private String wineImageName;
 	
- 
-	
-	
+	private String wineCountry;
+	private String wineType;
 	
 }
