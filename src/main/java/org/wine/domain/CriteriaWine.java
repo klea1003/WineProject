@@ -102,7 +102,7 @@ public class CriteriaWine {
 			this.wineRatingMax = 3.5;
 		} else {
 			this.wineRatingMin = 0.0;
-			this.wineRatingMax = 3.0;
+			this.wineRatingMax = 5.0;
 		}
 	}
 	
