@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.Criteria;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -206,15 +206,13 @@ public class WineMapperTests {
 	}
 	
 	@Test
-	public void testWineRatingArr() {
+	public void testWineRating() {
 		CriteriaWine cri = new CriteriaWine(); 
 		
-		ArrayList<String> wineRatingArr = new ArrayList<>(); 
-		wineRatingArr.add("");
+		cri.setWineRating(3);
 		
-		cri.setWineRatingArr(wineRatingArr);
-		
-		List<WineVO> list = mapper.getListWithPaging(cri); 
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info(cri);
 		log.info(list.size());
 		log.info(list);
 	}
@@ -229,5 +227,27 @@ public class WineMapperTests {
 		log.info(list.size());
 		log.info(list);
 	}
+	
+	@Test
+	public void testGetWineRatingList() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testGetwineRead() {
+		
+		WineRatingVO wine = mapper.readWithRating(8L);		
+		log.info(wine);				
+	}
+	
 	
 }
