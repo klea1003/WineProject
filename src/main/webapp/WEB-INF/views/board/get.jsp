@@ -510,30 +510,31 @@ $(document).ready(function(){
 						
 					</div>
 					<!-- end like -->
-				</div>
-
-				<!-- Files -->
-				<div class="row">
-					<div class="col-md-1">
-						<div class="panel panel-info">
-							<div class="panel-heading">Files</div>
-							<!-- /.panel-heading -->
-							<div class="panel-body">
+					<!-- Files -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-info">
+								<div class="panel-heading">Files</div>
+								<!-- /.panel-heading -->
 								<div class="panel-body">
-									<div class="form-group uploadDiv"></div>
-
-									<div class="uploadResult">
-										<ul></ul>
-									</div>
-									<div class="bigPictureWrapper">
-										<div class="bigPicture"></div>
+									<div class="panel-body">
+										<div class="form-group uploadDiv"></div>
+	
+										<div class="uploadResult">
+											<ul></ul>
+										</div>
+										<div class="bigPictureWrapper">
+											<div class="bigPicture"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- end Files -->
 				</div>
-				<!-- end Files -->
+
+				
 
 				<!-- reply 영역 -->
 
