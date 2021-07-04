@@ -206,15 +206,13 @@ public class WineMapperTests {
 	}
 	
 	@Test
-	public void testWineRatingArr() {
+	public void testWineRating() {
 		CriteriaWine cri = new CriteriaWine(); 
 		
-		ArrayList<String> wineRatingArr = new ArrayList<>(); 
-		wineRatingArr.add("");
+		cri.setWineRating(3);
 		
-		cri.setWineRatingArr(wineRatingArr);
-		
-		List<WineVO> list = mapper.getListWithPaging(cri); 
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info(cri);
 		log.info(list.size());
 		log.info(list);
 	}

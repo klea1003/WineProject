@@ -97,7 +97,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<!-- Searching User Rating -->
 	<h3>User Rating</h3>	
 	<div> 
-		<label><input type="radio" name="wine_rating" value="1" />
+		<label><input type="radio" class="check_box" name="wine_rating" value="1" <c:if test='${wine_rating eq 1}'>checked</c:if>/>
 		<span style="color:rgb(156,22,49)" ><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
@@ -109,7 +109,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<div> 
-		<label><input type="radio" name="wine_rating" value="1" />
+		<label><input type="radio" class="check_box" name="wine_rating" value="2" <c:if test='${wine_rating eq 2}'>checked</c:if>/>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
@@ -121,7 +121,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<div> 
-		<label><input type="radio" name="wine_rating" value="1" />
+		<label><input type="radio" class="check_box" name="wine_rating" value="3" <c:if test='${wine_rating eq 3}'>checked</c:if>/>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
@@ -133,7 +133,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<div> 
-		<label><input type="radio" name="wine_rating" value="1" />
+		<label><input type="radio" class="check_box" name="wine_rating" value="4" <c:if test='${wine_rating eq 4}'>checked</c:if>/>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
@@ -145,7 +145,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<div> 
-		<label><input type="radio" name="wine_rating" value="1" />
+		<label><input type="radio" class="check_box" name="wine_rating" value="5" <c:if test='${wine_rating eq 5}'>checked</c:if>/>
 		<Strong>Any rating</Strong>
 		</label>
 	</div>
@@ -156,7 +156,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<div>
 		<c:forEach items="${wineGrapeList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" class="check_box" name="Grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -167,7 +167,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<div>
 		<c:forEach items="${wineRegionList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -178,7 +178,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<div>
 		<c:forEach items="${wineCountryList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="country" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
@@ -189,7 +189,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<div>
 		<c:forEach items="${wineStyleList}" var="winePropertyDTO">
 			<label>
-				<input type="checkbox" class="check_box" name="Region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<input type="checkbox" class="check_box" name="wine_style" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>

@@ -128,7 +128,8 @@
 				<include refid="criteriaWineCountry"></include>
 				<include refid="criteriaWineStyle"></include>
 				<include refid="criteriaWinePrice"></include>
-				<include refid="criteriaKeyword"></include>				
+				<include refid="criteriaKeyword"></include>
+				<include refid="criteriaWineRating"></include>			
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -216,15 +217,7 @@
 	</sql>
 	
 	<sql id="criteriaWineRating">
-		<if test="wineRatingArr.size!=0">
-			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
-				<foreach item="wineRating" collection="wineRatingArr">
-					<trim prefix="OR">
-						 WineRating like '%'||#{wineRating}||'%' 
-					</trim>
-				</foreach>
-			</trim>
-		</if>
+		AVG_RATING BETWEEN #{wineRatingMin} AND #{wineRatingMax} AND
 	</sql>		
 	
 	<sql id="criteriaWinePrice">

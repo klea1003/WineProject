@@ -15,11 +15,15 @@ var wineService = (function(){
 		var _wineRegionArr = [];
 		var _wineCountryArr = [];
 		var _wineStyleArr = [];
-		var _wineRatingArr = [];
+		var _wineRating;
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
 	    })
+
+		$("input[name='wine_rating']:checked").each(function(i) {
+			_wineRating = $(this).val();
+		})
 
 		$("input[name='Grapes']:checked").each(function(i) {
 	    	_wineGrapeArr.push($(this).val()); 
@@ -35,10 +39,6 @@ var wineService = (function(){
 		
 		$("input[name='WineStyle']:checked").each(function(i) {
 	    	_wineStyleArr.push($(this).val()); 
-		})
-		
-		$("input[name='WineRating']:checked").each(function(i) {
-	    	_wineRatingArr.push($(this).val()); 
 		})
 		
 		// price range
@@ -60,7 +60,7 @@ var wineService = (function(){
 		console.log("Wine Region", _wineRegionArr);
 		console.log("Wine Country", _wineCountryArr);
 		console.log("Wine Style", _wineStyleArr);
-		console.log("Wine Rating", _wineRatingArr);
+		console.log("Wine Rating", _wineRating);
 	    
 	    $.ajax({
 	        url: 'requestWineList'
@@ -73,7 +73,7 @@ var wineService = (function(){
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
 				wineStyleArr:_wineStyleArr,
-				wineRatingArr:_wineRatingArr,
+				wineRating:_wineRating,
 				priceMin: price_min,
 				priceMax: price_max,
 				wineKeyword: wine_keyword
@@ -98,30 +98,30 @@ var wineService = (function(){
 		var _wineRegionArr = [];
 		var _wineCountryArr = [];
 		var _wineStyleArr = [];
-		var _wineRatingArr = [];
+		var _wineRating;
 		
 	    $("input[name='wine_type']:checked").each(function(i) {
 	    	_wineTypeArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
 	    })
+
+		$("input[name='wine_rating']:checked").each(function(i) {
+			_wineRating = $(this).val();
+		})
 		
-		$("input[name='Grapes']:checked").each(function(i) {
+		$("input[name='grapes']:checked").each(function(i) {
 	    	_wineGrapeArr.push($(this).val());     
 	    })
 		
-		$("input[name='Grapes']:checked").each(function(i) {
+		$("input[name='region']:checked").each(function(i) {
 	    	_wineRegionArr.push($(this).val());     
 	    })
 		
-		$("input[name='Country']:checked").each(function(i) {
+		$("input[name='country']:checked").each(function(i) {
 	    	_wineCountryArr.push($(this).val()); 
 		})
 		
-		$("input[name='WineStyle']:checked").each(function(i) {
+		$("input[name='wine_style']:checked").each(function(i) {
 	    	_wineStyleArr.push($(this).val()); 
-		})
-		
-		$("input[name='WineRating']:checked").each(function(i) {
-	    	_wineRatingArr.push($(this).val()); 
 		})
 		
 		// price range
@@ -142,7 +142,7 @@ var wineService = (function(){
 		console.log("Wine Region", _wineRegionArr);
 		console.log("Wine Country", _wineCountryArr);
 		console.log("Wine Style", _wineStyleArr);
-		console.log("Wine Rating", _wineRatingArr);
+		console.log("Wine Rating", _wineRating);
 	    
 	    $.ajax({
 	        url: 'getTotalPageNum'
@@ -154,7 +154,7 @@ var wineService = (function(){
 				wineRegionArr:_wineRegionArr,
 				wineCountryArr:_wineCountryArr,
 				wineStyleArr:_wineStyleArr,
-				wineRatingArr:_wineRatingArr,
+				wineRating:_wineRating,
 				priceMin: price_min,
 				priceMax: price_max,
 				wineKeyword: wine_keyword
