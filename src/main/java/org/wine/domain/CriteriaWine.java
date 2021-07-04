@@ -18,7 +18,8 @@ public class CriteriaWine {
 	private ArrayList<String> wineRegionArr;
 	private ArrayList<String> wineCountryArr;
 	private ArrayList<String> wineStyleArr;
-	private ArrayList<String> wineRatingArr;
+	private double wineRatingMin;
+	private double wineRatingMax;
 	private int priceMin;
 	private int priceMax;
 	private String keyword;
@@ -34,7 +35,8 @@ public class CriteriaWine {
 		this.wineRegionArr = new ArrayList<String>();
 		this.wineCountryArr = new ArrayList<String>();
 		this.wineStyleArr = new ArrayList<String>();
-		this.wineRatingArr = new ArrayList<String>();
+		this.wineRatingMin = 4.0;
+		this.wineRatingMax = 4.5;
 		this.priceMin = 1000;
 		this.priceMax = 100000;
 		this.keyword = null;
@@ -84,14 +86,26 @@ public class CriteriaWine {
 		}
 		
 	}
-	public void setWineRatingArr(ArrayList<String>wineRatingArr) {
-		if(wineRatingArr == null) {
-			this.wineRatingArr = new ArrayList<String>(); 			
-		}else {
-			this.wineRatingArr = wineRatingArr;
-		}
+	public void setWineRating(int wineRating) {
 		
+		if(wineRating == 1) {
+			this.wineRatingMin = 4.5;
+			this.wineRatingMax = 5.0;
+		} else if (wineRating == 2) {
+			this.wineRatingMin = 4.0;
+			this.wineRatingMax = 4.5;
+		} else if (wineRating == 3 ) {
+			this.wineRatingMin = 3.5;
+			this.wineRatingMax = 4.0;
+		} else if (wineRating == 4) {
+			this.wineRatingMin = 3.0;
+			this.wineRatingMax = 3.5;
+		} else {
+			this.wineRatingMin = 0.0;
+			this.wineRatingMax = 3.0;
+		}
 	}
+	
 	public void setWinePriceRange(int priceMin, int priceMax) {
 		this.priceMin = priceMin;
 		this.priceMax = priceMax;		
