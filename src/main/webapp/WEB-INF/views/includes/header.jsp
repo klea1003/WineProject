@@ -301,7 +301,10 @@ body.modal-open {
 						<div class="dropdown text-end">
 						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
 							aria-expanded="false"> 
-							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+ 								 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+ 								 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
 						</a>
 						<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 							<li><a class="dropdown-item" href="#">My wines</a></li>
@@ -482,7 +485,7 @@ body.modal-open {
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+					<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Login</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -527,7 +530,7 @@ body.modal-open {
 	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 
 			<div class="modal-content">
 
