@@ -113,7 +113,10 @@ p.card-text {
 					      <p class="card-text">와인타입 : <c:out value="${p.wineType}" /></p>
 					      <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
 					 </div>
-                  <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
+                  <div class="card-footer">
+                  <a class="btn btn-outline-dark btn-sm" href="#!">More Info</a>
+                  <a class="btn btn-outline-danger btn-sm" href="#!"><i class="bi-cart-fill me-1"></i>add to cart </a>
+                  </div>
                </div>
                    </div>
                    </div>
