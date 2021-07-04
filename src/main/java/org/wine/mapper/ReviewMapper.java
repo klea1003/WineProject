@@ -1,14 +1,14 @@
 package org.wine.mapper;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.ReviewVO;
 
 public interface ReviewMapper {
 
-	 public List<ReviewVO> getList();
-	 public List<ReviewVO> getListWithPaging(CriteriaReview cri);
+	 public ArrayList<ReviewVO> getList();
+	 public ArrayList<ReviewVO> getListWithPaging(CriteriaReview cri);
 	 
 	 public void insert(ReviewVO review);
 	 

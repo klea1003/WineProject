@@ -144,19 +144,23 @@
 	
 	<select id="getTotalCountWithPaging" resultType="int">
 		 <![CDATA[
-			SELECT COUNT(*) FROM (
-			    SELECT * FROM TBL_WINE_TEST WHERE ]]>
-			    
-				<include refid="criteriaWineType"></include>
-				<include refid="criteriaWineGrape"></include>
-				<include refid="criteriaWineRegion"></include>
-				<include refid="criteriaWineCountry"></include>
-				<include refid="criteriaWineStyle"></include>
-				<include refid="criteriaWinePrice"></include>
-				<include refid="criteriaKeyword"></include>
-				<include refid="criteriaWineRating"></include>
-				
-			wine_num > 0)	
+
+			SELECT COUNT(*)
+			FROM TBL_WINE_TEST WINE
+			LEFT
+			JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+			ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE ]]>
+			
+			<include refid="criteriaWineType"></include>
+			<include refid="criteriaWineGrape"></include>
+			<include refid="criteriaWineRegion"></include>
+			<include refid="criteriaWineCountry"></include>
+			<include refid="criteriaWineStyle"></include>
+			<include refid="criteriaWinePrice"></include>
+			<include refid="criteriaKeyword"></include>
+			<include refid="criteriaWineRating"></include>			
+			
+			<![CDATA[WINE.WINE_NUM > 0]]>
 	</select>
 
 	<sql id="criteriaWineType">

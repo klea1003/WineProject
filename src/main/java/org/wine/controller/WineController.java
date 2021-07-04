@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
-import org.wine.service.WineReplyService;
+import org.wine.service.ReviewService;
 import org.wine.service.WineService;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ import lombok.extern.log4j.Log4j;
 public class WineController {
 
 	private WineService service;
-	private WineReplyService replyService;
+	private ReviewService reviewSerivce;
 	
 	@GetMapping("/main")
 	public void main(
@@ -230,6 +231,11 @@ public class WineController {
 		
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
-		model.addAttribute("reply5",replyService.getList5(wno));
+		
+		CriteriaReview cri = new CriteriaReview();
+		cri.setWineNum(wno.intValue());
+		
+		model.addAttribute("review_list", reviewSerivce.getList(cri));
+		
 	}
 }
