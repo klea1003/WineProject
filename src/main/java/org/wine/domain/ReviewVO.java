@@ -7,11 +7,12 @@ import lombok.Data;
 @Data
 public class ReviewVO {
 	
-	private Long REVIEW_NUM;
-	private Long WINE_NUM;
-	private Long USER_NUM;
-	private String REVIEW_CONTENT;
-	private Date REGDATE;
-	private String STAR_RATING;
+	private Long reviewNum;
+	private Long userNum;
+	private Long wineNum;	
+	private String content;
+	private String date;
+	private String rating;
+	private int cntLike;
 
 }

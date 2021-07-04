@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.ReviewMapper">
+
+	<resultMap type="org.wine.domain.ReviewVO" id="reviewinfo">
+		<result property="reviewNum" column="REVIEW_NUM"/>
+		<result property="userNum" column="USER_NUM"/>
+		<result property="wineNum" column="WINE_NUM"/>  
+		<result property="content" column="REVIEW_CONTENT"/>
+		<result property="date" column="REVIEW_DATE"/>
+		<result property="rating" column="REVIEW_RATING"/>
+		<result property="cntLike" column="REVIEW_COUNT_LIKE"/>
+	</resultMap>
+
+
+	<select id="getList" resultMap="reviewinfo">
+		<![CDATA[
+			select * from TBL_WINE_REVIEW where REVIEW_NUM > 0
+		]]>
+	</select>
+	
+	<select id="getListWithPaging" resultMap="reviewinfo">
+		<![CDATA[
+			SELECT REVIEW_NUM, USER_NUM, WINE_NUM, REVIEW_CONTENT, REVIEW_DATE,
+			REVIEW_RATING, REVIEW_COUNT_LIKE
+			FROM (
+				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, USER_NUM, WINE_NUM, REVIEW_CONTENT, REVIEW_DATE,
+				REVIEW_RATING, REVIEW_COUNT_LIKE FROM TBL_WINE_REVIEW
+				WHERE ]]>
+				
+				<include refid="criteriaWine"></include>
+				
+				<![CDATA[rownum <= #{pageNum}*#{amount})
+			where rn>(#{pageNum}-1)*#{amount}]]>		
+	</select>
+  
+	<insert id="insert">
+		<selectKey keyProperty="reviewNum" order="BEFORE" resultType="long">
+			select seq_review.nextval from dual
+		</selectKey>
+
+		insert into TBL_WINE_REVIEW
+		values (#{reviewNum}, #{userNum}, #{wineNum}, #{content}, #{date}, #{rating}, #{cntLike})
+	</insert>
+  
+	<select id="read" resultMap="reviewinfo">
+		select * from TBL_WINE_REVIEW where REVIEW_NUM=#{reviewNum}
+	</select>
+  	
+  	<select id="getTotalCount" resultType="int">
+		 <![CDATA[
+			SELECT COUNT(*) FROM (
+			    SELECT * FROM TBL_WINE_REVIEW WHERE ]]>
+			    
+				<include refid="criteriaWine"></include>
+				
+			wine_num > 0)	
+	</select>
+  	
+  	<sql id="criteriaWine">
+  		<if test="wineNum!=0">
+  			WINE_NUM = #{wineNum} AND
+  		</if>
+	</sql>	
+ 
+</mapper>
