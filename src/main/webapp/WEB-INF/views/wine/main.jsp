@@ -5,6 +5,9 @@
 <%@ include file="../includes/header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <style>
 .card {
 	height: 450px;
@@ -84,14 +87,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<header class="bg py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
-				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>
-				
+				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>				
 				<div>
-					<label><input type="checkbox" name="top list" value="20000">
-						20000</label> <label><input type="checkbox" name="top list"
-						value="40000"> 40000</label> <label><input type="checkbox"
-						name="top list" value="60000"> 60000</label> <label><input
-						type="checkbox" name="top list" value="80000"> 80000</label>
+					<label><input type="radio" name="priceCheck" class="BtnClick" value=1 checked>20000</label>
+					<label><input type="radio" name="priceCheck" class="BtnClick" value=2>40000</label>
+					<label><input type="radio" name="priceCheck" class="BtnClick" value=3>60000</label>
+					<label><input type="radio" name="priceCheck" class="BtnClick" value=4>80000</label>
 				</div>
 			</div>
 		</div>
@@ -259,24 +260,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 <script type="text/javascript">   
 
 	$(document).ready(function() {
-
-		var actionForm = $("#actionForm");
 		
-		console.log(actionForm.find("input[name='totalPageNum']").val());
-
-		$(".page-item a").on("click", function(e) {
-			e.preventDefault();
-
-			console.log('click');
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.submit();
-		});
-		
-		var wineDiv = $(".swiper-wrapper")
-		
-		wineDiv.html("");
-		
+		var swiperDiv = $(".swiper-wrapper")
 		
 		showWineList();
 		
@@ -288,7 +273,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					var str = "";
 					
 					if(list == null || list.length ==0){
-						wineDiv.html("");
+						swiperDiv.html("");
 						
 						return;
 					}
@@ -297,25 +282,20 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += "<div class='swiper-slide'>"
 						str += "<div class='col mb-5'>"
 						str += "<div class='card wine'>"
-						str += "<!-- Product image-->"
 						str += "<img class='card-img-top'"
-						str += "src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
+						str += "src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'"
 						str += "alt=''...'' />"
 						str += "<div class='card-body p-5'>"
 						str += "<div class='text-center'>"
-						str += "<h5 class='fw-bolder'>Special Item</h5>"
+						str += "<h5 class='fw-bolder'>" + list[i].title + "</h5>"
 						str += "<div class='d-flex justify-content-center small text-warning mb-2'>"
-						str += "<div class='bi-star-fill'></div>"
-						str += "<div class='bi-star-fill'></div>"
-						str += "<div class='bi-star-fill'></div>"
-						str += "<div class='bi-star-fill'></div>"
-						str += "<div class='bi-star-fill'></div>"
+						str += wineUtil.starFromRating(list[i].avgRating);
 						str += "</div>"
 						str += "</div>"
 						str += "</div>"
 						str += "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"
 						str += "<div class='text-center'>"
-						str += "<a class='btn btn-outline-danger mt-auto' href='#'>$10.00</a>"
+						str += "<a class='btn btn-outline-danger mt-auto' href='#'> ￦ " + wineUtil.numberWithCommas(list[i].price) + " </a>"
 						str += "</div>"
 						str += "</div>"
 						str += "</div>"
@@ -323,10 +303,37 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += "</div>"
 					}
 					
-					wineDiv.append(str);
+					swiperDiv.append(str);
 				}		
 			)
 		}
+		
+		var actionForm = $("#actionForm");
+		
+		// top price list select
+		$(".BtnClick").on("click", function(e) {
+			console.log('click checkbox btn');
+			
+			if ($(this).val() == 1){
+				$( "#price_min" ).val(0);
+				$( "#price_max" ).val(20000);
+			} else if ($(this).val() == 2){
+				$( "#price_min" ).val(20000);
+				$( "#price_max" ).val(40000);
+			} else if ($(this).val() == 3){
+				$( "#price_min" ).val(40000);
+				$( "#price_max" ).val(80000);
+			} else if ($(this).val() == 4){
+				$( "#price_min" ).val(80000);
+				$( "#price_max" ).val(200000);
+			}
+
+			swiperDiv.html("");	// to empty
+			actionForm.find("input[name='pageNum']").val("1");
+			wineService.requestTotalPageNum();
+			
+			showWineList();
+		});
 	
 	});
 </script>

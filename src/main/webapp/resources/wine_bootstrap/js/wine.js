@@ -3,8 +3,6 @@
  */
 console.log("Wine Module........");
 
-
-
 var wineService = (function(){
 	
 	function requestWineList(callback) {
@@ -177,6 +175,50 @@ var wineService = (function(){
 	};
 	
 	
+})();
+
+var wineUtil = (function(){
+	
+	function starFromRating(inputRating) {
+		outStr = ""
+		if (inputRating >= 4.5){
+			console.log("case 1")
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star-half'></i></span>"
+		} else if (inputRating >= 4.0) {
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(1,1,1, 0.3)'><i class='fa fa-xl fa-star'></i></span>"
+		} else if (inputRating >= 3.5) {
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star-half'></i></span>"
+			outStr += "<span style='color:rgb(1,1,1, 0.3)'><i class='fa fa-xl fa-star'></i></span>"
+		} else if (inputRating >= 3.0) {
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(156,22,49)' ><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(1,1,1, 0.3)'><i class='fa fa-xl fa-star'></i></span>"
+			outStr += "<span style='color:rgb(1,1,1, 0.3)'><i class='fa fa-xl fa-star'></i></span>"
+		} 
+		
+		return outStr
+	};
+	
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
+	return {
+		starFromRating: starFromRating,
+		numberWithCommas: numberWithCommas
+	}
 })();
 
 

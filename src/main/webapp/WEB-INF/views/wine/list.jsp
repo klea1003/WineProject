@@ -340,15 +340,6 @@ input[type=radio]{
 		var actionForm = $("#actionForm");
 		
 		console.log(actionForm.find("input[name='totalPageNum']").val());
-
-		$(".page-item a").on("click", function(e) {
-			e.preventDefault();
-
-			console.log('click');
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.submit();
-		});
 		
 		$(window).scroll(function() {
 		
