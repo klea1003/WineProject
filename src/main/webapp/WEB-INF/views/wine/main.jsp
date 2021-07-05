@@ -2,54 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ include file="../includes/header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-
-<title>와인 main test</title>
-
-	<!-- Bootstrap core CSS -->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-		crossorigin="anonymous" />
-	
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.6.0.js"
-		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-		crossorigin="anonymous"></script>
-	
-	<!-- Bootstrap core JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-		crossorigin="anonymous"></script>
-	
-	<!-- Bootstrap icons-->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-		rel="stylesheet" />
-	
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/resources/wine_bootstrap/css/styles.css" rel="stylesheet" />
-	
-	<!-- Swiper -->
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-	
-	<!-- jquery-UI -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-</head>
-
 <style>
 .card {
 	height: 450px;
@@ -124,14 +79,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 </style>
 
 <body>
-
+	
 	<!-- Header-->
 	<header class="bg py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
 				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>
-				<p class="lead fw-normal text-dark-50 mb-3">updated every
-					Thursday</p>
+				
 				<div>
 					<label><input type="checkbox" name="top list" value="20000">
 						20000</label> <label><input type="checkbox" name="top list"
@@ -221,6 +175,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<input type="hidden" id="price_min" value="10000">
 	<input type="hidden" id="price_max" value="30000">
 
+<%@ include file="../includes/footer.jsp"%>
 </body>
 <script type="text/javascript">
 	const swiper = new Swiper('.swiper-container', {

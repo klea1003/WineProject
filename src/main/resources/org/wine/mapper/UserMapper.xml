@@ -13,49 +13,75 @@
 		<result property="userBirthDay" column="USER_BIRTHDAY" />
 	</resultMap>
 
+	<resultMap type="org.wine.domain.SocialWishVO" id="SocialWishList">
+		<result property="wishNum" column="WISH_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineType" column="WINETYPE"/>
+		<result property="wineCountry" column="WINE_COUNTRY"/>
+		<result property="wineTitle" column="WINE_TITLE" />
+		<result property="wineImageName" column="WINE_IMAGENAME" />
+	</resultMap>
+
 	<select id="getList" resultMap="userInfo">
-		select*from tbl_user_test where USER_NUM >0
+		select*from tbl_user where
+		USER_NUM >0
 	</select>
 
 	<insert id="join">
-		insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME,
+		insert into TBL_USER(USER_NUM, USER_ID,
+		USER_NICKNAME,
 		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
 		values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
 	</insert>
 
 	<insert id="joinSelectKey">
-		<selectKey keyProperty="userNum" order="BEFORE"	resultType="long">
+		<selectKey keyProperty="userNum" order="BEFORE"
+			resultType="long">
 			select SEQ_USER_TEST.nextval from dual
 		</selectKey>
-		insert into TBL_USER_TEST(USER_NUM, USER_ID, USER_NICKNAME,
+		insert into TBL_USER(USER_NUM, USER_ID, USER_NICKNAME,
 		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
 		values(#{userNum},#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
 	</insert>
 
 	<select id="read" resultMap="userInfo">
-	select * from TBL_USER_TEST where USER_NUM=#{userNum}
+		select * from TBL_USER where USER_NUM=#{userNum}
 	</select>
 
 	<update id="update">
-		update TBL_USER_TEST set USER_EMAIL=#{userEmail},
+		update TBL_USER set USER_EMAIL=#{userEmail},
 		USER_PASSWORD=#{userPassword}, USER_PHONENUM=#{userPhoneNum},
 		USER_BIRTHDAY = to_char(to_date(#{userBirthDay}))
-		where USER_NUM=#{userNum}
+		where
+		USER_NUM=#{userNum}
 	</update>
 
 	<select id="idCheck" resultType="int">
-		select count(*) from TBL_USER_TEST where USER_ID = #{userId}
+		select count(*) from TBL_USER
+		where USER_ID = #{userId}
 	</select>
 
 	<select id="nicknameCheck" resultType="int">
-		select count(*) from TBL_USER_TEST where USER_NICKNAME = #{userNickName}
+		select count(*) from
+		TBL_USER where USER_NICKNAME = #{userNickName}
 	</select>
-	
-	<select id='userLogin'  resultMap="userInfo">	
-		SELECT USER_NUM,USER_ID,USER_NICKNAME,USER_EMAIL,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY
-		FROM TBL_USER_TEST
-		WHERE USER_ID=#{userId} and USER_PASSWORD =#{userPassword}
+
+	<select id='userLogin' resultMap="userInfo">
+		SELECT
+		USER_NUM,USER_ID,USER_NICKNAME,USER_EMAIL,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY
+		FROM TBL_USER
+		WHERE USER_ID=#{userId} and USER_PASSWORD=#{userPassword}
 	</select>
-	
+
+	<!-- 장바구니 목록 -->
+	<select id="getwishList" resultMap="SocialWishList">
+  		select W.WINE_NUM,WL.WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+		from
+		TBL_USER U, tbl_wishlist_test WL, TBL_WINE_TEST W
+		where
+		U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM =#{userNum}
+        GROUP by W.WINE_NUM,WL.WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+	</select>
 </mapper>
  

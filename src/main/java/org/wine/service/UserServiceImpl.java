@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wine.domain.ProfileVO;
+import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
 import org.wine.mapper.UserAttachMapper;
 import org.wine.mapper.UserMapper;
@@ -111,6 +112,12 @@ public class UserServiceImpl implements UserService {
 		log.info("remove...."+ userNum) ;
 		
 		return attachMapper.deleteimage(userNum);
+	}
+
+	@Override
+	public List<SocialWishVO> getwishList(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getwishList(userNum);
 	}
 
 }
