@@ -219,7 +219,7 @@ $(document).ready(function(e) {
             </div>
 			<div class="container-fluid">
 				<div class="w-50">
-					<form role="form" action="/board/register" method="post">
+					<form role="form" action="/board/register" method="post" autocomplete="off">
 					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
 					<div class="form-group">
 						<label>Title</label><input class="form-control" name='title'>

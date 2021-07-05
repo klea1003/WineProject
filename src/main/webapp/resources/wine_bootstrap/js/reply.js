@@ -28,7 +28,7 @@ var replyService = (function() {
       })
    } //add
 
-   function getList(param, callback, error) {
+   function getReplyList(param, callback, error) {
       var boardNum = param.boardNum;
       var page = param.page || 1;
 
@@ -119,7 +119,7 @@ function remove(rno, replyer, callback, error) {
    
    }; //displayTime
       
-      function getList(param, callback, error) {
+      function getReplyList(param, callback, error) {
          var boardNum = param.boardNum
         var page=param.page || 1
       $.getJSON("/replies/pages/"+boardNum+"/"+page+".json", function(data){
@@ -136,7 +136,7 @@ function remove(rno, replyer, callback, error) {
 
    return {
       add: add,
-      getList: getList,
+      getReplyList: getReplyList,
       remove: remove,
       update: update,
       get: get,

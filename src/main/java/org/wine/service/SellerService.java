@@ -8,6 +8,8 @@ public interface SellerService {
 	
 	public SellerVO get(Long sellerNum);
 	
+	public List<SellerVO> getListWine(Long wineNum);
+	
 	public boolean modify(SellerVO seller);
 	
 	public boolean remove(Long sellerNum);

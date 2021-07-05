@@ -317,7 +317,7 @@ $(document).ready(function() {
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item dropdown">
-					   		<a class="nav-link" href="#" data-bs-toggle="dropdown">Wines</a>
+					   		<a class="nav-link" href="main" data-bs-toggle="dropdown">Wines</a>
 					   		<div class="dropdown-menu dropdown-large">
 					   			<div class="row g-3">
 							   		<div class="col-4">
@@ -428,8 +428,8 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
-						<li class="nav-item"><a class="nav-link" href="#">Seller</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+						<li class="nav-item"><a class="nav-link" href="/seller/list">Seller</a></li>
+						<li class="nav-item"><a class="nav-link" href="/board/list">FAQ</a></li>
 					</ul>
 				</div>
 			</div>

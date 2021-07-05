@@ -85,34 +85,18 @@ $(document).ready(function(){
 				<button type="button" class="btn btn-outline-dark" onclick="location.href='/seller/list'">상품목록</button>
 </form>
 			<div class="btn-position">   
-				<!--  <button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>-->
-       <form method="Get" action="/order/ordering">
-			   <c:forEach var="row" items="${map.list}" varStatus="i">
-			    <input type='hidden' value='${row.wineTitle}' name="wineName">
-			    <input type='hidden' value='${row.winePrice}' name="winePrice">
-			    <input type='hidden' value='${row.wineImageName}' name="image">
-			    <input type='hidden' value='${row.cartQty }' name="cartQty">
-			    <input type='hidden' value='${row.totalPrice}' name="totalPrice">
-			    <input type='hidden' value='${row.sellerId}' name="sellerId">
-			    <input type='hidden' value='${row.wineNum}' name="wineNum">
-			    <input type="hidden" name="sellerNum" value="${row.sellerNum}">
-			   
-			    </c:forEach> 
+
+				  <button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
+      
 			     
-			    <button type="submit" class="btn btn-outline-danger">예약하기</button>
-	</form>
+			    <!-- <button type="submit" class="btn btn-outline-danger">예약하기</button> -->
+
 			</div>
 		<!-- </form> -->
 	</c:otherwise>
 	</c:choose>
 	</div>
-	<%-- <form method="Get" action="/order/ordering">
-			   <c:forEach var="row" items="${map.list}" varStatus="i">
-			    <input type='hidden' value='${row.wineTitle}' name="winename">
-			    </c:forEach> 
-			     
-			    <button type="submit" class="btn btn-outline-danger">예약하기</button>
-	</form> --%>
+
 <%@include file="../includes/footer.jsp" %>
 
 

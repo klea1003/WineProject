@@ -10,5 +10,6 @@ public class SellerVO {
 	private String sellerStoreName;
 	private String sellerPhoneNum;
 	private String sellerLocation;
+	private Long wineNum;
 
 }
