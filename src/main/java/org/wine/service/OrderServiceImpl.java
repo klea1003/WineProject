@@ -41,6 +41,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public OrderListVO orderSellerList(String orderNum)throws Exception{
+	return mapper.orderSellerList(orderNum);
+	}
+	
+	@Override
 	public List<OrderListVO> orderView(OrderVO order)throws Exception{
 		return mapper.orderView(order);
 	}

@@ -51,7 +51,14 @@ public class SellerServiceImpl implements SellerService{
 		
 		return mapper.delete(sellerNum) == 1;
 	}
-
+ 
+	@Override
+	public List<SellerVO> getListWine(Long wineNum) {
+		
+		log.info("getListWine...." + wineNum);
+		
+		return mapper.getListWine(wineNum);
+	}
 	
 	
 	

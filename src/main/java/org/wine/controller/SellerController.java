@@ -31,6 +31,15 @@ public class SellerController {
 		model.addAttribute("list", service.getList());
 		
 	}
+	
+	@GetMapping("/listWine")
+	public void listWine(Model model, @RequestParam("wineNum") Long wineNum){
+		
+		log.info("listWine");
+		
+		model.addAttribute("list", service.getListWine(wineNum));
+		
+	}
 
 	@GetMapping("/get") 
 	public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
