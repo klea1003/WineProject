@@ -132,12 +132,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						id="dropdownMenuButton1" data-bs-toggle="dropdown"
 						aria-expanded="false">Red Wine</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" href=1>Red Wine</a></li>
-						<li><a class="dropdown-item" href=2>White Wine</a></li>
-						<li><a class="dropdown-item" href=3>Sparkling Wine</a></li>
-						<li><a class="dropdown-item" href=4>Rosé Wine</a></li>
-						<li><a class="dropdown-item" href=5>Dessert Wine</a></li>
-						<li><a class="dropdown-item" href=6>Port Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=1>Red Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=2>White Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=3>Sparkling Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=4>Rosé Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=5>Dessert Wine</a></li>
+						<li><a class="dropdown-item wine-select" href=6>Port Wine</a></li>
 					</ul>
 				</div>
 				<input type="hidden" name="wine_type_ids" id='wine_type' value=1>
@@ -342,7 +342,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		
 		var searchForm = $("#searchForm");
 		
-		$(".dropdown-item").on("click", function(e) {
+		$(".wine-select").on("click", function(e) {
 			e.preventDefault();
 			
 			console.log($('#wine_type').val($(this).attr("href")));			
