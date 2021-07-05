@@ -126,41 +126,45 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<div class="container">
 		<div class="row">
 			
-			<div class="col-md-2 dropdown">
-				<button class="btn dropdown-toggle" type="button"
-					id="dropdownMenuButton1" data-bs-toggle="dropdown"
-					aria-expanded="false">Red Wine</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-					<li><a class="dropdown-item" href="#">Red Wine</a></li>
-					<li><a class="dropdown-item" href="#">White Wine</a></li>
-					<li><a class="dropdown-item" href="#">Sparkling Wine</a></li>
-					<li><a class="dropdown-item" href="#">Rosé Wine</a></li>
-					<li><a class="dropdown-item" href="#">Dessert Wine</a></li>
-					<li><a class="dropdown-item" href="#">Port Wine</a></li>
-				</ul>
-			</div>
-			
-			<div class="col-md-4">
-				<p>
-					<label for="amount">Price range:</label> <input type="text"
-						id="amount" readonly
-						style="border: 0; color: #990000; font-weight: bold;">
-				</p>
-				<div id="price-range"></div>
-			</div>
-			
-			<div class="col-md-4">
-				<p>
-					<label for="rating">Rating:</label> <input type="text" id="rating"
-						readonly style="border: 0; color: #990000; font-weight: bold;">
-				</p>
-				<div id="rating-range"></div>
-			</div>
-			
-			<div class="col-md-2">
-				<button type="button" class="btn btn-outline-danger btn-lg">Show
-					wines</button>
-			</div>
+			<form id='searchForm' action="/wine/list" method='get'>
+				<div class="col-md-2 dropdown">
+					<button class="btn dropdown-toggle" type="button"
+						id="dropdownMenuButton1" data-bs-toggle="dropdown"
+						aria-expanded="false">Red Wine</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" href=1>Red Wine</a></li>
+						<li><a class="dropdown-item" href=2>White Wine</a></li>
+						<li><a class="dropdown-item" href=3>Sparkling Wine</a></li>
+						<li><a class="dropdown-item" href=4>Rosé Wine</a></li>
+						<li><a class="dropdown-item" href=5>Dessert Wine</a></li>
+						<li><a class="dropdown-item" href=6>Port Wine</a></li>
+					</ul>
+				</div>
+				<input type="hidden" name="wine_type_ids" id='wine_type' value=1>
+				
+				<div class="col-md-4">
+					<p>
+						<label for="amount">Price range:</label> <input type="text"
+							id="amount" readonly
+							style="border: 0; color: #990000; font-weight: bold;">
+					</p>
+					<div id="price-range"></div>
+				</div>
+				
+				<div class="col-md-4">
+					<p>
+						<label for="rating">Rating:</label> <input type="text" id="rating"
+							readonly style="border: 0; color: #990000; font-weight: bold;">
+					</p>
+					<input type="hidden" name="price_min" id="price_min" value="10000">
+					<input type="hidden" name="price_max" id="price_max" value="30000">
+					<div id="rating-range"></div>
+				</div>
+				
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-outline-danger btn-lg">Show wines</button>
+				</div>
+			</form>
 			
 		</div>
 	</div><!-- end range area -->
@@ -171,8 +175,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
 	</form>
 	
-	<input type="hidden" id="price_min" value="10000">
-	<input type="hidden" id="price_max" value="30000">
+	<input type="hidden" id="top_price_min" value="10000">
+	<input type="hidden" id="top_price_max" value="30000">
 
 <%@ include file="../includes/footer.jsp"%>
 </body>
@@ -316,17 +320,17 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 			console.log('click checkbox btn');
 			
 			if ($(this).val() == 1){
-				$( "#price_min" ).val(0);
-				$( "#price_max" ).val(20000);
+				$( "#top_price_min" ).val(0);
+				$( "#top_price_max" ).val(20000);
 			} else if ($(this).val() == 2){
-				$( "#price_min" ).val(20000);
-				$( "#price_max" ).val(40000);
+				$( "#top_price_min" ).val(20000);
+				$( "#top_price_max" ).val(40000);
 			} else if ($(this).val() == 3){
-				$( "#price_min" ).val(40000);
-				$( "#price_max" ).val(80000);
+				$( "#top_price_min" ).val(40000);
+				$( "#top_price_max" ).val(80000);
 			} else if ($(this).val() == 4){
-				$( "#price_min" ).val(80000);
-				$( "#price_max" ).val(200000);
+				$( "#top_price_min" ).val(80000);
+				$( "#top_price_max" ).val(200000);
 			}
 
 			swiperDiv.html("");	// to empty
@@ -335,6 +339,37 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 			
 			showWineList();
 		});
+		
+		var searchForm = $("#searchForm");
+		
+		$(".dropdown-item").on("click", function(e) {
+			e.preventDefault();
+			
+			console.log($('#wine_type').val($(this).attr("href")));			
+			//searchForm.find("input[name='wine_type_ids']").val($(this).attr("href"));		
+			
+			$('#dropdownMenuButton1').text($(this).text());
+		});
+		
+		$( function() {
+			$( "#price-range" ).slider({
+				range: true,
+				min: 0,
+				max: 100000,
+				step: 1000,
+				values: [ 10000, 30000 ],
+				slide: function( event, ui ) {
+		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+		        	$( "#price_min" ).val(ui.values[ 0 ]);
+		        	$( "#price_max" ).val(ui.values[ 1 ]);
+		        	
+	        	}
+			});
+			$( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
+				" - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+			$( "#price_min" ).val($( "#price-range" ).slider( "values", 0 ));
+			$( "#price_max" ).val($( "#price-range" ).slider( "values", 1 ));
+		}); //end jquery price range
 	
 	});
 </script>

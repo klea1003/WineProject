@@ -435,7 +435,7 @@ input[type=radio]{
 				min: 0,
 				max: 100000,
 				step: 1000,
-				values: [ 10000, 30000 ],
+				values: [ <c:out value="${winePriceMin}" />, <c:out value="${winePriceMax}" /> ],
 				slide: function( event, ui ) {
 		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
 		        	$( "#price_min" ).val(ui.values[ 0 ]);
