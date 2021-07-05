@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
-<script src="/resources/wine_bootstrap/js/reply.js"></script>
+
 <style>
 .uploadResult {
 	width: 100%;
@@ -59,6 +58,9 @@
 	margin-left: 25%;
 }
 </style>
+<body>
+<jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
+ <script src="/resources/wine_bootstrap/js/reply.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var operForm = $('#operForm');
@@ -87,7 +89,7 @@ $(document).ready(function(){
 	
 	function showList(page) {
         replyService
-              .getList(
+              .getReplyList(
                     {
                        boardNum : boardNumValue,
                        page : page || 1
@@ -135,7 +137,7 @@ $(document).ready(function(){
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	
 	//작성자 null로 선언
-    var replyer = "user000";
+    var replyer = null;
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -424,7 +426,7 @@ $(document).ready(function(){
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-				<h1 class="fw-bolder">Board Register</h1>
+				<h1 class="fw-bolder">Board</h1>
 			</div>
 
 			<div class="container-fluid">
@@ -510,30 +512,31 @@ $(document).ready(function(){
 						
 					</div>
 					<!-- end like -->
-				</div>
-
-				<!-- Files -->
-				<div class="row">
-					<div class="col-md-1">
-						<div class="panel panel-info">
-							<div class="panel-heading">Files</div>
-							<!-- /.panel-heading -->
-							<div class="panel-body">
+					<!-- Files -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-info">
+								<div class="panel-heading">Files</div>
+								<!-- /.panel-heading -->
 								<div class="panel-body">
-									<div class="form-group uploadDiv"></div>
-
-									<div class="uploadResult">
-										<ul></ul>
-									</div>
-									<div class="bigPictureWrapper">
-										<div class="bigPicture"></div>
+									<div class="panel-body">
+										<div class="form-group uploadDiv"></div>
+	
+										<div class="uploadResult">
+											<ul></ul>
+										</div>
+										<div class="bigPictureWrapper">
+											<div class="bigPicture"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- end Files -->
 				</div>
-				<!-- end Files -->
+
+				
 
 				<!-- reply 영역 -->
 
@@ -605,6 +608,12 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
+
+			<!-- 모달영역 -->
+		
+	
+	<!--    footer 시작      -------------------------------------------------------------- -->
+
 		</div>
 		<!-- 모달영역 -->
 

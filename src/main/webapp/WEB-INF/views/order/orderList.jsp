@@ -20,10 +20,10 @@
   <c:forEach items="${orderList}" var="orderList" varStatus="i">
   <li>
   <div>
-   <p><span>주문번호</span><a href="orderView?n=${orderList.orderNum}&s=${sellerIDList[i.index]}">${orderList.orderNum}</a></p>
+   <p><span>주문번호</span><a href="orderView?n=${orderList.orderNum}">${orderList.orderNum}</a></p>
    <p><span>수령인</span>${orderList.pickUpName}</p>
-   <p><span>수령매장</span>(${sellerIDList[i.index]})</p>
-   <p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원</p>
+   <p><span>수령매장</span>${orderList.sellerId}</p>
+   <p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.totalPrice}" /> 원</p>
    <hr>
   </div>
   </li>

@@ -219,7 +219,7 @@ $(document).ready(function(e) {
             </div>
 			<div class="container-fluid">
 				<div class="w-50">
-					<form role="form" action="/board/register" method="post">
+					<form role="form" action="/board/register" method="post" autocomplete="off">
 					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
 					<div class="form-group">
 						<label>Title</label><input class="form-control" name='title'>
@@ -270,8 +270,8 @@ $(document).ready(function(e) {
 					</div>
 					<!-- File attach End -->
 					
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<button type="reset" class="btn btn-danger">Reset</button>
+					<button type="submit" class="btn btn-outline-danger">Submit</button>
+					<button type="reset" class="btn btn-outline-dark">Reset</button>
 					</form>
 				
 				</div>

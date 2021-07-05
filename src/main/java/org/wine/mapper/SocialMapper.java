@@ -1,5 +1,10 @@
 package org.wine.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 
 public interface SocialMapper {
@@ -9,9 +14,15 @@ public interface SocialMapper {
 	public int unfollowing(SocialVO social);
 	//public int unfollowing(@Param("userFollowingId")String userFollowingId,@Param("userFollowerId")String userFollowerId);
 	
-	public SocialVO followingBtn(Long userFollowingId);
+	public SocialVO followingBtn(@Param("userFollowingId")Long userFollowingId,@Param("userFollowerId")Long userFollowerId);
 	
 	public int getCountByFollower(Long userFollowingId);
 	
 	public int getCountByFollowing(Long userFollowerId);
+	
+	public List<SocialListVO> followingList(Long userFollowergId);
+	
+	public List<SocialListVO> followerList(Long userFollowingId);
+	
+	public List<SocialReviewVO> followingReviewList(Long userFollowingId);
 }
