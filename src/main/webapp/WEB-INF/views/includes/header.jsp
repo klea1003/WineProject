@@ -429,7 +429,20 @@ $(document).ready(function() {
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
 						<li class="nav-item"><a class="nav-link" href="/seller/list">Seller</a></li>
-						<li class="nav-item"><a class="nav-link" href="/board/list">FAQ</a></li>
+						<li class="nav-item dropdown">
+					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
+					  	 <div class="dropdown-menu">
+					   		<div class="row">
+					   			<div class="col-1">
+					   				<ul class="list-unstyled">
+						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
+									  <li><a class="dropdown-item" href="#"> Board </a></li>
+									  <li><a class="dropdown-item" href="#"> Event </a></li>
+									</ul>
+								</div><!-- end col-3 -->
+							</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					</li><!-- end Notice -->
 					</ul>
 				</div>
 			</div>
