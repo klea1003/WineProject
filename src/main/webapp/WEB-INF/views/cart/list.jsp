@@ -85,6 +85,7 @@ $(document).ready(function(){
 				<button type="button" class="btn btn-outline-dark" onclick="location.href='/seller/list'">상품목록</button>
 </form>
 			<div class="btn-position">   
+
 				  <button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
       
 			     
