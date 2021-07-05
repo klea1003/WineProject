@@ -7,7 +7,7 @@
 <result property="userNum" column="USER_NUM" />
 <result property="pickUpName" column="PICKUP_NAME" />
 <result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
-<result property="orderPrice" column="ORDER_PRICE" />
+<result property="totalPrice" column="total_PRICE" />
 <result property="orderDate" column="ORDER_DATE" />
 <result property="pickUpDate" column="PICKUP_DATE" />
 </resultMap>
@@ -25,7 +25,7 @@
 <result property="userNum" column="USER_NUM" />
 <result property="pickUpName" column="PICKUP_NAME" />
 <result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
-<result property="orderPrice" column="ORDER_PRICE" />
+<result property="totalPrice" column="total_PRICE" />
 <result property="orderDate" column="ORDER_DATE" />
 <result property="pickUpDate" column="PICKUP_DATE" />
 
@@ -43,8 +43,8 @@
 
 <!-- 주문 정보 -->
 <insert id="orderInfo">
- insert into tbl_order_test(ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, ORDER_PRICE, PICKUP_DATE)
-     values(#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{orderPrice}, #{pickUpDate})
+ insert into tbl_order_test(ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, total_Price, PICKUP_DATE)
+     values(#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{totalPrice}, #{pickUpDate})
 </insert>
    
 <!-- 주문 상세 정보 --> 
@@ -64,14 +64,14 @@ where USER_NUM = #{userNum}
 <!-- 유저의 주문 목록 -->
 <select id="orderList" resultMap="orderView">
   select
-    a.ORDER_NUM, a.USER_NUM, a.PICKUP_NAME, a.PICKUP_PHONENUM, a.ORDER_PRICE, a.ORDER_DATE, a.PICKUP_DATE
+    a.ORDER_NUM, a.USER_NUM, a.PICKUP_NAME, a.PICKUP_PHONENUM, a.total_Price, a.ORDER_DATE, a.PICKUP_DATE
  ,b.SELLER_NUM from tbl_order_test a left outer join TBL_ORDER_DETAIL b on a.order_num = b.order_num
      where USER_NUM = #{userNum}
 </select>
 
 <!-- 특정 주문 상세 목록 -->
 <select id = "orderView" resultMap="orderView">
-select O.ORDER_NUM , O.USER_NUM, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.ORDER_PRICE, O.ORDER_DATE, O.PICKUP_DATE,
+select O.ORDER_NUM , O.USER_NUM, O.PICKUP_NAME, O.PICKUP_PHONENUM, O.total_Price, O.ORDER_DATE, O.PICKUP_DATE,
 D.ORDERDETAIL_NUM, D.WINE_NUM, D.CART_QTY,
 W.WINE_TITLE, W.WINE_IMAGENAME, W.WINE_PRICE
 from tbl_order_test o

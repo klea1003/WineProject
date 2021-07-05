@@ -26,7 +26,7 @@
 					<p>
 						<span>총 주문금액 : </span>
 						<fmt:formatNumber pattern="###,###,###"
-							value="${orderView.orderPrice}" />
+							value="${orderView.totalPrice}" />
 						원
 					</p>
 				</c:if>

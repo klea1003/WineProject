@@ -92,7 +92,7 @@ $(document).ready(function(){
 			    <input type='hidden' value='${row.winePrice}' name="winePrice">
 			    <input type='hidden' value='${row.wineImageName}' name="image">
 			    <input type='hidden' value='${row.cartQty }' name="cartQty">
-			    <input type='hidden' value='${row.totalPrice}' name="orderPrice">
+			    <input type='hidden' value='${row.totalPrice}' name="totalPrice">
 			    <input type='hidden' value='${row.sellerId}' name="sellerId">
 			    <input type='hidden' value='${row.wineNum}' name="wineNum">
 			    <input type="hidden" name="sellerNum" value="${row.sellerNum}">

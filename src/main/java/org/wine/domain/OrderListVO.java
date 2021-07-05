@@ -11,7 +11,7 @@ public class OrderListVO {
 	private Long userNum;
 	private String pickUpName;
 	private String pickUpPhoneNum;
-	private int orderPrice;
+	private int totalPrice;
 	private Date orderDate;
 	private String pickUpDate;
 	
