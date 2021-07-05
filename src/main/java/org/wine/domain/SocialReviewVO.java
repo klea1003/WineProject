@@ -1,0 +1,15 @@
+package org.wine.domain;
+
+import lombok.Data;
+
+@Data
+public class SocialReviewVO {
+	
+	private Long reviewNum;
+	private Long userNum;
+	private Long wineNum;
+	private String userRealName;
+	private String reviewDate;
+	private String reviewContent;
+	
+}

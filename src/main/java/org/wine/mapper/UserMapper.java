@@ -2,7 +2,7 @@ package org.wine.mapper;
 
 import java.util.List;
 
-import org.wine.domain.CartVO;
+import org.wine.domain.SocialWishVO;
 //import org.apache.ibatis.annotations.Select;
 import org.wine.domain.UserVO;
 
@@ -25,5 +25,5 @@ public interface UserMapper {
 	
 	public UserVO userLogin(UserVO user);
 	
-	public List<CartVO> getwishList(Long userNum);
+	public List<SocialWishVO> getwishList(Long userNum);
 }

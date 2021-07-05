@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Welcome BookMall</title>
+<title>너와, IN</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <script type="text/javascript"	src="/resources/wine_bootstrap/js/social.js"></script>
@@ -85,7 +85,8 @@ p.card-text {
 		<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 		<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
 		<c:out value='${path}'/>
-		<c:out value='${query}'/>	</div>
+		<c:out value='${query}'/>	
+		</div>
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
@@ -99,7 +100,6 @@ p.card-text {
 						</div>
 					</c:if>
 					<c:if test="${ followck == null}">
-						<c:out value='${followck.userFollowerId }' />
 						<div class="btn-group">
 							<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
 								팔로우<i class="bi bi-person-plus-fill"></i>
@@ -107,6 +107,7 @@ p.card-text {
 						</div>
 					</c:if>
 				</c:if>
+				
 				<c:if test="${ user == null}">
 					<div class="btn-group">
 						<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
@@ -176,7 +177,7 @@ p.card-text {
 													<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
 													<input type='hidden' name='path' value="<c:out value='${path}'/>">	
 													<input type='hidden' name='query'value="<c:out value='${query}'/>">	
-													<button type="submit" id='insertimage' class="btn btn-primary" style="display:none;">Submit</button>
+												<button type="submit" id='insertimage' class="btn btn-primary" style="display:none;">Submit</button>
 												</form>
 											</c:if>
 											<c:if test="${user.userNum != userpage.userNum }">
@@ -233,7 +234,7 @@ p.card-text {
 							<div class="modal-body">
 							<c:forEach items="${followinglist}" var="fli">
 								<div class="container ">
-								<a class="small" id="modal_show_logintojion" href="/user/userpage?userNum=${fli.userNum}">
+								<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${fli.userNum}">
 								<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userRealName }"/></a>
 								<br>
 								<br>
@@ -258,7 +259,7 @@ p.card-text {
 							<div class="modal-body">
 							<c:forEach items="${followerlist}" var="flr">
 								<div class="container">
-								<a class="small" id="modal_show_logintojion" href="/user/userpage?userNum=${flr.userNum}">
+								<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${flr.userNum}">
 								<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userRealName }"/></a>
 								<br>
 								<br>
@@ -271,30 +272,45 @@ p.card-text {
 					</div>
 				</div>
 				
-				
 				<div class="col-xl-8">
-					<h2 class="fw-bolder fs-5 mb-4">Board News</h2>
+					<h2 class="fw-bolder fs-5 mb-4">Reviews</h2>
 					<!-- News item-->
+					<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 					<div class="mb-4">
-						<div class="small text-muted">May 12, 2021</div>
-						<a class="link-dark" href="#!"><h3>Start Bootstrap releases Bootstrap 5 updates for templates and themes</h3></a>
+						<div class="small text-muted"><c:out value="${socialreview.reviewDate }"/>
+						<div><h5><c:out value="${socialreview.userRealName }"/></h5></div></div>
+						<a class="link-dark" href="#!"><h4><c:out value="${socialreview.reviewContent }"/></h4></a>
 					</div>
-					<!-- News item-->
-					<div class="mb-5">
-						<div class="small text-muted">May 5, 2021</div>
-						<a class="link-dark" href="#!"><h3>Bootstrap 5 has officially landed</h3></a>
-					</div>
-					<!-- News item-->
-					<div class="mb-5">
-						<div class="small text-muted">Apr 21, 2021</div>
-						<a class="link-dark" href="#!"><h3>This is another news	article headline, but this one is a little bit longer</h3></a>
-					</div>
+					</c:forEach>
 					<div class="text-end mb-5 mb-xl-0">
-						<a class="text-decoration-none" href="#!"> More news <i
-							class="bi bi-arrow-right"></i>
-						</a>
+						<span id="modal_show_reviewList">More Reviews</span>
 					</div>
 				</div>
+				
+					<!-- review Modal -->
+				<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Reviews</h5>
+								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							<c:forEach items="${socialreviewlist}" var="socialreview" >
+								<div class="mb-4">
+									<div class="small text-muted"><c:out value="${socialreview.reviewDate }"/>
+									<div><h5><c:out value="${socialreview.userRealName }"/></h5></div></div>
+									<a class="link-dark" href="#!"><h4><c:out value="${socialreview.reviewContent }"/></h4></a>
+								</div>
+							</c:forEach>
+						
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				
 
 			</div>
 		</div>
@@ -322,7 +338,7 @@ p.card-text {
 					      <p class="card-text">생산지역 : <c:out value="${w.wineCountry}" /></p>
 					      <p class="card-text">와인타입 : <c:out value="${w.wineType}" /></p>
 					</div>
-                  <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
+                  <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a></div>
                </div>
                    </div>
                    </div>
@@ -356,6 +372,17 @@ $(document).ready(function() {
       $("#close_follower").click(function() {
           $("#followerModal").modal("hide");
       });
+      
+      $("#modal_show_reviewList").click(function() {
+    	  alert('modaltest')
+        	$("#reviewModal").modal("show");
+        
+        });
+         
+        $("#close_review").click(function() {
+            $("#reviewModal").modal("hide");
+        });
+  	
 	
 	var followingBtn = $("#followingBtn");
 	var unfollowBtn = $("#unfollowBtn");
