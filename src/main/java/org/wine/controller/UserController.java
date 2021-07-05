@@ -30,6 +30,7 @@ import org.wine.domain.ProfileVO;
 import org.wine.domain.SocialListVO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
+import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
 import org.wine.service.SocialService;
 import org.wine.service.UserService;
@@ -70,7 +71,7 @@ public class UserController {
 		
 	    log.info("loginNum : "+ loginNum);
 	    
-		log.info("userpage ");
+		log.info("userpage");
 
 		model.addAttribute("userpage", service.get(userNum));
 		
@@ -84,9 +85,9 @@ public class UserController {
 		
 		model.addAttribute("followerlist",followerlist );  //팔로워 리스트
 		
-		List<SocialReviewVO> socialreviewlist = socialservice.reviewList(userNum);
+		List<SocialReviewVO> socialreviewlist = socialservice.followingReviewList(userNum);
 		
-		log.info(socialreviewlist);
+		log.info("socialreviewlist : " + socialreviewlist);
 		
 		model.addAttribute("socialreviewlist",socialreviewlist );  //소셜리뷰 리스트
 		
@@ -104,7 +105,11 @@ public class UserController {
 		
 		model.addAttribute("followingcnt",followingcnt);
 		
-		model.addAttribute("wish",service.getwishList(userNum));
+		List<SocialWishVO> list = service.getwishList(userNum);
+
+		log.info("wishList : " + list);
+		
+		model.addAttribute("wish",service.getwishList(userNum)); //해당 유저 위시리스트
 	}
 	
 	@PostMapping({ "/userpage" })

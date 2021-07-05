@@ -63,7 +63,7 @@
  	</select>
 
 
-	<select id="reviewList" resultMap="reviewListInfo">
+	<select id="followingReviewList" resultMap="reviewListInfo">
 		select wr.review_num,wr.wine_num,wr.user_num, u.user_Realname, wr.review_date,wr.review_content  
         from tbl_wine_review wr, tbl_social s, tbl_user u
         where wr.user_num= s.user_following_id and wr.user_num=u.user_num

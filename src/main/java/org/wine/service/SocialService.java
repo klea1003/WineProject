@@ -23,5 +23,5 @@ public interface SocialService {
 		
 		public List<SocialListVO> followerList(Long userFollowingId);
 		
-		public List<SocialReviewVO> reviewList(Long userFollowingId);
+		public List<SocialReviewVO> followingReviewList(Long userFollowingId);
 }

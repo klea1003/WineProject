@@ -117,7 +117,7 @@ p.card-text {
 			</h1>
 		</div>
 	</section>
-	<section class="py-5 bg-light">
+	<section class="py-5 bg-light" >
 		<div class="container px-5">
 			<div class="row gx-5">
 				<div class="col-xl-4">
@@ -282,7 +282,7 @@ p.card-text {
 						</div>
 					</c:if>					
 					<c:if test="${empty socialreviewlist}">
-						<h2>팔로잉이 없습니다.</h2>
+						<h4>This user hasn't following listed and any users yet</h4>
 					</c:if>
 				</div>				
 				<!-- review Modal -->
@@ -350,7 +350,8 @@ p.card-text {
             	 </div>
           	</c:if>
      	    <c:if test="${ empty wish}">
-        		<h2>등록된 wishList가 없습니다.</h2>
+        		<h4 style="font-style: bold;">This user hasn't wish listed any wines yet</h4>
+        		
             </c:if>             
 		</div>
 	</section>

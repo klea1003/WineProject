@@ -76,6 +76,6 @@ public class SocialServiceTest {
 	@Test 
 	public void testreViewList() {
 		
-	service.reviewList(1L);
+	service.followingReviewList(1L);
 	}
 }

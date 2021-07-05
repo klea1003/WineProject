@@ -80,9 +80,9 @@ public class SocialServiceImpl implements SocialService {
 
 
 	@Override
-	public List<SocialReviewVO> reviewList(Long userFollowingId) {
+	public List<SocialReviewVO> followingReviewList(Long userFollowingId) {
 		// TODO Auto-generated method stub
-		return mapper.reviewList(userFollowingId);
+		return mapper.followingReviewList(userFollowingId);
 	}
 
 }
