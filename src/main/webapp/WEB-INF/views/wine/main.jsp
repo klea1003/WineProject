@@ -281,15 +281,16 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					for(var i = 0, len = list.length||0; i < len; i++) {
 						str += "<div class='swiper-slide'>"
 						str += "<div class='col mb-5'>"
-						str += "<div class='card wine'>"
+						str += "<div class='card wine' style='text-align: center; display: block;'>"
 						str += "<img class='card-img-top'"
 						str += "src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'"
 						str += "alt=''...'' />"
 						str += "<div class='card-body p-5'>"
 						str += "<div class='text-center'>"
 						str += "<h5 class='fw-bolder'>" + list[i].title + "</h5>"
-						str += "<div class='d-flex justify-content-center small text-warning mb-2'>"
-						str += wineUtil.starFromRating(list[i].avgRating);
+						str += "<div>"
+						str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
+						str += list[i].avgRating 
 						str += "</div>"
 						str += "</div>"
 						str += "</div>"
