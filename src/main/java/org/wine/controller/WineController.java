@@ -139,9 +139,9 @@ public class WineController {
 		log.info("requestWineList priceMax: " + winePriceMax);
 		log.info("requestWineList wineKeyword: " + wineKeyword);
 		
-		int wineRatingInt = 1;
+		int wineRatingInt = 2;
 		if (wineRating == null) {
-			wineRatingInt = 1;
+			wineRatingInt = 2;
 		} else {
 			wineRatingInt = Integer.parseInt(wineRating);
 		}

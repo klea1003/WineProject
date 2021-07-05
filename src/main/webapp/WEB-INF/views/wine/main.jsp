@@ -106,8 +106,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				<div class="swiper-container">
 					<!-- 보여지는 영역 -->
 					<div class="swiper-wrapper">
-						
-						
 					</div>
 					<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
 					<div class="swiper-button-prev"></div>
@@ -191,17 +189,17 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //마우스 휠기능 true 사용가능 false 사용불가
     mousewheel: false,
     //반복 기능 true 사용가능 false 사용불가
-    loop: true,
+    loop: false,
     //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
-    centeredSlides: true,
+    centeredSlides: false,
     // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
     // effect: 'fade',
-    
+    observer: true,
     
     //자동 스크를링
     autoplay: {
       //시간 1000 이 1초
-      delay: 5000,
+      delay: 1000,
       disableOnInteraction: false,
      },
     
@@ -275,28 +273,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 			actionForm.submit();
 		});
 		
-		$(window).scroll(function() {
-		
-			// scroll 감지
-			if($(window).scrollTop() == $(document).height() - $(window).height()){
-				console.log("scrolling");
-				
-				
-				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
-				var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
-				
-				if (currentPageNum + 1 <= totalPageNum) {
-					
-					console.log("update last")
-				
-					actionForm.find("input[name='pageNum']").val(currentPageNum + 1);
-				
-					showWineList();
-				}
-			}
-		})
-		
 		var wineDiv = $(".swiper-wrapper")
+		
+		wineDiv.html("");
+		
 		
 		showWineList();
 		
@@ -312,8 +292,6 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						
 						return;
 					}
-					
-					console.log(list.length);
 					
 					for(var i = 0, len = list.length||0; i < len; i++) {
 						str += "<div class='swiper-slide'>"
@@ -349,6 +327,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				}		
 			)
 		}
+	
 	});
 </script>
 
