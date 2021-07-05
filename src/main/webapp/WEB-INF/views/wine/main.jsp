@@ -85,8 +85,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
 				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>
-				<p class="lead fw-normal text-dark-50 mb-3">updated every
-					Thursday</p>
+				
 				<div>
 					<label><input type="checkbox" name="top list" value="20000">
 						20000</label> <label><input type="checkbox" name="top list"
