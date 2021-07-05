@@ -62,26 +62,61 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     font-weight: normal;
     color: #990000;
 }
+
+input[type=radio]{
+	color: #990000;
+}
+
+.card-img-top{
+
+	display: block; 
+	margin: 0px auto;
+
+}
+
 </style>
 
 <body>
+	<div class="text-center mt-5 mb-5">
+		<h3>Showing 822 Red wines between ₩10000 - ₩40000 rated above 3.5 stars</h3>
+	</div>
 
-	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
+
+<div class="container">
+	<div class="row">
+	<div class="col-4 typeArea">
 	
+	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
+		
 	<!-- Searching Wine Types -->
 	<h3>Wine Type</h3>	
-	<div>
-		<c:forEach items="${wineTypeList}" var="winePropertyDTO">
-			<label>
-				<input type="checkbox" class="check_box" name="wine_type" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
-				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
-			</label>			
+	
+	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+		<div>
+		<c:forEach items="${wineTypeList}" var="winePropertyDTO" varStatus="status" begin="0" step="1" end="2">
+				<input type="checkbox" class="btn-check" name="wine_type" id="<c:out value="wine_type${status.index}"/>"
+				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+				<label class="btn btn-outline-danger btn-sm" for="<c:out value="wine_type${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+				</label>			
 		</c:forEach>
-	</div><br>
+		<br><br>
+		<c:forEach items="${wineTypeList}" var="winePropertyDTO" varStatus="status" begin="3" step="1" end="5">
+				<input type="checkbox" class="btn-check" name="wine_type" id="<c:out value="wine_type${status.index}"/>"
+				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+				<label class="btn btn-outline-danger btn-sm" for="<c:out value="wine_type${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+				</label>			
+		</c:forEach>
+		</div>
+	</div>
+	
 	
 	<!-- Price Range -->
 	<h3>Price Range</h3>	
-	<div class="col-md-4">
+	<div class="col-3">
 		<p>
 			<label for="amount">Price range:</label> <input type="text"
 				id="amount" readonly
@@ -152,68 +187,147 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	
 	<!-- Searching Grapes -->
 	<h3>Wine Grapes</h3>	
+	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
 	<div>
-		<c:forEach items="${wineGrapeList}" var="winePropertyDTO">
-			<label>
-				<input type="checkbox" class="check_box" name="grapes" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
-				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+		<c:forEach items="${wineGrapeList}" var="winePropertyDTO" varStatus="status" begin="0" end="2" step="1">
+			<input type="checkbox" class="btn-check" name="grapes" id="<c:out value="grapes${status.index}"/>" 
+				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="grapes${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
-	</div><br>
+		<br>
+		<br>
+		<c:forEach items="${wineGrapeList}" var="winePropertyDTO" varStatus="status" begin="3" end="5" step="1">
+			<input type="checkbox" class="btn-check" name="grapes" id="<c:out value="grapes${status.index}"/>" 
+				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="grapes${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+		<br>
+		<br>
+		<c:forEach items="${wineGrapeList}" var="winePropertyDTO" varStatus="status" begin="6" end="8" step="1">
+			<input type="checkbox" class="btn-check" name="grapes" id="<c:out value="grapes${status.index}"/>" 
+				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="grapes${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+	</div>
+	</div>
+	<br>
 	
 	<!-- Searching Regions -->
 	<h3>Wine Regions</h3>	
+	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
 	<div>
-		<c:forEach items="${wineRegionList}" var="winePropertyDTO">
-			<label>
-				<input type="checkbox" class="check_box" name="region" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
-				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+		<c:forEach items="${wineRegionList}" var="winePropertyDTO" varStatus="status" begin="0" end="2" step="1">
+			<input type="checkbox" class="btn-check" name="region" id="<c:out value="region${status.index}"/>" 
+			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+			<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="region${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
+		<br>
+		<br>
+			<c:forEach items="${wineRegionList}" var="winePropertyDTO" varStatus="status" begin="3" end="6" step="1">
+			<input type="checkbox" class="btn-check" name="region" id="<c:out value="region${status.index}"/>" 
+			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+			<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="region${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+	</div>
 	</div><br>
 	
 	<!-- Searching Countries -->
-	<h3>Wine Countries</h3>	
+	<h3>Wine Countries</h3>
+	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">	
 	<div>
-		<c:forEach items="${wineCountryList}" var="winePropertyDTO">
-			<label>
-				<input type="checkbox" class="check_box" name="country" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
-				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="0" end="4" step="1">
+			<input type="checkbox" class="btn-check" name="country" id="<c:out value="country${status.index}"/>"
+			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="country${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
+		<br> <br>
+		
+				<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="5" end="9" step="1">
+			<input type="checkbox" class="btn-check" name="country" id="<c:out value="country${status.index}"/>"
+			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="country${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+	</div>
 	</div><br>
 	
 	<!-- Searching Wine Style -->
 	<h3>Wine Style</h3>	
+	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
 	<div>
-		<c:forEach items="${wineStyleList}" var="winePropertyDTO">
-			<label>
-				<input type="checkbox" class="check_box" name="wine_style" value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
-				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/><c:out value="${winePropertyDTO.wineProperty.displayText}" />
+		<c:forEach items="${wineStyleList}" var="winePropertyDTO" varStatus="status" begin="0" end="1" step="1">
+			<input type="checkbox" class="btn-check" name="wine_style" id="<c:out value="wine_style${status.index}"/>"
+			 value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="wine_style${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
+		<br><br>
+		<c:forEach items="${wineStyleList}" var="winePropertyDTO" varStatus="status" begin="2" end="3" step="1">
+			<input type="checkbox" class="btn-check" name="wine_style" id="<c:out value="wine_style${status.index}"/>"
+			 value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="wine_style${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+		<br><br>
+		<c:forEach items="${wineStyleList}" var="winePropertyDTO" varStatus="status" begin="4" end="5" step="1">
+			<input type="checkbox" class="btn-check" name="wine_style" id="<c:out value="wine_style${status.index}"/>"
+			 value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="wine_style${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+	</div>
 	</div><br>
-
-
-	<!-- Section-->
-	<section class="py-5">
-		
-		<!-- Wine List-->
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center wine-card-list">
-            </div>
-        </div>
-        <!-- End of Wine List-->
-		
-	</section>
+	</div>
+	
+	
+		<div class="col-8 wineListArea">
+		<!-- Section-->
+		<section class="py-5">
+			<!-- Wine List-->
+	        <div class="containe px-lg-5">
+	            <div class="wine-card-list">
+	           
+	           
+	           </div>
+	        </div>
+	        <!-- End of Wine List-->
+			
+		</section>
 
 	<form id="actionForm" action="/wine/list" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 		<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
 	</form>
-	
-
+		</div><!-- end wineListArea -->
+	</div><!-- end row -->
+</div><!-- end container -->
 	<%@include file="../includes/footer.jsp" %>
 
 </body>
@@ -276,13 +390,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					
 					for(var i = 0, len = list.length||0; i < len; i++) {
 						
-						str += "<div style='width: 1000px; height: 500px; margin-bottom: 20px;'>";				
+						str += "<div class='container'>";				
+						str += "<div class='row mb-5'>"
 						
-						str += "<div style='width: 60%; height: 100%; float: left;'>"
-						str += "<img class='card-img-top' src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' alt='Card image' style='width : 164px; height: 500px;' />"
+						str += "<div class='col-3 bg-light'>"
+						str += "<img class='card-img-top' src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' alt='Card image' style='width : 80px; height: 280px; ' />"
 						str += "</div>"
 						
-						str += "<div class='card-body' style='width: 40%; height: 100%; float: right;'>"
+						str += "<div class='col-4 card-body'>"
 						str += list[i].winenery
 						str += "<h4 class='card-title'><a href='/wine/get?wno=" + list[i].wno + "'>" + list[i].title + " </a></h4><br>"
 						str += list[i].wineType + " " + "From" + " "
@@ -291,10 +406,17 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += "<p class='card-text'>"
 						str += list[i].grapes + "<br>"
 						str += list[i].region + "<br>"						
-						str += list[i].price  + "<br>"
+						str += " ￦ " + list[i].price  + "<br>"
 						str += list[i].avgRating + "<br>"
 						str += "</p>"
-							
+						
+						str += "<div>"
+						str += "<button type='button' class='btn btn-outline-danger btn-lg'>"
+						str += "view shops"
+						str += "</button>"
+						str += "</div>"
+						
+						str += "</div>"
 						str += "</div>"
 						str += "</div>"
 						
@@ -305,7 +427,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 			)
 		}
 		
-		$(".check_box").on("click", function(e) {
+		$(".btn-check").on("click", function(e) {
 			console.log('click checkbox btn');
 			
 			wineDiv.html("");	// to empty
