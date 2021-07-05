@@ -2,12 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
-<<<<<<< HEAD
 
-=======
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
-<script src="/resources/wine_bootstrap/js/reply.js"></script>
->>>>>>> 38d0d5684159b70f487d8e3e689ef2bc515324d2
 <style>
 .uploadResult {
 	width: 100%;
@@ -613,14 +608,12 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
+
 			<!-- 모달영역 -->
 		
 	
 	<!--    footer 시작      -------------------------------------------------------------- -->
-	 <%@include file="../includes/footer.jsp" %>
-	 </body>
-=======
+
 		</div>
 		<!-- 모달영역 -->
 
@@ -628,4 +621,3 @@ $(document).ready(function(){
 
 	<%@include file="../includes/footer.jsp"%>
 </body>
->>>>>>> 38d0d5684159b70f487d8e3e689ef2bc515324d2
