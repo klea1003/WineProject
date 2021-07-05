@@ -17,6 +17,9 @@ public interface OrderService {
 	//주문 목록
 	public List<OrderListVO> orderList(OrderVO order)throws Exception;
 	
+	//판매자 목록
+	public OrderListVO orderSellerList(String orderNum) throws Exception;
+	
 	//특정 주문 상세 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
 

@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
 
- <jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
- <script src="/resources/wine_bootstrap/js/reply.js"></script>
 <style>
 .uploadResult {
 	width: 100%;
@@ -55,6 +53,9 @@
 	width: 400px;
 }
 </style>
+<body>
+<jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
+ <script src="/resources/wine_bootstrap/js/reply.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var operForm = $('#operForm');
@@ -83,7 +84,7 @@ $(document).ready(function(){
 	
 	function showList(page) {
         replyService
-              .getList(
+              .getReplyList(
                     {
                        boardNum : boardNumValue,
                        page : page || 1
@@ -131,7 +132,7 @@ $(document).ready(function(){
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	
 	//작성자 null로 선언
-    var replyer = "user000";
+    var replyer = null;
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -594,3 +595,4 @@ $(document).ready(function(){
 	
 	<!--    footer 시작      -------------------------------------------------------------- -->
 	 <%@include file="../includes/footer.jsp" %>
+	 </body>

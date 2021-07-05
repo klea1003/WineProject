@@ -26,7 +26,7 @@ public class OrderMapperTest {
 		order.setOrderNum("123456");
 		order.setUserNum((long) 9);
 		order.setPickUpName("test수령인");
-		order.setOrderPrice(150000);
+		order.setTotalPrice(150000);
 		order.setPickUpPhoneNum("010-1234-5678");
 	//	order.setPickUpDate('');
 		

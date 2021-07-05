@@ -44,20 +44,24 @@ public class WishListController {
 
 	// 추가
 	@RequestMapping("/insert")
-
-	public String insert(@ModelAttribute WishListVO wishList, HttpSession session) {
-
+	public String insert(@RequestParam("wno")Long wno, HttpSession session) {
+        log.info("wishList...insert");
 		Long userNum = (Long) session.getAttribute("userNum");
 
 		userNum = (long) 1;
-
+        WishListVO wishList = new WishListVO();
+        
 		wishList.setUserNum(userNum); 
+		wishList.setWineNum(wno); 
 		int count = service.countWish(wishList);
 
 		if(count == 0) { service.insert(wishList);
 		}else {
 		
-		} return "redirect:/wishList/list"; }
+		} 
+		log.info(wishList);
+		return "redirect:/wishList/list"; 
+		}
 
 
 	// 장바구니 삭제

@@ -42,12 +42,14 @@
 						<input class="form-control text-center me-3" id="inputQuantity"
 							type="num" value="1" style="max-width: 3rem" />
 
-						<button class="btn btn-outline-dark flex-shrink-0" type="button">
+						<button class="btn btn-outline-dark flex-shrink-0" type="button"
+						onclick="location.href='/wishList/insert?wno=${wine.wno}'">
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
-						<button class="btn btn-outline-dark flex-shrink-0" type="button">
+						<button class="btn btn-outline-dark flex-shrink-0" type="button"
+						onclick="location.href='/seller/listWine?wineNum=${wine.wno}'">
 							<i class="bi-cart-fill me-1"></i> Add to cart
 						</button>
 					</div>

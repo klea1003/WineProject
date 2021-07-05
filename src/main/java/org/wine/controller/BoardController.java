@@ -75,7 +75,7 @@ public class BoardController {
 			board.getAttachList().forEach(attach->log.info(attach));
 		}
 		service.register(board);
-		rttr.addFlashAttribute("result", board.getBoardNum());
+		rttr.addFlashAttribute("boardresult", board.getBoardNum());
 		return "redirect:/board/list"; 
 	}
 
@@ -85,7 +85,7 @@ public class BoardController {
 	public String get(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + board);
 		if (service.modify(board)) {
-			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("resultMessege", "success");
 		}
 		return "redirect:/board/list" + cri.getListLink();
 	}
@@ -104,7 +104,7 @@ public class BoardController {
 	      List<BoardAttachVO> attachList = service.getAttachList(boardNum);
 	      if(service.remove(boardNum)) {
 	          deleteFiles(attachList);
-	    	  rttr.addFlashAttribute("result","success");
+	    	  rttr.addFlashAttribute("resultMessege","success");
 	      }
 
 	      return "redirect:/board/list" + cri.getListLink();

@@ -54,16 +54,20 @@ public class CartController {
 	// 추가
 	
 	  @RequestMapping("/insert")
-	  
 	  public String insert(@ModelAttribute CartVO cartvo, HttpSession session) {
-	
-		  Long userNum=(Long)session.getAttribute("userNum");
+	  log.info("cart insert");
+		  Long userNum=(Long)session.getAttribute("userNum");  
+	      cartvo.setUserNum(userNum); 
+	      int count = service.countCart(cartvo);
+	      log.info(cartvo);
+	  if(count == 0) { 
+		  service.insert(cartvo);
+		  }
+	  else { service.updateCart(cartvo);
+	  }
 	  
-	cartvo.setUserNum(userNum); 
-	int count = service.countCart(cartvo);
-	  
-	  if(count == 0) { service.insert(cartvo); }else { service.updateCart(cartvo);
-	  } return "redirect:/cart/list"; }
+	  return "redirect:/cart/list"; 
+	  }
 	 
 
 	// 장바구니 삭제

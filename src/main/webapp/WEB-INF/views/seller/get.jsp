@@ -113,6 +113,8 @@ p.card-text {
 					      <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
 					 </div>
                   <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
+                  <div class="card-footer">
+                  <a class="btn btn-outline-dark btn-sm" href="http://localhost:8080/cart/insert">Add to Cart</a></div>
                </div>
                    </div>
                    </div>

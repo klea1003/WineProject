@@ -31,6 +31,8 @@
 		<div class="text-left mb-5">
 			<h1 class="fw-bolder">예약하기</h1>
 			<br>
+			<div class="orderInfo">
+				<form role="form" method="post" autocomplete="off">
 			<table class="table">
 				<thead>
 					<tr>
@@ -66,10 +68,8 @@
 			</table>
 			<hr>
 			<br>
-			<div class="orderInfo">
-				<form role="form" method="post" autocomplete="off">
-					<input type="hidden" name="sellerNum"
-						value="<%=request.getParameter("sellerNum")%>">
+			
+				
 					<div class="inputArea">
 						<label for="pickUpName">수령인</label> <input type="text" size=10
 							name="pickUpName" id="pickUpName" required="required" />
