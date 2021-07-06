@@ -90,12 +90,21 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
 				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>				
-				<div>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=1 checked>20000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=2>40000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=3>60000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=4>80000</label>
+				
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" checked>
+				  <label class="btn btn-outline-danger" for="1">20000</label>
+				
+				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="2">40000</label>
+				
+				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="3">60000</label>
+				  
+				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="4">80000</label>
 				</div>
+				
 			</div>
 		</div>
 	</header>
@@ -122,11 +131,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<!-- range area -->
-	<div class="container">
-		<div class="row">
+	<div class="container mt-2 mb-5">
+		
 			
 			<form id='searchForm' action="/wine/list" method='get'>
-				<div class="col-md-2 dropdown">
+				<div class="row">
+				<div class="col-2 dropdown">
 					<button class="btn dropdown-toggle" type="button"
 						id="dropdownMenuButton1" data-bs-toggle="dropdown"
 						aria-expanded="false">Red Wine</button>
@@ -139,9 +149,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						<li><a class="dropdown-item wine-select" href=6>Port Wine</a></li>
 					</ul>
 				</div>
+				
 				<input type="hidden" name="wine_type_ids" id='wine_type' value=1>
 				
-				<div class="col-md-4">
+				<div class="col-4">
 					<p>
 						<label for="amount">Price range:</label> <input type="text"
 							id="amount" readonly
@@ -150,7 +161,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					<div id="price-range"></div>
 				</div>
 				
-				<div class="col-md-4">
+				<div class="col-4">
 					<p>
 						<label for="rating">Rating:</label> <input type="text" id="rating"
 							readonly style="border: 0; color: #990000; font-weight: bold;">
@@ -160,13 +171,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					<div id="rating-range"></div>
 				</div>
 				
-				<div class="col-md-2">
+				<div class="col-2">
 					<button type="submit" class="btn btn-outline-danger btn-lg">Show wines</button>
 				</div>
+				</div><!-- end range area -->
 			</form>
 			
 		</div>
-	</div><!-- end range area -->
+
 	
 	<form id="actionForm" action="/wine/list" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
@@ -203,7 +215,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //자동 스크를링
     autoplay: {
       //시간 1000 이 1초
-      delay: 500000,
+      delay: 5000,
       disableOnInteraction: false,
      },
     
@@ -319,7 +331,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		var actionForm = $("#actionForm");
 		
 		// top price list select
-		$(".BtnClick").on("click", function(e) {
+		$(".btn-check").on("click", function(e) {
 			console.log('click checkbox btn');
 			
 			if ($(this).val() == 1){
