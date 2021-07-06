@@ -268,7 +268,7 @@ $(document).ready(function() {
 		<header style="height: 112px; width: 100%;">
 		<div class="navbar navbar-expand navbar-dark" style="height: 50%; width: 100%;">
 			<div class="container px-5">
-				<a class="navbar-brand " href="main">
+				<a class="navbar-brand " href="/wine/main">
 				<span class="title text-dark">너와, IN</span></a>
 				<div class="input-group-prepend">
 					<form id='searchForm' action="/wine/list" method='get'>
