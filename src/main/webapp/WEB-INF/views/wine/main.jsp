@@ -9,10 +9,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
+
 .card {
-	height: 450px;
-	width: 230px;
-}
+	
+	height:500px;
+	
+} 
 
 /* swiper css  */
 .swiper-slide {
@@ -101,17 +103,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container">
-
-			<div class="row justify-content-center">
-				<!-- swiper슬라이더 메인컨테이너 -->
-				<div class="swiper-container">
-					<!-- 보여지는 영역 -->
-					<div class="swiper-wrapper">
-					</div>
-					<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
+			<!-- swiper슬라이더 메인컨테이너 -->
+			<div class="swiper-container">
+				<!-- 보여지는 영역 -->
+				<div class="swiper-wrapper">
 				</div>
+				<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
 			</div>
 		</div>
 	</section>
@@ -188,14 +187,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //한번에 보여지는 페이지 숫자
     slidesPerView: 5,
     //페이지와 페이지 사이의 간격
-    spaceBetween: 0,
+    spaceBetween: 30,
     //드레그 기능 true 사용가능 false 사용불가
     debugger: false,
     //마우스 휠기능 true 사용가능 false 사용불가
     mousewheel: false,
     //반복 기능 true 사용가능 false 사용불가
     loop: false,
-    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가
     centeredSlides: false,
     // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
     // effect: 'fade',
@@ -204,7 +203,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //자동 스크를링
     autoplay: {
       //시간 1000 이 1초
-      delay: 1000,
+      delay: 500000,
       disableOnInteraction: false,
      },
     
@@ -283,29 +282,33 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					}
 					
 					for(var i = 0, len = list.length||0; i < len; i++) {
+						
 						str += "<div class='swiper-slide'>"
-						str += "<div class='col mb-5'>"
-						str += "<div class='card wine' style='text-align: center; display: block;'>"
-						str += "<img class='card-img-top'"
-						str += "src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'"
-						str += "alt=''...'' />"
-						str += "<div class='card-body p-5'>"
-						str += "<div class='text-center'>"
-						str += "<h5 class='fw-bolder'>" + list[i].title + "</h5>"
-						str += "<div>"
+						
+						str += "<div class='card wine pt-5' style='text-align: center; display: block;'>"
+						str += "<img src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'/>"
+						
+						str += "<div class='card-body mb-5'>"
+						
+						str += "<div class='mt-5' style='height:54px; width:180px;'>"
+						str += "<p>" + list[i].title + "</p>"
+						str += "</div>"
+						
+						str += "<div class='mt-3'>"
 						str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
 						str += list[i].avgRating 
 						str += "</div>"
+						
 						str += "</div>"
+						
+						str += "<div>"
+						str += "<a class='btn btn-outline-danger' href='#'> ￦ " + wineUtil.numberWithCommas(list[i].price) + " </a>"
 						str += "</div>"
-						str += "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"
-						str += "<div class='text-center'>"
-						str += "<a class='btn btn-outline-danger mt-auto' href='#'> ￦ " + wineUtil.numberWithCommas(list[i].price) + " </a>"
+						
 						str += "</div>"
+						
 						str += "</div>"
-						str += "</div>"
-						str += "</div>"
-						str += "</div>"
+						
 					}
 					
 					swiperDiv.append(str);
