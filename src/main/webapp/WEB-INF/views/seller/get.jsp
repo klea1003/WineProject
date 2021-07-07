@@ -116,14 +116,12 @@ p.card-text {
                   <div class="card-footer">
                   <c:if test="${ p.sellerWineQty != 0}">
                   <a class="btn btn-outline-dark btn-sm" href="/wine/get?wno=${p.wineNum}">More Info</a>
-                  <a class="btn btn-outline-danger btn-sm" href="http://localhost:8080/cart/insert">Add to Cart</a>
-                  </c:if>
-                  
+                  <a class="btn btn-outline-danger btn-sm" href="http://localhost:8080/cart/insert?userNum=${user.userNum }&sellerNum=${seller.sellerNum}&wineNum=${p.wineNum}">Add to Cart</a>
+                  </c:if>               
                   <c:if test="${ p.sellerWineQty == 0}">
                   <a class="btn btn-secondary btn-sm">sold out</a>
                   </c:if>
                   </div>
-                  
                   
                </div>
                    </div>
