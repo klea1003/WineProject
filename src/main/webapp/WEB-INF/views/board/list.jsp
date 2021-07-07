@@ -47,7 +47,7 @@
 </style>
 <script type="text/javascript">
    $(document).ready(function() {//모델 보여주기 추가
-      var result = '<c:out value="${result}"/>';
+      var result = '<c:out value="${boardResult}"/>';
       checkModal(result);
       history.replaceState({},null,null);
       
@@ -89,7 +89,7 @@
        
       var searchForm =$("#searchForm");
       $("#searchForm button").on("click",function(e){
-      if(!searchForm.find("option:selected").val()){
+     /*  if(!searchForm.find("option:selected").val()){
          alert("검색 종류를 선택하세요");
       
       return false;
@@ -98,7 +98,7 @@
          alert("키워드를 입력하세요");
       
       return false;
-      }
+      } */
       searchForm.find("input[name='pageNum']").val("1");
       e.preventDefault();
       searchForm.submit();
@@ -142,7 +142,7 @@
 					</tbody>
 				</table>
 
-				<p><c:out value='${pageMaker.total }' />개의 결과가 검색됨</p>
+				<p><c:out value='${pageMaker.total }' />개의 게시판이 있습니다.</p>
 
 				<div class='row'>
 					<div class="col-lg-12">
@@ -171,7 +171,7 @@
 							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' /> 
 							<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
-							<button class='btn btn-outline-danger btn-sm'>search</button>
+							<button type="submit" class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
                    		<div align="right">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>

@@ -60,12 +60,10 @@ public class OrderController {
 				OrderDetailVO orderDetail) throws Exception {
 			log.info("order");
 			
-			//UserVO user = (UserVO)session.getAttribute("userNum"); 
-			//Long userNum = user.getUserNum();
+			UserVO user = (UserVO)session.getAttribute("user"); 
+			Long userNum = user.getUserNum();
 			
-			  Long userNum = (Long) session.getAttribute("userNum");
-	  
-			 userNum = (long) 1;
+	
 			 
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);

@@ -230,8 +230,10 @@ $(document).ready(function(e) {
                         <c:out value="Q&A"/>>Q&A</option>
                         <option value="자유게시판"
                         <c:out value="자유게시판"/>>자유게시판</option>
+                        <c:if test="${user.userNickName eq '10'}">
                         <option value="이벤트공지"
-                        <c:out value="이벤트공지"/>>이벤트공지</option>               
+                        <c:out value="이벤트공지"/>>이벤트공지</option>   
+                        </c:if>            
                      </select> 
                      </div>
 					
@@ -242,7 +244,7 @@ $(document).ready(function(e) {
 					
 					<div class="form-group">
 						<label>Writer</label>
-						<input class='form-control' name='writer'><!--  value=
+						<input class='form-control' name='writer' value="${user.userNickName }" readonly='readonly'><!--  value=
 						'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
 
 					</div>

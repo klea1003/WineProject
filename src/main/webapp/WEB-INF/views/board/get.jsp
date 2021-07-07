@@ -138,6 +138,7 @@ $(document).ready(function(){
 	
 	//작성자 null로 선언
     var replyer = null;
+	 replyer = '<c:out value="${user.userNickName}"/>';
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -462,13 +463,15 @@ $(document).ready(function(){
 		            </sec:authorize> 시큐리티 기능--%>
 					
 					<div class="mb-3">
+					 <c:if test="${user.userNickName eq board.writer }">
 					<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
+					 </c:if>
 					<button class='btn btn-outline-dark' data-oper='list'>List</button>
 					</div>
 					
 					<!-- like 영역 -->
 					<div class="row">
-						<div class="col-md-1">${like}Likes</div>
+						<div class="col-md-1">${like}Likes</div> &nbsp;
 						
 						<div class="col-md-3" style="display: none;">
 						<form id='operForm' action='/board/modify' method='get'>
@@ -488,7 +491,7 @@ $(document).ready(function(){
 								<input type='hidden' id='boardNum' name='boardNum'
 									value='<c:out value="${board.boardNum }" />'> <input
 									type='hidden' id='userID' name='userID'
-									value='<c:out value="user000"/>'>
+									value='<c:out value="${user.userId }"/>'>
 								<!-- <input type='submit' value='좋아요'> -->
 								<button type="submit" class='btn btn-outline-primary'>
 									<i class="bi bi-hand-thumbs-up"></i>
@@ -501,7 +504,7 @@ $(document).ready(function(){
 								<input type='hidden' id='boardNum' name='boardNum'
 									value='<c:out value="${board.boardNum }" />'> <input
 									type='hidden' id='userID' name='userID'
-									value='<c:out value="user000"/>'>
+									value='<c:out value="${user.userId }"/>'>
 								<!-- <input type='submit' value='싫어요'> -->
 								<button type="submit" class='btn btn-outline-danger'>
 									<i class="bi bi-hand-thumbs-down"></i>
@@ -562,8 +565,7 @@ $(document).ready(function(){
 							<li class="left clearfix" data-rno="12">
 								<div>
 									<div class="header">
-										<strong class="primary-font"> user00</strong> <small
-											class="pull-right text-muted">2021-05-18-13:13</small>
+										
 									</div>
 									<p>Good job</p>
 								</div>
@@ -591,7 +593,7 @@ $(document).ready(function(){
 						</div>
 						<div class='form-group'>
 							<label>Replyer</label> <input class='form-control' name='replyer'
-								value='New Replyer'>
+								value='New Replyer' readonly='readonly'>
 						</div>
 						<div class='form-group'>
 							<label>ReplyDate</label> <input class='form-control'
