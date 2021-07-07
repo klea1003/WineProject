@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.CartVO;
+import org.wine.domain.UserVO;
 import org.wine.service.CartService;
 
 import lombok.AllArgsConstructor;
@@ -30,9 +31,9 @@ public class CartController {
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 
-		Long userNum = (Long) session.getAttribute("userNum");
-
-		userNum = (long) 1;
+		UserVO lvo =  (UserVO) session.getAttribute("user");
+        long userNum=lvo.getUserNum();
+		/* userNum = (long) 1; */
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVO> list = service.listCart(userNum);
@@ -54,10 +55,13 @@ public class CartController {
 	// 추가
 	
 	  @RequestMapping("/insert")
-	  public String insert(@ModelAttribute CartVO cartvo, HttpSession session) {
-	  log.info("cart insert");
-		  Long userNum=(Long)session.getAttribute("userNum");  
+	  public String insert(@ModelAttribute CartVO cartvo,
+			  @RequestParam("userNum") Long userNum, 
+			  @RequestParam("sellerNum") Long sellerNum) {
+	 
+		/* Long userNum=(Long)session.getAttribute("userNum"); */
 	      cartvo.setUserNum(userNum); 
+	      cartvo.setSellerNum(sellerNum); 
 	      int count = service.countCart(cartvo);
 	      log.info(cartvo);
 	  if(count == 0) { 
