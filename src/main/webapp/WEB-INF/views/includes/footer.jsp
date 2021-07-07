@@ -17,7 +17,16 @@
         <footer class="footer-color py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0 text-dark">Copyright &copy; 너와, IN 2021</div></div>
+                    <div class="col-auto">
+	                    <div class="small m-0 text-dark">
+	                    Copyright &copy; 너와, IN 2021<br>
+	                    주소 : ㈜너와, IN 서울시 관악구 남부순환로 1820,에그엘로우14층<br>
+	                    대표 : 최은영, 김성현, 안효영, 정다예, 최요셉 <br>
+	                    와인 관련 정보문의 및 행사문의 : 02-2021-0729 <br>
+	                    개인정보 관리책임자 : 최은영 <br> 
+	                    </div>
+                    </div>
+                    
                     <div class="col-auto">
                         <a class="link-dark small" href="#!">Privacy</a>
                         <span class="text-dark mx-1">&middot;</span>
