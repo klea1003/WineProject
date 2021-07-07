@@ -75,7 +75,7 @@ public class BoardController {
 			board.getAttachList().forEach(attach->log.info(attach));
 		}
 		service.register(board);
-		rttr.addFlashAttribute("boardresult", board.getBoardNum());
+		rttr.addFlashAttribute("boardResult", board.getBoardNum());
 		return "redirect:/board/list"; 
 	}
 

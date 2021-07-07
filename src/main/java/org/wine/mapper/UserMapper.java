@@ -8,7 +8,7 @@ import org.wine.domain.UserVO;
 
 public interface UserMapper {
 	
-	//@Select("select * from TBL_USER_TEST where user_num>0")
+
 	public List<UserVO> getList();
 	
 	public UserVO read(Long userNum);

@@ -27,8 +27,7 @@
 	</resultMap>
 	
 	<select id="get" resultMap="sellerWineInfo">
-		
-		select w.wine_title, w.wine_country, w.winetype, w.wine_alcohol, w.wine_imagename, wp.seller_price
+		select w.wine_num, w.wine_title, w.wine_country, w.winetype, w.wine_alcohol, w.wine_imagename, wp.seller_price, wp.seller_wine_qty
   		from TBL_WINE_TEST w left outer join TBL_WINE_PRODUCT_TEST wp 
   		on w.wine_NUM = wp.WINE_NUM where wp.SELLER_NUM = #{sellerNum}
 	

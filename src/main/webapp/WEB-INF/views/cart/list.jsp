@@ -82,7 +82,7 @@ $(document).ready(function(){
 				  </tbody>
 				</table>
 				 
-				<button type="button" class="btn btn-outline-dark" onclick="location.href='/seller/list'">상품목록</button>
+				<button type="button" class="btn btn-outline-dark" onclick="location.href='/wine/list'">상품목록</button>
 </form>
 			<div class="btn-position">   
 

@@ -263,7 +263,7 @@ svg {
 			<c:forEach items="${review_list}" var="reviewVO">
 				<div class="card mb-3">
 					<div class="card-header">
-	             	
+					
 	             	<span class="rating mb-2">
 	             	<i class="bi bi-star-fill"></i>
 					<c:out value="${reviewVO.rating}" />

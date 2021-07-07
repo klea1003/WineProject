@@ -70,7 +70,7 @@ inner join tbl_order_detail d
 on O.ORDER_NUM = D.ORDER_NUM
 inner join TBL_WINE_TEST W
 on D.WINE_NUM = W.WINE_NUM
-inner join TBL_SELLER_TEST S
+inner join TBL_SELLER S
 on D.SELLER_NUM = S.SELLER_NUM
 where USER_NUM = #{userNum} group by o.ORDER_NUM
 </select>
@@ -78,7 +78,7 @@ where USER_NUM = #{userNum} group by o.ORDER_NUM
 <!-- 주문번호로 판매자 불러오기 -->
 <select id="orderSellerList" resultMap="orderView">
    select t.PICKUP_NAME, s.seller_id, s.seller_Num
-         from TBL_ORDER_DETAIL o inner join TBL_SELLER_TEST s
+         from TBL_ORDER_DETAIL o inner join TBL_SELLER s
 on o.seller_num=s.seller_num inner join TBL_ORDER_TEST t
 on o.order_num =t.order_num where o.ORDER_NUM = #{orderNum} and rownum =1
 </select>
