@@ -114,6 +114,7 @@ p.card-text {
 					      <p class="card-text">재고량 : <c:out value="${p.sellerWineQty}" /></p>
 					 </div>
                   <div class="card-footer">
+
                   <c:if test="${ p.sellerWineQty != 0}">
                   <a class="btn btn-outline-dark btn-sm" href="/wine/get?wno=${p.wineNum}">More Info</a>
                   <a class="btn btn-outline-danger btn-sm" href="http://localhost:8080/cart/insert?userNum=${user.userNum }&sellerNum=${seller.sellerNum}&wineNum=${p.wineNum}">Add to Cart</a>

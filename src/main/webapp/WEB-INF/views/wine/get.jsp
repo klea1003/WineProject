@@ -107,7 +107,7 @@ svg {
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 						onclick="location.href='/seller/listWine?wineNum=${wine.wno}'">
-							<i class="bi-cart-fill me-1"></i> Add to cart
+							<i class="bi-cart-fill me-1"></i> Find Seller
 						</button>
 					</div>
 				</div>
