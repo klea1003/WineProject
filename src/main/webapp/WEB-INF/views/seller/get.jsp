@@ -111,12 +111,13 @@ p.card-text {
 					      <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /></p>
 					      <p class="card-text">와인타입 : <c:out value="${p.wineType}" /></p>
 					      <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
-					      <p class="card-text">가격 : <c:out value="${p.wineNum}" />원</p>
 					 </div>
-                  <div class="card-footer"><a class="btn btn-outline-dark btn-sm" href="#!">More Info</a></div>
                   <div class="card-footer">
                   <a class="btn btn-outline-dark btn-sm" 
                   href="http://localhost:8080/cart/insert?userNum=${user.userNum }&sellerNum=${seller.sellerNum}&wineNum=${p.wineNum}">Add to Cart</a></div>
+                  <a class="btn btn-outline-dark btn-sm" href="#!">More Info</a>            
+                  </div>
+                  
                </div>
                    </div>
                    </div>

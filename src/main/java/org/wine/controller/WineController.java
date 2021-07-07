@@ -77,6 +77,8 @@ public class WineController {
 			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
 			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
 			@RequestParam(value="keyword", required=false) String wineKeyword,
+			@RequestParam(value="price_min", required=false) String winePriceMin,
+			@RequestParam(value="price_max", required=false) String winePriceMax,			
 			@RequestParam(value="rating", required=false) String wineRating,
 			Model model
 		) {
@@ -104,6 +106,20 @@ public class WineController {
 			model.addAttribute("wine_rating", 3);
 		} else {
 			model.addAttribute("wine_rating", Integer.parseInt(wineRating));
+		}
+		
+		log.info("winePriceMin: " + winePriceMin);
+		if (winePriceMin == null) {
+			model.addAttribute("winePriceMin", 10000);
+		} else {
+			model.addAttribute("winePriceMin", Integer.parseInt(winePriceMin));
+		}
+		
+		log.info("winePriceMax: " + winePriceMax);
+		if (winePriceMax == null) {
+			model.addAttribute("winePriceMax", 30000);
+		} else {
+			model.addAttribute("winePriceMax", Integer.parseInt(winePriceMax));
 		}
 		
 		int total = service.getTotal(cri);		
@@ -139,9 +155,9 @@ public class WineController {
 		log.info("requestWineList priceMax: " + winePriceMax);
 		log.info("requestWineList wineKeyword: " + wineKeyword);
 		
-		int wineRatingInt = 1;
+		int wineRatingInt = 2;
 		if (wineRating == null) {
-			wineRatingInt = 1;
+			wineRatingInt = 2;
 		} else {
 			wineRatingInt = Integer.parseInt(wineRating);
 		}

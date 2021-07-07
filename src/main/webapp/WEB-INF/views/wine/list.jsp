@@ -340,15 +340,6 @@ input[type=radio]{
 		var actionForm = $("#actionForm");
 		
 		console.log(actionForm.find("input[name='totalPageNum']").val());
-
-		$(".page-item a").on("click", function(e) {
-			e.preventDefault();
-
-			console.log('click');
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.submit();
-		});
 		
 		$(window).scroll(function() {
 		
@@ -444,7 +435,7 @@ input[type=radio]{
 				min: 0,
 				max: 100000,
 				step: 1000,
-				values: [ 10000, 30000 ],
+				values: [ <c:out value="${winePriceMin}" />, <c:out value="${winePriceMax}" /> ],
 				slide: function( event, ui ) {
 		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
 		        	$( "#price_min" ).val(ui.values[ 0 ]);

@@ -268,7 +268,7 @@ $(document).ready(function() {
 		<header style="height: 112px; width: 100%;">
 		<div class="navbar navbar-expand navbar-dark" style="height: 50%; width: 100%;">
 			<div class="container px-5">
-				<a class="navbar-brand " href="main">
+				<a class="navbar-brand " href="/wine/main">
 				<span class="title text-dark">너와, IN</span></a>
 				<div class="input-group-prepend">
 					<form id='searchForm' action="/wine/list" method='get'>
@@ -301,7 +301,7 @@ $(document).ready(function() {
 								</svg>
 							</a>
 							<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="#">My wines</a></li>
+								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">My wines</a></li>
 								<li><a class="dropdown-item" href="#">orders</a></li>
 								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>
@@ -317,7 +317,7 @@ $(document).ready(function() {
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item dropdown">
-					   		<a class="nav-link" href="#" data-bs-toggle="dropdown">Wines</a>
+					   		<a class="nav-link" href="main" data-bs-toggle="dropdown">Wines</a>
 					   		<div class="dropdown-menu dropdown-large">
 					   			<div class="row g-3">
 							   		<div class="col-4">
@@ -428,8 +428,21 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
-						<li class="nav-item"><a class="nav-link" href="#">Seller</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+						<li class="nav-item"><a class="nav-link" href="/seller/list">Seller</a></li>
+						<li class="nav-item dropdown">
+					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
+					  	 <div class="dropdown-menu">
+					   		<div class="row">
+					   			<div class="col-1">
+					   				<ul class="list-unstyled">
+						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
+									  <li><a class="dropdown-item" href="#"> Board </a></li>
+									  <li><a class="dropdown-item" href="#"> Event </a></li>
+									</ul>
+								</div><!-- end col-3 -->
+							</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					</li><!-- end Notice -->
 					</ul>
 				</div>
 			</div>

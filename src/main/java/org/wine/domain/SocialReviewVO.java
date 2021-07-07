@@ -11,5 +11,6 @@ public class SocialReviewVO {
 	private String userRealName;
 	private String reviewDate;
 	private String reviewContent;
-	
+	private String wineImageName;
+	private String wineTitle;
 }
