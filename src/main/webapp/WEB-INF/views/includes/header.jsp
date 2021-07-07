@@ -301,7 +301,7 @@ $(document).ready(function() {
 								</svg>
 							</a>
 							<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="#">My wines</a></li>
+								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">My wines</a></li>
 								<li><a class="dropdown-item" href="#">orders</a></li>
 								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>
