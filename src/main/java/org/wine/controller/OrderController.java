@@ -64,8 +64,7 @@ public class OrderController {
 			//Long userNum = user.getUserNum();
 			
 			  Long userNum = (Long) session.getAttribute("userNum");
-			  
-			  
+	  
 			 userNum = (long) 1;
 			 
 			Calendar cal = Calendar.getInstance();
@@ -83,11 +82,10 @@ public class OrderController {
 
 			order.setOrderNum(orderNum);
 			order.setUserNum(userNum);
+			
 		
 
-			service.orderInfo(order);
-
-			 
+			service.orderInfo(order);	 
 			service.orderInfo_Detail(order);
 			service.cartAllDelete(userNum);
 		
@@ -110,14 +108,17 @@ public class OrderController {
 
 		order.setUserNum(userNum);
 		List<OrderListVO> orderList = service.orderList(order);
-		ArrayList<String> sellerIDList = new ArrayList<String>();
-		log.info(orderList);
+		
+		
 		for(int i=0;i<orderList.size();i++) {
-			sellerIDList.add(sellerService.get(orderList.get(i).getSellerNum()).getSellerId());
+			String num = orderList.get(i).getOrderNum();
+			orderList.get(i).setPickUpName(service.orderSellerList(num).getPickUpName());
+			orderList.get(i).setSellerId(service.orderSellerList(num).getSellerId());
 		}
-		log.info(sellerIDList);
+		log.info(orderList);
+		
 		model.addAttribute("orderList",orderList);
-		model.addAttribute("sellerIDList",sellerIDList);
+	
 		
 		
 	}
@@ -127,7 +128,6 @@ public class OrderController {
 	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
 	public void getOrderList(HttpSession session,
 			@RequestParam("n") String orderNum,
-			@RequestParam("s") String sellerId,
 			OrderVO order, Model model) throws Exception {
 		log.info("get order view");
 
@@ -138,12 +138,22 @@ public class OrderController {
 
 		order.setUserNum(userNum);
 		order.setOrderNum(orderNum);
-		//order.setOrderNum(orderNum);
-
+        
+		
 		List<OrderListVO> orderView = service.orderView(order);
+		
+		
+		int sum=0;
+		for(int i=0;i<orderView.size();i++) {
+			sum += orderView.get(i).getTotalPrice();
+			orderView.get(i).setSellerId(service.orderSellerList(orderNum).getSellerId());
+			orderView.get(i).setSellerNum(service.orderSellerList(orderNum).getSellerNum());
+		}
+		
 
+		
 		model.addAttribute("orderView", orderView);
-		model.addAttribute("sellerId", sellerId);
+		model.addAttribute("sum", sum);
 	}
 
 }

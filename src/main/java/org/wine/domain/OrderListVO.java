@@ -11,11 +11,12 @@ public class OrderListVO {
 	private Long userNum;
 	private String pickUpName;
 	private String pickUpPhoneNum;
-	private int orderPrice;
+	private int totalPrice;
 	private Date orderDate;
 	private String pickUpDate;
 	
 	private Long orderDetailNum;
+	private String sellerId;
 	private Long sellerNum;
 	private Long wineNum;
 	private int cartQty;

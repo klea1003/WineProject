@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.ProfileVO;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
+import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
 import org.wine.service.SocialService;
 import org.wine.service.UserService;
@@ -38,7 +40,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*"})
+@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*","/order/*","/cart/*","/wishList/*"})
 @AllArgsConstructor
 public class UserController {
 
@@ -61,13 +63,19 @@ public class UserController {
 	}
 	
 	@GetMapping({ "/userpage" })
-	public void get(@RequestParam("userNum") Long userNum ,UserVO user,Model model) {
+	public void get(HttpServletRequest request,@RequestParam("userNum") Long userNum ,UserVO user,Model model) {
 
-		log.info("userpage ");
+	    HttpSession session = request.getSession();
+
+	    Long loginNum = (Long)session.getAttribute("loginNum");
+		
+	    log.info("loginNum : "+ loginNum);
+	    
+		log.info("userpage");
 
 		model.addAttribute("userpage", service.get(userNum));
 		
-		model.addAttribute("followck", socialservice.followingBtn(userNum)); //팔로잉 버튼 체크 유무
+		model.addAttribute("followck", socialservice.followingBtn(userNum,loginNum)); //팔로잉 버튼 체크 유무
 		
 		List<SocialListVO> followinglist = socialservice.followingList(userNum);
 	
@@ -76,6 +84,12 @@ public class UserController {
 		List<SocialListVO> followerlist = socialservice.followerList(userNum);
 		
 		model.addAttribute("followerlist",followerlist );  //팔로워 리스트
+		
+		List<SocialReviewVO> socialreviewlist = socialservice.followingReviewList(userNum);
+		
+		log.info("socialreviewlist : " + socialreviewlist);
+		
+		model.addAttribute("socialreviewlist",socialreviewlist );  //소셜리뷰 리스트
 		
 		List<ProfileVO> imageck =  service.imageCk(userNum);
 		
@@ -91,7 +105,11 @@ public class UserController {
 		
 		model.addAttribute("followingcnt",followingcnt);
 		
-		model.addAttribute("wish",service.getwishList(userNum));
+		List<SocialWishVO> list = service.getwishList(userNum);
+
+		log.info("wishList : " + list);
+		
+		model.addAttribute("wish",service.getwishList(userNum)); //해당 유저 위시리스트
 	}
 	
 	@PostMapping({ "/userpage" })
@@ -147,6 +165,10 @@ public class UserController {
 		}
 		session.setAttribute("user", lvo);
 
+		Long loginNum=lvo.getUserNum();
+		
+		session.setAttribute("loginNum", loginNum);
+		
 		return  "redirect:"+ path+query;
 	}
 	

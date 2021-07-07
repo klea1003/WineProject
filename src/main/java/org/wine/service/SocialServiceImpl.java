@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.mapper.SocialMapper;
@@ -40,12 +41,12 @@ public class SocialServiceImpl implements SocialService {
 
 
 	@Override
-	public SocialVO followingBtn(Long userFollowingId) {
+	public SocialVO followingBtn( Long userFollowingId, Long userFollowerId) {
 		// TODO Auto-generated method stub
 		
 		log.info("userFollowingId : "+ userFollowingId);
 		
-		return  mapper.followingBtn(userFollowingId);
+		return  mapper.followingBtn(userFollowingId,userFollowerId);
 	}
 
 
@@ -75,6 +76,13 @@ public class SocialServiceImpl implements SocialService {
 	public List<SocialListVO> followerList(Long userFollowingId) {
 		// TODO Auto-generated method stub
 		return mapper.followerList(userFollowingId);
+	}
+
+
+	@Override
+	public List<SocialReviewVO> followingReviewList(Long userFollowingId) {
+		// TODO Auto-generated method stub
+		return mapper.followingReviewList(userFollowingId);
 	}
 
 }

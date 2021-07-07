@@ -13,19 +13,13 @@
 		<result property="userBirthDay" column="USER_BIRTHDAY" />
 	</resultMap>
 
-	<resultMap type="org.wine.domain.CartVO" id="cartList">
-		<result property="cartNum" column="CART_NUM" />
-		<result property="userNum" column="USER_NUM" />
-		<result property="sellerNum" column="SELLER_NUM" />
+	<resultMap type="org.wine.domain.SocialWishVO" id="SocialWishList">
+		<result property="wishNum" column="WISH_NUM" />
 		<result property="wineNum" column="WINE_NUM" />
-		<result property="cartQty" column="CART_QTY" />
-		<result property="userRealName" column="USER_REALNAME" />
-		<result property="sellerId" column="SELLER_ID" />
-		<result property="wineTitle" column="WINE_TITLE" />
-		<result property="winePrice" column="WINE_PRICE" />
-		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="userNum" column="USER_NUM" />
 		<result property="wineType" column="WINETYPE"/>
 		<result property="wineCountry" column="WINE_COUNTRY"/>
+		<result property="wineTitle" column="WINE_TITLE" />
 		<result property="wineImageName" column="WINE_IMAGENAME" />
 	</resultMap>
 
@@ -81,14 +75,13 @@
 	</select>
 
 	<!-- 장바구니 목록 -->
-	<select id="getwishList" resultMap="cartList">
-  select WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+	<select id="getwishList" resultMap="SocialWishList">
+  		select W.WINE_NUM,WL.WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
 		from
 		TBL_USER U, tbl_wishlist_test WL, TBL_WINE_TEST W
 		where
-		U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM = #{userNum}
-        GROUP by WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
-        order by WL.WISH_NUM
+		U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM =#{userNum}
+        GROUP by W.WINE_NUM,WL.WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
 	</select>
 </mapper>
  

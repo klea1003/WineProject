@@ -114,8 +114,10 @@ p.card-text {
 					 </div>
                   <div class="card-footer">
                   <a class="btn btn-outline-dark btn-sm" href="#!">More Info</a>
-                  <a class="btn btn-outline-danger btn-sm" href="#!"><i class="bi-cart-fill me-1"></i>add to cart </a>
+                  <a class="btn btn-outline-danger btn-sm" href="http://localhost:8080/cart/insert">Add to Cart</a>
                   </div>
+                  
+                  
                </div>
                    </div>
                    </div>

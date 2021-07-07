@@ -42,7 +42,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void getCartList() {
-		service.getwishList(2L);
+	public void getWishList() {
+		service.getwishList(1L);
 	}
 }

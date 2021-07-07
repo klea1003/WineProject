@@ -30,7 +30,7 @@
 		insert into tbl_cart_test(
 		CART_NUM, USER_NUM, SELLER_Num, WINE_NUM, CART_QTY
 		)values(
-		SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, #{cartQty}
+		SEQ_CART_TEST.NEXTVAL, #{userNum}, #{sellerNum}, #{wineNum}, 1
 		)
 	</insert>
 

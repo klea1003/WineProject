@@ -50,7 +50,7 @@ public class SocialServiceTest {
 	
 	@Test
 	public void testFollwinbtn() {
-		service.followingBtn(1L);
+		service.followingBtn(1L, 2640L);
 		log.info(service);
 	}
 	
@@ -67,8 +67,15 @@ public class SocialServiceTest {
 	}
 	
 	@Test 
-	public void testgFollowingList() {
+	public void testFollowingList() {
 		
 	service.followingList(1L);
+	}
+	
+
+	@Test 
+	public void testreViewList() {
+		
+	service.followingReviewList(1L);
 	}
 }
