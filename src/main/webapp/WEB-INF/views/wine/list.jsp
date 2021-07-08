@@ -394,16 +394,17 @@ input[type=radio]{
 						str += list[i].wineType + " " + "From" + " "
 						str += list[i].country + "<br>"
 						
-						str += "<p class='card-text'>"
-						str += list[i].grapes + "<br>"
-						str += list[i].region + "<br>"						
-						str += " ￦ " + list[i].price  + "<br>"
-						str += list[i].avgRating + "<br>"
-						str += "</p>"
+							
+						str += "<span style='color:rgb(156,22,49)''><i class='fa fa-xl fa-star'> </i></span>"
+						str += "&nbsp;"+list[i].avgRating + "<br>"
+						str += "<h5> ￦ " + list[i].price  + "</h5>"
 						
-						str += "<div>"
-						str += "<button type='button' class='btn btn-outline-danger btn-lg'>"
+						str += "<div class='mt-5'>"
+						str += "<a href='/seller/list' class='btn btn-outline-danger btn-lg'>"
 						str += "view shops"
+						str += "</a>"
+						str += "&nbsp;<button type='button' class='btn btn-outline-dark btn-lg'>"
+						str += "Wish"
 						str += "</button>"
 						str += "</div>"
 						
