@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.wine.domain.UserVO;
 import org.wine.domain.WishListVO;
 import org.wine.service.WishListService;
 
@@ -28,13 +29,14 @@ public class WishListController {
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 
-		Long userNum = (Long) session.getAttribute("userNum");
-
-		userNum = (long) 1;
+		UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+		
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<WishListVO> list = service.listWish(userNum);
 		map.put("list", list); //리스트
+		 log.info(list);
 		map.put("count", list.size()); //상품 유무
 		mav.setViewName("wishList/list");
 		mav.addObject("map", map);
@@ -46,9 +48,9 @@ public class WishListController {
 	@RequestMapping("/insert")
 	public String insert(@RequestParam("wno")Long wno, HttpSession session) {
         log.info("wishList...insert");
-		Long userNum = (Long) session.getAttribute("userNum");
-
-		userNum = (long) 1;
+        UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
         WishListVO wishList = new WishListVO();
         
 		wishList.setUserNum(userNum); 

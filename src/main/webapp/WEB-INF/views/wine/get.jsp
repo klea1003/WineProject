@@ -31,7 +31,7 @@
     }
 }
 
-svg {
+.svgicon {
 	width: 20px;
 	height: 20px;
 }
@@ -86,19 +86,17 @@ svg {
 						<c:out value="${wine.title}" /></h3>
 					<div class="fs-5 mb-5">
 						<p class="lead">
-							<span><c:out value="${wine.wineType}" /> from</span>
+							<span>
+							<svg class="svgicon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16"><line x1="8" y1="10.8649" x2="8" y2="14.75" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><path d="M8,10.8649A21.2965,21.2965,0,0,0,11.03,8.431a4.2805,4.2805,0,0,0,.6017-3.5547c-.2314-1.2886-.7634-3.6263-.7634-3.6263H5.1318S4.6,3.5877,4.3683,4.8763A4.2784,4.2784,0,0,0,4.97,8.431,21.3,21.3,0,0,0,8,10.8649" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><line x1="5.375" y1="14.7498" x2="10.625" y2="14.7498" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><line x1="4.2775" y1="6.2311" x2="11.7225" y2="6.2311" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><path d="M4.6782,6.6055a4.1859,4.1859,0,0,0,.7392,1.8224A4.3054,4.3054,0,0,0,8,10.4a4.2965,4.2965,0,0,0,2.5738-1.9721,4.36,4.36,0,0,0,.77-1.8224Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.0782,6.9792c.0087.3122.4443.7875.8557,1.4219A3.8792,3.8792,0,0,0,8,9.9219a3.87,3.87,0,0,0,2.059-1.5208,4.6045,4.6045,0,0,0,.8218-1.4219Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5823,7.4c.0066.2428.5595.5185.8682,1.0119A2.5878,2.5878,0,0,0,8,9.5,2.5812,2.5812,0,0,0,9.5442,8.4119c.3086-.4934.8258-.769.8323-1.0119Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.3128,7.7c.0054.1735.1387.37.3959.7228A1.8377,1.8377,0,0,0,8,9.0664a1.83,1.83,0,0,0,1.2869-.6436c.2572-.3524.4053-.5493.4107-.7228Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path></svg><c:out value="${wine.wineType}" /> from</span>
 							<c:out value="${wine.region}" />
 							<br>
 							<c:out value="${wine.country}" />
 							<br>					
 						</p>
-						<span><c:out value="${wine.price}" />원</span>
+						<span>￦<c:out value="${wine.price}" />원</span>
 					</div>
 
 					<div class="d-flex">
-						<input class="form-control text-center me-3" id="inputQuantity"
-							type="num" value="1" style="max-width: 3rem" />
-
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 						onclick="location.href='/wishList/insert?wno=${wine.wno}'">
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
@@ -107,7 +105,7 @@ svg {
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 						onclick="location.href='/seller/listWine?wineNum=${wine.wno}'">
-							<i class="bi-cart-fill me-1"></i> Add to cart
+							<i class="bi-cart-fill me-1"></i> Find Seller
 						</button>
 					</div>
 				</div>
@@ -123,7 +121,7 @@ svg {
 		
 		<c:if test='${wine.winenery ne null}'>
 			<tr class="table">
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" 
 				d="M23.596 18.608V5.483c0-.564-.605-1.042-1.322-1.042h-2.057v3.21a.5.5 0 0 1-.5.5h-3.35a.5.5 
 				0 0 1-.5-.5V4.44h-3.744v3.21a.5.5 0 0 1-.5.5h-3.34a.5.5 0 0 1-.5-.5V4.44H5.726c-.717 0-1.322.478-1.322 1.042v13.125c0 
@@ -152,7 +150,7 @@ svg {
 		
 		<c:if test='${wine.grapes ne null}'>
 			<tr>
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" 
 				d="M17.463 13.193a2.234 2.234 0 0 1 2.214-2.54c.482 0 .949.157 1.34.452a2.233 2.233 0 0 1-1.037 3.989 2.236 2.236 
 				0 0 1-2.517-1.901m.375 7.282a2.236 2.236 0 0 1-2.518-1.902 2.215 2.215 0 0 1 .43-1.651 2.211 2.211 
@@ -182,7 +180,7 @@ svg {
 		
 		<c:if test='${wine.region ne null}'>
 			<tr>
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" 
 				d="M17.145 13.928a4.447 4.447 0 0 1-6.281 0 4.448 4.448 0 0 1 0-6.28 4.427 4.427 0 0 1 3.141-1.3c1.137 
 				0 2.274.434 3.14 1.3a4.446 4.446 0 0 1 0 6.28m4.197-10.097a10.293 10.293 0 0 1 3.04 7.332c0 2.77-1.08 5.373-3.04 7.332l-6.954 8.527a.498.498 
@@ -198,7 +196,7 @@ svg {
 		
 		<c:if test='${wine.wineStyle ne null}'>
 			<tr>
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" 
 				d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 0 0 1 2.367-3.476c.001 
 				0 .002 0 .003-.002a.525.525 0 0 0 .126-.082c.012-.01.027-.015.038-.025.022-.023.035-.052.053-.079.018-.026.042-.05.054-.08.006-.014.005-.03.01-.045a.52.52 
@@ -215,7 +213,7 @@ svg {
 		
 		<c:if test='${wine.allergens ne null}'>
 			<tr>
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" 
 				d="M18.189 20.318c4.538-1.67 7.43-5.58 8.079-6.536-.505-1.125-2.991-6.039-8.35-7.765a8.234 8.234 
 				0 0 1 4.309 7.233c0 3.006-1.625 5.632-4.038 7.068zM2.366 14.65c.315.403 1.649 1.838 2.389 2.425.83.658 2.383 1.788 4.232 2.683-1.95-1.505-3.214-3.859-3.214-6.508a8.232 8.232 
@@ -235,7 +233,7 @@ svg {
 		
 		<c:if test='${wine.alcohol ne null}'>
 			<tr>
-				<td><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
 				<path fill="#A8A5A3" fill-rule="evenodd" d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 
 				0 0 1 2.367-3.476c.001 0 .002 0 .003-.002a.525.525 0 0 0 .126-.082c.012-.01.027-.015.038-.025.022-.023.035-.052.053-.079.018-.026.042-.05.054-.08.006-.014.005-.03.01-.045a.52.52 
 				0 0 0 .03-.147V1.96c0-.09.086-.165.188-.165h1.736c.101 0 .187.075.187.164V8.49l.001.005c0 .05.014.098.03.145.004.015.003.032.01.046.011.03.034.051.051.077.018.027.032.058.055.082.011.01.026.015.036.024.04.033.08.063.128.083l.004.002a3.779 3.779 

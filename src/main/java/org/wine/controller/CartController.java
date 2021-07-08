@@ -33,7 +33,7 @@ public class CartController {
 
 		UserVO lvo =  (UserVO) session.getAttribute("user");
         long userNum=lvo.getUserNum();
-		/* userNum = (long) 1; */
+
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVO> list = service.listCart(userNum);
@@ -87,9 +87,8 @@ public class CartController {
 	public String update(@RequestParam int[] cartQty, @RequestParam Long[] wineNum, HttpSession session) {
 
 		// 세션 유저넘버 불러오기
-		Long userNum = (Long) session.getAttribute("userNum");
-		
-		userNum = (long) 1;
+		UserVO lvo =  (UserVO) session.getAttribute("user");
+        long userNum=lvo.getUserNum();
 
 		for (int i = 0; i < wineNum.length; i++) {
 

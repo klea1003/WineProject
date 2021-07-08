@@ -54,6 +54,7 @@
 									<th scope="row">${wish.wineTitle}</th>
 								<%-- 	<td><input type="hidden" name="count"
 										value="${map.count }"></td> --%>
+								    <td><a href="/seller/listWine?wineNum=${wish.wineNum}">Find Seller</a></td>
 									<td><a href="/wishList/delete?wishNum=${wish.wishNum}">삭제</a></td>
 								</tr>
 							</c:forEach>
