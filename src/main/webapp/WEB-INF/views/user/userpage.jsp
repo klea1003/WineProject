@@ -76,6 +76,15 @@ p.card-text {
 	display : inline-block !important; 
 	margin: 6px 2px !important; 
 }
+.rating_text{
+ display: -webkit-box;
+ overflow: hidden; 
+ text-overflow: ellipsis; 
+ white-space: normal;
+ -webkit-line-clamp: 2;
+ -webkit-box-orient: vertical;
+}
+
 </style>
 </head>
 <body>
@@ -209,10 +218,6 @@ p.card-text {
 									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
 										<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
 									<br/> 
-									<a class="fs-5 px-2 link-dark" href="#!"><i	class="bi-twitter"></i></a> 
-									<a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a> 
-									<a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a> 
-									<a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
 								</div>
 							</div>
 						</div>
@@ -262,47 +267,70 @@ p.card-text {
 					</div>
 				</div>				
 				<div class="col-xl-8">
-					<h2 class="fw-bolder fs-5 mb-4">Following Reviews</h2>
-					<!-- News item-->
+					<h2 class="fw-bolder fs-5 mb-4">Following Ratings</h2>
+					<!-- Rating item-->
 					<c:if test="${!empty socialreviewlist}">
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
-							<div class="mb-4">
-								<div class="small text-muted"><c:out value="${socialreview.reviewDate }"/>
+							<div class="mb-2" style="width: 800px; height:130px; ">
+								<div class="small text-muted">
 									<div><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
 										<h5><c:out value="${socialreview.userRealName }"/></h5></a>
 									</div>
+									<c:out value="${socialreview.reviewDate }"/>
 								</div>
-								<a class="link-dark" text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-									<h4><c:out value="${socialreview.reviewContent }"/></h4>
-								</a>
+								
+								<div style="float:left; margin-left: 20px;">
+									<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  
+									height="70" width="30"></a>
+								</div>
+								<div class="rating_text" style="float:right; margin-top:5px; width: 730px;">
+									<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
+										<h5><c:out value="${socialreview.reviewContent }"/></h5>
+									</a>
+								</div>
 							</div>
 						</c:forEach>
 						<div class="text-end mb-5 mb-xl-0">
-							<span id="modal_show_reviewList">More Reviews</span>
+							<span id="modal_show_reviewList"><i class="bi bi-arrow-right"></i> More Rating</span>
 						</div>
 					</c:if>					
 					<c:if test="${empty socialreviewlist}">
 						<h4>This user hasn't following listed and any users yet</h4>
 					</c:if>
 				</div>				
-				<!-- review Modal -->
+				<!-- Rating Modal -->
 				<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Reviews</h5>
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h5>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
+							
 								<c:forEach items="${socialreviewlist}" var="socialreview" >
-									<div class="mb-4">
-										<div class="small text-muted"><c:out value="${socialreview.reviewDate }"/>
-											<div><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-												<h5><c:out value="${socialreview.userRealName }"/></h5></a>
+								
+									<div class="card m-4" style="height:410px; width: 94%;">  <!-- 내용들이 들어가는 영역 -->
+									
+										<div class="small text-muted" style="padding-left: 2%;"> <!-- 팔로잉한 이름과 작성일 -->
+											<div ><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
+												 <h5><c:out value="${socialreview.userRealName }"/></h5></a>
+											</div>
+											<c:out value="${socialreview.reviewDate }"/>
+										</div> 
+										
+										<div> <!-- 해당 리뷰 와인 사진과 리뷰 내용 -->
+											<div style="height: 350px; width:23%; margin-left:2%; float:left">
+												<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="350" width="150">
+												</a>
+											</div>
+											<div class="card bg-light p-2" style="height: 350px; width:73%; margin-right:2%; float:left">
+												<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
+												<h5><c:out value="${socialreview.reviewContent }"/></h5></a>
 											</div>
 										</div>
-										<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}"><h4><c:out value="${socialreview.reviewContent }"/></h4></a>
-									</div>
+																			
+									</div>							
 								</c:forEach>
 							</div>						
 						</div>
@@ -336,7 +364,7 @@ p.card-text {
 											      <p class="card-text">와인타입 : <c:out value="${w.wineType}" /></p>
 											</div>
 						                 	<div class="card-footer">
-						                  		<a class="btn btn-outline-dark btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
+						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
 						                  	</div>
 	               						</div>
 	                 				  </div>

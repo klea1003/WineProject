@@ -9,10 +9,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
+
 .card {
-	height: 450px;
-	width: 230px;
-}
+	
+	height:500px;
+	
+} 
 
 /* swiper css  */
 .swiper-slide {
@@ -88,12 +90,21 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
 				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>				
-				<div>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=1 checked>20000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=2>40000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=3>60000</label>
-					<label><input type="radio" name="priceCheck" class="BtnClick" value=4>80000</label>
+				
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" checked>
+				  <label class="btn btn-outline-danger" for="1">20000</label>
+				
+				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="2">40000</label>
+				
+				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="3">60000</label>
+				  
+				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off">
+				  <label class="btn btn-outline-danger" for="4">80000</label>
 				</div>
+				
 			</div>
 		</div>
 	</header>
@@ -101,17 +112,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container">
-
-			<div class="row justify-content-center">
-				<!-- swiper슬라이더 메인컨테이너 -->
-				<div class="swiper-container">
-					<!-- 보여지는 영역 -->
-					<div class="swiper-wrapper">
-					</div>
-					<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
+			<!-- swiper슬라이더 메인컨테이너 -->
+			<div class="swiper-container">
+				<!-- 보여지는 영역 -->
+				<div class="swiper-wrapper">
 				</div>
+				<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
 			</div>
 		</div>
 	</section>
@@ -123,11 +131,12 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</div>
 	
 	<!-- range area -->
-	<div class="container">
-		<div class="row">
+	<div class="container mt-2 mb-5">
+		
 			
 			<form id='searchForm' action="/wine/list" method='get'>
-				<div class="col-md-2 dropdown">
+				<div class="row">
+				<div class="col-2 dropdown">
 					<button class="btn dropdown-toggle" type="button"
 						id="dropdownMenuButton1" data-bs-toggle="dropdown"
 						aria-expanded="false">Red Wine</button>
@@ -140,9 +149,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						<li><a class="dropdown-item wine-select" href=6>Port Wine</a></li>
 					</ul>
 				</div>
+				
 				<input type="hidden" name="wine_type_ids" id='wine_type' value=1>
 				
-				<div class="col-md-4">
+				<div class="col-4">
 					<p>
 						<label for="amount">Price range:</label> <input type="text"
 							id="amount" readonly
@@ -151,7 +161,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					<div id="price-range"></div>
 				</div>
 				
-				<div class="col-md-4">
+				<div class="col-4">
 					<p>
 						<label for="rating">Rating:</label> <input type="text" id="rating"
 							readonly style="border: 0; color: #990000; font-weight: bold;">
@@ -161,13 +171,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					<div id="rating-range"></div>
 				</div>
 				
-				<div class="col-md-2">
+				<div class="col-2">
 					<button type="submit" class="btn btn-outline-danger btn-lg">Show wines</button>
 				</div>
+				</div><!-- end range area -->
 			</form>
 			
 		</div>
-	</div><!-- end range area -->
+
 	
 	<form id="actionForm" action="/wine/list" method="get">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
@@ -188,14 +199,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //한번에 보여지는 페이지 숫자
     slidesPerView: 5,
     //페이지와 페이지 사이의 간격
-    spaceBetween: 0,
+    spaceBetween: 30,
     //드레그 기능 true 사용가능 false 사용불가
     debugger: false,
     //마우스 휠기능 true 사용가능 false 사용불가
     mousewheel: false,
     //반복 기능 true 사용가능 false 사용불가
     loop: false,
-    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가
     centeredSlides: false,
     // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
     // effect: 'fade',
@@ -204,7 +215,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     //자동 스크를링
     autoplay: {
       //시간 1000 이 1초
-      delay: 1000,
+      delay: 5000,
       disableOnInteraction: false,
      },
     
@@ -283,29 +294,33 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					}
 					
 					for(var i = 0, len = list.length||0; i < len; i++) {
+						
 						str += "<div class='swiper-slide'>"
-						str += "<div class='col mb-5'>"
-						str += "<div class='card wine' style='text-align: center; display: block;'>"
-						str += "<img class='card-img-top'"
-						str += "src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'"
-						str += "alt=''...'' />"
-						str += "<div class='card-body p-5'>"
-						str += "<div class='text-center'>"
-						str += "<h5 class='fw-bolder'>" + list[i].title + "</h5>"
-						str += "<div>"
+						
+						str += "<div class='card wine pt-5' style='text-align: center; display: block;'>"
+						str += "<img src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' style='width : 40px; height: 140px;'/>"
+						
+						str += "<div class='card-body mb-5'>"
+						
+						str += "<div class='mt-5' style='height:54px; width:180px;'>"
+						str += "<p>" + list[i].title + "</p>"
+						str += "</div>"
+						
+						str += "<div class='mt-3'>"
 						str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
 						str += list[i].avgRating 
 						str += "</div>"
+						
 						str += "</div>"
+						
+						str += "<div>"
+						str += "<a class='btn btn-outline-danger' href='#'> ￦ " + wineUtil.numberWithCommas(list[i].price) + " </a>"
 						str += "</div>"
-						str += "<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>"
-						str += "<div class='text-center'>"
-						str += "<a class='btn btn-outline-danger mt-auto' href='#'> ￦ " + wineUtil.numberWithCommas(list[i].price) + " </a>"
+						
 						str += "</div>"
+						
 						str += "</div>"
-						str += "</div>"
-						str += "</div>"
-						str += "</div>"
+						
 					}
 					
 					swiperDiv.append(str);
@@ -316,7 +331,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		var actionForm = $("#actionForm");
 		
 		// top price list select
-		$(".BtnClick").on("click", function(e) {
+		$(".btn-check").on("click", function(e) {
 			console.log('click checkbox btn');
 			
 			if ($(this).val() == 1){

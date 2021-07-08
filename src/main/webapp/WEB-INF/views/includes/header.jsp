@@ -269,7 +269,7 @@ $(document).ready(function() {
 		<div class="navbar navbar-expand navbar-dark" style="height: 50%; width: 100%;">
 			<div class="container px-5">
 				<a class="navbar-brand " href="/wine/main">
-				<span class="title text-dark">너와, IN</span></a>
+				<span class="title text-dark fw-bold">너와, IN</span></a>
 				<div class="input-group-prepend">
 					<form id='searchForm' action="/wine/list" method='get'>
 						<div style="float:left;">
@@ -292,7 +292,14 @@ $(document).ready(function() {
 					</c:if> 
 					<!-- 로그인 된 경우 -->
 					<c:if test="${user != null }">
-						<div class="dropdown text-end">
+							<a href="/cart/list" class="d-block link-dark text-decoration-none" aria-expanded="false">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+	  								<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 
+	  								.491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+								</svg>
+							</a>
+							
+						<div class="dropdown text-end mx-2">
 							<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
 								aria-expanded="false"> 
 								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -301,7 +308,7 @@ $(document).ready(function() {
 								</svg>
 							</a>
 							<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="#">My wines</a></li>
+								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">My wines</a></li>
 								<li><a class="dropdown-item" href="#">orders</a></li>
 								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>
@@ -429,7 +436,20 @@ $(document).ready(function() {
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
 						<li class="nav-item"><a class="nav-link" href="/seller/list">Seller</a></li>
-						<li class="nav-item"><a class="nav-link" href="/board/list">FAQ</a></li>
+						<li class="nav-item dropdown">
+					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
+					  	 <div class="dropdown-menu">
+					   		<div class="row">
+					   			<div class="col-1">
+					   				<ul class="list-unstyled">
+						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
+									  <li><a class="dropdown-item" href="#"> Board </a></li>
+									  <li><a class="dropdown-item" href="#"> Event </a></li>
+									</ul>
+								</div><!-- end col-3 -->
+							</div><!-- end row -->
+					    </div><!-- end dropdown-large -->
+					</li><!-- end Notice -->
 					</ul>
 				</div>
 			</div>

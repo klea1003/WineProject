@@ -42,9 +42,10 @@ public class OrderController {
 
 	// 주문
 	@RequestMapping(value = "/ordering", method = RequestMethod.GET)
-	public void orderPage(Model model) throws Exception {
-		log.info("ordering");
-		Long userNum = 1L;
+	public void orderPage(Model model, HttpSession session) throws Exception {
+		UserVO lvo =  (UserVO) session.getAttribute("user");
+        long userNum=lvo.getUserNum();
+        log.info("ordering"+userNum);
 		List<CartVO> list = cartService.listCart(userNum);
 
 		log.info(list);
@@ -60,12 +61,10 @@ public class OrderController {
 				OrderDetailVO orderDetail) throws Exception {
 			log.info("order");
 			
-			//UserVO user = (UserVO)session.getAttribute("userNum"); 
-			//Long userNum = user.getUserNum();
+			UserVO user = (UserVO)session.getAttribute("user"); 
+			Long userNum = user.getUserNum();
 			
-			  Long userNum = (Long) session.getAttribute("userNum");
-	  
-			 userNum = (long) 1;
+	
 			 
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
@@ -101,10 +100,8 @@ public class OrderController {
 	public void getOrderSuccessList(HttpSession session, OrderVO order, Model model)throws Exception{
 		log.info("get order  List");
 		 
-		//UserVO user = (UserVO)session.getAttribute("userNum");
-		//Long userNum = user.getUserNum();
-		Long userNum = (Long) session.getAttribute("userNum");
-		userNum = (long) 1;
+		UserVO lvo =  (UserVO) session.getAttribute("user");
+        long userNum=lvo.getUserNum();
 
 		order.setUserNum(userNum);
 		List<OrderListVO> orderList = service.orderList(order);
@@ -131,10 +128,8 @@ public class OrderController {
 			OrderVO order, Model model) throws Exception {
 		log.info("get order view");
 
-		//UserVO user = (UserVO)session.getAttribute("userNum");
-		//Long userNum = user.getUserNum();
-		Long userNum = (Long) session.getAttribute("userNum");
-		userNum = (long) 1;
+		UserVO lvo =  (UserVO) session.getAttribute("user");
+        long userNum=lvo.getUserNum();
 
 		order.setUserNum(userNum);
 		order.setOrderNum(orderNum);
