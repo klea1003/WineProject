@@ -43,9 +43,9 @@ public class OrderController {
 	// 주문
 	@RequestMapping(value = "/ordering", method = RequestMethod.GET)
 	public void orderPage(Model model, HttpSession session) throws Exception {
-		log.info("ordering");
 		UserVO lvo =  (UserVO) session.getAttribute("user");
         long userNum=lvo.getUserNum();
+        log.info("ordering"+userNum);
 		List<CartVO> list = cartService.listCart(userNum);
 
 		log.info(list);
