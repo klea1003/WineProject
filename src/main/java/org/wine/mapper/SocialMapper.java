@@ -3,6 +3,8 @@ package org.wine.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.wine.domain.CriteriaReview;
+import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
@@ -25,4 +27,10 @@ public interface SocialMapper {
 	public List<SocialListVO> followerList(Long userFollowingId);
 	
 	public List<SocialReviewVO> followingReviewList(Long userFollowingId);
+	
+	public List<SocialReviewVO> followingReviewListPaging(
+			@Param("crire") SocialCriteriaReview crire,
+			@Param("userNum")Long userNum);
+	
+	public int getCountByuserNum(Long userNum);
 }

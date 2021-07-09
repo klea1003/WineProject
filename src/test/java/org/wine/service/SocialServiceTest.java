@@ -2,11 +2,15 @@ package org.wine.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wine.domain.SocialCriteriaReview;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.service.UserService;
@@ -73,9 +77,7 @@ public class SocialServiceTest {
 	}
 	
 
-	@Test 
-	public void testreViewList() {
-		
-	service.followingReviewList(1L);
-	}
+	
+	
+
 }

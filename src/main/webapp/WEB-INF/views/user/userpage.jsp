@@ -7,14 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너와, IN</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
 <script type="text/javascript"	src="/resources/wine_bootstrap/js/social.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-
-<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
-
 
 
 <style type="text/css">
@@ -306,32 +299,14 @@ p.card-text {
 								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h5>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body followingreview">
 							
-								<c:forEach items="${socialreviewlist}" var="socialreview" >
+					
 								
-									<div class="card m-4" style="height:410px; width: 94%;">  <!-- 내용들이 들어가는 영역 -->
-									
-										<div class="small text-muted" style="padding-left: 2%;"> <!-- 팔로잉한 이름과 작성일 -->
-											<div ><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-												 <h5><c:out value="${socialreview.userRealName }"/></h5></a>
-											</div>
-											<c:out value="${socialreview.reviewDate }"/>
-										</div> 
-										
-										<div> <!-- 해당 리뷰 와인 사진과 리뷰 내용 -->
-											<div style="height: 350px; width:23%; margin-left:2%; float:left">
-												<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="350" width="150">
-												</a>
-											</div>
-											<div class="card bg-light p-2" style="height: 350px; width:73%; margin-right:2%; float:left">
-												<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-												<h5><c:out value="${socialreview.reviewContent }"/></h5></a>
-											</div>
-										</div>
-																			
-									</div>							
-								</c:forEach>
+							</div>
+							<div class="panel-footer">
+							
+							
 							</div>						
 						</div>
 					</div>
@@ -454,6 +429,101 @@ $(document).ready(function() {
 		}
 	})
 	
+	var userNumValue = '<c:out value="${userpage.userNum}"/>'
+	var ratingUL = $(".followingreview");
+	showList(1);	
+		function getListRating(param, callback, error) {
+	      
+	      var userNum = param.userNum;
+	      var page = param.page || 1;
+		
+	      $.getJSON("/social/pages/" + userNum + "/" + page + ".json",
+	         function(data) {
+	            if (callback) {
+	               callback(data.socialReviewCnt,data.list);
+	            }
+	         }).fail(function(xhr, status, err) {
+	            if (error) {
+	               error();
+	            }
+	         });
+	   } 
+	function showList(page) {
+	getListRating({userNum :userNumValue,
+		page : page|| 1},function(socialReviewCnt,list) {
+			console.log("socialReviewCnt: "+ socialReviewCnt)
+			console.log("list: "+list)
+       		  if(page==-1) {
+                 pageNum=Math.ceil(socialReviewCnt/10.0)
+                 showList(pageNum)
+                 return
+              } 
+			 var str = "";
+             if (list == null|| list.length == 0) {
+                
+                return;
+             }
+			 for (var i = 0, len = list.length || 0; i < len; i++) {
+				 str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
+				 str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+				 str +="<h5>"+list[i].userRealName+"</h5></a>";
+				 str +="</div>";
+				 str +=""+list[i].reviewDate+"";
+				 str +="</div>";
+				 
+				 str += "<div>";
+				 str += "<div style='height: 350px; width:23%; margin-left:2%; float:left'>";
+				 str += "<a href='/wine/get?wno="+list[i].wineNum+"'>";
+				 str +=" <img src='http://klea-home.iptime.org:8081/" +list[i].wineImageName+ "'  height='350' width='150'>";
+             	 str += "</a>";
+             	 str += "</div>";
+             	 str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
+             	 str += "<a class='link-dark text-decoration-none' href='/wine/get?wno="+list[i].wineNum+"'> "
+             	 str += "<h5>"+list[i].reviewContent+"</h5></a> ";
+             	 str += "</div>";
+             	str += "</div>";
+             	str += "</div>";
+			 }
+			 ratingUL.html(str);
+			 showsocialPage(socialReviewCnt);
+           });
+		 }// end showList
+		 
+		 
+		   var pageNum=1
+           var socialPageFooter= $(".panel-footer")
+           function showsocialPage(socialReviewCnt){
+              console.log("showsocialPage: " + socialReviewCnt)
+              var endNum=Math.ceil(pageNum/10.0)*10
+              var startNum=endNum-9
+              var prev=startNum!=1
+              var next=false
+              if(endNum*10>socialReviewCnt){endNum=Math.ceil(socialReviewCnt/10.0)}
+              if(endNum*10<socialReviewCnt){next=true}
+              var str="<ul class='pagination pull-right'>"
+              if(prev) {
+                 str+="<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>"
+              }
+              for(var i=startNum; i<=endNum; i++) {
+                 var active =pageNum ==i?"active":"";
+                 str +="<li class='page-item "+active+"'><a class='page-link' href='"+i+"'>"+i+"</a></li>"
+                 }
+              if(next){
+                 str +="<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>NEXT</a></li>"
+              }
+              str +="</ul></div>"
+              console.log(str)
+              socialPageFooter.html(str)
+           }
+		   socialPageFooter.on("click","li a",function(e){
+               e.preventDefault();
+               console.log("page click");
+               var targetPageNum =$(this).attr("href");
+               console.log("targetPageNum:"+targetPageNum);
+               pageNum = targetPageNum;
+               showList(pageNum);
+            });
+		 
 	/* 파일 업로드 영역  */
 	$("button[type='submit']").on("click",function(e){
 		
@@ -586,6 +656,8 @@ $(document).ready(function() {
        var userNum ='<c:out value="${userpage.userNum}"/>';
       $.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){
       
+    	  
+    	  
       console.log("ARRAY"+ arr);
       var str=''
           $(arr).each(function(i,obj){
@@ -614,6 +686,9 @@ $(document).ready(function() {
                })
                $(".viewResult").html(str);
       }); //eng json
+      
+                        
+      
      
       
       
