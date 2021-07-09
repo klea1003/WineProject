@@ -2,10 +2,12 @@ package org.wine.service;
 
 import java.util.List;
 
+import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
-import org.wine.domain.UserVO;
+
 
 public interface SocialService {
 		
@@ -23,5 +25,7 @@ public interface SocialService {
 		
 		public List<SocialListVO> followerList(Long userFollowingId);
 		
-		public List<SocialReviewVO> followingReviewList(Long userFollowingId);
+		public List<SocialReviewVO> followingReviewList(SocialCriteriaReview crire, Long userFollowingId);
+		
+		public SocialPageDTO followingReviewListPaging(SocialCriteriaReview crire,Long userNum);
 }
