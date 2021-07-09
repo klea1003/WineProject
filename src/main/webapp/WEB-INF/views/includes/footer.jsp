@@ -28,11 +28,11 @@
                     </div>
                     
                     <div class="col-auto">
-                        <a class="link-dark small" href="/wine/privacy">Privacy</a>
+                        <a class="link-dark small" href="/footer/privacy">Privacy</a>
                         <span class="text-dark mx-1">&middot;</span>
-                        <a class="link-dark small" href="/wine/terms">Terms</a>
+                        <a class="link-dark small" href="/footer/terms">Terms</a>
                         <span class="text-dark mx-1">&middot;</span>
-                        <a class="link-dark small" href="/wine/contact">Contact</a>
+                        <a class="link-dark small" href="/footer/contact">Contact</a>
                     </div>
                 </div>
             </div>
