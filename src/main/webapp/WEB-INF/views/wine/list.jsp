@@ -475,12 +475,23 @@ input[type=radio]{
 			showWineList();
 		});
 		
+		$(".check_box").on("click", function(e) {
+			console.log('click checkbox btn');
+			
+			wineDiv.html("");	// to empty
+			actionForm.find("input[name='pageNum']").val("1");
+			wineService.requestTotalPageNum();
+			
+			showWineList();
+		});
+		
+		
 
 		$( function() {
 			$( "#price-range" ).slider({
 				range: true,
 				min: 0,
-				max: 100000,
+				max: 200000,
 				step: 1000,
 				values: [ <c:out value="${winePriceMin}" />, <c:out value="${winePriceMax}" /> ],
 				slide: function( event, ui ) {

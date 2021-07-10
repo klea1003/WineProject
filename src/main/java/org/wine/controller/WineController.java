@@ -77,8 +77,8 @@ public class WineController {
 			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
 			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
 			@RequestParam(value="keyword", required=false) String wineKeyword,
-			@RequestParam(value="price_min", required=false) String winePriceMin,
-			@RequestParam(value="price_max", required=false) String winePriceMax,			
+			@RequestParam(value="wine_price_min", required=false) String winePriceMin,
+			@RequestParam(value="wine_price_max", required=false) String winePriceMax,			
 			@RequestParam(value="rating", required=false) String wineRating,
 			Model model
 		) {
@@ -155,9 +155,9 @@ public class WineController {
 		log.info("requestWineList priceMax: " + winePriceMax);
 		log.info("requestWineList wineKeyword: " + wineKeyword);
 		
-		int wineRatingInt = 2;
+		int wineRatingInt = 5;
 		if (wineRating == null) {
-			wineRatingInt = 2;
+			wineRatingInt = 5;
 		} else {
 			wineRatingInt = Integer.parseInt(wineRating);
 		}
@@ -188,24 +188,24 @@ public class WineController {
 			@RequestParam(value="wineRating", required=false) String wineRating,
 			@RequestParam(value= "priceMin") String winePriceMin,
 			@RequestParam(value= "priceMax") String winePriceMax,
-			@RequestParam(value="wineKeyword") String wineKeyword
+			@RequestParam(value="wineKeyword", required=false) String wineKeyword
 			) {
 		
 		CriteriaWine cri = new CriteriaWine();
 		
-		log.info("requestWineList valueArr: " + wineTypeArr);
-		log.info("requestWineList valueArr: " + wineGrapeArr);
-		log.info("requestWineList valueArr: " + wineRegionArr);
-		log.info("requestWineList valueArr: " + wineCountryArr);
-		log.info("requestWineList valueArr: " + wineStyleArr);
-		log.info("requestWineList valueArr: " + wineRating);
-		log.info("requestWineList priceMin: " + winePriceMin);
-		log.info("requestWineList priceMax: " + winePriceMax);
-		log.info("requestWineList wineKeyword: " + wineKeyword);
+		log.info("getTotalPageNum valueArr: " + wineTypeArr);
+		log.info("getTotalPageNum valueArr: " + wineGrapeArr);
+		log.info("getTotalPageNum valueArr: " + wineRegionArr);
+		log.info("getTotalPageNum valueArr: " + wineCountryArr);
+		log.info("getTotalPageNum valueArr: " + wineStyleArr);
+		log.info("getTotalPageNum valueArr: " + wineRating);
+		log.info("getTotalPageNum priceMin: " + winePriceMin);
+		log.info("getTotalPageNum priceMax: " + winePriceMax);
+		log.info("getTotalPageNum wineKeyword: " + wineKeyword);
 		
-		int wineRatingInt = 1;
+		int wineRatingInt = 5;
 		if (wineRating == null) {
-			wineRatingInt = 1;
+			wineRatingInt = 5;
 		} else {
 			wineRatingInt = Integer.parseInt(wineRating);
 		}
@@ -253,27 +253,6 @@ public class WineController {
 		
 		model.addAttribute("review_list", reviewSerivce.getList(cri));
 		
-	}
-	
-	@GetMapping("/privacy")
-	public void footerPrivacy () {
-		
-		log.info("footer privacy 페이지");
-		
-	}
-	
-	@GetMapping("/terms")
-	public void footerTerms () {
-		
-		log.info("footer Terms 페이지");
-		
-	}
-	
-	@GetMapping("/contact")
-	private void footerContact() {
-		
-		log.info("footer contact 페이지");
-
 	}
 	
 	
