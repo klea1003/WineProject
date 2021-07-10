@@ -29,10 +29,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.ProfileVO;
 import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
+import org.wine.domain.pageWineDTO;
 import org.wine.service.SocialService;
 import org.wine.service.UserService;
 
@@ -114,6 +116,11 @@ public class UserController {
 		
 		model.addAttribute("Socialreviewpaging",socialservice.followingReviewListPaging(crire,userNum));
 		
+		int total = socialservice.getCountByuserNum(userNum);
+		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageReviewMaker",new SocialPageDTO(crire,total)); 
 	}
 	
 	@PostMapping({ "/userpage" })
