@@ -222,9 +222,9 @@ $(document).ready(function(e) {
 					<form role="form" action="/board/register" method="post" autocomplete="off">
 					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
 					<div class="form-group">
-						<label>Title</label><input class="form-control" name='title'>
-					</div>
-					<div class="form-group">
+						<h5 class="fw-bold">Title</h5><input class="form-control" name='title'>
+					</div><br>
+					<div class="form-group mb-3">
                      <select name='boardType'>
                         <option value="Q&A"
                         <c:out value="Q&A"/>>Q&A</option>
@@ -235,23 +235,23 @@ $(document).ready(function(e) {
                      </select> 
                      </div>
 					
-					 <div class='form-group'>
-                  		<label>Content</label>
-                  			<textarea class='form-control' rows='3' name='content'></textarea>
+					 <div class='form-group fw-bold mb-3'>
+                  		<h5 class="fw-bold">Content</h5>
+                  			<textarea class='form-control' rows='8' name='content'></textarea>
                		 </div>
 					
-					<div class="form-group">
-						<label>Writer</label>
+					<div class="form-group fw-bold mb-3">
+						<h5 class="fw-bold">Writer</h5>
 						<input class='form-control' name='writer'><!--  value=
 						'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
 
 					</div>
 					
 					<!-- File attach -->
-					<div class="row">
+					<div class="row mb-3">
 						<div class="col-lg-12">
 							<div class="panel panel-default">
-								<div class="panel-heading">File Attach</div>
+								<h5 class="fw-bold">File Attach</h5>
 								<!-- /.panel-heading -->
 								<div class="panel-body">
 									<div class="form-group uploadDiv">

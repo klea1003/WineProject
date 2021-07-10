@@ -121,7 +121,7 @@
 					      <th scope="col">종류</th>
 					      <th scope="col">작성자</th>
 					      <th scope="col">작성일</th>
-					      <th scope="col"><i class="bi bi-hand-thumbs-up"></i></th>
+					      <th scope="col">좋아요 <i class="bi bi-hand-thumbs-up"></i></th>
 						 </tr>
 
 					</thead>
