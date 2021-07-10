@@ -98,6 +98,13 @@ public class SocialServiceImpl implements SocialService {
 				mapper.followingReviewListPaging(crire,userNum) );
 	}
 
+
+	@Override
+	public int getCountByuserNum(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getCountByuserNum(userNum);
+	}
+
 }
 
 
