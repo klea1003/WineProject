@@ -94,7 +94,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
   background-color: #990000;
   border-radius: 35px;
   border: 1px solid rgb(153, 0, 0, 0.75);   
-  margin-right: 15px;  
+  margin-right: 5px;  
  
 }
  
@@ -106,7 +106,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	<header class="bg py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="bg-white text-dark">
-				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>				
+				<h1 class="display-4 fw-bolder">Top Lists in your area</h1><br>				
 				
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 				  <div>
