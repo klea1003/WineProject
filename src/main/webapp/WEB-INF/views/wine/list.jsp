@@ -48,7 +48,7 @@
 }
 
 #price-range { 
-	width: 400px; 
+	width: 350px; 
 	margin: 10px;
 } 
 .ui-slider-range  { 
@@ -74,6 +74,49 @@ input[type=radio]{
 
 }
 
+.btn-outline-danger {
+ 
+  color: #990000;
+  background-color: #fff;
+  border-radius: 35px;
+  border: 1px solid rgb(153, 0, 0, 0.75);   
+  font-size: 15px;
+  line-height: normal;
+  font-weight: 400;
+  justify-content: center;
+  text-decoration: none;
+  min-width: 70px;
+  padding: 8px;
+
+ 
+}
+
+.btn-outline-dark {
+	
+  border-radius: 35px;
+  border: 1px solid rgb(0, 0, 0);
+  font-size: 15px;   
+
+}
+
+.card-title a {
+	
+	color: #000000;
+	text-decoration: none;
+	
+}
+
+.wine-card-list {
+
+	border: 1px solid #d9d9d9;
+	box-shadow: 0 0 7px 0 rgb(0 0 0 / 6%);
+    background: #fff;
+    border-radius: 4px;
+	padding-top: 10px;
+		
+}
+
+
 </style>
 
 <body>
@@ -89,10 +132,10 @@ input[type=radio]{
 	<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
 		
 	<!-- Searching Wine Types -->
-	<h3>Wine Type</h3>	
+	<h3 class="fw-bold">Wine Type</h3><br>		
 	
 	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-		<div>
+		<div class="mt-3 mb-5">
 		<c:forEach items="${wineTypeList}" var="winePropertyDTO" varStatus="status" begin="0" step="1" end="2">
 				<input type="checkbox" class="btn-check" name="wine_type" id="<c:out value="wine_type${status.index}"/>"
 				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
@@ -112,15 +155,12 @@ input[type=radio]{
 		</c:forEach>
 		</div>
 	</div>
-	
-	
+		
 	<!-- Price Range -->
-	<h3>Price Range</h3>	
-	<div class="col-3">
+	<h3 class="fw-bold">Price Range</h3><br>		
+	<div class="col-3 mt-3 mb-5">
 		<p>
-			<label for="amount">Price range:</label> <input type="text"
-				id="amount" readonly
-				style="border: 0; color: #990000; font-weight: bold;">
+			<input type="text" id="amount" readonly style="border: 0; color: #990000; font-weight: bold;">
 		</p>
 		<input type="hidden" id="price_min" value="10000">
 		<input type="hidden" id="price_max" value="30000">
@@ -129,7 +169,7 @@ input[type=radio]{
 	
 	
 	<!-- Searching User Rating -->
-	<h3>User Rating</h3>	
+	<h3 class="fw-bold">User Rating</h3><br>		
 	<div> 
 		<label><input type="radio" class="check_box" name="wine_rating" value="1" <c:if test='${wine_rating eq 1}'>checked</c:if>/>
 		<span style="color:rgb(156,22,49)" ><i class="fa fa-xl fa-star"></i></span>
@@ -137,8 +177,7 @@ input[type=radio]{
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
-		<strong> 4.5 </strong>
-		<Strong>Rare & extraordinary</Strong>
+		<strong> 4.5 Rare & extraordinary</strong>
 		</label>
 	</div>
 	
@@ -149,8 +188,7 @@ input[type=radio]{
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
-		<strong> 4.0 </strong>
-		<Strong>Very good stuff</Strong>
+		<strong> 4.0 Very good stuff</strong>
 		</label>
 	</div>
 	
@@ -161,8 +199,7 @@ input[type=radio]{
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star-half"></i></span>
 		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
-		<strong> 3.5 </strong>
-		<Strong>Good stuff</Strong>
+		<strong> 3.5 Good stuff</strong>
 		</label>
 	</div>
 	
@@ -173,12 +210,11 @@ input[type=radio]{
 		<span style="color:rgb(156,22,49)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
 		<span style="color:rgb(1,1,1, 0.3)"><i class="fa fa-xl fa-star"></i></span>
-		<strong> 3.0 </strong>
-		<Strong>Average</Strong>
+		<strong> 3.0 Average</strong>
 		</label>
 	</div>
 	
-	<div> 
+	<div class="mb-5"> 
 		<label><input type="radio" class="check_box" name="wine_rating" value="5" <c:if test='${wine_rating eq 5}'>checked</c:if>/>
 		<Strong>Any rating</Strong>
 		</label>
@@ -186,9 +222,9 @@ input[type=radio]{
 	
 	
 	<!-- Searching Grapes -->
-	<h3>Wine Grapes</h3>	
+	<h3 class="fw-bold">Wine Grapes</h3><br>		
 	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-	<div>
+	<div class="mt-3 mb-5">
 		<c:forEach items="${wineGrapeList}" var="winePropertyDTO" varStatus="status" begin="0" end="2" step="1">
 			<input type="checkbox" class="btn-check" name="grapes" id="<c:out value="grapes${status.index}"/>" 
 				value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
@@ -219,12 +255,11 @@ input[type=radio]{
 		</c:forEach>
 	</div>
 	</div>
-	<br>
 	
 	<!-- Searching Regions -->
-	<h3>Wine Regions</h3>	
+	<h3 class="fw-bold">Wine Regions</h3><br>		
 	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-	<div>
+	<div class="mt-3 mb-5">
 		<c:forEach items="${wineRegionList}" var="winePropertyDTO" varStatus="status" begin="0" end="2" step="1">
 			<input type="checkbox" class="btn-check" name="region" id="<c:out value="region${status.index}"/>" 
 			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
@@ -244,13 +279,13 @@ input[type=radio]{
 			</label>			
 		</c:forEach>
 	</div>
-	</div><br>
+	</div>
 	
 	<!-- Searching Countries -->
-	<h3>Wine Countries</h3>
+	<h3 class="fw-bold">Wine Countries</h3><br>	
 	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">	
-	<div>
-		<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="0" end="4" step="1">
+	<div class="mt-3 mb-5">
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="0" end="3" step="1">
 			<input type="checkbox" class="btn-check" name="country" id="<c:out value="country${status.index}"/>"
 			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
@@ -258,9 +293,9 @@ input[type=radio]{
 				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
-		<br> <br>
+		<br><br>
 		
-				<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="5" end="9" step="1">
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="4" end="7" step="1">
 			<input type="checkbox" class="btn-check" name="country" id="<c:out value="country${status.index}"/>"
 			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
 				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
@@ -268,13 +303,24 @@ input[type=radio]{
 				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
 			</label>			
 		</c:forEach>
+		<br><br>
+		
+		<c:forEach items="${wineCountryList}" var="winePropertyDTO" varStatus="status" begin="8" end="10" step="1">
+			<input type="checkbox" class="btn-check" name="country" id="<c:out value="country${status.index}"/>"
+			value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
+				<c:if test='${winePropertyDTO.flag eq true}'>checked</c:if>/>
+			<label class="btn btn-outline-danger btn-sm" for="<c:out value="country${status.index}"/>">
+				<c:out value="${winePropertyDTO.wineProperty.displayText}" />
+			</label>			
+		</c:forEach>
+		
 	</div>
-	</div><br>
+	</div>
 	
 	<!-- Searching Wine Style -->
-	<h3>Wine Style</h3>	
+	<h3 class="fw-bold">Wine Style</h3><br>	
 	<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-	<div>
+	<div class="mt-3 mb-5">
 		<c:forEach items="${wineStyleList}" var="winePropertyDTO" varStatus="status" begin="0" end="1" step="1">
 			<input type="checkbox" class="btn-check" name="wine_style" id="<c:out value="wine_style${status.index}"/>"
 			 value="<c:out value="${winePropertyDTO.wineProperty.keyValue}" />"
@@ -302,7 +348,7 @@ input[type=radio]{
 			</label>			
 		</c:forEach>
 	</div>
-	</div><br>
+	</div>
 	</div>
 	
 	
@@ -382,7 +428,7 @@ input[type=radio]{
 					for(var i = 0, len = list.length||0; i < len; i++) {
 						
 						str += "<div class='container'>";				
-						str += "<div class='row mb-5'>"
+						str += "<div class='row mb-2'>"
 						
 						str += "<div class='col-3 bg-light'>"
 						str += "<img class='card-img-top' src='http://klea-home.iptime.org:8081/" + list[i].imageName + "' alt='Card image' style='width : 80px; height: 280px; ' />"
@@ -400,10 +446,10 @@ input[type=radio]{
 						str += "<h5> ￦ " + list[i].price  + "</h5>"
 						
 						str += "<div class='mt-5'>"
-						str += "<a href='/seller/list' class='btn btn-outline-danger btn-lg'>"
+						str += "<a href='/seller/list' class='btn btn-outline-danger'>"
 						str += "view shops"
 						str += "</a>"
-						str += "&nbsp;<button type='button' class='btn btn-outline-dark btn-lg'>"
+						str += "&nbsp;<button type='button' class='btn btn-outline-dark'>"
 						str += "Wish"
 						str += "</button>"
 						str += "</div>"

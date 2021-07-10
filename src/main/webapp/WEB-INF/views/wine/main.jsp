@@ -57,9 +57,16 @@
 	margin: 6px 2px !important;
 }
 
-.welcome-repeat {
-	background-image: url("/resources/images/wineMainImg.jpg");
-	background-repeat: repeat repeat;
+.wineMainImg{
+	
+	background: url("/resources/images/wineMainImg.png");
+	height: 400px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    color: #fff;
+
 }
 
 /* Range Slider CSS*/
@@ -80,6 +87,16 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
     font-weight: normal;
     color: #990000;
 }
+
+.btn-outline-danger {
+ 
+  color: #fff;
+  background-color: #990000;
+  border-radius: 35px;
+  border: 1px solid rgb(153, 0, 0, 0.75);   
+  margin-right: 15px;  
+ 
+}
  
 </style>
 
@@ -92,17 +109,26 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				<h1 class="display-4 fw-bolder">Top Lists in your area</h1>				
 				
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" checked>
 				  <label class="btn btn-outline-danger" for="1">20000</label>
+				  </div>
 				
+				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off">
 				  <label class="btn btn-outline-danger" for="2">40000</label>
+				  </div>
 				
+				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off">
 				  <label class="btn btn-outline-danger" for="3">60000</label>
+				  </div>
 				  
+				  
+				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off">
 				  <label class="btn btn-outline-danger" for="4">80000</label>
+				  </div>
 				</div>
 				
 			</div>
@@ -125,11 +151,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 	</section>
 	
 	<!-- wineMainImg -->
-	<div class="col mb-5 welcome-repeat">
-		<img src="/resources/images/wineMainImg.jpg" alt="Responsive image"
-			style="height: 400px;">
+	<div class="col mb-5">
+		<h1 class="wineMainImg fw-bold">Discover the Right Wine</h1>
 	</div>
-	
+
 	<!-- range area -->
 	<div class="container mt-2 mb-5">
 		

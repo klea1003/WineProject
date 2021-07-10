@@ -21,7 +21,7 @@
 					<p>
 						<span>수령인 : </span>${orderView.pickUpName}</p>
 					<p>
-						<span>수령매장 : </span><a href="http://localhost:8080/seller/get?sellerNum=${orderView.sellerNum}">(${orderView.sellerId })</a>
+						<span>수령매장 : </span><a href="/seller/get?sellerNum=${orderView.sellerNum}">(${orderView.sellerId })</a>
 					</p>
 					<p>
 						<span>총 주문금액 : </span>

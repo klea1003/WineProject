@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
@@ -80,9 +82,27 @@ public class SocialServiceImpl implements SocialService {
 
 
 	@Override
-	public List<SocialReviewVO> followingReviewList(Long userFollowingId) {
+	public List<SocialReviewVO> followingReviewList(SocialCriteriaReview crire,Long userFollowingId) {
 		// TODO Auto-generated method stub
-		return mapper.followingReviewList(userFollowingId);
+		return mapper.followingReviewListPaging(crire,userFollowingId);
+	}
+
+
+	@Override
+	public SocialPageDTO followingReviewListPaging(SocialCriteriaReview crire, Long userNum) {
+		// TODO Auto-generated method stub
+		
+		log.info("get List with crire : " + crire);
+		return new SocialPageDTO(
+				mapper.getCountByuserNum(userNum),
+				mapper.followingReviewListPaging(crire,userNum) );
+	}
+
+
+	@Override
+	public int getCountByuserNum(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getCountByuserNum(userNum);
 	}
 
 }

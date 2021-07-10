@@ -1,10 +1,15 @@
 package org.wine.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wine.domain.CriteriaReview;
+import org.wine.domain.SocialCriteriaReview;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.UserVO;
 import org.wine.mapper.UserMapper;
@@ -47,5 +52,16 @@ public class SocialMapperTest {
 	public void testgetCountByFollowing() {
 		
 	mapper.getCountByFollowing(9L);
+	}
+	
+	
+	@Test
+	public void testPaging() {
+		SocialCriteriaReview crire = new SocialCriteriaReview(2, 10);
+		//페이지 개수
+		
+		List<SocialReviewVO> list= mapper.followingReviewListPaging(crire, 1L);
+		list.forEach(review -> log.info(review));
+		
 	}
 }

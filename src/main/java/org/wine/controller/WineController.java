@@ -255,26 +255,5 @@ public class WineController {
 		
 	}
 	
-	@GetMapping("/privacy")
-	public void footerPrivacy () {
-		
-		log.info("footer privacy 페이지");
-		
-	}
-	
-	@GetMapping("/terms")
-	public void footerTerms () {
-		
-		log.info("footer Terms 페이지");
-		
-	}
-	
-	@GetMapping("/contact")
-	private void footerContact() {
-		
-		log.info("footer contact 페이지");
-
-	}
-	
 	
 }

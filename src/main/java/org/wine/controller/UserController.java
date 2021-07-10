@@ -27,11 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.ProfileVO;
+import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
+import org.wine.domain.pageWineDTO;
 import org.wine.service.SocialService;
 import org.wine.service.UserService;
 
@@ -63,7 +66,7 @@ public class UserController {
 	}
 	
 	@GetMapping({ "/userpage" })
-	public void get(HttpServletRequest request,@RequestParam("userNum") Long userNum ,UserVO user,Model model) {
+	public void get(HttpServletRequest request,@RequestParam("userNum") Long userNum ,SocialCriteriaReview crire,UserVO user,Model model) {
 
 	    HttpSession session = request.getSession();
 
@@ -85,7 +88,7 @@ public class UserController {
 		
 		model.addAttribute("followerlist",followerlist );  //팔로워 리스트
 		
-		List<SocialReviewVO> socialreviewlist = socialservice.followingReviewList(userNum);
+		List<SocialReviewVO> socialreviewlist = socialservice.followingReviewList(crire, userNum);
 		
 		log.info("socialreviewlist : " + socialreviewlist);
 		
@@ -110,6 +113,14 @@ public class UserController {
 		log.info("wishList : " + list);
 		
 		model.addAttribute("wish",service.getwishList(userNum)); //해당 유저 위시리스트
+		
+		model.addAttribute("Socialreviewpaging",socialservice.followingReviewListPaging(crire,userNum));
+		
+		int total = socialservice.getCountByuserNum(userNum);
+		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageReviewMaker",new SocialPageDTO(crire,total)); 
 	}
 	
 	@PostMapping({ "/userpage" })

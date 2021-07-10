@@ -1,19 +1,21 @@
 package org.wine.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.wine.domain.SocialCriteriaReview;
+import org.wine.domain.SocialPageDTO;
+import org.wine.domain.SocialReviewVO;
 import org.wine.domain.SocialVO;
 import org.wine.service.SocialService;
 
@@ -48,5 +50,17 @@ public class SocialController {
 	  }
 	  
 	
-	
+	  @GetMapping(value="/pages/{userNum}/{page}", 
+			  produces= {MediaType.APPLICATION_XML_VALUE, 
+					  MediaType.APPLICATION_JSON_VALUE})
+	   public ResponseEntity<SocialPageDTO> getList(@PathVariable("page")int page, @PathVariable("userNum")Long userNum) {
+	      
+	      SocialCriteriaReview cri=new SocialCriteriaReview(page, 10);
+	      
+	      log.info("cri: "+cri);
+	      
+	      return new ResponseEntity<>(service.followingReviewListPaging(cri, userNum), 
+	    		  HttpStatus.OK);
+	   }
+	   
 }

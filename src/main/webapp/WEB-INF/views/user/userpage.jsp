@@ -7,14 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너와, IN</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
 <script type="text/javascript"	src="/resources/wine_bootstrap/js/social.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-
-<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
-
 
 
 <style type="text/css">
@@ -306,33 +299,9 @@ p.card-text {
 								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h5>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
-							
-								<c:forEach items="${socialreviewlist}" var="socialreview" >
-								
-									<div class="card m-4" style="height:410px; width: 94%;">  <!-- 내용들이 들어가는 영역 -->
-									
-										<div class="small text-muted" style="padding-left: 2%;"> <!-- 팔로잉한 이름과 작성일 -->
-											<div ><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-												 <h5><c:out value="${socialreview.userRealName }"/></h5></a>
-											</div>
-											<c:out value="${socialreview.reviewDate }"/>
-										</div> 
-										
-										<div> <!-- 해당 리뷰 와인 사진과 리뷰 내용 -->
-											<div style="height: 350px; width:23%; margin-left:2%; float:left">
-												<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="350" width="150">
-												</a>
-											</div>
-											<div class="card bg-light p-2" style="height: 350px; width:73%; margin-right:2%; float:left">
-												<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-												<h5><c:out value="${socialreview.reviewContent }"/></h5></a>
-											</div>
-										</div>
-																			
-									</div>							
-								</c:forEach>
-							</div>						
+							<div class="modal-body followingreview">
+					
+							</div>			
 						</div>
 					</div>
 				</div>	
@@ -383,50 +352,54 @@ p.card-text {
             </c:if>             
 		</div>
 	</section>
- <script type="text/javascript">
+ 	<form id="actionForm" action="/user/userpage" method="get">
+		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
+		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
+		<input type="hidden" name="totalPageNum" value="${pageReviewMaker.totalPageNum}">
+	</form>
+<%@include file="../includes/footer.jsp"%>
+</body>
+<script type="text/javascript">
 $(document).ready(function() {
 	
 	$("#modal_show_followingList").click(function() {
-     	$("#followingModal").modal("show");
+    	$("#followingModal").modal("show");
+	});
      
-     });
-      
-     $("#close_following").click(function() {
-         $("#followingModal").modal("hide");
-     });
+    $("#close_following").click(function() {
+        $("#followingModal").modal("hide");
+	});
 
-     $("#modal_show_followerList").click(function() {
-      	$("#followerModal").modal("show");
-      
-      });
-       
-      $("#close_follower").click(function() {
-          $("#followerModal").modal("hide");
-      });
-      
-      $("#modal_show_reviewList").click(function() {
-    	  	$("#reviewModal").modal("show");
+    $("#modal_show_followerList").click(function() {
+     	$("#followerModal").modal("show");
+	});
+
+	$("#close_follower").click(function() {
+		$("#followerModal").modal("hide");
+	});
+     
+	$("#modal_show_reviewList").click(function() {
+		$("#reviewModal").modal("show");
+	});
         
-        });
-         
-        $("#close_review").click(function() {
-            $("#reviewModal").modal("hide");
-        });
+	$("#close_review").click(function() {
+		$("#reviewModal").modal("hide");
+	});
   	
-	
 	var followingBtn = $("#followingBtn");
+
 	var unfollowBtn = $("#unfollowBtn");
 	
 	followingBtn.on("click", function(e){
 		var social = {
 			userFollowingId:"${userpage.userNum }",
 			userFollowerId:"${user.userNum}"
-			};
+		};
 		
 		if(${user != null}){
 			if("${user.userId}" != "${userpage.userId }"){
 				socialService.add(social,function(result){
-					location.reload();
+				location.reload();
 				})
 			}else{
 				alert('자기 자신을 팔로잉 할 수 없습니다.')
@@ -436,9 +409,7 @@ $(document).ready(function() {
 			location.reload();
 		}
 		
-		
 	})
-	
 	
 	unfollowBtn.on("click", function(e){
 		var social = {
@@ -446,20 +417,110 @@ $(document).ready(function() {
 			userFollowerId:"${user.userNum}"
 			};
 		if("${user.userId}" != "${userpage.userId }"){
-		socialService.remove(social,function(result){
+			socialService.remove(social,function(result){
 			location.reload();
-		})
+			})
 		}else{
 			alert('자기 자신을 팔로잉 할수 없습니다.')
 		}
 	})
 	
+	var userNumValue = '<c:out value="${userpage.userNum}"/>'
+	var ratingUL = $(".followingreview");
+	
+	showList(1);	
+	
+	function getListRating(param, callback, error) {
+		var userNum = param.userNum;
+		var page = param.page || 1;
+		
+		$.getJSON("/social/pages/" + userNum + "/" + page + ".json",
+			function(data) {
+					
+				if (callback) {
+				   callback(data.socialReviewCnt, data.list);
+				}
+			}).fail(function(xhr, status, err) {
+		if (error) {
+			error();
+			}
+		});
+	} 
+	
+	function showList(page) {
+		
+		getListRating({userNum :userNumValue,page : page|| 1},			
+		
+		function(socialReviewCnt, list) {
+			console.log("socialReviewCnt: "+ socialReviewCnt)
+			console.log("list: "+list)
+	      		
+			if(page==-1) {
+				pageNum=Math.ceil(socialReviewCnt/10.0)
+				showList(pageNum)
+				return
+	        } 
+			var str = "";
+	            
+			if (list == null|| list.length == 0) {
+				return;
+			}
+			for (var i = 0, len = list.length || 0; i < len; i++) {
+				str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
+				str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+				str +="<h5>"+list[i].userRealName+"</h5></a>";
+				str +="</div>";
+				str +=""+list[i].reviewDate+"";
+				str +="</div>";
+				 
+				str += "<div>";
+				str += "<div style='height: 350px; width:23%; margin-left:2%; float:left'>";
+				str += "<a href='/wine/get?wno="+list[i].wineNum+"'>";
+				str +=" <img src='http://klea-home.iptime.org:8081/" +list[i].wineImageName+ "'  height='350' width='150'>";
+	           	str += "</a>";
+				str += "</div>";
+				str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
+	           	str += "<a class='link-dark text-decoration-none' href='/wine/get?wno="+list[i].wineNum+"'> "
+	           	str += "<h5>"+list[i].reviewContent+"</h5></a> ";
+	           	str += "</div>";
+	            str += "</div>";
+	            str += "</div>";
+			}
+			ratingUL.append(str);
+		
+		});
+			
+	}// end showList
+	var actionForm = $("#actionForm");
+		 
+	$('#reviewModal').scroll(function() {
+	
+		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+			
+			console.log("modaltest");
+			
+			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+			var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
+			
+			if(currentPageNum +1 <= totalPageNum){			
+				actionForm.find("input[name='pageNum']").val(currentPageNum +1);
+				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+				
+				showList(currentPageNum)
+				if(currentPageNum == totalPageNum){
+					 $('.pagenext').css('display', 'none');
+					
+				}
+			}
+		}
+	})
+	 
 	/* 파일 업로드 영역  */
 	$("button[type='submit']").on("click",function(e){
 		
-	e.preventDefault()
+		e.preventDefault()
 		
-	console.log("submit clocked")
+		console.log("submit clocked")
 	
 	});
 	
@@ -471,200 +532,199 @@ $(document).ready(function() {
     
 	var cloneObj = $(".uploadDiv").clone()
 	
-      function checkExtension(fileName, fileSize) {
-         if (fileSize >= maxSize) {
-            alert("파일 크기 초과")
-            return false
-            }
-         if (!regex.test(fileName)) {
-            alert("jpg, png, jpeg, svg 이미지만 가능합니다.")
-            return false
-            }
-         return true;
-      }
+	function checkExtension(fileName, fileSize) {
+    	if (fileSize >= maxSize) {
+			alert("파일 크기 초과")
+			return false
+		}
+		if (!regex.test(fileName)) {
+			alert("jpg, png, jpeg, svg 이미지만 가능합니다.")
+			return false
+		}
+		return true;
+	}
 	
-	 $("input[type='file']").change(function(e){
-         var formData = new FormData()
-         var inputFile = $('input[name="uploadFile"]')
-         var files = inputFile[0].files
-         console.log(files);
-         for (var i = 0; i < files.length; i++) {
-            if (!checkExtension(files[i].name,   files[i].size)) {
-               return false;
-               }
-         formData.append("uploadFile",files[i])
-         }
-         $.ajax({
-             url : '/userupload/uploadAjaxAction',
-             processData : false, /* 전달한 데이터틑 query string으로 만들지 말것 */
-             contentType : false,
-             data : formData,
-             type : 'POST',
-             dataType : 'json',
-             success : function(result) {
-                console.log(result)
-                showUploadedFile(result)
-       
-                 }
-          }); //$.ajax
-	 }); //input change
+	$("input[type='file']").change(function(e){
+		var formData = new FormData()
+		var inputFile = $('input[name="uploadFile"]')
+		var files = inputFile[0].files
+		console.log(files);
+		for (var i = 0; i < files.length; i++) {
+			if (!checkExtension(files[i].name,   files[i].size)) {
+				return false;
+			}
+			formData.append("uploadFile",files[i])
+		}
+		$.ajax({
+			url : '/userupload/uploadAjaxAction',
+			processData : false, /* 전달한 데이터틑 query string으로 만들지 말것 */
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			dataType : 'json',
+			success : function(result) {
+				console.log(result)
+				showUploadedFile(result)
+			}
+		}); //$.ajax
+	}); //input change
+  
+	function showUploadedFile(uploadResultArr) {
+		if(!uploadResultArr||uploadResultArr.length==0){
+			return
+		}
+		var uploadUL=$(".uploadResult ul")
+		$('#insertimage').css('display', 'block');
+		$('.uploadResult').css('display', 'none');
      
-	  function showUploadedFile(uploadResultArr) {
-	         if(!uploadResultArr||uploadResultArr.length==0){
-	        	 return
-	        	 }
-	         var uploadUL=$(".uploadResult ul")
-			  $('#insertimage').css('display', 'block');
-	          $('.uploadResult').css('display', 'none');
-	         
-	         var str = ''
-	         $(uploadResultArr).each(function(i, obj) {
-	            if (obj.image) {
-	            	var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);	                         
-	             	str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
-	                str +="<span>" +obj.fileName+ "</span>"
-	                str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
-	                str +="<img src='/userupload/display?fileName="+fileCallPath+"'>"
-	                str +="</div></li>" 
-	            } else {
-	            	var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
-	                var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-	                str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
-	                str +="<span>" + obj.fileName + "</span>"
-	                   str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
-	                   str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
-	                   str +="</div></li>"
-	            }
-	         })
-	         uploadUL.append(str)	
-	   }
+		var str = ''
+		$(uploadResultArr).each(function(i, obj) {
+			if (obj.image) {
+				var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);	                         
+				str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
+				str +="<span>" +obj.fileName+ "</span>"
+				str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
+				str +="<img src='/userupload/display?fileName="+fileCallPath+"'>"
+				str +="</div></li>" 
+			} else {
+				var fileCallPath = encodeURIComponent(obj.uploadPath+ "/"+ obj.uuid+ "_"+ obj.fileName);
+				var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+				str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'><div>"
+				str +="<span>" + obj.fileName + "</span>"
+				str +="<button type='button' data-file=\""+fileCallPath+"\" data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"
+				str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
+				str +="</div></li>"
+			}
+		})
+       uploadUL.append(str)	
+ 	}
 	 
-	  $(".uploadResult").on("click", "button", function(e){
-		  console.log("delete file");    
-		  var targetFile=$(this).data("file")
-	         var type=$(this).data("type")
-	         var targetLi=$(this).closest("li")
-	         console.log(targetFile)
-	         $.ajax({
-	            url:'/userupload/deleteFile',
-	            data: {fileName: targetFile, type: type},
-	            dataType: 'text',
-	            type: 'post',
-	            success: function(result){
-	               alert(result)
-	               targetLi.remove()   
-	            }
-	         })  // $ajax
-	      })
+	$(".uploadResult").on("click", "button", function(e){
+		console.log("delete file");    
+		var targetFile=$(this).data("file")
+		var type=$(this).data("type")
+		var targetLi=$(this).closest("li")
+		console.log(targetFile)
+		$.ajax({
+			url:'/userupload/deleteFile',
+			data: {fileName: targetFile, type: type},
+			dataType: 'text',
+			type: 'post',
+			success: function(result){
+				alert(result)
+				targetLi.remove()   
+			}
+		})  // $ajax
+	})
 
-	  var formObj=$("form[role='form']")
+	var formObj=$("form[role='form']")
          
-      $('#removeBtn').on("click",function(e){
-    	 	e.preventDefault();
-			var operation = $(this).data("oper");
-			console.log(operation);
-			if(operation ==='remove'){
-				formObj.attr("action","/user/imageremove");
-				}
-			formObj.submit();
-		});  	
-	  $("#insertimage").on("click",function(e){
-		     e.preventDefault()
-	         console.log("submit clocked")
-	         var str =""
-	         $(".uploadResult ul li").each(function(i, obj){
-	            var jobj=$(obj)
-	            console.dir(jobj)
-	           	str +="<input type='hidden' name='profileList["+i+"].userNum' value='${user.userNum}'>"
-	            str +="<input type='hidden' name='profileList["+i+"].profileFileName' value='"+jobj.data("filename")+"'>"
-	            str +="<input type='hidden' name='profileList["+i+"].profileUuid' value='"+jobj.data("uuid")+"'>"
-	            str +="<input type='hidden' name='profileList["+i+"].profileUploadPath' value='"+jobj.data("path")+"'>"
-	            str +="<input type='hidden' name='profileList["+i+"].profileFileType' value='"+jobj.data("type")+"'>"
-	         })
-	         formObj.append(str).submit()
-	      }) //파일 보내기
-       var userNum ='<c:out value="${userpage.userNum}"/>';
-      $.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){
-      
-      console.log("ARRAY"+ arr);
-      var str=''
-          $(arr).each(function(i,obj){
-        	  console.log("i"+ obj.profileUuid); 
-        	  if (obj.profileFileType) {
-                       var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
-                       str +="<c:if test='${user.userNum == userpage.userNum }'>"
-                       str +="<a href='#' class='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'> "
-                       str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'></a>"
-                       str += "<ul class='dropdown-menu text-small' aria-labelledby='dropdownUser1'>"
-                       str += "<li style='text-align: center;'><button type='button' onclick=document.all.uploadFile.click();><i class='bi bi-card-image'></i></button></li>"
-                       str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
-   	                   str +="</div></li></ul>"
-   	                   str +="</c:if>" 
-   	                   str +="<c:if test='${user.userNum != userpage.userNum }'>"
-   	                   str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'>"
-   	                   str +="</c:if>"
-                       console.log(obj.profileFileType)
-                    } else {
-                    	 str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
-      	                 str +="<span>" + obj.profileFileName + "</span>"
-       	                 str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
-       	                 str +="</div></li>"
-       	               console.log(obj.profileFileType)
-                    }
-               })
-               $(".viewResult").html(str);
-      }); //eng json
-     
-      
-      
+	$('#removeBtn').on("click",function(e){
+		e.preventDefault();
+		var operation = $(this).data("oper");
+		console.log(operation);
+		if(operation ==='remove'){
+			formObj.attr("action","/user/imageremove");
+		}
+		formObj.submit();
+	});  
+	
+	$("#insertimage").on("click",function(e){
+		e.preventDefault()
+		console.log("submit clocked")
+		var str =""
+		$(".uploadResult ul li").each(function(i, obj){
+			var jobj=$(obj)
+			console.dir(jobj)
+			str +="<input type='hidden' name='profileList["+i+"].userNum' value='${user.userNum}'>"
+			str +="<input type='hidden' name='profileList["+i+"].profileFileName' value='"+jobj.data("filename")+"'>"
+			str +="<input type='hidden' name='profileList["+i+"].profileUuid' value='"+jobj.data("uuid")+"'>"
+			str +="<input type='hidden' name='profileList["+i+"].profileUploadPath' value='"+jobj.data("path")+"'>"
+			str +="<input type='hidden' name='profileList["+i+"].profileFileType' value='"+jobj.data("type")+"'>"
+		})
+		formObj.append(str).submit()
+	}) //파일 보내기
+	
+	var userNum ='<c:out value="${userpage.userNum}"/>';
+	
+	$.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){	  
+		
+		console.log("ARRAY"+ arr);
+		
+		var str=''
+		
+		$(arr).each(function(i,obj){
+			console.log("i"+ obj.profileUuid); 
+			if (obj.profileFileType) {
+				var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
+				str +="<c:if test='${user.userNum == userpage.userNum }'>"
+				str +="<a href='#' class='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'> "
+				str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'></a>"
+				str += "<ul class='dropdown-menu text-small' aria-labelledby='dropdownUser1'>"
+				str += "<li style='text-align: center;'><button type='button' onclick=document.all.uploadFile.click();><i class='bi bi-card-image'></i></button></li>"
+				str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
+				str +="</div></li></ul>"
+				str +="</c:if>" 
+				str +="<c:if test='${user.userNum != userpage.userNum }'>"
+				str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'>"
+				str +="</c:if>"
+				console.log(obj.profileFileType)
+			} else {
+				str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
+				str +="<span>" + obj.profileFileName + "</span>"
+				str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
+				str +="</div></li>"
+				console.log(obj.profileFileType)
+			}
+		})
+		$(".viewResult").html(str);
+	}); //eng json
+        
 });  //document ready function
 
 const swiper = new Swiper('.swiper-container', {
-    //기본 셋팅
-    //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
-    direction: 'horizontal',
-    //한번에 보여지는 페이지 숫자
-    slidesPerView: 3,
-    //페이지와 페이지 사이의 간격
-    spaceBetween: 30,
-    //드레그 기능 true 사용가능 false 사용불가
-    debugger: false,
-    //마우스 휠기능 true 사용가능 false 사용불가
-    mousewheel: false,
-    //반복 기능 true 사용가능 false 사용불가
-    loop: true,
-    //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
-    centeredSlides: true,
-    // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
-    // effect: 'fade',
+	
+	//기본 셋팅
+	//방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
+	direction: 'horizontal',
+	//한번에 보여지는 페이지 숫자
+	slidesPerView: 3,
+	//페이지와 페이지 사이의 간격
+	spaceBetween: 30,
+	//드레그 기능 true 사용가능 false 사용불가
+	debugger: false,
+	//마우스 휠기능 true 사용가능 false 사용불가
+	mousewheel: false,
+	//반복 기능 true 사용가능 false 사용불가
+	loop: true,
+	//선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+	centeredSlides: true,
+	// 페이지 전환효과 slidesPerView효과와 같이 사용 불가
+	// effect: 'fade',
+	    
+	    
+	//자동 스크를링
+	autoplay: {
+		//시간 1000 이 1초
+		delay: 5000,
+		disableOnInteraction: false,
+	},
+	//페이징
+	pagination: {
+		//페이지 기능
+		el: '.swiper-pagination',
+		//클릭 가능여부
+		clickable: true,
+	},
+	//방향표
+	navigation: {
+		//다음페이지 설정
+		nextEl: '.swiper-button-next',
+		//이전페이지 설정
+		prevEl: '.swiper-button-prev',
+	},
     
-    
-    //자동 스크를링
-    autoplay: {
-      //시간 1000 이 1초
-      delay: 5000,
-      disableOnInteraction: false,
-     },
-    
-    //페이징
-    pagination: {
-      //페이지 기능
-      el: '.swiper-pagination',
-      //클릭 가능여부
-      clickable: true,
-    },
-
-    //방향표
-    navigation: {
-      //다음페이지 설정
-      nextEl: '.swiper-button-next',
-      //이전페이지 설정
-      prevEl: '.swiper-button-prev',
-    },
-    
-  }); //swiper End
+}); //swiper End
 
 </script>
-<%@include file="../includes/footer.jsp"%>
-</body>
 </html>
