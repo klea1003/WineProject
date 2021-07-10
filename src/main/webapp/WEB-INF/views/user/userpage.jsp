@@ -495,7 +495,11 @@ $(document).ready(function() {
 		 
 	$('#reviewModal').scroll(function() {
 	
-		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+		console.log($(this).scrollTop()+$(this).innerHeight())
+	
+		console.log($(this)[0].scrollHeight)
+		
+		if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
 			
 			console.log("modaltest");
 			
