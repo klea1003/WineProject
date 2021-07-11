@@ -452,7 +452,7 @@ $(document).ready(function() {
 					   				<ul class="list-unstyled">
 						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
 									  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
-									  <li><a class="dropdown-item" href="/board/list"> Event </a></li>
+									  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
 									</ul>
 								</div><!-- end col-3 -->
 							</div><!-- end row -->

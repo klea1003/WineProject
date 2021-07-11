@@ -139,5 +139,10 @@ public class BoardController {
 		});//deleteFiles forEach
 		
 	}
+	
+	@GetMapping("/event")
+	public void event() {
+		
+	}
 
 }

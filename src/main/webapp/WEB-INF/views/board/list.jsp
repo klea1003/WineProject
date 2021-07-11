@@ -110,7 +110,8 @@
 <body>
 <!-- Section -->    	
 <section class="py-5">
-	<div class="container px-5 my-5">
+	<div class="container px-5">
+		<h1 class="fw-bolder fs-5 mb-4">Q&A</h1>
          <div class="row">
                <div>
                   <table class="table">
