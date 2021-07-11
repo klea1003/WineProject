@@ -79,4 +79,28 @@ U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM = 1
         GROUP by WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
         order by WL.WISH_NUM;
 
-userpage wishlist
+
+상위 2ㅐ프로
+select * from tbl_wine_test wr
+where wr.wine_num in(        
+select wine_num as topwine from(
+    select ROWNUM as rn,wine_num,avgrating
+        from (
+            select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+                from tbl_wine_review wr, tbl_social s, tbl_user u
+                where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=1
+                group by wr.wine_num
+                order by avgrating desc )
+                 ) where rn < (select (count (wine_num)*0.2) as cnt
+                                from (
+                                    select ROWNUM as rn,wine_num,avgrating
+                                        from (
+                                            select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+                                                from tbl_wine_review wr, tbl_social s, tbl_user u
+                                                where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=1
+                                                group by wr.wine_num
+                                                order by avgrating desc
+                                             )
+                                     )
+                             )
+                    );

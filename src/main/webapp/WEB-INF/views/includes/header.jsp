@@ -279,7 +279,7 @@ $(document).ready(function() {
 								<i class="bi bi-search"></i>
 							</button>
 						</div>
-					</form>		
+					</form>					
 				</div>			
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -292,29 +292,38 @@ $(document).ready(function() {
 					</c:if> 
 					<!-- 로그인 된 경우 -->
 					<c:if test="${user != null }">
-							<a href="/cart/list" class="d-block link-dark text-decoration-none" aria-expanded="false">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-	  								<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 
-	  								.491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-								</svg>
-							</a>
-							
 						<div class="dropdown text-end mx-2">
-							<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
-								aria-expanded="false"> 
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-	 								 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-	 								 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-								</svg>
-							</a>
-							<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">My wines</a></li>
-								<li><a class="dropdown-item" href="#">orders</a></li>
+							<div class="dropdown">
+							<div class="row">
+								<div class="col-6">
+								<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
+									aria-expanded="false"> 
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+										<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+										<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+									</svg>
+								</a>
+								
+								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+								<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
+								<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
 								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
 							</ul>
+								</div>
+								
+								<div class="col-2">
+								<a href="/cart/list" class="d-block link-dark text-decoration-none" aria-expanded="false">
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+										<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 
+										.491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+									</svg>
+								</a>
+								</div>
+							</div>							
+							</div>
 						</div>
 					</c:if>
 				</div>
@@ -443,8 +452,8 @@ $(document).ready(function() {
 					   			<div class="col-1">
 					   				<ul class="list-unstyled">
 						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
-									  <li><a class="dropdown-item" href="#"> Board </a></li>
-									  <li><a class="dropdown-item" href="#"> Event </a></li>
+									  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
+									  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
 									</ul>
 								</div><!-- end col-3 -->
 							</div><!-- end row -->
