@@ -305,8 +305,8 @@ $(document).ready(function() {
 								</a>
 								
 								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">My wines</a></li>
-								<li><a class="dropdown-item" href="#">orders</a></li>
+								<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
+								<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
 								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
 								<li><a class="dropdown-item" href="#">Settings</a></li>
 								<li><hr class="dropdown-divider"></li>
