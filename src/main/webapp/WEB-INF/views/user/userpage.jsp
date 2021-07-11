@@ -426,8 +426,9 @@ $(document).ready(function() {
 	})
 	
 	var userNumValue = '<c:out value="${userpage.userNum}"/>'
-	var ratingUL = $(".followingreview");
 	
+	var ratingUL = $(".followingreview");
+		
 	showList(1);	
 	
 	function getListRating(param, callback, error) {
@@ -487,37 +488,47 @@ $(document).ready(function() {
 	            str += "</div>";
 			}
 			ratingUL.append(str);
-		
 		});
 			
 	}// end showList
+	
+	
+	
 	var actionForm = $("#actionForm");
 		 
 	$('#reviewModal').scroll(function() {
 	
-		console.log($(this).scrollTop()+$(this).innerHeight())
-	
-		console.log($(this)[0].scrollHeight)
-		
+		console.log("modalscroll");
 		if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
 			
 			console.log("modaltest");
+	
 			
 			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
 			var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
 			
-			if(currentPageNum +1 <= totalPageNum){			
+			if(currentPageNum +1 <= totalPageNum){	
+				
 				actionForm.find("input[name='pageNum']").val(currentPageNum +1);
+				
 				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
 				
 				showList(currentPageNum)
-				if(currentPageNum == totalPageNum){
-					 $('.pagenext').css('display', 'none');
-					
-				}
 			}
 		}
 	})
+	
+	$('#reviewModal').on('hidden.bs.modal', function (e) {
+		
+		actionForm.find("input[name='pageNum']").val(currentPageNum = 1);
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		
+		ratingUL.empty();
+		
+		showList(1);
+		
+	});
 	 
 	/* 파일 업로드 영역  */
 	$("button[type='submit']").on("click",function(e){
