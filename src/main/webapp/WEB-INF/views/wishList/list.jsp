@@ -31,11 +31,19 @@
   text-decoration: none;
   min-width: 70px;
   padding: 8px;
-
  
+}
+
+.btn-outline-dark {
+	
+  border-radius: 35px;
+  border: 1px solid rgb(0, 0, 0);
+  font-size: 15px;   
+
 }
 </style>
 <body>
+
 	
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
@@ -58,6 +66,7 @@
 							<tr>
 								<th scope="col">PRODUCT</th>
 								<th scope="col"></th>
+								<th scope="col">SELLER</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
@@ -70,7 +79,7 @@
 									<td><h5 class="fw-bold">${wish.wineTitle}</h5></td>
 								<%-- 	<td><input type="hidden" name="count"
 										value="${map.count }"></td> --%>
-									<td><a href="/seller/listWine?wineNum=${wish.wineNum}">Find Seller</a></td>
+									<td><a href="/seller/listWine?wineNum=${wish.wineNum}" class="btn btn-outline-dark">Find Seller</a></td>
 									<td><a href="/wishList/delete?wishNum=${wish.wishNum}" class="btn btn-outline-danger">삭제</a></td>
 
 								</tr>
