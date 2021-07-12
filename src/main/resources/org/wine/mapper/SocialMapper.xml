@@ -77,15 +77,18 @@
 	
 	<select id="followingReviewListPaging" resultMap="reviewListInfo">
 		<![CDATA[
-			select
-			rownum,review_num,wine_num,user_num,user_Realname, review_date,review_content,wine_ImageName,wine_title
-			from(
-			select
-			rownum rn, wr.review_num,wr.wine_num,wr.user_num, u.user_Realname, wr.review_date,wr.review_content,w.wine_ImageName, w.wine_title
-			from tbl_wine_review wr, tbl_social s, tbl_user u, tbl_wine_test w
-			where  wr.review_num > 0  and rownum <=#{crire.pageNum}*#{crire.amount} and wr.user_num= s.user_following_id and wr.user_num=u.user_num and 
-			wr.wine_num = w.wine_num and s.user_follower_id= #{userNum})
-			where rn>(#{crire.pageNum}-1)*#{crire.amount} 
+		select*from(
+        	select*from(
+        		select
+        		rownum rn,review_num,wine_num,user_num,user_Realname, review_date,review_content,wine_ImageName,wine_title
+        		from(
+       				select 
+       				wr.review_num,wr.wine_num,wr.user_num, u.user_Realname, wr.review_date,wr.review_content,w.wine_ImageName, w.wine_title
+       				from tbl_wine_review wr, tbl_social s, tbl_user u, tbl_wine_test w
+       				where wr.user_num= s.user_following_id and wr.user_num=u.user_num and wr.wine_num = w.wine_num and s.user_follower_id=#{userNum}
+       		 		order by to_date ( wr.review_date , ' Mon DD , YYYY ' , 'NLS_DATE_LANGUAGE = AMERICAN') desc)
+   				)where  review_num > 0  and rownum <=#{crire.pageNum}*#{crire.amount} )
+       where rn>(#{crire.pageNum}-1)*#{crire.amount} 
 		]]>
 	</select>
 	
