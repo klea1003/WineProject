@@ -162,8 +162,8 @@ input[type=radio]{
 		<p>
 			<input type="text" id="amount" readonly style="border: 0; color: #990000; font-weight: bold;">
 		</p>
-		<input type="hidden" id="price_min" value="10000">
-		<input type="hidden" id="price_max" value="200000">
+		<input type="hidden" id="price_min" value=<c:out value="${winePriceMin}" />>
+		<input type="hidden" id="price_max" value=<c:out value="${winePriceMax}" />>
 		<div id="price-range"></div>
 	</div>
 	
@@ -388,10 +388,12 @@ input[type=radio]{
 		console.log(actionForm.find("input[name='totalPageNum']").val());
 		
 		$(window).scroll(function() {
+			
+			//console.log("scrolling window.scrollTop: " + $(window).scrollTop() + " document.height " + $(document).height() + " window.height " + $(window).height())
 		
 			// scroll 감지
-			if($(window).scrollTop() == $(document).height() - $(window).height()){
-				console.log("scrolling");
+			if($(window).scrollTop() >= $(document).height() - $(window).height() - 1.0){	// float 문제 때문에 -1.0을 더해서 계산
+				console.log("scroll update");
 				
 				
 				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());

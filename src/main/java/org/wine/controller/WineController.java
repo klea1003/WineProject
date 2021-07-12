@@ -117,7 +117,7 @@ public class WineController {
 		
 		log.info("winePriceMax: " + winePriceMax);
 		if (winePriceMax == null) {
-			model.addAttribute("winePriceMax", 30000);
+			model.addAttribute("winePriceMax", 200000);
 		} else {
 			model.addAttribute("winePriceMax", Integer.parseInt(winePriceMax));
 		}
