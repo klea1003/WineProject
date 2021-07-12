@@ -23,19 +23,19 @@ var wineService = (function(){
 			_wineRating = $(this).val();
 		})
 
-		$("input[name='Grapes']:checked").each(function(i) {
+		$("input[name='grapes']:checked").each(function(i) {
 	    	_wineGrapeArr.push($(this).val()); 
 		})
 		    
-		$("input[name='Region']:checked").each(function(i) {
+		$("input[name='region']:checked").each(function(i) {
 	    	_wineRegionArr.push($(this).val()); 
 		})
 		
-		$("input[name='Country']:checked").each(function(i) {
+		$("input[name='country']:checked").each(function(i) {
 	    	_wineCountryArr.push($(this).val()); 
 		})
 		
-		$("input[name='WineStyle']:checked").each(function(i) {
+		$("input[name='wine_style']:checked").each(function(i) {
 	    	_wineStyleArr.push($(this).val()); 
 		})
 		

@@ -103,7 +103,7 @@ public class WineController {
 		
 		log.info("wineRating: " + wineRating);
 		if (wineRating == null) {
-			model.addAttribute("wine_rating", 3);
+			model.addAttribute("wine_rating", 5);
 		} else {
 			model.addAttribute("wine_rating", Integer.parseInt(wineRating));
 		}

@@ -258,5 +258,19 @@ public class WineMapperTests {
 		log.info(list);
 		
 	}
+	@Test
+	public void testGetWineGrapeList() {
+		CriteriaWine cri = new CriteriaWine();
+
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 		
+		wineGrapeArr.add("Malbec");
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+		
+	}
 	
 }
