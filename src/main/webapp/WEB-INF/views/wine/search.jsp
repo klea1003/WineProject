@@ -120,10 +120,6 @@ input[type=radio]{
 </style>
 
 <body>
-	<div class="text-center mt-5 mb-5">
-		<h3>Showing 822 Red wines between ₩10000 - ₩40000 rated above 3.5 stars</h3>
-	</div>
-
 
 <div class="container">
 	<div class="row">
