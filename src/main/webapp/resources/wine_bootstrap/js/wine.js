@@ -134,6 +134,7 @@ var wineService = (function(){
 
 		var actionForm = $("#actionForm");
 		var totalPageNum = actionForm.find("input[name='totalPageNum']");
+		var title = $('#title');
 			    
 	    console.log("Wine Type", _wineTypeArr);
 		console.log("Wine Grape", _wineGrapeArr);
@@ -160,13 +161,45 @@ var wineService = (function(){
 				
 			, success : function(result, status, xhr) {
 				console.log("update TotalPageNum")
-				
-				console.log("received totalPageNum:" + result.totalPageNum);
+
+				console.log(result);
 				
 				totalPageNum.val(result.totalPageNum);
 				
+				title.text(titleFromMeta(result))
+				
 			}
 	    });
+	}
+	
+	function titleFromMeta(result) {
+		//'Showing ${result.total} wines between ₩10000 - ₩40000 rated above 3.5 stars'
+		out_str = "Showing "
+		out_str += wineUtil.numberWithCommas(result.total)
+		
+		
+		// wine type
+		if (result.cri.wineTypeArr.length > 1) {
+		
+			out_str += " " + result.cri.wineTypeArr[0];
+		
+			for(var i=1; i<result.cri.wineTypeArr.length; i++){
+				out_str += " and " + result.cri.wineTypeArr[i];
+			}
+		} else if (result.cri.wineTypeArr.length == 1) {
+			out_str += " " + result.cri.wineTypeArr[0];			
+		}else {
+			out_str += " wines"
+		}
+		
+		out_str += " between ₩" + wineUtil.numberWithCommas(result.cri.priceMin)
+		out_str += " - ₩" + wineUtil.numberWithCommas(result.cri.priceMax)
+		
+		if (result.cri.wineRatingMin != 0) {
+			out_str += " rated between " + result.cri.wineRatingMin + " - "+ result.cri.wineRatingMax + " stars"
+		}
+
+		return out_str;
 	}
 	
 	return {
