@@ -163,7 +163,7 @@ input[type=radio]{
 			<input type="text" id="amount" readonly style="border: 0; color: #990000; font-weight: bold;">
 		</p>
 		<input type="hidden" id="price_min" value="10000">
-		<input type="hidden" id="price_max" value="30000">
+		<input type="hidden" id="price_max" value="200000">
 		<div id="price-range"></div>
 	</div>
 	
