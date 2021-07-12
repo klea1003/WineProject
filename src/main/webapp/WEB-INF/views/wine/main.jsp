@@ -111,22 +111,22 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" value="1" checked>
-				  <label class="btn btn-outline-danger" for="1">20000</label>
+				  <label class="btn btn-outline-danger" for="1">￦ 20,000</label>
 				  </div>
 				
 				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off" value="2">
-				  <label class="btn btn-outline-danger" for="2">40000</label>
+				  <label class="btn btn-outline-danger" for="2">￦ 40,000</label>
 				  </div>
 				
 				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off" value="3">
-				  <label class="btn btn-outline-danger" for="3">60000</label>
+				  <label class="btn btn-outline-danger" for="3">￦ 60,000</label>
 				  </div>
 				    
 				  <div>
 				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off" value="4">
-				  <label class="btn btn-outline-danger" for="4">80000</label>
+				  <label class="btn btn-outline-danger" for="4">￦ 80,000</label>
 				  </div>
 				</div>
 				
