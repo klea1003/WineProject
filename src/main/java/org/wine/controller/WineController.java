@@ -128,6 +128,66 @@ public class WineController {
 		model.addAttribute("pageMaker",new pageWineDTO(cri,total)); 		
 	}
 	
+	@GetMapping("/search")
+	public void search(
+			CriteriaWine cri,
+			@RequestParam(value="wine_type_ids", required=false)ArrayList<Integer> wineTypeIds,
+			@RequestParam(value="wine_grape_ids", required=false)ArrayList<Integer> wineGrapeIds,
+			@RequestParam(value="wine_region_ids", required=false)ArrayList<Integer> wineRegionIds,
+			@RequestParam(value="wine_country_ids", required=false)ArrayList<Integer> wineCountryIds,
+			@RequestParam(value="wine_style_ids", required=false)ArrayList<Integer> wineStyleIds,
+			@RequestParam(value="keyword", required=false) String wineKeyword,
+			@RequestParam(value="wine_price_min", required=false) String winePriceMin,
+			@RequestParam(value="wine_price_max", required=false) String winePriceMax,			
+			@RequestParam(value="rating", required=false) String wineRating,
+			Model model
+		) {
+		
+		log.info("wineTypeIds: " + wineTypeIds);
+		model.addAttribute("wineTypeList", service.getWinPropertyDTO("wine_type", wineTypeIds));
+		
+		log.info("wineGrapeIds: " + wineGrapeIds);
+		model.addAttribute("wineGrapeList", service.getWinPropertyDTO("wine_grape", wineGrapeIds));
+		
+		log.info("wineRegionIds: " + wineRegionIds);
+		model.addAttribute("wineRegionList", service.getWinPropertyDTO("wine_region", wineRegionIds));
+		
+		log.info("wineCountryIds: " + wineCountryIds);
+		model.addAttribute("wineCountryList", service.getWinPropertyDTO("wine_country", wineCountryIds));
+		
+		log.info("wineStyleIds: " + wineStyleIds);
+		model.addAttribute("wineStyleList", service.getWinPropertyDTO("wine_style", wineStyleIds));
+		
+		log.info("wineKeyword: " + wineKeyword);
+		model.addAttribute("wine_keyword", wineKeyword);
+		
+		log.info("wineRating: " + wineRating);
+		if (wineRating == null) {
+			model.addAttribute("wine_rating", 5);
+		} else {
+			model.addAttribute("wine_rating", Integer.parseInt(wineRating));
+		}
+		
+		log.info("winePriceMin: " + winePriceMin);
+		if (winePriceMin == null) {
+			model.addAttribute("winePriceMin", 10000);
+		} else {
+			model.addAttribute("winePriceMin", Integer.parseInt(winePriceMin));
+		}
+		
+		log.info("winePriceMax: " + winePriceMax);
+		if (winePriceMax == null) {
+			model.addAttribute("winePriceMax", 30000);
+		} else {
+			model.addAttribute("winePriceMax", Integer.parseInt(winePriceMax));
+		}
+		
+		int total = service.getTotal(cri);		
+		log.info("total:" + total); 
+		
+		model.addAttribute("pageMaker",new pageWineDTO(cri,total)); 		
+	}
+	
 	@GetMapping(value = "/requestWineList")
 	public ResponseEntity<List<WineRatingVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 

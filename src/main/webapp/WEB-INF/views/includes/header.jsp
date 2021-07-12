@@ -271,7 +271,7 @@ $(document).ready(function() {
 				<a class="navbar-brand " href="/wine/main">
 				<span class="title text-dark fw-bold">너와, IN</span></a>
 				<div class="input-group-prepend">
-					<form id='searchForm' action="/wine/list" method='get'>
+					<form id='searchForm' action="/wine/search" method='get'>
 						<div style="float:left;">
 							<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"	style="width: 200px;"></div>
 						<div style="float:right;">
