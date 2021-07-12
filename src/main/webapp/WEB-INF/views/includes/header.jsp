@@ -396,7 +396,7 @@ $(document).ready(function() {
 						    		  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=1"> Argentina </a></li>
 									  <li><a class="dropdown-item" href="/wine/list?wine_country_ids=2"> Australia </a></li>
 									  <li><a class="dropdown-item" href="/wine/list?wine_country_ids=3"> Austria </a></li>
-									  <li><a class="dropdown-item" href="/wine/list?wine_country_ids=4"> Chile </a></li>
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=4"> Chile </a></li>
 									</ul>
 								</div><!-- end col-3 -->
 								<div class="col-3">									
