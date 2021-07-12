@@ -271,7 +271,7 @@ $(document).ready(function() {
 				<a class="navbar-brand " href="/wine/main">
 				<span class="title text-dark fw-bold">너와, IN</span></a>
 				<div class="input-group-prepend">
-					<form id='searchForm' action="/wine/list" method='get'>
+					<form id='searchForm' action="/wine/search" method='get'>
 						<div style="float:left;">
 							<input type="search" name='keyword' placeholder="Search any wine" aria-describedby="button-addon8" class="form-control"	style="width: 200px;"></div>
 						<div style="float:right;">
@@ -339,28 +339,28 @@ $(document).ready(function() {
 							   		<div class="col-4">
 							   			<ul class="list-unstyled">
 										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=1"> Red </a></li>
-										  <li><a class="dropdown-item" href="#"> Southern Italy Red </a></li>
-										  <li><a class="dropdown-item" href="#"> Tuscan Red </a></li>
-										  <li><a class="dropdown-item" href="#"> Spanish Rioja Red </a></li>
-										  <li><a class="dropdown-item" href="#"> South African Pinotage </a></li>
-										  <li><a class="dropdown-item" href="#"> Italian Amarone </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=1"> Argentinian Malbec </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=2"> Tuscan Red </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=3"> Spanish Rioja Red </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=4"> South African Pinotage </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=5"> Italian Amarone </a></li>
 										</ul>
 									</div><!-- end col-3 -->
 									<div class="col-5">
 										<ul class="list-unstyled">
 										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=2"> White </a></li>
-										  <li><a class="dropdown-item" href="#"> German Riesling </a></li>
-										  <li><a class="dropdown-item" href="#"> Northern Italy white </a></li>
-										  <li><a class="dropdown-item" href="#"> German Sauvignon Blanc </a></li>
-										  <li><a class="dropdown-item" href="#"> German Grauburgunder </a></li>
-										  <li><a class="dropdown-item" href="#"> New Zealand Sauvignon Blanc </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=6"> German Riesling </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=7"> Northern Italy white </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=8"> German Sauvignon Blanc </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=9"> German Grauburgunder </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_style_ids=10"> New Zealand Sauvignon Blanc </a></li>
 										 </ul>
 							    	</div><!-- end col-3 -->
 							    	<div class="col-2">
 										<ul class="list-unstyled">
 										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=3"> Sparkling </a></li>
 										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=4"> Rosé </a></li>
-										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=6"> Port </a></li>
+										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=6"> Fortified </a></li>
 										  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_type_ids=5"> Dessert </a></li>
 									 	 </ul>
 							    	</div><!-- end col-3 -->
@@ -373,30 +373,25 @@ $(document).ready(function() {
 					   			<div class="row g-3">
 					   				<div class="col-4">
 					   					<ul class="list-unstyled">
-										  <li><a class="dropdown-item" href="#"> Cabernet Sauvignon </a></li>
-										  <li><a class="dropdown-item" href="#"> Montepulciano </a></li>
-										  <li><a class="dropdown-item" href="#"> Chardonnay </a></li>
-										  <li><a class="dropdown-item" href="#"> Pinot Noir </a></li>
-										  <li><a class="dropdown-item" href="#"> Malbec </a></li>
+					   					  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=1"> Cabernet Franc </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=2"> Cabernet Sauvignon </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=3"> Chardonnay </a></li>	
 										</ul>
 									</div><!-- end col-3 -->
-									<div class="col-5">
-										<ul class="list-unstyled">
-										  <li><a class="dropdown-item" href="#"> Sauvignon Blanc </a></li>
-										  <li><a class="dropdown-item" href="#"> Shiraz/Syrah </a></li>
-										  <li><a class="dropdown-item" href="#"> Zinfandel </a></li>
-										  <li><a class="dropdown-item" href="#"> Nebbiolo </a></li>
-										  <li><a class="dropdown-item" href="#"> Sangiovese </a></li>
+									<div class="col-3">
+					   					<ul class="list-unstyled">					   					  
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=4"> Grenache </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=5"> Malbec </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=6"> Merlot </a></li>
+										</ul>
+									</div><!-- end col-3 -->
+									<div class="col-3">
+										<ul class="list-unstyled">										  
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=7"> Pinot Noir </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=8"> Riesling </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=9"> Sauvignon Blanc </a></li>
+										  <li><a class="dropdown-item" href="/wine/list?wine_grape_ids=10"> Shiraz/Syrah </a></li>
 							    		</ul>
-							    	</div><!-- end col-3 -->
-					    		   	<div class="col-2">
-										<ul class="list-unstyled">
-										  <li><a class="dropdown-item" href="#"> Pinot Grigio </a></li>
-										  <li><a class="dropdown-item" href="#"> Riesling </a></li>
-										  <li><a class="dropdown-item" href="#"> Grauburgunder </a></li>
-										  <li><a class="dropdown-item" href="#"> Tempranillo </a></li>
-										  <li><a class="dropdown-item" href="#"> Primitivo </a></li>
-										 </ul>
 							    	</div><!-- end col-3 -->
 					    		</div><!-- end row -->
 					    	</div><!-- end dropdown-large -->
@@ -407,38 +402,34 @@ $(document).ready(function() {
 					   		<div class="row g-3">
 					   			<div class="col-3">
 					   				<ul class="list-unstyled">
-						    		  <li><a class="dropdown-item fw-bold" href="#"> Germany </a></li>
-									  <li><a class="dropdown-item" href="#"> Mosel </a></li>
-									  <li><a class="dropdown-item" href="#"> Pfalz </a></li>
-									  <li><a class="dropdown-item" href="#"> Rheingau </a></li>
+						    		  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=1"> Argentina </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_country_ids=2"> Australia </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_country_ids=3"> Austria </a></li>
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=4"> Chile </a></li>
 									</ul>
 								</div><!-- end col-3 -->
 								<div class="col-3">									
 									<ul class="list-unstyled">									 
-									  <li><a class="dropdown-item fw-bold" href="#"> Italy </a></li>
-									  <li><a class="dropdown-item" href="#"> Lugana </a></li>
-									  <li><a class="dropdown-item" href="#"> Piemonte </a></li>
-									  <li><a class="dropdown-item" href="#"> Tuscany </a></li>
-									  <li><a class="dropdown-item" href="#"> Puglia </a></li>									  
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=5"> France </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_region_ids=1"> Bordeaux </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_region_ids=2"> Bourgogne </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_region_ids=5"> Rhone Valley </a></li>
+									  								  
 						    		</ul>
 						    	</div><!-- end col-3 -->					    		
 						    	<div class="col-3">									
 									<ul class="list-unstyled">									  
-									  <li><a class="dropdown-item fw-bold" href="#"> France </a></li>
-									  <li><a class="dropdown-item" href="#"> Vin de pays </a></li>
-									  <li><a class="dropdown-item" href="#"> Southern Rhone </a></li>
-									  <li><a class="dropdown-item" href="#"> Bordeaus </a></li>
-									  <li><a class="dropdown-item" href="#"> Burgundy </a></li>									  
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=4"> Italy </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_region_ids=4"> Piemonte </a></li>
+									  <li><a class="dropdown-item" href="/wine/list?wine_region_ids=6"> Toscana </a></li>								  
 									</ul>
 						    	</div><!-- end col-3 -->					    	
 						    	<div class="col-3">								
-									<ul class="list-unstyled">								  
-									  <li><a class="dropdown-item fw-bold" href="#"> Spain </a></li>
-									  <li><a class="dropdown-item fw-bold" href="#"> Portugal </a></li>
-									  <li><a class="dropdown-item fw-bold" href="#"> Chile </a></li>
-									  <li><a class="dropdown-item fw-bold" href="#"> New Zealand </a></li>
-									  <li><a class="dropdown-item fw-bold" href="#"> Australia </a></li>
-									  <li><a class="dropdown-item fw-bold" href="#"> USA </a></li>	 								  
+									<ul class="list-unstyled">
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=6"> Germany </a></li>
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=8"> Portugal </a></li>								  
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=9"> Spain </a></li>
+									  <li><a class="dropdown-item fw-bold" href="/wine/list?wine_country_ids=10"> USA </a></li>	
 									</ul>
 						    	</div><!-- end col-3 -->
 					    	</div><!-- end row -->

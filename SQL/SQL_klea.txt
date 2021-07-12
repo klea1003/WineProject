@@ -3,10 +3,10 @@ CREATE SEQUENCE SEQ_WINE;
 
 CREATE TABLE TBL_WINE_TEST (
     WINE_NUM NUMBER(20) NOT NULL,
-    WINE_TITLE VARCHAR2(50),
+    WINE_TITLE VARCHAR2(100),
     WINENERY VARCHAR2(50),
     WINE_GRAPES VARCHAR2(100),
-    WINE_REGIONS VARCHAR2(50),
+    WINE_REGIONS VARCHAR2(100),
     WINE_ALLERGENS VARCHAR2(50),
     WINETYPE VARCHAR2(50),
     WINE_REGION VARCHAR2(50),
@@ -108,6 +108,9 @@ INSERT INTO TBL_WINE_PROPERTY
 VALUES (8,'wine_grape', 'Riesling', 'Riesling');
 INSERT INTO TBL_WINE_PROPERTY 
 VALUES (9,'wine_grape', 'Sauvignon Blanc', 'Sauvignon Blanc');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (10,'wine_grape', 'Shiraz/Syrah', 'Shiraz/Syrah');
+
 
 
 INSERT INTO TBL_WINE_PROPERTY 
@@ -149,18 +152,25 @@ VALUES (10,'wine_country', 'United States', 'United States');
 
 
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (1,'wine_style', 'Australian Shiraz', 'Australian Shiraz');
+VALUES (1,'wine_style', 'Argentinian Malbec', 'Argentinian Malbec');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (2,'wine_style', 'Argentinian Malbec', 'Argentinian Malbec');
+VALUES (2,'wine_style', 'Tuscan Red', 'Tuscan Red');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (3,'wine_style', 'Californian Cabernet Sauvignon', 'Californian Cabernet Sauvignon');
+VALUES (3,'wine_style', 'Spanish Rioja Red', 'Spanish Rioja Red');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (4,'wine_style', 'Central Italy Red', 'Central Italy Red');
+VALUES (4,'wine_style', 'South African Pinotage', 'South African Pinotage');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (5,'wine_style', 'Spanish Red', 'Spanish Red');
+VALUES (5,'wine_style', 'Italian Amarone', 'Italian Amarone');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (6,'wine_style', 'Spanish Rioja Red', 'Spanish Rioja Red');
-
+VALUES (6,'wine_style', 'German Riesling', 'German Riesling');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (7,'wine_style', 'Northern Italy white', 'Northern Italy white');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (8,'wine_style', 'German Sauvignon Blanc', 'German Sauvignon Blanc');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (9,'wine_style', 'German Grauburgunder', 'German Grauburgunder');
+INSERT INTO TBL_WINE_PROPERTY 
+VALUES (10,'wine_style', 'New Zealand Sauvignon Blanc', 'New Zealand Sauvignon Blanc');
 COMMIT;
 
 --------------------------------------------------------

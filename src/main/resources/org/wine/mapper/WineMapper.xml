@@ -225,7 +225,9 @@
 	</sql>
 	
 	<sql id="criteriaWineRating">
-		AVG_RATING BETWEEN #{wineRatingMin} AND #{wineRatingMax} AND
+		<if test="wineRatingMin!=0.0">
+			AVG_RATING BETWEEN #{wineRatingMin} AND #{wineRatingMax} AND
+		</if>
 	</sql>		
 	
 	<sql id="criteriaWinePrice">

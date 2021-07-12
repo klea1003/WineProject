@@ -248,6 +248,29 @@ public class WineMapperTests {
 		WineRatingVO wine = mapper.readWithRating(8L);		
 		log.info(wine);				
 	}
-	
+	@Test
+	public void testGetWinePriceList() {
+		CriteriaWine cri = new CriteriaWine();
+		cri.setWinePriceRange(80000, 100000);
+		
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+		
+	}
+	@Test
+	public void testGetWineGrapeList() {
+		CriteriaWine cri = new CriteriaWine();
+
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 		
+		wineGrapeArr.add("Malbec");
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+		
+	}
 	
 }

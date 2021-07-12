@@ -110,24 +110,23 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 				  <div>
-				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" checked>
-				  <label class="btn btn-outline-danger" for="1">20000</label>
+				  <input type="radio" class="btn-check" name="priceCheck" id="1" autocomplete="off" value="1" checked>
+				  <label class="btn btn-outline-danger" for="1">￦ 20,000</label>
 				  </div>
 				
 				  <div>
-				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off">
-				  <label class="btn btn-outline-danger" for="2">40000</label>
+				  <input type="radio" class="btn-check" name="priceCheck" id="2" autocomplete="off" value="2">
+				  <label class="btn btn-outline-danger" for="2">￦ 40,000</label>
 				  </div>
 				
 				  <div>
-				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off">
-				  <label class="btn btn-outline-danger" for="3">60000</label>
+				  <input type="radio" class="btn-check" name="priceCheck" id="3" autocomplete="off" value="3">
+				  <label class="btn btn-outline-danger" for="3">￦ 60,000</label>
 				  </div>
-				  
-				  
+				    
 				  <div>
-				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off">
-				  <label class="btn btn-outline-danger" for="4">80000</label>
+				  <input type="radio" class="btn-check" name="priceCheck" id="4" autocomplete="off" value="4">
+				  <label class="btn btn-outline-danger" for="4">￦ 80,000</label>
 				  </div>
 				</div>
 				
@@ -191,10 +190,9 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						<label for="rating">Rating:</label> <input type="text" id="rating"
 							readonly style="border: 0; color: #990000; font-weight: bold;">
 					</p>
-					<input type="hidden" name="price_min" id="price_min" value="10000">
-					<input type="hidden" name="price_max" id="price_max" value="30000">
+					<input type="hidden" name="price_min" id="wine_price_min" value="10000">
+					<input type="hidden" name="price_max" id="wine_price_max" value="30000">
 					<div id="rating-range"></div>
-				</div>
 				
 				<div class="col-2">
 					<button type="submit" class="btn btn-outline-danger btn-lg">Show wines</button>
@@ -211,8 +209,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 		<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
 	</form>
 	
-	<input type="hidden" id="top_price_min" value="10000">
-	<input type="hidden" id="top_price_max" value="30000">
+	<input type="hidden" id="price_min" value="10000">
+	<input type="hidden" id="price_max" value="30000">
 
 <%@ include file="../includes/footer.jsp"%>
 </body>
@@ -332,9 +330,14 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += "</div>"
 						
 						str += "<div class='mt-3'>"
-						str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
-						str += list[i].avgRating 
+						if(list[i].avgRating != null) {
+							str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
+							str += list[i].avgRating 	
+						} else {
+							str += "<br><br>"
+						}
 						str += "</div>"
+						
 						
 						str += "</div>"
 						
@@ -360,17 +363,17 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 			console.log('click checkbox btn');
 			
 			if ($(this).val() == 1){
-				$( "#top_price_min" ).val(0);
-				$( "#top_price_max" ).val(20000);
+				$( "#price_min" ).val(0);
+				$( "#price_max" ).val(20000);
 			} else if ($(this).val() == 2){
-				$( "#top_price_min" ).val(20000);
-				$( "#top_price_max" ).val(40000);
+				$( "#price_min" ).val(20000);
+				$( "#price_max" ).val(40000);
 			} else if ($(this).val() == 3){
-				$( "#top_price_min" ).val(40000);
-				$( "#top_price_max" ).val(80000);
+				$( "#price_min" ).val(40000);
+				$( "#price_max" ).val(80000);
 			} else if ($(this).val() == 4){
-				$( "#top_price_min" ).val(80000);
-				$( "#top_price_max" ).val(200000);
+				$( "#price_min" ).val(80000);
+				$( "#price_max" ).val(200000);
 			}
 
 			swiperDiv.html("");	// to empty
@@ -400,15 +403,15 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 				values: [ 10000, 30000 ],
 				slide: function( event, ui ) {
 		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
-		        	$( "#price_min" ).val(ui.values[ 0 ]);
-		        	$( "#price_max" ).val(ui.values[ 1 ]);
+		        	$( "#wine_price_min" ).val(ui.values[ 0 ]);
+		        	$( "#wine_price_max" ).val(ui.values[ 1 ]);
 		        	
 	        	}
 			});
 			$( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
 				" - ￦" + $( "#price-range" ).slider( "values", 1 ) );
-			$( "#price_min" ).val($( "#price-range" ).slider( "values", 0 ));
-			$( "#price_max" ).val($( "#price-range" ).slider( "values", 1 ));
+			$( "#wine_price_min" ).val($( "#price-range" ).slider( "values", 0 ));
+			$( "#wine_price_max" ).val($( "#price-range" ).slider( "values", 1 ));
 		}); //end jquery price range
 	
 	});

@@ -121,7 +121,7 @@ input[type=radio]{
 
 <body>
 	<div class="text-center mt-5 mb-5">
-		<h3>Showing 822 Red wines between ₩10000 - ₩40000 rated above 3.5 stars</h3>
+		<h3 id=title></h3>
 	</div>
 
 
@@ -162,8 +162,8 @@ input[type=radio]{
 		<p>
 			<input type="text" id="amount" readonly style="border: 0; color: #990000; font-weight: bold;">
 		</p>
-		<input type="hidden" id="price_min" value="10000">
-		<input type="hidden" id="price_max" value="30000">
+		<input type="hidden" id="price_min" value=<c:out value="${winePriceMin}" />>
+		<input type="hidden" id="price_max" value=<c:out value="${winePriceMax}" />>
 		<div id="price-range"></div>
 	</div>
 	
@@ -388,10 +388,12 @@ input[type=radio]{
 		console.log(actionForm.find("input[name='totalPageNum']").val());
 		
 		$(window).scroll(function() {
+			
+			//console.log("scrolling window.scrollTop: " + $(window).scrollTop() + " document.height " + $(document).height() + " window.height " + $(window).height())
 		
 			// scroll 감지
-			if($(window).scrollTop() == $(document).height() - $(window).height()){
-				console.log("scrolling");
+			if($(window).scrollTop() >= $(document).height() - $(window).height() - 1.0){	// float 문제 때문에 -1.0을 더해서 계산
+				console.log("scroll update");
 				
 				
 				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
@@ -410,6 +412,7 @@ input[type=radio]{
 		
 		var wineDiv = $(".wine-card-list")
 		
+		wineService.requestTotalPageNum();
 		showWineList();
 		
 		function showWineList() {
@@ -439,11 +442,16 @@ input[type=radio]{
 						str += "<h4 class='card-title'><a href='/wine/get?wno=" + list[i].wno + "'>" + list[i].title + " </a></h4><br>"
 						str += list[i].wineType + " " + "From" + " "
 						str += list[i].country + "<br>"
+						str += list[i].grapes + "<br>"
 						
 							
 						str += "<span style='color:rgb(156,22,49)''><i class='fa fa-xl fa-star'> </i></span>"
-						str += "&nbsp;"+list[i].avgRating + "<br>"
-						str += "<h5> ￦ " + list[i].price  + "</h5>"
+						if(list[i].avgRating != null) {
+							str += "&nbsp;"+list[i].avgRating + "<br>"
+						} else {
+							str += "&nbsp;Not Rating<br>"
+						}						
+						str += "<h5> ￦ " + wineUtil.numberWithCommas(list[i].price)  + "</h5>"
 						
 						str += "<div class='mt-5'>"
 						str += "<a href='/seller/list' class='btn btn-outline-danger'>"
@@ -475,16 +483,27 @@ input[type=radio]{
 			showWineList();
 		});
 		
+		$(".check_box").on("click", function(e) {
+			console.log('click checkbox btn');
+			
+			wineDiv.html("");	// to empty
+			actionForm.find("input[name='pageNum']").val("1");
+			wineService.requestTotalPageNum();
+			
+			showWineList();
+		});
+		
+		
 
 		$( function() {
 			$( "#price-range" ).slider({
 				range: true,
 				min: 0,
-				max: 100000,
+				max: 200000,
 				step: 1000,
 				values: [ <c:out value="${winePriceMin}" />, <c:out value="${winePriceMax}" /> ],
 				slide: function( event, ui ) {
-		        	$( "#amount" ).val( "￦" + ui.values[ 0 ] + " - ￦" + ui.values[ 1 ] );
+		        	$( "#amount" ).val( "￦" + wineUtil.numberWithCommas(ui.values[ 0 ]) + " - ￦" + wineUtil.numberWithCommas(ui.values[ 1 ]) );
 		        	$( "#price_min" ).val(ui.values[ 0 ]);
 		        	$( "#price_max" ).val(ui.values[ 1 ]);
 		        	
@@ -497,8 +516,8 @@ input[type=radio]{
 					showWineList();
 				}
 			});
-			$( "#amount" ).val( "￦" + $( "#price-range" ).slider( "values", 0 ) +
-				" - ￦" + $( "#price-range" ).slider( "values", 1 ) );
+			$( "#amount" ).val( "￦" + wineUtil.numberWithCommas($( "#price-range" ).slider( "values", 0 )) +
+				" - ￦" + wineUtil.numberWithCommas($( "#price-range" ).slider( "values", 1 )) );
 			$( "#price_min" ).val($( "#price-range" ).slider( "values", 0 ));
 			$( "#price_max" ).val($( "#price-range" ).slider( "values", 1 ));
 		}); //end jquery price range

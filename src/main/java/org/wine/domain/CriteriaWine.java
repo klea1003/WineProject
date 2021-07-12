@@ -35,8 +35,8 @@ public class CriteriaWine {
 		this.wineRegionArr = new ArrayList<String>();
 		this.wineCountryArr = new ArrayList<String>();
 		this.wineStyleArr = new ArrayList<String>();
-		this.wineRatingMin = 4.0;
-		this.wineRatingMax = 4.5;
+		this.wineRatingMin = 0.0;
+		this.wineRatingMax = 5.0;
 		this.priceMin = 1000;
 		this.priceMax = 100000;
 		this.keyword = null;
