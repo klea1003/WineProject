@@ -12,23 +12,27 @@
 </head>
 <body>
 <%@include file="../includes/header.jsp"%>
-			<h1 class="fw-bolder">주문 내역</h1>
-			<br>
-<section id="content">
+	<div class="container px-5 my-5">
+		<div class="text-center mb-5">
+            <h1 class="fw-bolder">ORDER LIST</h1>
+        </div>
+	</div>
+
+<section id="content" class="container px-5 mb-5">
  
- <ul class="orderList">
-  <c:forEach items="${orderList}" var="orderList" varStatus="i">
-  <li>
-  <div>
-   <p><span>주문번호</span><a href="orderView?n=${orderList.orderNum}">${orderList.orderNum}</a></p>
-   <p><span>수령인</span>${orderList.pickUpName}</p>
-   <p><span>수령매장</span>${orderList.sellerId}</p>
-   <p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.totalPrice}" /> 원</p>
-   <hr>
-  </div>
-  </li>
-  </c:forEach>
- </ul>
+	 <ul class="orderList">
+	  <c:forEach items="${orderList}" var="orderList" varStatus="i">
+	  <li>
+	  <div>
+		<p><span>주문번호&nbsp;</span><a href="orderView?n=${orderList.orderNum}">${orderList.orderNum}</a></p>
+		<p><span>수령인 : </span>${orderList.pickUpName}</p>
+		<p><span>수령매장 : </span>${orderList.sellerId}</p>
+		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${orderList.totalPrice}" /> 원</p>
+		<hr>
+	  </div>
+	  </li>
+	  </c:forEach>
+	 </ul>
 
 </section>
 
