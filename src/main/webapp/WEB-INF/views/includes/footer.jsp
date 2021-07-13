@@ -19,11 +19,11 @@
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                     <div class="col-auto">
 	                    <div class="small m-0 text-dark">
-	                    Copyright &copy; 너와, IN 2021<br>
-	                    주소 : ㈜너와, IN 서울시 관악구 남부순환로 1820,에그엘로우14층<br>
-	                    대표 : 최은영, 김성현, 안효영, 정다예, 최요셉 <br>
-	                    와인 관련 정보문의 및 행사문의 : 02-2021-0729 <br>
-	                    개인정보 관리책임자 : 최은영 <br> 
+	                    Copyright &copy; <b>너와, IN 2021</b><br>
+	                    <b>주소 :</b> 서울시 관악구 남부순환로 1820,에그엘로우14층<br>
+	                    <b>대표 :</b> 최은영, 김성현, 안효영, 정다예, 최요셉 <br>
+	                    <b>와인 관련 정보문의 및 행사문의 :</b> 02-2021-0729 <br>
+	                    <b>개인정보 관리책임자 :</b> 최은영<br> 
 	                    </div>
                     </div>
                     

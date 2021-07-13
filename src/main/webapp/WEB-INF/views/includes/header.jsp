@@ -305,13 +305,13 @@ $(document).ready(function() {
 								</a>
 								
 								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-								<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
-								<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
-								<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
-								<li><a class="dropdown-item" href="#">Settings</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
-							</ul>
+									<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
+									<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
+									<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
+									<li><a class="dropdown-item" href="#">Settings</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
+								</ul>
 								</div>
 								
 								<div class="col-2">
@@ -435,7 +435,7 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
-						<li class="nav-item"><a class="nav-link" href="/seller/list">Seller</a></li>
+						<li class="nav-item"><a class="nav-link" href="/seller/list">Shop</a></li>
 						<li class="nav-item dropdown">
 					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
 					  	 <div class="dropdown-menu">
@@ -456,6 +456,7 @@ $(document).ready(function() {
 		</div>
 	</header>
 </main>
+	
 	<!-- login Modal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -466,6 +467,7 @@ $(document).ready(function() {
 					<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+					
 					<!-- 로그인 영역  -->
 					<form class="user" id="login_form" method="post">
 						<div class="mb-3">
@@ -491,6 +493,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	
 	<!-- join Modal -->
 	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -500,6 +503,7 @@ $(document).ready(function() {
 					<br> 
 					<span style="font-size: 30px;">Welcome!</span>
 				</div>
+				
 				<div class="modal-body">
 					<!-- 회원가입 영역  -->
 					<form class="user" id="join_form" method="post">
@@ -536,8 +540,8 @@ $(document).ready(function() {
 								<input type="date" class="form-control" id="birthday_input"	name="userBirthDay"> 
 								<span class="final_birthday_ck">생년월일 입력해주세요</span>
 							</div>
+							
 							<!-- row  -->
-
 							<div class="col-sm-7">
 								<input type="email" class="form-control" id="email_input" name="userEmail" placeholder="이메일 입력"> 
 								<span class="final_email_ck">이메일을 입력해주세요</span> 
