@@ -48,6 +48,12 @@ public class SocialServiceImpl implements SocialService {
 		
 		log.info("userFollowingId : "+ userFollowingId);
 		
+		if(userFollowerId==null) {
+			
+			userFollowerId = 0L;
+				
+		}
+		
 		return  mapper.followingBtn(userFollowingId,userFollowerId);
 	}
 
