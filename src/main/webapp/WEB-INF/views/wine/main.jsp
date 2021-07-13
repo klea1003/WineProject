@@ -194,13 +194,13 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 					<input type="hidden" name="price_max" id="wine_price_max" value="30000">
 					<div id="rating-range"></div>
 				
+				</div>
 				<div class="col-2">
 					<button type="submit" class="btn btn-outline-danger btn-lg">Show wines</button>
 				</div>
-				</div><!-- end range area -->
+			</div>
 			</form>
-			
-		</div>
+	</div>			
 
 	
 	<form id="actionForm" action="/wine/list" method="get">
