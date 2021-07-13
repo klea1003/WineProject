@@ -31,9 +31,8 @@ public class CartController {
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
-
+		UserVO lvo = (UserVO) session.getAttribute("user");
+		long userNum = lvo.getUserNum();
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<CartVO> list = service.listCart(userNum);
@@ -47,32 +46,25 @@ public class CartController {
 
 	}
 
-	// 목록
-	/*
-	 * @GetMapping("/list") public void listgettest() { log.info("카트 리스트 페이지 테스트"); }
-	 */
+	@RequestMapping("/insert")
+	public String insert(@ModelAttribute CartVO cartvo, 
+			@RequestParam("userNum") Long userNum,
+			@RequestParam("sellerNum") Long sellerNum
+	) {
 
-	// 추가
-	
-	  @RequestMapping("/insert")
-	  public String insert(@ModelAttribute CartVO cartvo,
-			  @RequestParam("userNum") Long userNum, 
-			  @RequestParam("sellerNum") Long sellerNum) {
-	 
-		/* Long userNum=(Long)session.getAttribute("userNum"); */
-	      cartvo.setUserNum(userNum); 
-	      cartvo.setSellerNum(sellerNum); 
-	      int count = service.countCart(cartvo);
-	      log.info(cartvo);
-	  if(count == 0) { 
-		  service.insert(cartvo);
-		  }
-	  else { service.updateCart(cartvo);
-	  }
-	  
-	  return "redirect:/cart/list"; 
-	  }
-	 
+		cartvo.setUserNum(userNum);
+		cartvo.setSellerNum(sellerNum);
+		int count = service.countCart(cartvo);
+
+		log.info(cartvo);
+		if (count == 0) {
+			service.insert(cartvo);
+		} else {
+			service.updateCart(cartvo);
+		}
+
+		return "redirect:/cart/list";
+	}
 
 	// 장바구니 삭제
 	@RequestMapping("/delete")
@@ -87,8 +79,8 @@ public class CartController {
 	public String update(@RequestParam int[] cartQty, @RequestParam Long[] wineNum, HttpSession session) {
 
 		// 세션 유저넘버 불러오기
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
+		UserVO lvo = (UserVO) session.getAttribute("user");
+		long userNum = lvo.getUserNum();
 
 		for (int i = 0; i < wineNum.length; i++) {
 
@@ -101,19 +93,18 @@ public class CartController {
 		return "redirect:/cart/list";
 
 	}
-	
+
 	@RequestMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute("cartvo") CartVO cartvo) {
 		log.info("cartVO===" + cartvo);
 		int cartQty = cartvo.getCartQty();
 		Long cartNum = cartvo.getCartNum();
-		
-		if(cartQty == 0) {
+
+		if (cartQty == 0) {
 			service.delete(cartNum);
-		}else if(cartQty > 0) {
+		} else if (cartQty > 0) {
 			service.modifyCart(cartvo);
 		}
 		return "redirect:/cart/list";
-		}
 	}
-	
+}

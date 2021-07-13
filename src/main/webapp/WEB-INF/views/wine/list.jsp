@@ -381,6 +381,11 @@ input[type=radio]{
 <script src="/resources/wine_bootstrap/js/wine.js"></script>
 <script type="text/javascript">   
 
+	function addWish(_input){
+		console.log("add wish button clicked" + _input)
+		location.href = "/wishList/insert?wno=" + _input;
+	};
+
 	$(document).ready(function() {
 
 		var actionForm = $("#actionForm");
@@ -457,7 +462,7 @@ input[type=radio]{
 						str += "<a href='/cart/list' class='btn btn-outline-danger'>"
 						str += "Add cart"
 						str += "</a>"
-						str += "&nbsp;<button type='button' class='btn btn-outline-dark'>"
+						str += "&nbsp;<button type='button' class='btn btn-outline-dark' onclick='addWish(" + list[i].wno + ");'>"
 						str += "Wish"
 						str += "</button>"
 						str += "</div>"
