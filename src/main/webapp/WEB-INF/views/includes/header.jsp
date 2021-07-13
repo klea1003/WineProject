@@ -459,9 +459,9 @@ $(document).ready(function() {
 				   		<div class="row">
 				   			<div class="col-1">
 				   				<ul class="list-unstyled">
-					    		  <li><a class="dropdown-item" href="/board/list"> 회사소개 </a></li>
+					    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
 								  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
-								  <li><a class="dropdown-item" href="/board/event"> 특판문의 </a></li>
+								  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
 								</ul>
 							</div><!-- end col-3 -->
 						</div><!-- end row -->
