@@ -25,39 +25,68 @@
 <body>
 	<%@include file="../includes/header.jsp" %>
 	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$(".btnCartUpdate").on("click", function(e) {
-			e.preventDefault();
-			
-			console.log("click add cart");
-			
-			var wineNumArr = [];
-			var wineQtyArr = [];
-			
-			$("input[name='wineNum']").each(function(){
-				wineNumArr.push($(this).val());
-			})			
-			
-			$("input[name='wineQty']").each(function(){
-				wineQtyArr.push($(this).val());
-			})
-			
-			console.log("wineNumArr: " + wineNumArr);
-			console.log("wineQtyArr: " + wineQtyArr);
-			
-			$.ajax({
-				url: 'update',
-				type: 'get',
-				dataType: "JSON",
-				data: {
-					wineNum: wineNumArr,
-					wineQty: wineQtyArr
-				}
-			})
-		});
+<script type="text/javascript">
+
+function deleteItems(){
+	console.log("delete btn clicked")
+	
+	var _deleteCartArr = [];
+	
+	 $("input[class='checkBox']:checked").each(function(i) {
+		 _deleteCartArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    })
+	
+	$.ajax({
+		url: 'deleteItems',
+		type: 'get',
+		dataType: "JSON",
+		data: {
+			deleteCartArr: _deleteCartArr
+		}
+	})
+	
+	location.reload(true);
+};
+
+$(document).ready(function() {
+	$(".btnCartUpdate").on("click", function(e) {
+		e.preventDefault();
+		
+		console.log("click add cart");
+		
+		var wineNumArr = [];
+		var wineQtyArr = [];
+		
+		$("input[name='wineNum']").each(function(){
+			wineNumArr.push($(this).val());
+		})			
+		
+		$("input[name='wineQty']").each(function(){
+			wineQtyArr.push($(this).val());
+		})
+		
+		console.log("wineNumArr: " + wineNumArr);
+		console.log("wineQtyArr: " + wineQtyArr);
+		
+		$.ajax({
+			url: 'update',
+			type: 'get',
+			dataType: "JSON",
+			data: {
+				wineNum: wineNumArr,
+				wineQty: wineQtyArr
+			}
+		})
 	});
-	</script>
+	
+	// 전체 체크박스 컨트롤 ===================
+    $("#checkAll").click(function(){
+      $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+
+	
+});
+</script>
 	
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
@@ -88,7 +117,7 @@
 				<tbody>
 					<c:forEach var="row" items="${map.list}" varStatus="i">
 						<tr>
-							<td><input class="checkBox" type="checkbox"></td>
+							<td><input class="checkBox" type="checkbox" value=${row.cartNum}></td>
 							<td> <img src= "http://klea-home.iptime.org:8081/<c:out value="${row.imageName}" />" height="100px" width="30px"> </td>
 							<td><h5 class="fw-bold">${row.title}</h5></td>
 							<td><fmt:formatNumber pattern="#,###,###" value="${row.price}" /></td>
@@ -113,10 +142,13 @@
 				
 			<input type="hidden" name="count" value="${map.count}"></td>
 			
-			<button type="button" class="btn btn-outline-dark" onclick="location.href='/wine/list'">상품목록</button>
+			<button type="button" class="btn btn-outline-dark" onclick="location.href='/wine/list'">쇼핑 계속하기</button>
+			
+			
 			
 			<div style="float: right;"> 
-				<button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">예약하기</button>
+				<button type="button" class="btn btn-outline-danger" onclick="deleteItems();">삭제하기</button>
+				<button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">주문하기</button>
 			</div>
 				
 		</div>

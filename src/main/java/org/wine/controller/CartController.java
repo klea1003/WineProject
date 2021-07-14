@@ -95,6 +95,16 @@ public class CartController {
 		return "redirect:/cart/list";
 
 	}
+	
+	@GetMapping("/deleteItems")
+	public String delete(@RequestParam(value="deleteCartArr[]")List<Long> deleteCartArr) {
+		log.info(deleteCartArr);
+		
+		for (Long cartNum : deleteCartArr) {
+			service.deleteCart(cartNum);
+		}
+		return "redirect:/cart/list";
+	}
 
 	@RequestMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute("cartvo") CartVO cartvo) {
