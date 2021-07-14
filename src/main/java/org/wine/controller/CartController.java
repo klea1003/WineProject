@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,25 +67,31 @@ public class CartController {
 	public String delete(@RequestParam Long cartNum) {
 		service.deleteCart(cartNum);
 		return "redirect:/cart/list";
-
 	}
 
 	// 동일한 상품 장바구니에 추가한 경우 수량 업데이트
-	@RequestMapping("/update")
-	public String update(@RequestParam int[] cartQty, @RequestParam Long[] wineNum, HttpSession session) {
+	@GetMapping("/update")
+	public String update(
+			@RequestParam(value="wineNum[]", required=false)List<Long> wineNum,
+			@RequestParam(value="wineQty[]", required=false)List<Integer> wineQty,
+			HttpSession session
+	) {
 
-		// 세션 유저넘버 불러오기
-		UserVO lvo = (UserVO) session.getAttribute("user");
-		long userNum = lvo.getUserNum();
+		UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
+        int length = wineNum.size();
+        
+        for(int i=0; i<length; i++) {
+        	CartVO cartVo = new CartVO();
+        	
+        	cartVo.setUserNum(userNum);
+        	cartVo.setWineNum(wineNum.get(i));
+        	cartVo.setWineQty(wineQty.get(i));
+        	
+        	service.modifyCart(cartVo);
+        }
 
-		for (int i = 0; i < wineNum.length; i++) {
-
-			CartVO cartvo = new CartVO();
-			cartvo.setUserNum(userNum);
-			cartvo.setCartQty(cartQty[i]);
-			cartvo.setWineNum(wineNum[i]);
-			service.modifyCart(cartvo);
-		}
 		return "redirect:/cart/list";
 
 	}
@@ -92,11 +99,11 @@ public class CartController {
 	@RequestMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute("cartvo") CartVO cartvo) {
 		log.info("cartVO===" + cartvo);
-		int cartQty = cartvo.getCartQty();
+		int cartQty = cartvo.getWineQty();
 		Long cartNum = cartvo.getCartNum();
 
 		if (cartQty == 0) {
-			service.delete(cartNum);
+			service.deleteCart(cartNum);
 		} else if (cartQty > 0) {
 			service.modifyCart(cartvo);
 		}

@@ -20,7 +20,6 @@
 		<result property="imageName" column="WINE_IMAGENAME" />
 	</resultMap>
 
-
 	<!--장바구니 추가 -->
 	<insert id="insert">
 		<selectKey keyProperty="cartNum" order="BEFORE" resultType="long">

@@ -46,7 +46,7 @@ public class OrderController {
 		UserVO lvo =  (UserVO) session.getAttribute("user");
         long userNum=lvo.getUserNum();
         log.info("ordering"+userNum);
-		List<CartVO> list = cartService.listCart(userNum);
+		List<CartVO> list = cartService.getList(userNum);
 
 		log.info(list);
 		model.addAttribute("list", list);

@@ -64,25 +64,23 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">PRODUCT</th>
-								<th scope="col"></th>
-								<th scope="col">CART</th>
-								<th scope="col"></th>
+								<th scope="col">WINE</th>
+								<th scope="col">TITLE</th>							
+								<th scope="col">PRICE</th>								
+								<th scope="col">CART</th>														
+								<th scope="col">DELETE</th>							
 							</tr>
 						</thead>
 
 						<tbody>
 							<c:forEach var="wish" items="${map.list}" varStatus="i">
 								<tr>
-									<td><img
-										src="http://klea-home.iptime.org:8081/<c:out value="${wish.wineImageName}" />"height="100px" width="30px"></td>
-									<td><h5 class="fw-bold"><a href= "/wine/get?wno=${wish.wineNum}" > ${wish.wineTitle}</a></h5></td>									
-								
-								<%-- 	<td><input type="hidden" name="count"
-										value="${map.count }"></td> --%>
-									<td><a href="/seller/listWine?wineNum=${wish.wineNum}" class="btn btn-outline-dark">Add Cart</a></td>
+									<td><img src="http://klea-home.iptime.org:8081/<c:out value="${wish.wineImageName}" />"height="100px" width="30px"></td>
+									<td><h5 class="fw-bold"><a href= "/wine/get?wno=${wish.wineNum}" > ${wish.wineTitle}</a></h5></td>
+									<td><fmt:formatNumber pattern="#,###,###" value="${wish.winePrice}" /></td>							
+									<td><a href="/cart/insert?wineNum=${wish.wineNum}&wineQty=1" class="btn btn-outline-dark">Add Cart</a></td>									
 									<td><a href="/wishList/delete?wishNum=${wish.wishNum}" class="btn btn-outline-danger">삭제</a></td>
-
+		
 								</tr>
 							</c:forEach>
 						</tbody>
