@@ -114,7 +114,7 @@
 	</section>
 	
 	<!-- Facts about the wine -->
-	<div class="container mb-5" style="margin-left: 15%;">
+	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
 	<h3>Facts about the wine</h3>
 	
 	<table class="table">
@@ -250,7 +250,7 @@
 	<!-- end Facts about the wine -->
 	
 	<!-- Review -->
-	<div class="container mb-5" style="margin-left: 30%">
+	<div class="container mt-3 mb-5" style="margin-left: 30%">
 	<div class="row">
     	<div class="col-md-8">
         	<div class="media">
