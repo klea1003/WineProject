@@ -23,7 +23,13 @@
   </select>
   
   <select id="getTotalCount" resultType="int">
-  select count(*) from tbl_Board_Test where 
+  select count(*) from tbl_Board_Test where board_type like '%' ||'Q'||'%' and
+  <include refid="criteria"></include>
+  board_Num > 0
+  </select>
+  
+  <select id="getBTotalCount" resultType="int">
+  select count(*) from tbl_Board_Test where board_type like '%' ||'자유'||'%' and
   <include refid="criteria"></include>
   board_Num > 0
   </select>
@@ -46,13 +52,30 @@
   
   </sql>
   
-  <select id="getListWithPaging" resultMap="boardinfo">
+  <select id="getQListWithPaging" resultMap="boardinfo">
   <![CDATA[ select * from(
 	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
 	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
 	board_Read_Count,replycnt
 	from (select*from tbl_Board_Test order by board_num desc) 
-	where ]]> 
+	where board_type like '%' ||'Q'||'%' and ]]> 
+	
+	<include refid="criteria"></include>
+
+
+
+<![CDATA[rownum <= #{pageNum}*#{amount}
+)
+where rn>(#{pageNum}-1)*#{amount}]]>
+</select> 
+
+<select id="getBListWithPaging" resultMap="boardinfo">
+  <![CDATA[ select * from(
+	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
+	board_Read_Count,replycnt
+	from (select*from tbl_Board_Test order by board_num desc) 
+	where board_type like '%' ||'자유'||'%' and ]]> 
 	
 	<include refid="criteria"></include>
 

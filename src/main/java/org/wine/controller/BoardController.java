@@ -56,11 +56,21 @@ public class BoardController {
 		 return "redirect:/board/get?boardNum="+likeVO.getBoardNum();
 	}
 	
+	@GetMapping("/boardList")
+	public void boardList(Criteria cri, Model model) {
+		log.info("list" + cri);
+		model.addAttribute("boardlist", service.getBList(cri));
+		model.addAttribute("likelist", service.likelist(service.getBList(cri)));
+		int total = service.getBTotal(cri);
+		log.info("total:" + total);
+		model.addAttribute("pageMaker", new pageDTO(cri, total));
+	}
+	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
 		log.info("list" + cri);
-		model.addAttribute("boardlist", service.getList(cri));
-		model.addAttribute("likelist", service.likelist(service.getList(cri)));
+		model.addAttribute("boardlist", service.getQList(cri));
+		model.addAttribute("likelist", service.likelist(service.getQList(cri)));
 		int total = service.getTotal(cri);
 		log.info("total:" + total);
 		model.addAttribute("pageMaker", new pageDTO(cri, total));
@@ -77,6 +87,17 @@ public class BoardController {
 		service.register(board);
 		rttr.addFlashAttribute("boardResult", board.getBoardNum());
 		return "redirect:/board/list"; 
+	}
+	
+	@PostMapping("/boardRegister") 
+	public String boardRegister(BoardVO board, RedirectAttributes rttr) {
+		log.info("register : " + board);
+		if(board.getAttachList()!=null) {
+			board.getAttachList().forEach(attach->log.info(attach));
+		}
+		service.register(board);
+		rttr.addFlashAttribute("boardResult", board.getBoardNum());
+		return "redirect:/board/boardList"; 
 	}
 
 
@@ -113,6 +134,11 @@ public class BoardController {
 	//@PreAuthorize("isAuthenticated()")  나중에 시큐리티 기능 넣을때
 	@GetMapping("/register")
 	public void register() {
+
+	}
+	
+	@GetMapping("/boardRegister")
+	public void boardRegister() {
 
 	}
 	

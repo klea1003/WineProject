@@ -74,6 +74,12 @@ $(document).ready(function(){
 		operForm.submit();
 	});
 	
+	$('button[data-oper="boardList"]').on("click",function(e){
+		operForm.find("#boardNum").remove();
+		operForm.attr("action","/board/boardList");
+		operForm.submit();
+	});
+	
 	//reply
 	console.log(replyService);
 	
@@ -185,6 +191,12 @@ $(document).ready(function(){
 
 		});
 	});
+    
+   //댓글close창 처리
+   $("#modalCloseBtn").on("click",function(e){
+	   modal.modal("hide");//모달 창 닫음
+		showList(pageNum); //댓글이 포함된 페이지로 이동
+	}); 
 	
 	//특정 댓글의 클릭 이벤트
 	$(".chat").on("click","li",function(e){
@@ -466,7 +478,8 @@ $(document).ready(function(){
 					 <c:if test="${user.userNickName eq board.writer }">
 					<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
 					 </c:if>
-					<button class='btn btn-outline-dark' data-oper='list'>List</button>
+					<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
+					<button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
 					</div>
 					
 					<!-- like 영역 -->
