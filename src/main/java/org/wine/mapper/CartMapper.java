@@ -8,20 +8,22 @@ import org.wine.domain.CartVO;
 
 public interface CartMapper {
 
-	void insert(CartVO cartVo);
+	public int insert(CartVO cartVo);
 	
-	int updateCart(CartVO cartVo);
+	public int getCount(@Param("userNum") Long userNum, @Param("wineNum") Long wineNum);
 
-	int updateWineQty(CartVO cartVo);
-
-	List<CartDisplayVO> getList(Long userNum);
-
+	public int updateWineQty(CartVO cartVo);
+	
 	public int delete(Long cartNum);
-
-	int getTotalPrice(Long userNum);
-
-	int countWine(@Param("userNum") Long userNum, @Param("wineNum") Long wineNum);
-
 	
+	public int deleteByUserAndWine(@Param("userNum") Long userNum, @Param("wineNum") Long wineNum);
+
+	public List<CartDisplayVO> getList(Long userNum);
+	
+	public int getTotalCartNum(Long userNum);
+
+	public int getTotalPrice(Long userNum);
+
+	public int countWine(@Param("userNum") Long userNum, @Param("wineNum") Long wineNum);
 
 }

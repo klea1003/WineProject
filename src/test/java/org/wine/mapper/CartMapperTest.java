@@ -24,13 +24,18 @@ public class CartMapperTest {
 
 		CartVO cartVo = new CartVO();
 		
-		cartVo.setUserNum(16L);
-		cartVo.setWineNum(3L);
+		cartVo.setUserNum(12L);
+		cartVo.setWineNum(16L);
 		cartVo.setWineQty(2);
 
 		mapper.insert(cartVo);
 		log.info(cartVo);
 		
+	}
+	
+	@Test
+	public void testGetCount() {		
+		log.info(mapper.getCount(16L, 2L));
 	}
 	
 	@Test
@@ -44,6 +49,16 @@ public class CartMapperTest {
 
 		log.info(mapper.updateWineQty(cartVo));
 	}
+	
+	@Test
+	public void testDelete() {
+		log.info(mapper.delete(282L));	
+	}
+	
+	@Test
+	public void testDeleteByUserAndWine() {
+		log.info(mapper.deleteByUserAndWine(16L, 2L));
+	}
 
 	@Test
 	public void testGetList() {
@@ -51,16 +66,9 @@ public class CartMapperTest {
 	}
 	
 	@Test
-	public void testDelete() {
-		log.info(mapper.delete(280L));	
-	}	
-
-	
-	@Test
 	public void testgetTotalPrice() {
 		log.info(mapper.getTotalPrice(16L));
 	}
-
 
 	@Test
 	public void testCountWine() {

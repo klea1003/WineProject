@@ -7,12 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.CartDisplayVO;
 import org.wine.domain.CartVO;
 import org.wine.domain.UserVO;
 import org.wine.service.CartService;
@@ -31,45 +30,41 @@ public class CartController {
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 
-		UserVO lvo = (UserVO) session.getAttribute("user");
-		long userNum = lvo.getUserNum();
+		UserVO user = (UserVO) session.getAttribute("user");
+		long userNum = user.getUserNum();
 
+		List<CartDisplayVO> list = service.getList(userNum);
+		int totalPrice = service.getTotalPrice(userNum);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<CartVO> list = service.listCart(userNum);
-		int sumTotalPrice = service.sumTotalPrice(userNum);
 		map.put("list", list);
 		map.put("count", list.size());
-		map.put("sumTotalPrice", sumTotalPrice);
-		mav.setViewName("cart/list");
+		map.put("sumTotalPrice", totalPrice);
+		
+		mav.setViewName("cart/list");		
 		mav.addObject("map", map);
 		return mav;
-
 	}
 
 	@RequestMapping("/insert")
-	public String insert(@ModelAttribute CartVO cartvo, 
-			@RequestParam("userNum") Long userNum,
-			@RequestParam("sellerNum") Long sellerNum
-	) {
-
-		cartvo.setUserNum(userNum);
-		cartvo.setSellerNum(sellerNum);
-		int count = service.countCart(cartvo);
-
-		log.info(cartvo);
-		if (count == 0) {
-			service.insert(cartvo);
-		} else {
-			service.updateCart(cartvo);
-		}
-
+	public String insert(@ModelAttribute CartVO cartVo, HttpSession session) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
+        cartVo.setUserNum(userNum);	// session의 userNum 사용
+        
+        log.info(cartVo);
+        
+        service.addWine(cartVo);
+        
 		return "redirect:/cart/list";
 	}
 
 	// 장바구니 삭제
 	@RequestMapping("/delete")
 	public String delete(@RequestParam Long cartNum) {
-		service.delete(cartNum);
+		service.deleteCart(cartNum);
 		return "redirect:/cart/list";
 
 	}

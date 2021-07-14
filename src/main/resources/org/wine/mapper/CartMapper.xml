@@ -34,6 +34,12 @@
 		)
 	</insert>
 	
+	<select id = "getCount" resultType='int'>
+		SELECT WINE_QTY 
+		FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
+	</select>
+	
 	<!-- 장바구니 물량 업데이트 -->
 	<update id = "updateWineQty">
 		update TBL_CART_TEST
@@ -48,11 +54,24 @@
 		WHERE C.WINE_NUM = W.WINE_NUM AND USER_NUM = #{userNum}
 	</select>	
 	
+	<!-- 장바구니 목록 -->
+	<select id = "getTotalCartNum" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum}
+	</select>	
+	
 	
 	<!-- 장바구니 삭제 -->
 	<delete id ="delete">
 		delete from TBL_CART_TEST
 		where CART_NUM = #{cartNum}
+	</delete>
+	
+	<!-- 장바구니 삭제 by userNum, wineNum -->
+	<delete id ="deleteByUserAndWine">
+		DELETE FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
 	</delete>
 	
 	<!-- 전체 가격 구하기 -->
