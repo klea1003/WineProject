@@ -66,7 +66,7 @@
 							<tr>
 								<th scope="col">PRODUCT</th>
 								<th scope="col"></th>
-								<th scope="col">SELLER</th>
+								<th scope="col">CART</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
@@ -76,10 +76,11 @@
 								<tr>
 									<td><img
 										src="http://klea-home.iptime.org:8081/<c:out value="${wish.wineImageName}" />"height="100px" width="30px"></td>
-									<td><h5 class="fw-bold">${wish.wineTitle}</h5></td>
+									<td><h5 class="fw-bold"><a href= "/wine/get?wno=${wish.wineNum}" > ${wish.wineTitle}</a></h5></td>									
+								
 								<%-- 	<td><input type="hidden" name="count"
 										value="${map.count }"></td> --%>
-									<td><a href="/seller/listWine?wineNum=${wish.wineNum}" class="btn btn-outline-dark">Find Seller</a></td>
+									<td><a href="/seller/listWine?wineNum=${wish.wineNum}" class="btn btn-outline-dark">Add Cart</a></td>
 									<td><a href="/wishList/delete?wishNum=${wish.wishNum}" class="btn btn-outline-danger">삭제</a></td>
 
 								</tr>
