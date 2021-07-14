@@ -27,7 +27,7 @@ public class SellerMapperTest {
 	@Test
 	public void testRead() {
 		
-		SellerVO seller = mapper.read(25L);
+		SellerVO seller = mapper.read(3L);
 		
 		log.info(seller);
 		
@@ -38,7 +38,7 @@ public class SellerMapperTest {
 		
 		SellerVO seller = new SellerVO();
 		
-		seller.setSellerNum(25L);
+		seller.setSellerNum(6L);
 		seller.setSellerPhoneNum("111111");
 		seller.setSellerLocation("주소이전 업데이트");
 		

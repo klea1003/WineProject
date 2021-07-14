@@ -9,8 +9,6 @@ public interface SellerMapper {
 	
 	public List<SellerVO> getList();
 	
-	public List<SellerVO> getListWine(Long wineNum);
-	
 	public SellerVO read(Long sellerNum);
 	
 	public int update(SellerVO seller);

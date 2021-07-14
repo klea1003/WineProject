@@ -8,17 +8,16 @@
 		<result property="sellerStoreName" column="SELLER_STORENAME"/>
 		<result property="sellerPhoneNum" column="SELLER_PHONENUM"/>
 		<result property="sellerLocation" column="SELLER_LOCATION"/>
-		<result property="wineNum" column="wine_num"/>
+		<result property="sellerBusinessHour" column="SELLER_BUSINESSHOUR"/>
+		<result property="sellerManger" column="SELLER_MANGER"/>
+		<result property="sellerMagEmail" column="SELLER_MAGEMAIL"/>
+		
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerInfo">
 		SELECT * FROM TBL_SELLER WHERE SELLER_NUM > 0
 	</select>
 	
-	<select id="getListWine" resultMap="sellerInfo">
-		SELECT * FROM TBL_SELLER a, TBL_SELLER_wine b
-         WHERE a.seller_num=b.seller_num and wine_num=#{wineNum}
-	</select>
 	
 	<select id="read" resultMap="sellerInfo" >
 		select * from TBL_SELLER where SELLER_NUM = #{sellerNum}
