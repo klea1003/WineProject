@@ -87,21 +87,21 @@
 
        });
        
-      var searchForm =$("#searchForm");
-      $("#searchForm button").on("click",function(e){
-     /*  if(!searchForm.find("option:selected").val()){
+      var boardSearchForm =$("#boardSearchForm");
+      $("#boardSearchForm button").on("click",function(e){
+       if(!boardSearchForm.find("option:selected").val()){
          alert("검색 종류를 선택하세요");
       
       return false;
       }
-      if(!searchForm.find("input[name='keyword']").val()){
+      if(!boardSearchForm.find("input[name='keyword']").val()){
          alert("키워드를 입력하세요");
       
       return false;
-      } */
-      searchForm.find("input[name='pageNum']").val("1");
+      } 
+      boardSearchForm.find("input[name='pageNum']").val("1");
       e.preventDefault();
-      searchForm.submit();
+      boardSearchForm.submit();
      
     });
 
@@ -131,9 +131,8 @@
 						<c:forEach var="c" items="${boardlist}" varStatus="status">
 							<tr>
 								<td>${c.boardNum }</td>
-								<td><a
-									onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
-								<%-- <td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td> --%>
+								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td> --%>
+								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
 								<td>${c.boardType}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
@@ -147,7 +146,7 @@
 
 				<div class='row'>
 					<div class="col-lg-12">
-						<form id='searchForm' action='/board/list' method='get'>
+						<form id='boardSearchForm' action='/board/list' method='get'>
 							<select name='type'>
 								<option value=""
 									<c:out value="${pageMaker.cri.type==null?'selected':''}"/>>----</option>
@@ -172,10 +171,13 @@
 							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' /> 
 							<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
-							<button type="submit" class='btn btn-outline-danger btn-sm'>search</button>
+							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
                    		<div align="right">
+                   		<c:if test="${user.userNickName != null}">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>
+                   		</c:if>
+                   		
              		</div>
           		</div>
 			</div>

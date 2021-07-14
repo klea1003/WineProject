@@ -206,7 +206,8 @@ $(document).ready(function(e) {
 				}
 		});//$.ajax
    });
-	
+    
+
 });//end javascript
 </script>
 
@@ -219,7 +220,7 @@ $(document).ready(function(e) {
             </div>
 			<div class="container-fluid">
 				<div class="w-50">
-					<form role="form" action="/board/register" method="post" autocomplete="off">
+					<form role="form" id="form-empty" action="/board/register" method="post" autocomplete="off">
 					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
 					<div class="form-group">
 						<h5 class="fw-bold">Title</h5><input class="form-control" name='title'>

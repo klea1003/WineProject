@@ -138,7 +138,7 @@ $(document).ready(function(){
 	
 	//작성자 null로 선언
     var replyer = null;
-	 replyer = '<c:out value="${user.userNickName}"/>';
+	replyer = '<c:out value="${user.userNickName}"/>';
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -213,7 +213,7 @@ $(document).ready(function(){
 				replyer:modalInputReplyer.val()
 				};
 		
-		/*  if(!replyer) {
+		 if(!replyer) {
 			alert("로그인 후 수정 가능");
 			modal.modal("hide");
 			return;
@@ -223,7 +223,7 @@ $(document).ready(function(){
               alert("자신이 작성한 댓글만 수정 가능");
               modal.modal("hide");
               return;
-          }  */
+          }
 		
 		replyService.update(reply,function(result){
 			alert(result);
@@ -239,7 +239,7 @@ $(document).ready(function(){
         console.log("rno" + rno);
         console.log("REPLYER : "+ replyer);
         
-       /*   if(!replyer){
+         if(!replyer){
             alert("로그인 후 삭제 가능");
             modal.modal("hide");
             return;
@@ -251,9 +251,9 @@ $(document).ready(function(){
             alert("자신이 작성한 댓글만 삭제 가능");
             modal.modal("hide");
             return;
-        }	 */ 
+        }	
 		
-		replyService.remove(rno, originalReplyer, function(result){
+		replyService.remove(rno, function(result){
 			alert(result);
 			modal.modal("hide"); //모달 창 닫음
 			showList(pageNum);//댓글이 포함된 페이지로 이동
@@ -547,8 +547,10 @@ $(document).ready(function(){
 					<div class="card-header bg-light">
 						Reply <i class="bi bi-chat-fill"></i>
 						<div class="float-end">
+						<c:if test="${user.userNickName != null}">
 						<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
 							New Reply</button>
+						</c:if>	
 						</div>
 				
 						
