@@ -446,36 +446,30 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
+					
 					<!-- Notice dropdown -->
 					<li class="nav-item dropdown">
 				   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
 				  	 <div class="dropdown-menu">
-				   		<div class="row">
-				   			<div class="col-1">
-				   				<ul class="list-unstyled">
+				   		<ul class="list-unstyled">
 					    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
 								  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
 								  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
 								</ul>
-							</div><!-- end col-3 -->
-						</div><!-- end row -->
-				    </div><!-- end dropdown-large -->
-				</li><!-- end Notice -->
-				<!-- About dropdown -->
-				<li class="nav-item">
-				<a class="nav-link" href="#" data-bs-toggle="dropdown"> About </a>
-					<div class="dropdown-menu">
-				   		<div class="row">
-				   			<div class="col-1">
-				   				<ul class="list-unstyled">
-					    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
-								  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
-								  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
-								</ul>
-							</div><!-- end col-3 -->
-						</div><!-- end row -->
-				    </div><!-- end dropdown -->
-				</li><!-- About dropdown End -->
+					</div><!-- end dropdown -->
+					</li><!-- end Notice -->
+						
+					<!-- About dropdown -->
+					<li class="nav-item">
+					<a class="nav-link" href="#" data-bs-toggle="dropdown"> About </a>
+						<div class="dropdown-menu">
+			   				<ul class="list-unstyled">
+				    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
+							  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
+							  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
+							</ul>
+						</div><!-- end dropdown -->
+					</li><!-- About End -->
 					</ul>
 				</div>
 			</div>

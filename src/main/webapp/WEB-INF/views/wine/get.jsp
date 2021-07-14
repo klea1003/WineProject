@@ -42,8 +42,8 @@
 }
 
 .rating {
-	background-color: #f9f7d6;
-	color: #a26f01;
+	
+	color: #ffcc00;
 }
 
 .like{
@@ -262,18 +262,18 @@
 				<div class="card mb-3">
 					<div class="card-header">
 					
-	             	<span class="rating mb-2">
+	             	<span class="rating mb-2 fw-bold">
 	             	<i class="bi bi-star-fill"></i>
 					<c:out value="${reviewVO.rating}" />
-					</span>
+					</span>&nbsp;&nbsp;
 					
 	             	<span class="mb-2 user">
 	             	<c:out value="${reviewVO.userNum}" />
-					<c:out value="${reviewVO.userRealName}" /></span>
+					<c:out value="${reviewVO.userRealName}" />(총 이 유저가 한 레이팅 갯수)</span>
 	             	
 					</div>
          
-					<div class="card-body">
+					<div class="card-body fw-bold">
 						<c:out value="${reviewVO.content}" />
 					</div>
 		
@@ -304,6 +304,7 @@
 		        </div>
     		</div>
 		</div>
+		<a href="#" class="btn btn-outline-danger">Show more reviews</a>
 		</div>	
 	<!-- end Review -->
 	
