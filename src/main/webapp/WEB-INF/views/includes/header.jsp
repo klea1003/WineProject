@@ -9,7 +9,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 
-<title>너와, IN</title>
+	<title>너와, IN</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,6 +18,9 @@
 	
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	
+	<!-- Address API -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  	
 	<!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -151,6 +154,12 @@
 	font-size: 5px;
 	text-align: center;
 }
+.final_address_ck {
+	display: none;
+	font-size: 5px;
+	text-align: center;
+}
+
 
 .passwordck_input_re_1 {
 	color: green;
@@ -367,6 +376,7 @@ $(document).ready(function() {
 					    		</div><!-- end row -->
 					    	</div><!-- end dropdown-large -->
 					    </li><!-- end Wines -->
+					<!-- Grapes dropdown -->
 					<li class="nav-item dropdown">
 					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Grapes  </a>
 					   		<div class="dropdown-menu dropdown-large">
@@ -396,6 +406,7 @@ $(document).ready(function() {
 					    		</div><!-- end row -->
 					    	</div><!-- end dropdown-large -->
 					    </li><!-- end Grapes -->
+					<!-- Regions dropdown -->
 					<li class="nav-item dropdown">
 					   <a class="nav-link" href="#" data-bs-toggle="dropdown">Regions</a>
 					  	 <div class="dropdown-menu dropdown-large">
@@ -435,21 +446,30 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
-						<li class="nav-item"><a class="nav-link" href="/seller/list">Shop</a></li>
-						<li class="nav-item dropdown">
-					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
-					  	 <div class="dropdown-menu">
-					   		<div class="row">
-					   			<div class="col-1">
-					   				<ul class="list-unstyled">
-						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
-									  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
-									  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
-									</ul>
-								</div><!-- end col-3 -->
-							</div><!-- end row -->
-					    </div><!-- end dropdown-large -->
+					
+					<!-- Notice dropdown -->
+					<li class="nav-item dropdown">
+				   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
+				  	 <div class="dropdown-menu">
+				   		<ul class="list-unstyled">
+					    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
+								  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
+								  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
+								</ul>
+					</div><!-- end dropdown -->
 					</li><!-- end Notice -->
+						
+					<!-- About dropdown -->
+					<li class="nav-item">
+					<a class="nav-link" href="#" data-bs-toggle="dropdown"> About </a>
+						<div class="dropdown-menu">
+			   				<ul class="list-unstyled">
+				    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
+							  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
+							  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
+							</ul>
+						</div><!-- end dropdown -->
+					</li><!-- About End -->
 					</ul>
 				</div>
 			</div>
@@ -557,9 +577,29 @@ $(document).ready(function() {
 								<span id="email_check_input_box_warn"></span>
 							</div>
 							<div class="col-sm-12">
-								<input type="text" class="form-control" id="phonenum_input"	name="userPhoneNum" placeholder="010-1234-5678"> 
+								<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum" style="display: none;"></label>
+					  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="userPhoneNum" id="phonenum_input"
+									pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"	placeholder="예) 010-1234-5678" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" >
 								<span class="final_phonenum_ck">핸드폰 번호를 입력해주세요</span>
 							</div>
+												
+							<div class="col-sm-7">
+								<input class="form-control" id="address_input_1" name="userAddress1" readonly="readonly" placeholder="주소">
+							</div>
+							<div class="col-sm-5">
+								<input type="button" class="form-control" id="address_button" name="addrBtn" value="주소 찾기" onclick="execution_daum_address()">
+							</div>
+								<!-- <div class="clearfix"></div> -->
+							
+							<div class ="col-sm-12">
+								<input class="form-control" id="address_input_2" name="userAddress2" readonly="readonly">
+							</div>
+							
+							<div class ="col-sm-12">
+								<input class="form-control" id="address_input_3" name="userAddress3" readonly="readonly">
+								<span class="final_address_ck">주소를 입력해주세요.</span>
+							</div>
+							
 							<input type="button" class="btn btn-outline-danger float-end" id="join_button" value="가입하기">
 							<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 							<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
@@ -588,5 +628,62 @@ $(document).ready(function() {
 		
 		console.log("searchForm button clicked")
 	});
+	
+	/* 다음 주소 연동 */
+	function execution_daum_address(){
+		 new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            
+		            
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		        	var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+	 
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+	 
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    addr += extraAddr;
+	                
+	                } else {
+	                	addr += ' ';
+	                }
+	 
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                $("#address_input_1").val(data.zonecode);
+	             
+	                
+	                $("#address_input_2").val(addr);
+	                // 커서를 상세주소 필드로 이동한다.
+	              
+	                
+	                $("#address_input_3").attr("readonly",false);
+	             
+	                $("#address_input_3").focus();
+		        }
+		 
+		    }).open();   
+	}
 </script>
 </html>

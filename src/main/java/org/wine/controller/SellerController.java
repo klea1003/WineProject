@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.SellerVO;
 import org.wine.service.SellerService;
-import org.wine.service.WineProductService;
+//import org.wine.service.WineProductService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,33 +21,22 @@ import lombok.extern.log4j.Log4j;
 public class SellerController {
 	
 	private SellerService service;
-	private WineProductService productService;
 	
 	@GetMapping("/list")
 	public void list(Model model){
 		
-		log.info("list");
+		log.info("seller/list 페이지입니다.");
 		
 		model.addAttribute("list", service.getList());
 		
 	}
 	
-	@GetMapping("/listWine")
-	public void listWine(Model model, @RequestParam("wineNum") Long wineNum){
-		
-		log.info("listWine");
-		
-		model.addAttribute("list", service.getListWine(wineNum));
-		
-	}
-
 	@GetMapping("/get") 
 	public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
 		  
 		  log.info("/get");
 		  
-		  model.addAttribute("seller", service.get(sellerNum));
-		  model.addAttribute("product", productService.get(sellerNum));
+		  model.addAttribute("getseller", service.get(sellerNum));
 		  
 	}
 	
