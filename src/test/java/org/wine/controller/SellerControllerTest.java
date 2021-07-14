@@ -48,7 +48,7 @@ public class SellerControllerTest {
 	public void testGet() throws Exception {
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders
-				.get("/seller/get").param("sellerNum", "30"))
+				.get("/seller/get").param("sellerNum", "5"))
 				.andReturn()
 				.getModelAndView().getModelMap());
 	}

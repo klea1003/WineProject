@@ -11,6 +11,9 @@
 		<result property="userPhoneNum" column="USER_PHONENUM" />
 		<result property="userRealName" column="USER_REALNAME" />
 		<result property="userBirthDay" column="USER_BIRTHDAY" />
+		<result property="userAddress1" column="USER_ADDRESS1" />
+		<result property="userAddress2" column="USER_ADDRESS2" />
+		<result property="userAddress3" column="USER_ADDRESS3" />
 	</resultMap>
 
 	<resultMap type="org.wine.domain.SocialWishVO" id="SocialWishList">
@@ -29,10 +32,8 @@
 	</select>
 
 	<insert id="join">
-		insert into TBL_USER(USER_NUM, USER_ID,
-		USER_NICKNAME,
-		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
-		values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
+		insert into TBL_USER(USER_NUM, USER_ID,	USER_NICKNAME,USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY,USER_ADDRESS1,USER_ADDRESS2,USER_ADDRESS3)
+		values(SEQ_USER_TEST.nextval,#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})),#{userAddress1},#{userAddress2},#{userAddress3})
 	</insert>
 
 	<insert id="joinSelectKey">
@@ -40,9 +41,8 @@
 			resultType="long">
 			select SEQ_USER_TEST.nextval from dual
 		</selectKey>
-		insert into TBL_USER(USER_NUM, USER_ID, USER_NICKNAME,
-		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
-		values(#{userNum},#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})))
+		insert into TBL_USER(USER_NUM, USER_ID,	USER_NICKNAME,USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY,USER_ADDRESS1,USER_ADDRESS2,USER_ADDRESS3)
+		values(#{userNum},#{userId},#{userNickName},#{userEmail},#{userPassword},#{userPhoneNum},#{userRealName},to_char(to_date(#{userBirthDay})),#{userAddress1},#{userAddress2},#{userAddress3})
 	</insert>
 
 	<select id="read" resultMap="userInfo">

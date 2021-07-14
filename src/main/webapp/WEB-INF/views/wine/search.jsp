@@ -121,34 +121,41 @@ input[type=radio]{
 
 <body>
 
-<div class="container">
-	<div class="row">
-		<div class="col-8 wineListArea">
-		<!-- Section-->
-			<section class="py-5">
-				<!-- Wine List-->
-		        <div class="containe px-lg-5">
-		            <div class="wine-card-list">
-		           </div>
-		        </div>
-		        <!-- End of Wine List-->
-				
-			</section>
+	<div class="container px-5 my-5">
+		<div class="text-center">
+            <h1 class="fw-bolder">Search List</h1>
+        </div>
+	</div>
 
-			<form id="actionForm" action="/wine/list" method="get">
-				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-				<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
-			</form>
-			<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
-				
-			<!-- Price Range -->
-			<input type="hidden" id="price_min" value="0">
-			<input type="hidden" id="price_max" value="200000">
-		</div><!-- end wineListArea -->
-	</div><!-- end row -->
-</div><!-- end container -->
-	<%@include file="../includes/footer.jsp" %>
+	<div class="container">
+		<div class="row">
+			<div class="col-8 wineListArea">
+			
+				<!-- Section-->
+				<section class="py-5">
+					<!-- Wine List-->
+			        <div class="container" style="margin-left: 25%;">
+			            <div class="wine-card-list">
+			           </div>
+			        </div>
+			        <!-- End of Wine List-->
+					
+				</section>
+	
+				<form id="actionForm" action="/wine/list" method="get">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+					<input type="hidden" name="totalPageNum" value="${pageMaker.totalPageNum}">
+				</form>
+				<input type="hidden" name="wine_keyword" value=<c:out value="${wine_keyword}" />>
+					
+				<!-- Price Range -->
+				<input type="hidden" id="price_min" value="0">
+				<input type="hidden" id="price_max" value="200000">
+			</div><!-- end wineListArea -->
+		</div><!-- end row -->
+	</div><!-- end container -->
+<%@include file="../includes/footer.jsp" %>
 
 </body>
 

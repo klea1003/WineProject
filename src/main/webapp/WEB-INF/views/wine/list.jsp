@@ -454,8 +454,8 @@ input[type=radio]{
 						str += "<h5> ￦ " + wineUtil.numberWithCommas(list[i].price)  + "</h5>"
 						
 						str += "<div class='mt-5'>"
-						str += "<a href='/seller/list' class='btn btn-outline-danger'>"
-						str += "view shops"
+						str += "<a href='/cart/list' class='btn btn-outline-danger'>"
+						str += "Add cart"
 						str += "</a>"
 						str += "&nbsp;<button type='button' class='btn btn-outline-dark'>"
 						str += "Wish"

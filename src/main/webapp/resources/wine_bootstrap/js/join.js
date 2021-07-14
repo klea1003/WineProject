@@ -20,8 +20,11 @@ var emailnumCheck = false;
 
 var phonenumCheck = false
 
+var addressCheck = false 
+
 $(document).ready(function() {
 	$("#join_button").click(function() {
+		
 		var id = $('#id_input').val();
 		var nickname = $('#nickname_input').val();
 		var password = $('#password_input').val();
@@ -30,6 +33,8 @@ $(document).ready(function() {
 		var birthday = $('#birthday_input').val();
 		var email = $('#email_input').val();
 		var phonenum = $('#phonenum_input').val();
+		var addr = $('#address_input_3').val();
+		 
 
 		if (id == "") {
 			$('.final_id_ck').css('display', 'block');
@@ -98,8 +103,16 @@ $(document).ready(function() {
 			$('.final_email_ck').css('display', 'none');
 			emailCheck = true;
 		}
+		
+        if(addr == ""){
+            $('.final_address_ck').css('display','block');
+            addressCheck = false;
+        }else{
+            $('.final_address_ck').css('display', 'none');
+            addressCheck = true;
+        }
 
-		if (idCheck && idckCheck && nicknameCheck && nicknameckCheck && passwordCheck && passwordckCheck && passwordckcorCheck && realnameCheck && birthdayCheck && emailCheck && emailnumCheck && phonenumCheck) {
+		if (idCheck && idckCheck && nicknameCheck && nicknameckCheck && passwordCheck && passwordckCheck && passwordckcorCheck && realnameCheck && birthdayCheck && emailCheck && emailnumCheck && phonenumCheck && addressCheck) {
 			$("#join_form").attr("action", "/user/join");
 			$("#join_form").submit();
 			alert(id + '님 회원가입을 축하합니다.')

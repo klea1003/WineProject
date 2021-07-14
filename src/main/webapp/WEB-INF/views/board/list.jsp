@@ -44,6 +44,12 @@
 	background-color: #b30000;
 	border-color: #b30000;
 }
+
+.table {
+	
+	text-align: center;
+
+}
 </style>
 <script type="text/javascript">
    $(document).ready(function() {//모델 보여주기 추가
@@ -111,7 +117,7 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
-		<h1 class="fw-bolder fs-5 mb-4">Q&A</h1>
+		<h1 class="fw-bolder mb-5">Q&A</h1>
          <div class="row">
                <div>
                   <table class="table">
