@@ -326,7 +326,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						str += "<div class='card-body mb-5'>"
 						
 						str += "<div class='mt-5' style='height:54px; width:180px;'>"
-						str += "<p>" + list[i].title + "</p>"
+						str += "<p>" 
+						str += "<a href='/wine/get?wno="+ list[i].wno + "'>" +list[i].title +" </a></p>"
 						str += "</div>"
 						
 						str += "<div class='mt-3'>"
