@@ -9,7 +9,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 
-<title>너와, IN</title>
+	<title>너와, IN</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -376,6 +376,7 @@ $(document).ready(function() {
 					    		</div><!-- end row -->
 					    	</div><!-- end dropdown-large -->
 					    </li><!-- end Wines -->
+					<!-- Grapes dropdown -->
 					<li class="nav-item dropdown">
 					   <a class="nav-link" href="#" data-bs-toggle="dropdown">  Grapes  </a>
 					   		<div class="dropdown-menu dropdown-large">
@@ -405,6 +406,7 @@ $(document).ready(function() {
 					    		</div><!-- end row -->
 					    	</div><!-- end dropdown-large -->
 					    </li><!-- end Grapes -->
+					<!-- Regions dropdown -->
 					<li class="nav-item dropdown">
 					   <a class="nav-link" href="#" data-bs-toggle="dropdown">Regions</a>
 					  	 <div class="dropdown-menu dropdown-large">
@@ -444,21 +446,36 @@ $(document).ready(function() {
 					    	</div><!-- end row -->
 					    </div><!-- end dropdown-large -->
 					</li><!-- end Regions -->
-						<li class="nav-item"><a class="nav-link" href="/seller/list">Shop</a></li>
-						<li class="nav-item dropdown">
-					   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
-					  	 <div class="dropdown-menu">
-					   		<div class="row">
-					   			<div class="col-1">
-					   				<ul class="list-unstyled">
-						    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
-									  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
-									  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
-									</ul>
-								</div><!-- end col-3 -->
-							</div><!-- end row -->
-					    </div><!-- end dropdown-large -->
-					</li><!-- end Notice -->
+					<!-- Notice dropdown -->
+					<li class="nav-item dropdown">
+				   	<a class="nav-link" href="#" data-bs-toggle="dropdown"> Notice </a>
+				  	 <div class="dropdown-menu">
+				   		<div class="row">
+				   			<div class="col-1">
+				   				<ul class="list-unstyled">
+					    		  <li><a class="dropdown-item" href="/board/list"> Q&A </a></li>
+								  <li><a class="dropdown-item" href="/board/list"> Board </a></li>
+								  <li><a class="dropdown-item" href="/board/event"> Event </a></li>
+								</ul>
+							</div><!-- end col-3 -->
+						</div><!-- end row -->
+				    </div><!-- end dropdown-large -->
+				</li><!-- end Notice -->
+				<!-- About dropdown -->
+				<li class="nav-item">
+				<a class="nav-link" href="#" data-bs-toggle="dropdown"> About </a>
+					<div class="dropdown-menu">
+				   		<div class="row">
+				   			<div class="col-1">
+				   				<ul class="list-unstyled">
+					    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
+								  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
+								  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
+								</ul>
+							</div><!-- end col-3 -->
+						</div><!-- end row -->
+				    </div><!-- end dropdown -->
+				</li><!-- About dropdown End -->
 					</ul>
 				</div>
 			</div>

@@ -6,14 +6,13 @@ import org.wine.domain.SellerVO;
 
 public interface SellerService {
 	
-	public SellerVO get(Long sellerNum);
+	public List<SellerVO> getList();
 	
-	public List<SellerVO> getListWine(Long wineNum);
+	public SellerVO get(Long sellerNum);
 	
 	public boolean modify(SellerVO seller);
 	
 	public boolean remove(Long sellerNum);
 	
-	public List<SellerVO> getList();
 
 }
