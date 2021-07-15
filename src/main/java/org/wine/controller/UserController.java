@@ -56,13 +56,45 @@ public class UserController {
 	@Autowired
 	private SocialService socialservice;
 
-	@GetMapping("/userlist")
-	public void userlist(Model model) {
+	@GetMapping("/settings")
+	public void userSettings(HttpServletRequest request,@RequestParam("userNum") Long userNum ,SocialCriteriaReview crire,UserVO user,Model model) {
 
-		log.info("유저 리스트페이지");
+		log.info("유저 세팅 페이지");
 
-		model.addAttribute("userlist", service.getList());
+		log.info("setting");
 
+		model.addAttribute("setting", service.get(userNum));
+		
+		List<ProfileVO> imageck =  service.imageCk(userNum);
+		
+		log.info("imageck : " +imageck);
+		
+		model.addAttribute("imageck",imageck);  //이미지 체크 유무
+		 
+	}
+	
+	@PostMapping({ "/settings" })
+	public String settingRegister(@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
+		
+		if(user.getProfileList() !=null) {
+			
+			user.getProfileList().forEach(attach ->log.info(attach));
+		}
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
+		service.register(user);
+		
+		rttr.addFlashAttribute("resultimage",user.getUserNum());
+		
+		return  "redirect:"+ path+query;
 	}
 	
 	@GetMapping({ "/userpage" })
@@ -125,7 +157,9 @@ public class UserController {
 	
 	@PostMapping({ "/userpage" })
 	public String register(@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
+		
 		if(user.getProfileList() !=null) {
+			
 			user.getProfileList().forEach(attach ->log.info(attach));
 		}
 		if(query==""||query==null) {
@@ -137,6 +171,7 @@ public class UserController {
 		log.info("path :"+path);
 		
 		log.info("query :"+query);
+		
 		service.register(user);
 		
 		rttr.addFlashAttribute("resultimage",user.getUserNum());
@@ -174,12 +209,104 @@ public class UserController {
 			return  "redirect:"+ path+query;
 
 		}
+		
+		int result = 1;
+		
+		rttr.addFlashAttribute("result", result);
+		
+		log.info(result);
+		
 		session.setAttribute("user", lvo);
 
 		Long loginNum=lvo.getUserNum();
 		
 		session.setAttribute("loginNum", loginNum);
 		
+		return  "redirect:"+ path+query;
+	}
+	
+	
+	
+	@RequestMapping(value = "/emailModify", method = RequestMethod.POST)
+	public String modifyEmail(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query,
+			UserVO user, RedirectAttributes rttr) {
+
+		log.info(user);
+		
+		int email = service.modifyEmail(user);
+		
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
+		if (email == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
+			int resultEmail = 0;
+			rttr.addFlashAttribute("resultEmail", resultEmail);
+			log.info(resultEmail);
+			return "redirect:"+ path+query;
+		}
+	
+		return  "redirect:"+ path+query;
+	}
+	
+	@RequestMapping(value = "/passwordModify", method = RequestMethod.POST)
+	public String modifyPassword(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query,
+			UserVO user, RedirectAttributes rttr) {
+
+		log.info(user);
+		
+		int password = service.modifyPassword(user);
+		
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
+		if (password == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
+			int resultPassword = 0;
+			rttr.addFlashAttribute("resultPassword", resultPassword);
+			log.info(resultPassword);
+			return "redirect:"+ path+query;
+		}
+	
+		return  "redirect:"+ path+query;
+	}
+	
+	@RequestMapping(value = "/userInfoModify", method = RequestMethod.POST)
+	public String userInfoPassword(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query, UserVO user, RedirectAttributes rttr) {
+
+		log.info(user);
+		
+		int userInfo = service.modifyUserInfo(user);
+		
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
+		if (userInfo == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
+			int resultuserInfo = 0;
+			rttr.addFlashAttribute("resultuserInfo", resultuserInfo);
+			log.info(resultuserInfo);
+			return "redirect:"+ path+query;
+		}
+	
 		return  "redirect:"+ path+query;
 	}
 	
@@ -299,31 +426,33 @@ public class UserController {
 	public ResponseEntity<List<ProfileVO>> getAttach(Long userNum){
 		log.info("getAttachList "+userNum);
 		
-		List<ProfileVO> list=service.getAttachList(userNum);
+		List<ProfileVO> list = service.getAttachList(userNum);
 		
 		return new ResponseEntity<>(service.getAttachList(userNum),HttpStatus.OK);
 	}
 	
-	   @PostMapping("/imageremove")
-	   public String remove(@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
-	      log.info("remove......."+userNum);
+	
+	
+   @PostMapping("/imageremove")
+   public String remove(@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
+      log.info("remove......."+userNum);
 
-	 if(query==""||query==null) {
-			
-		}else {
-			query = "?" + query;
-		}
+      if(query==""||query==null) {
 		
+      }else {
+    	  query = "?" + query;
+		}
+	
 		log.info("path remove :"+path);
 		
 		log.info("query  remove:"+query);
 		
-	     service.remove(userNum);
-	    	
-	     rttr.addFlashAttribute("result", 0 );
-
-	     return  "redirect:"+ path + query;
-	      
-	   }
+		service.remove(userNum);
+			
+		rttr.addFlashAttribute("result", 0 );
+		
+		return  "redirect:"+ path + query;
+      
+   }
 
 }

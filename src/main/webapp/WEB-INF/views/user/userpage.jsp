@@ -77,6 +77,15 @@ p.card-text {
  -webkit-line-clamp: 2;
  -webkit-box-orient: vertical;
 }
+.socialBtn{
+	border-radius: 80px;
+    background: #a11122;
+    color: #fff;
+    width: 11rem;
+    height: 3rem;
+    border: 1px solid #fff;
+    
+}
 
 </style>
 </head>
@@ -96,14 +105,14 @@ p.card-text {
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
-							<button class="btn btn-outline-secondary btn-sm" id='unfollowBtn' type="button">
+							<button class="socialBtn" id='unfollowBtn' type="button">
 								팔로잉<i class="bi bi-person-check-fill"></i>
 							</button>
 						</div>
 					</c:if>
 					<c:if test="${ followck == null}">
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+							<button class="socialBtn" id='followingBtn' type="button">
 								팔로우<i class="bi bi-person-plus-fill"></i>
 							</button>
 						</div>
@@ -111,7 +120,7 @@ p.card-text {
 				</c:if>				
 				<c:if test="${ user == null}">
 					<div class="btn-group">
-						<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+						<button class="socialBtn" id='followingBtn' type="button">
 							팔로우<i class="bi bi-person-plus-fill"></i>
 						</button>
 					</div>
@@ -134,63 +143,20 @@ p.card-text {
 													<div class="panel panel-default">
 														<div class="panel-heading">
 														</div>
-														<div class="panel-body">
-															<form role="form" action="/user/userpage"  method="post" name="imageupload">
-																	<input type='file' name='uploadFile' class="file-upload" style="display: none;">
-																	<input type="hidden" name="userNum" value='<c:out value="${userpage.userNum}"/>'>
-																	<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
-																	<c:set var="query" value="${requestScope['javax.servlet.forward.query_string']}" />
-																	<input type='hidden' name='path' value="<c:out value='${path}'/>">	
-																	<input type='hidden' name='query' value="<c:out value='${query}'/>">
-																<div class='form-group uploadDiv'>
-																	<ul>
-																	</ul>
-																</div>
-																<div class="viewResult">
-																</div>
-																<c:if test="${ imageck.size() != 0}">
-																	<c:if test="${user.userNum == userpage.userNum }">
-																		<button type='submit' id='insertimage' class='btn btn-primary btn-sm' style="display:none; margin-left: 31%; margin-bottom: 3%;">Submit</button>
-																		<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-danger btn-sm' >Remove</button>
-																	</c:if>
-																</c:if>
-															</form>
+														<div class="panel-body">								
+															<div class="viewResult">
+															</div>																
 														</div>
 													</div>
 												</div>
 											</div>
 										</c:if>
-										<c:if test="${ imageck.size() == 0}">
-											<c:if test="${user.userNum == userpage.userNum }">
-												<a href="#"	class="d-block link-dark text-decoration-none dropdown-toggle"	id="dropdownUser1" data-bs-toggle="dropdown"aria-expanded="false"> 
-										 			<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-							 							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-							 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-													</svg>
-												</a>
-												<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-													<li style="text-align: center;">
-														<button type="button" onclick=document.all.uploadFile.click();><i class="bi bi-card-image"></i></button>
-													</li>														
-												</ul>
-												<form role="form" action="/user/userpage" method="post"	name="imageupload" >
-													<div class='form-group uploadDiv'>
-														<input type='file' name='uploadFile' class="file-upload" style="display: none;">
-													</div>
-													<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
-													<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
-													<input type='hidden' name='path' value="<c:out value='${path}'/>">	
-													<input type='hidden' name='query'value="<c:out value='${query}'/>">	
-													<button type="submit" id='insertimage' class="btn btn-primary btn-sm" style="display:none; margin-left: 31%;">Submit</button>
-												</form>
-											</c:if>
-											<c:if test="${user.userNum != userpage.userNum }">
-												<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-						 							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-						 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-												</svg>
-											</c:if>
-										</c:if>
+										<c:if test="${ imageck.size() == 0}">											
+								 			<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+					 							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+					 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+											</svg>					
+										</c:if>											
 										<br>
 										<div class="row">
 											<div class="col-lg-12">
@@ -284,7 +250,7 @@ p.card-text {
 							</div>
 						</c:forEach>
 						<div class="text-end mb-5 mb-xl-0">
-							<span id="modal_show_reviewList"><i class="bi bi-arrow-right"></i> More Rating</span>
+							<button type="button" id="modal_show_reviewList" class="btn btn-outline-secondary sm">More Rating</button>
 						</div>
 					</c:if>					
 					<c:if test="${empty socialreviewlist}">
@@ -328,9 +294,9 @@ p.card-text {
 	                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
 	                  						</div>
 						                     <div class="card-body">
-											      <p class="card-text"><b><c:out value="${w.wineTitle}" /></b></p>
-											      <p class="card-text">생산지역 : <c:out value="${w.wineCountry}" /></p>
-											      <p class="card-text">와인타입 : <c:out value="${w.wineType}" /></p>
+											      <p ><b><c:out value="${w.wineTitle}" /></b></p>
+											      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
+											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 											</div>
 						                 	<div class="card-footer">
 						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
@@ -541,7 +507,7 @@ $(document).ready(function() {
 	
 	var formObj=$("form[role='form']")
 	
-	var regex = new RegExp("(.*?)\.(jpg|png|jpeg|svg)$")
+	var regex = new RegExp("(.*?)\.(jpg|png|jpeg|svg|PNG)$")
 	
     var maxSize = 5242880;
     
@@ -664,6 +630,8 @@ $(document).ready(function() {
 	
 	$.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){	  
 		
+		console.log("불러오기 성공");
+		
 		console.log("ARRAY"+ arr);
 		
 		var str=''
@@ -672,17 +640,9 @@ $(document).ready(function() {
 			console.log("i"+ obj.profileUuid); 
 			if (obj.profileFileType) {
 				var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
-				str +="<c:if test='${user.userNum == userpage.userNum }'>"
-				str +="<a href='#' class='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'> "
-				str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'></a>"
-				str += "<ul class='dropdown-menu text-small' aria-labelledby='dropdownUser1'>"
-				str += "<li style='text-align: center;'><button type='button' onclick=document.all.uploadFile.click();><i class='bi bi-card-image'></i></button></li>"
-				str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
-				str +="</div></li></ul>"
-				str +="</c:if>" 
-				str +="<c:if test='${user.userNum != userpage.userNum }'>"
+				str +="<div data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'></div><div>"
 				str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'>"
-				str +="</c:if>"
+				str +="</div>"
 				console.log(obj.profileFileType)
 			} else {
 				str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"

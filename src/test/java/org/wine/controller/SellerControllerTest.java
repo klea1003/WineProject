@@ -51,6 +51,7 @@ public class SellerControllerTest {
 				.get("/seller/get").param("sellerNum", "5"))
 				.andReturn()
 				.getModelAndView().getModelMap());
+		
 	}
 	
 	@Test

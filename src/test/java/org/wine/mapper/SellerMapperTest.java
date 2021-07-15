@@ -23,7 +23,12 @@ public class SellerMapperTest {
 	public void testGetList() {
 		mapper.getList().forEach(seller->log.info(seller));
 	}
-
+	
+	@Test 
+	public void testgetImageList() {
+	  mapper.getImageList(2L);
+	}
+	
 	@Test
 	public void testRead() {
 		
