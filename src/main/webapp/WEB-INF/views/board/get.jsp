@@ -59,9 +59,9 @@
 }
 </style>
 <body>
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
- <script src="/resources/wine_bootstrap/js/reply.js"></script>
-<script type="text/javascript">
+	<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
+	<script src="/resources/wine_bootstrap/js/reply.js"></script>
+	<script type="text/javascript">
 $(document).ready(function(){
 	var operForm = $('#operForm');
 	$('button[data-oper="modify"]').on("click",function(e){
@@ -161,7 +161,7 @@ $(document).ready(function(){
 		modal.find("input").val("");
 		
 		 //replyer (security id가 담긴)
-		 modal.find("input[name='replyer']").val(replyer); 
+		modal.find("input[name='replyer']").val(replyer); 
 		
 		modalInputReplyDate.closest("div").hide();
 		modal.find("button[id!='modalCloseBtn']").hide();
@@ -434,7 +434,6 @@ $(document).ready(function(){
   	});//bigPictureWrapper click
      }
 </script>
-
 <body>
 	<section class="py-5">
 		<div class="container px-3 my-3">
@@ -473,30 +472,31 @@ $(document).ready(function(){
 		            <button class='btn btn-success' data-oper='modify'>Modify</button>
 		            </c:if>
 		            </sec:authorize> 시큐리티 기능--%>
-					
+
 					<div class="mb-3">
-					 <c:if test="${user.userNickName eq board.writer }">
-					<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
-					 </c:if>
-					<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
-					<button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
+						<c:if test="${user.userNickName eq board.writer }">
+							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
+						</c:if>
+						<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
+						<button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
 					</div>
-					
+
 					<!-- like 영역 -->
 					<div class="row">
-						<div class="col-md-1">${like}Likes</div> &nbsp;
-						
+						<div class="col-md-1">${like}Likes</div>
+						&nbsp;
+
 						<div class="col-md-3" style="display: none;">
-						<form id='operForm' action='/board/modify' method='get'>
-							<input type='hidden' id='boardNum' name='boardNum'
-								value='<c:out value="${board.boardNum }" />'> <input
-								type='hidden' name='pageNum'
-								value='<c:out value="${cri.pageNum }"/>'> <input
-								type='hidden' name='amount'
-								value='<c:out value="${cri.amount }"/>'> <input
-								type="hidden" name="type" value="${cri.type }"> <input
-								type="hidden" name="keyword" value="${cri.keyword }">
-						</form>
+							<form id='operForm' action='/board/modify' method='get'>
+								<input type='hidden' id='boardNum' name='boardNum'
+									value='<c:out value="${board.boardNum }" />'> <input
+									type='hidden' name='pageNum'
+									value='<c:out value="${cri.pageNum }"/>'> <input
+									type='hidden' name='amount'
+									value='<c:out value="${cri.amount }"/>'> <input
+									type="hidden" name="type" value="${cri.type }"> <input
+									type="hidden" name="keyword" value="${cri.keyword }">
+							</form>
 						</div>
 
 						<div class="col-md-1">
@@ -524,8 +524,8 @@ $(document).ready(function(){
 								</button>
 							</form>
 						</div>
-						
-						
+
+
 					</div>
 					<!-- end like -->
 					<!-- Files -->
@@ -537,7 +537,7 @@ $(document).ready(function(){
 								<div class="panel-body">
 									<div class="panel-body">
 										<div class="form-group uploadDiv"></div>
-	
+
 										<div class="uploadResult">
 											<ul></ul>
 										</div>
@@ -552,7 +552,7 @@ $(document).ready(function(){
 					<!-- end Files -->
 				</div>
 
-				
+
 
 				<!-- reply 영역 -->
 
@@ -560,16 +560,16 @@ $(document).ready(function(){
 					<div class="card-header bg-light">
 						Reply <i class="bi bi-chat-fill"></i>
 						<div class="float-end">
-						<c:if test="${user.userNickName != null}">
-						<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
-							New Reply</button>
-						</c:if>	
+							<c:if test="${user.userNickName != null}">
+								<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
+									New Reply</button>
+							</c:if>
 						</div>
-				
-						
+
+
 					</div>
 
-						<!-- <sec:authorize access="isAuthenticated()">
+					<!-- <sec:authorize access="isAuthenticated()">
             			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                			Reply</button>
                 		</sec:authorize> 시큐리티-->
@@ -579,9 +579,7 @@ $(document).ready(function(){
 							<!-- start reply -->
 							<li class="left clearfix" data-rno="12">
 								<div>
-									<div class="header">
-										
-									</div>
+									<div class="header"></div>
 									<p>Good job</p>
 								</div>
 							</li>
@@ -589,7 +587,8 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-		</div><!-- end container -->
+		</div>
+		<!-- end container -->
 
 		<!-- 모달영역 -->
 		<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
@@ -627,11 +626,12 @@ $(document).ready(function(){
 			</div>
 
 			<!-- 모달영역 -->
-		
-	
-	<!--    footer 시작      -------------------------------------------------------------- -->
+
+
+			<!--    footer 시작      -------------------------------------------------------------- -->
 
 		</div>
+		
 		<!-- 모달영역 -->
 
 	</section>

@@ -11,6 +11,7 @@ import org.wine.domain.BoardVO;
 import org.wine.domain.Criteria;
 import org.wine.domain.pageDTO;
 import org.wine.service.BoardService;
+import org.wine.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,6 +37,7 @@ import lombok.extern.log4j.Log4j;
 
 public class BoardController {
 	private BoardService service;
+	private EventService eventService;
 	
 
     
@@ -167,8 +169,22 @@ public class BoardController {
 	}
 	
 	@GetMapping("/event")
-	public void event() {
-		
+	public void event(Criteria cri, Model model) {
+		log.info("event" + cri);
+		model.addAttribute("list", eventService.getList(cri));
+		log.info("event" + eventService.getList(cri));
+		int total = eventService.getTotal();
+		log.info("total:" + total);
+		model.addAttribute("pageMaker", new pageDTO(cri, total));
+	}
+	
+	@GetMapping("/eventAll")
+	public void eventAll(Criteria cri, Model model) {
+		log.info("event" + cri);
+		model.addAttribute("listAll", eventService.getListAll(cri));
+		int total = eventService.getTotal();
+		log.info("total:" + total);
+		model.addAttribute("pageMaker", new pageDTO(cri, total));
 	}
 
 }

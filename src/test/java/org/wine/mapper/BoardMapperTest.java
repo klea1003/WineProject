@@ -78,7 +78,7 @@ public void testUpdate() {
 @Test
 public void testPaging() {
 	Criteria cri = new Criteria();
-	List<BoardVO> list=mapper.getListWithPaging(cri);
+	List<BoardVO> list=mapper.getQListWithPaging(cri);
 	list.forEach(board->log.info(board));
 }
 
@@ -86,7 +86,7 @@ public void testPaging() {
 public void testSearch() {
 	Criteria cri = new Criteria();
 	cri.setKeyword("이벤트"); cri.setType("P");
-	List<BoardVO> list = mapper.getListWithPaging(cri);
+	List<BoardVO> list = mapper.getQListWithPaging(cri);
 	list.forEach(board->log.info(board));
 }
 
