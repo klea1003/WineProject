@@ -11,13 +11,24 @@
 		<result property="sellerBusinessHour" column="SELLER_BUSINESSHOUR"/>
 		<result property="sellerManger" column="SELLER_MANGER"/>
 		<result property="sellerMagEmail" column="SELLER_MAGEMAIL"/>
+		<result property="sellerContent" column="SELLER_CONTENT"/>
 		
+	</resultMap>
+	
+	<resultMap type="org.wine.domain.SellerImageVO" id="sellerImageInfo">
+		<result property="sellerImageNum" column="SELLER_IMAGE_NUM" />
+		<result property="sellerImage" column="SELLER_IMAGE" />
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerInfo">
 		SELECT * FROM TBL_SELLER WHERE SELLER_NUM > 0
 	</select>
 	
+	<select id="getImageList" resultMap="sellerImageInfo">
+		select si.SELLER_IMAGE_NUM, si.SELLER_IMAGE
+  		from TBL_SELLER s left outer join TBL_SELLER_IMAGE si 
+  		on s.SELLER_NUM = si.SELLER_IMAGE_NUM where s.SELLER_NUM = #{sellerNum}
+	</select>
 	
 	<select id="read" resultMap="sellerInfo" >
 		select * from TBL_SELLER where SELLER_NUM = #{sellerNum}

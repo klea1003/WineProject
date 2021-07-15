@@ -13,5 +13,6 @@ public class SellerVO {
 	private String sellerBusinessHour;
 	private String sellerManger;
 	private String sellerMagEmail;
+	private String sellerContent;
 
 }

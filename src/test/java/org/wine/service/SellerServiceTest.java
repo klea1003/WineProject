@@ -37,6 +37,12 @@ public class SellerServiceTest {
 	}
 	
 	@Test
+	public void testgetImageList() {
+		
+		service.getImageList(3L);
+	}
+	
+	@Test
 	public void testGet(){
 		
 		log.info(service.get(2L));

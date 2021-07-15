@@ -37,6 +37,7 @@ public class SellerController {
 		  log.info("/get");
 		  
 		  model.addAttribute("getseller", service.get(sellerNum));
+		  model.addAttribute("sellerImage", service.getImageList(sellerNum));
 		  
 	}
 	
