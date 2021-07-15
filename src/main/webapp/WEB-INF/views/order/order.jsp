@@ -28,37 +28,36 @@
 
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
-            <h1 class="fw-bolder">RESEVATION</h1>
-        </div>
+			<h1 class="fw-bolder">RESEVATION</h1>
+		</div>
 	</div>
-			
-			<div class="container px-5 mb-5">
-				<form role="form" method="post" autocomplete="off">
+		
+	<div class="container px-5 mb-5">
+		<form role="form" method="get" action="/order/complete" autocomplete="off">
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">SELLER</th>
-				      	<th scope="col"></th>
-				      	<th scope="col">WINE</th>
-				      	<th scope="col">PRICE</th>
-				      	<th scope="col">QTY</th>
-				      	<th scope="col">TOTAL</th>
+						<th scope="col">WINE</th>
+						<th scope="col">TITLE</th>
+						<th scope="col">PRICE</th>
+						<th scope="col">QTY</th>
+						<th scope="col">TOTAL</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="row" items="${list}" varStatus="i">
+					<c:forEach var="row" items="${map.list}" varStatus="status">
 						<tr>
-							<td>${row.sellerId}(${row.sellerNum})</td>
 							<td><img
-								src="http://klea-home.iptime.org:8081/<c:out value="${row.wineImageName}" />"
+								src="http://klea-home.iptime.org:8081/<c:out value="${row.imageName}" />"
 								height="100" width="30"></td>
-							<td><h5 class="fw-bold">${row.wineTitle}</h5></td>
+							<td><h5 class="fw-bold">${row.title}</h5></td>
 							<td><fmt:formatNumber pattern="#,###,###"
-									value="${row.winePrice}" /></td>
+									value="${row.price}" /></td>
 							<td><input type="number" style="width: 40px;" name="cartQty"
-								value="${row.cartQty }" min="1" readonly>
+								value="${row.wineQty }" min="1" readonly>
 							<td><fmt:formatNumber pattern="###,###,###"
 									value="${row.totalPrice}" /></td>
+							<input type="hidden" name="cartNumArr" value="${row.cartNum}" >
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -67,14 +66,14 @@
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
-  				aria-describedby="inputGroup-sizing-default" name="pickUpName" id="pickUpName" required="required" >
+  				aria-describedby="inputGroup-sizing-default" name="pickUpName" id="pickUpName" required="required" value="asdf">
 			</div>
 			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum">수령인 연락처</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
   				aria-describedby="inputGroup-sizing-default" name="pickUpPhoneNum" id="pickUpPhoneNum"
-							pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
+							pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" value = "010-1111-1111"
 							placeholder="예) 010-1234-5678"
 							onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" >
 			</div>

@@ -48,6 +48,44 @@ function deleteItems(){
 	location.reload(true);
 };
 
+function deleteItems(){
+	console.log("delete btn clicked")
+	
+	var _deleteCartArr = [];
+	
+	 $("input[class='checkBox']:checked").each(function(i) {
+		 _deleteCartArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    })
+	
+	$.ajax({
+		url: 'deleteItems',
+		type: 'get',
+		dataType: "JSON",
+		data: {
+			deleteCartArr: _deleteCartArr
+		}
+	})
+	
+	location.href = "order"
+};
+
+function orderItems(){
+	console.log("order btn clicked")
+	
+	href_str = "/order/order?"
+	
+	 $("input[class='checkBox']:checked").each(function(i) {
+		 href_str += "cartNumArr=" + $(this).val() + "&";
+    })
+    
+    href_str = href_str.slice(0, -1)
+    
+    console.log(href_str)
+	
+	location.href = href_str
+};
+
+
 $(document).ready(function() {
 	$(".btnCartUpdate").on("click", function(e) {
 		e.preventDefault();
@@ -148,7 +186,7 @@ $(document).ready(function() {
 			
 			<div style="float: right;"> 
 				<button type="button" class="btn btn-outline-danger" onclick="deleteItems();">삭제하기</button>
-				<button type="button" class="btn btn-outline-danger" onclick="location.href='/order/ordering'">주문하기</button>
+				<button type="button" class="btn btn-outline-danger" onclick="orderItems();">주문하기</button>
 			</div>
 				
 		</div>

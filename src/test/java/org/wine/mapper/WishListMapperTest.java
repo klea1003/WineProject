@@ -21,7 +21,7 @@ public class WishListMapperTest {
 	
 	@Test
 	public void testListWish() {
-		mapper.listWish((long)1).forEach(wish->log.info(wish));
+		mapper.getList((long)1).forEach(wish->log.info(wish));
 	}
 
 	

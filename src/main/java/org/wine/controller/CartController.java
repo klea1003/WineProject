@@ -42,7 +42,7 @@ public class CartController {
 		map.put("count", list.size());
 		map.put("sumTotalPrice", totalPrice);
 		
-		mav.setViewName("cart/list");		
+		mav.setViewName("cart/list");
 		mav.addObject("map", map);
 		return mav;
 	}

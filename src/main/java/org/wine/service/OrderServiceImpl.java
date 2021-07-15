@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.wine.domain.OrderDetailVO;
-import org.wine.domain.OrderListVO;
+import org.wine.domain.OrderItemVO;
 import org.wine.domain.OrderVO;
 import org.wine.mapper.OrderMapper;
 
@@ -19,35 +18,30 @@ public class OrderServiceImpl implements OrderService {
 
 	@Setter(onMethod_ = @Autowired)
 	private OrderMapper mapper;
+	
+	@Override
+	public Long getNextOrderNum() throws Exception {
+		return mapper.getNextOrderNum();
+	}
 
 	@Override
-	public void orderInfo(OrderVO order) throws Exception{
-		mapper.orderInfo(order);
+	public void insertOrder(OrderVO order) throws Exception{
+		mapper.insertOrder(order);
 	}
 	
 	@Override
-	public void orderInfo_Detail(OrderVO order) throws Exception{
-		mapper.orderInfo_Detail(order);
+	public List<OrderVO> getOrderList(Long userNum) throws Exception{
+		return mapper.getOrderList(userNum);
 	}
 	
 	@Override
-	public void cartAllDelete(Long userNum)throws Exception{
-		mapper.cartAllDelete(userNum);
+	public List<OrderItemVO> getOrderItemList(Long orderNum)throws Exception{
+	return mapper.getOrderItemList(orderNum);
 	}
 	
 	@Override
-	public List<OrderListVO> orderList(OrderVO order)throws Exception{
-	return mapper.orderList(order);
-	}
-	
-	@Override
-	public OrderListVO orderSellerList(String orderNum)throws Exception{
-	return mapper.orderSellerList(orderNum);
-	}
-	
-	@Override
-	public List<OrderListVO> orderView(OrderVO order)throws Exception{
-		return mapper.orderView(order);
+	public OrderVO getOrder(Long orderNum) throws Exception{
+		return mapper.getOrder(orderNum);
 	}
 
 }
