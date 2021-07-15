@@ -11,5 +11,6 @@ public class WishListVO {
 	
 	private String wineTitle;
 	private String wineImageName;
+	private int winePrice;
 	
 }

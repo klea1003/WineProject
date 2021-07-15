@@ -2,101 +2,114 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.OrderMapper">
 
-<resultMap type="org.wine.domain.OrderVO" id="ordering">
-<result property="orderNum" column="ORDER_NUM" />
-<result property="userNum" column="USER_NUM" />
-<result property="pickUpName" column="PICKUP_NAME" />
-<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
-<result property="totalPrice" column="total_PRICE" />
-<result property="orderDate" column="ORDER_DATE" />
-<result property="pickUpDate" column="PICKUP_DATE" />
-</resultMap>
+	<resultMap type="org.wine.domain.OrderVO" id="orderInfo">
+		<result property="orderNum" column="ORDER_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="pickUpName" column="PICKUP_NAME" />
+		<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
+		<result property="pickUpDate" column="PICKUP_DATE" />
+		<result property="orderDate" column="ORDER_DATE" />
+		<result property="sellerNum" column="SELLER_NUM" />
+		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="storeName" column="SELLER_STORENAME" />	
+	</resultMap>
 
-<resultMap type="org.wine.domain.OrderDetailVO" id="orderList">
-<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
-<result property="userNum" column="USER_NUM" />
-<result property="sellerId" column="SELLER_ID" />
-<result property="wineNum" column="WINE_NUM" />
-<result property="cartQty" column="CART_QTY" />
-</resultMap>
+	<resultMap type="org.wine.domain.OrderItemVO" id="orderItemInfo">
+	
+		<result property="orderItemNum" column="ORDER_ITEM_NUM" />
+		<result property="orderNum" column="ORDER_NUM" />
+		
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineQty" column="WINE_QTY" />
+		
+		<result property="title" column="WINE_TITLE" />
+		<result property="price" column="WINE_PRICE" />		
+		<result property="imageName" column="WINE_IMAGENAME" />
+		
+		<result property="totalPrice" column="TOTAL_PRICE" />
+	</resultMap>
+	
+	<select id="getNextOrderNum" resultType="Long">
+		SELECT SEQ_ORDER_TEST.NEXTVAL FROM DUAL
+	</select>
 
-<resultMap type="org.wine.domain.OrderListVO" id="orderView">
-<result property="orderNum" column="ORDER_NUM" />
-<result property="userNum" column="USER_NUM" />
-<result property="pickUpName" column="PICKUP_NAME" />
-<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
-<result property="totalPrice" column="TOTAL_PRICE" />
-<result property="orderDate" column="ORDER_DATE" />
-<result property="pickUpDate" column="PICKUP_DATE" />
-
-<result property="orderDetailNum" column="ORDERDETAIL_NUM" />
-<result property="sellerId" column="SELLER_ID" />
-<result property="sellerNum" column="SELLER_NUM" />
-<result property="wineNum" column="WINE_NUM" />
-<result property="cartQty" column="CART_QTY" />
-
-<result property="wineTitle" column="WINE_TITLE" />
-<result property="wineImageName" column="WINE_IMAGENAME" />
-<result property="winePrice" column="WINE_PRICE" />
-</resultMap>
-
-
-
-<!-- 주문 정보 -->
-<insert id="orderInfo">
- insert into tbl_order_test(ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, TOTAL_PRICE, PICKUP_DATE)
-     values(#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{totalPrice}, #{pickUpDate})
-</insert>
-   
-<!-- 주문 상세 정보 --> 
-<insert id="orderInfo_Detail">
- insert into tbl_order_detail(ORDERDETAIL_NUM,ORDER_NUM,SELLER_NUM,WINE_NUM,CART_QTY)
-   select seq_tbl_order_detail.nextval, #{orderNum}, SELLER_NUM, wine_Num, cart_Qty
-         from tbl_cart_test where user_num = #{userNum}
-</insert> 
-
-<!-- 카트 비우기 -->
-<delete id="cartAllDelete">
-delete tbl_cart_test
-where USER_NUM = #{userNum}
-</delete>
-
-
-<!-- 유저의 주문 목록 -->
-<select id="orderList" resultMap="orderView">
- select O.ORDER_NUM ,
-   sum(w.wine_price*d.cart_qty) total_price from tbl_order_test o
-inner join tbl_order_detail d
-on O.ORDER_NUM = D.ORDER_NUM
-inner join TBL_WINE_TEST W
-on D.WINE_NUM = W.WINE_NUM
-inner join TBL_SELLER S
-on D.SELLER_NUM = S.SELLER_NUM
-where USER_NUM = #{userNum} group by o.ORDER_NUM
-</select>
-
-<!-- 주문번호로 판매자 불러오기 -->
-<select id="orderSellerList" resultMap="orderView">
-   select t.PICKUP_NAME, s.seller_id, s.seller_Num
-         from TBL_ORDER_DETAIL o inner join TBL_SELLER s
-on o.seller_num=s.seller_num inner join TBL_ORDER_TEST t
-on o.order_num =t.order_num where o.ORDER_NUM = #{orderNum} and rownum =1
-</select>
-
-<!-- 특정 주문 상세 목록 -->
-<select id = "orderView" resultMap="orderView">
-select O.ORDER_NUM , O.USER_NUM, O.PICKUP_NAME, O.PICKUP_PHONENUM, (w.wine_price*d.cart_qty) total_price, O.ORDER_DATE, O.PICKUP_DATE,
-D.ORDERDETAIL_NUM, D.WINE_NUM, D.CART_QTY,
-W.WINE_TITLE, W.WINE_IMAGENAME, W.WINE_PRICE
-from tbl_order_test o
-inner join tbl_order_detail d
-on O.ORDER_NUM = D.ORDER_NUM
-inner join TBL_WINE_TEST W
-on D.WINE_NUM = W.WINE_NUM
-where O.USER_NUM = #{userNum}
-and O.ORDER_NUM = #{orderNum}
-
-</select>
-
+	<!-- 주문 등록 -->
+	<insert id="insertOrder">
+		insert into tbl_order_test(
+		ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM
+		) values (
+		#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum})
+	</insert>
+	
+	<!-- 주문 아이템 등록 -->
+	<insert id="insertOrderItem">
+		insert into TBL_ORDER_ITEM(
+		ORDER_ITEM_NUM, ORDER_NUM, WINE_NUM, WINE_QTY
+		) values (
+		SEQ_TBL_ORDER_ITEM.NEXTVAL, #{orderNum}, #{wineNum}, #{wineQty})
+	</insert>
+	
+	<!-- 주문 리스트 -->
+	<select id="getOrderList" resultMap="orderInfo">
+		SELECT 
+		    O.ORDER_NUM,
+		    O.USER_NUM,
+		    O.PICKUP_NAME,
+		    O.PICKUP_PHONENUM,
+		    O.PICKUP_DATE,
+		    O.ORDER_DATE,
+		    O.SELLER_NUM,
+		    T.TOTAL_PRICE,
+		    S.SELLER_STORENAME
+		FROM TBL_ORDER_TEST O
+		LEFT JOIN (
+		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
+		    FROM TBL_ORDER_ITEM I, TBL_WINE_TEST W
+		    WHERE I.WINE_NUM = W.WINE_NUM
+		    GROUP BY I.ORDER_NUM
+		    ) T
+		ON O.ORDER_NUM = T.ORDER_NUM
+		INNER JOIN TBL_SELLER S
+		ON O.SELLER_NUM = S.SELLER_NUM
+		WHERE O.USER_NUM = #{userNum}
+	</select>
+	
+	<select id="getOrderItemList" resultMap="orderItemInfo">
+		SELECT 
+		    O.ORDER_ITEM_NUM,
+		    O.ORDER_NUM,
+		    O.WINE_NUM,
+		    O.WINE_QTY,
+		    W.WINE_TITLE,
+		    W.WINE_PRICE,
+		    W.WINE_IMAGENAME,
+		    (W.WINE_PRICE * O.WINE_QTY) AS TOTAL_PRICE
+		FROM TBL_ORDER_ITEM O, TBL_WINE_TEST W
+		WHERE O.WINE_NUM = W.WINE_NUM AND O.ORDER_NUM = #{orderNum}
+	</select>
+	
+	<select id="getOrder" resultMap="orderInfo">
+		SELECT 
+		    O.ORDER_NUM,
+		    O.USER_NUM,
+		    O.PICKUP_NAME,
+		    O.PICKUP_PHONENUM,
+		    O.PICKUP_DATE,
+		    O.ORDER_DATE,
+		    O.SELLER_NUM,
+		    T.TOTAL_PRICE,
+		    S.SELLER_STORENAME
+		FROM TBL_ORDER_TEST O
+		INNER JOIN (
+		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
+		    FROM TBL_ORDER_ITEM I, TBL_WINE_TEST W
+		    WHERE I.WINE_NUM = W.WINE_NUM
+		    GROUP BY I.ORDER_NUM
+		    ) T
+		ON O.ORDER_NUM = T.ORDER_NUM
+		INNER JOIN TBL_SELLER S
+		ON O.SELLER_NUM = S.SELLER_NUM
+		WHERE O.ORDER_NUM = #{orderNum}
+	</select>
 </mapper>
  

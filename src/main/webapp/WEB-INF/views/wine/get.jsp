@@ -104,8 +104,8 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-						onclick="location.href='/seller/listWine?wineNum=${wine.wno}'">
-							<i class="bi-cart-fill me-1"></i> Find Seller
+						onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
 					</div>
 				</div>

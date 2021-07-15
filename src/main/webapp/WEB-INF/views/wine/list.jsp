@@ -381,6 +381,16 @@ input[type=radio]{
 <script src="/resources/wine_bootstrap/js/wine.js"></script>
 <script type="text/javascript">   
 
+	function addWish(_input){
+		console.log("add wish button clicked" + _input)
+		location.href = "/wishList/insert?wno=" + _input;
+	};
+	
+	function addCart(_input){
+		console.log("add cart button clicked" + _input)
+		location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
+	};
+
 	$(document).ready(function() {
 
 		var actionForm = $("#actionForm");
@@ -394,7 +404,6 @@ input[type=radio]{
 			// scroll 감지
 			if($(window).scrollTop() >= $(document).height() - $(window).height() - 1.0){	// float 문제 때문에 -1.0을 더해서 계산
 				console.log("scroll update");
-				
 				
 				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
 				var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
@@ -454,14 +463,16 @@ input[type=radio]{
 						str += "<h5> ￦ " + wineUtil.numberWithCommas(list[i].price)  + "</h5>"
 						
 						str += "<div class='mt-5'>"
-						str += "<a href='/cart/list' class='btn btn-outline-danger'>"
+						
+						str += "&nbsp;<button type='button' class='btn btn-outline-danger' onclick='addCart(" + list[i].wno + ");'>"
 						str += "Add cart"
-						str += "</a>"
-						str += "&nbsp;<button type='button' class='btn btn-outline-dark'>"
+						str += "</button>"
+						
+						str += "&nbsp;<button type='button' class='btn btn-outline-dark' onclick='addWish(" + list[i].wno + ");'>"
 						str += "Wish"
 						str += "</button>"
-						str += "</div>"
 						
+						str += "</div>"						
 						str += "</div>"
 						str += "</div>"
 						str += "</div>"

@@ -1,29 +1,22 @@
 package org.wine.mapper;
 import java.util.List;
 
-import org.wine.domain.OrderDetailVO;
-import org.wine.domain.OrderListVO;
+import org.wine.domain.OrderItemVO;
 import org.wine.domain.OrderVO;
 
 
 public interface OrderMapper {
 	
-//주문 정보
-public void orderInfo(OrderVO order) throws Exception;
-
-//주문 상세 정보
-public void orderInfo_Detail(OrderVO order) throws Exception;
-
-//주문완료 후 카트에서 삭제
-public void cartAllDelete(Long userNum) throws Exception;
-
-//주문 목록
-public List<OrderListVO> orderList(OrderVO order) throws Exception;
-
-//판매자 목록
-public OrderListVO orderSellerList(String orderNum) throws Exception;
-
-//특정 주문 상세 목록
-public List<OrderListVO> orderView(OrderVO order) throws Exception;
+	public Long getNextOrderNum();
+	
+	public void insertOrder(OrderVO orderVo);
+	
+	public void insertOrderItem(OrderItemVO orderItemVo);	
+	
+	public List<OrderVO> getOrderList(Long userNum) throws Exception;
+	
+	public List<OrderItemVO> getOrderItemList(Long orderNum) throws Exception;
+	
+	public OrderVO getOrder(Long orderNum) throws Exception;
 
 }

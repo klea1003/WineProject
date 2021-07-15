@@ -21,13 +21,13 @@
 <section id="content" class="container px-5 mb-5">
  
 	 <ul class="orderList">
-	  <c:forEach items="${orderList}" var="orderList" varStatus="i">
+	  <c:forEach items="${orderList}" var="order" varStatus="i">
 	  <li>
 	  <div>
-		<p><span>주문번호&nbsp;</span><a href="orderView?n=${orderList.orderNum}">${orderList.orderNum}</a></p>
-		<p><span>수령인 : </span>${orderList.pickUpName}</p>
-		<p><span>수령매장 : </span>${orderList.sellerId}</p>
-		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${orderList.totalPrice}" /> 원</p>
+		<p><span>주문번호&nbsp;</span><a href="/order/detail?n=${order.orderNum}">${order.orderNum}</a></p>
+		<p><span>수령인 : </span>${order.pickUpName}</p>
+		<p><span>수령매장 : </span>${order.storeName}</p>
+		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${order.totalPrice}" /> 원</p>
 		<hr>
 	  </div>
 	  </li>

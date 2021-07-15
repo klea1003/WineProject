@@ -11,17 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.wine.domain.CartVO;
-import org.wine.domain.OrderDetailVO;
-import org.wine.domain.OrderListVO;
+import org.wine.domain.CartDisplayVO;
 import org.wine.domain.OrderVO;
-import org.wine.domain.SellerVO;
 import org.wine.domain.UserVO;
-import org.wine.domain.pageDTO;
 import org.wine.service.CartService;
 import org.wine.service.OrderService;
 import org.wine.service.SellerService;
@@ -38,117 +35,109 @@ public class OrderController {
 	private OrderService service;
 	private CartService cartService;
 	private SellerService sellerService;
-
-
-	// 주문
-	@RequestMapping(value = "/ordering", method = RequestMethod.GET)
-	public void orderPage(Model model, HttpSession session) throws Exception {
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
-        log.info("ordering"+userNum);
-		List<CartVO> list = cartService.listCart(userNum);
-
-		log.info(list);
-		model.addAttribute("list", list);
+	
+	@GetMapping("/order")
+	public ModelAndView order(
+			HttpSession session, 
+			@RequestParam(value="cartNumArr") List<Long> cartNumArr,
+			ModelAndView mav
+	) throws Exception {
+		// wineCartArr 를 받고 주문 상세 내역을 내보낸다.
+		// seller list를 내보낸다.
+		
+		UserVO user = (UserVO)session.getAttribute("user"); 
+		Long userNum = user.getUserNum();
+		
+		List<CartDisplayVO> list = cartService.getList(userNum);
+		List<CartDisplayVO> ret_list = new ArrayList<CartDisplayVO>();
+		
+		for(CartDisplayVO cart: list) {
+			if(cartNumArr.contains(cart.getCartNum()) == true) {
+				ret_list.add(cart);
+			}
+		}
+		
+		int totalPrice = 0;
+		for(CartDisplayVO cart: list) {
+			totalPrice += cart.getTotalPrice();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", ret_list);
+		map.put("count", ret_list.size());
+		map.put("sumTotalPrice", totalPrice);
+		
+		mav.setViewName("/order/order");
+		mav.addObject("map", map);
+		
+		return mav;
 	}
 	
-	
-	
-
-	// 주문
-		@RequestMapping(value = "/ordering", method = RequestMethod.POST)
-		public String order1(HttpSession session, OrderVO order, 
-				OrderDetailVO orderDetail) throws Exception {
-			log.info("order");
-			
-			UserVO user = (UserVO)session.getAttribute("user"); 
-			Long userNum = user.getUserNum();
-			
-	
-			 
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-			String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
-			String subNum = "";
-
-			for(int i = 1; i <= 6; i ++) {
-				subNum += (int)(Math.random() * 10);
-			}
-
-			String orderNum = ymd + "_" + subNum;
-
-
-			order.setOrderNum(orderNum);
-			order.setUserNum(userNum);
-			
+	@RequestMapping(value = "/complete", method = RequestMethod.GET)
+	public String complete(HttpSession session, OrderVO order, 
+			//@RequestParam(value="list[]") List<Long> cartNumArr
+			Long[] cartNumArr
+	) throws Exception {
 		
-
-			service.orderInfo(order);	 
-			service.orderInfo_Detail(order);
-			service.cartAllDelete(userNum);
+		UserVO user = (UserVO)session.getAttribute("user"); 
+		Long userNum = user.getUserNum();
 		
-	
-           log.info(order);
-			return "redirect:/order/orderList";  
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
 
+		for(int i = 1; i <= 6; i ++) {
+			subNum += (int)(Math.random() * 10);
 		}
 
+		//String orderNum = ymd + "_" + subNum;
+		
+		Long orderNum = service.getNextOrderNum();
+		
+		order.setOrderNum(orderNum);
+		order.setUserNum(userNum);
+		order.setSellerNum(1L);			// to do seller 값 수정해야 됨
+		
+		log.info(order);
+		service.insertOrder(order);
+		
+		return "redirect:/order/list";  
 
-	//주문 목록
-	@RequestMapping(value= "/orderList", method= RequestMethod.GET)	
-	public void getOrderSuccessList(HttpSession session, OrderVO order, Model model)throws Exception{
+	}
+	
+	@RequestMapping(value= "/list", method= RequestMethod.GET)	
+	public void getOrderSuccessList(HttpSession session, Model model) throws Exception{
 		log.info("get order  List");
 		 
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
+		UserVO user = (UserVO)session.getAttribute("user"); 
+		Long userNum = user.getUserNum();
 
-		order.setUserNum(userNum);
-		List<OrderListVO> orderList = service.orderList(order);
+		List<OrderVO> orderList = service.getOrderList(userNum);
 		
-		
-		for(int i=0;i<orderList.size();i++) {
-			String num = orderList.get(i).getOrderNum();
-			orderList.get(i).setPickUpName(service.orderSellerList(num).getPickUpName());
-			orderList.get(i).setSellerId(service.orderSellerList(num).getSellerId());
-		}
-		log.info(orderList);
-		
-		model.addAttribute("orderList",orderList);
-	
-		
+		model.addAttribute("orderList", orderList);
 		
 	}
 
-
-	//특정 주문 상세 목록
-	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
-	public void getOrderList(HttpSession session,
-			@RequestParam("n") String orderNum,
-			OrderVO order, Model model) throws Exception {
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String getOrderList(HttpSession session,
+			@RequestParam("n") String orderNum, Model model) throws Exception {
 		log.info("get order view");
+		
+		Long order = Long.parseLong(orderNum);
 
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
+		UserVO user = (UserVO)session.getAttribute("user"); 
+		Long userNum = user.getUserNum();
 
-		order.setUserNum(userNum);
-		order.setOrderNum(orderNum);
-        
+		log.info(service.getOrder(order));
 		
-		List<OrderListVO> orderView = service.orderView(order);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("order", service.getOrder(order));
+		map.put("items", service.getOrderItemList(order));
 		
-		
-		int sum=0;
-		for(int i=0;i<orderView.size();i++) {
-			sum += orderView.get(i).getTotalPrice();
-			orderView.get(i).setSellerId(service.orderSellerList(orderNum).getSellerId());
-			orderView.get(i).setSellerNum(service.orderSellerList(orderNum).getSellerNum());
-		}
-		
-
-		
-		model.addAttribute("orderView", orderView);
-		model.addAttribute("sum", sum);
+		model.addAttribute("map", map);
+		return "/order/detail";  
 	}
 
 }

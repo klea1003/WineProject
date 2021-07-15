@@ -32,12 +32,12 @@ public class WishListController {
 		UserVO user = (UserVO) session.getAttribute("user");
         Long userNum = user.getUserNum();
 		
+        List<WishListVO> list = service.listWish(userNum);
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<WishListVO> list = service.listWish(userNum);
-		map.put("list", list); //리스트
+		Map<String, Object> map = new HashMap<String, Object>();		
+		map.put("list", list); 
 		 log.info(list);
-		map.put("count", list.size()); //상품 유무
+		map.put("count", list.size()); 
 		mav.setViewName("wishList/list");
 		mav.addObject("map", map);
 		return mav;
