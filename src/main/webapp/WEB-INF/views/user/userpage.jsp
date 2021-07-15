@@ -173,9 +173,11 @@ p.card-text {
 										</div>
 									</div>																	
 									<div class="h6 fw-bolder">	Following &nbsp;&nbsp; 
-										<span  id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
+										<span id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
 									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
 										<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
+									<div class="h6 fw-bolder">My Ratings &nbsp;&nbsp;&nbsp;&nbsp; 
+										<span id="modal_show_MyRatings"><c:out value='${myRatingCnt}' /></span></div>
 									<br/> 
 								</div>
 							</div>
@@ -287,6 +289,25 @@ p.card-text {
 	            		<div class="swiper-wrapper"> 
 			                <!--  Card One    -->              
 			                <c:forEach items="${wish}" var="w">
+			                	<div class="swiper-slide"> 
+			                   		<div class="col mb-5">
+			                    		<div class="card-list">
+	                  						<div class="text-center">
+	                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
+	                  						</div>
+						                     <div class="card-body">
+											      <p ><b><c:out value="${w.wineTitle}" /></b></p>
+											      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
+											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
+											</div>
+						                 	<div class="card-footer">
+						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
+						                  	</div>
+	               						</div>
+	                 				  </div>
+	                 			  </div>
+	             		   </c:forEach>
+	             		   <c:forEach items="${wish}" var="w">
 			                	<div class="swiper-slide"> 
 			                   		<div class="col mb-5">
 			                    		<div class="card-list">
