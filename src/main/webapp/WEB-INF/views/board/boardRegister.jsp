@@ -216,7 +216,7 @@ $(document).ready(function(e) {
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-            <h1 class="fw-bolder">Q&A Register</h1>
+            <h1 class="fw-bolder">Board Register</h1>
             </div>
 			<div class="container-fluid">
 				<div class="w-50">
@@ -225,8 +225,7 @@ $(document).ready(function(e) {
 					<div class="form-group">
 						<h5 class="fw-bold">Title</h5><input class="form-control" name='title'>
 					</div><br>
-					 <input type="hidden" name="boardType" value="Q&A"/>
-					
+                     <input type="hidden" name="boardType" value="자유게시판"/>
 					 <div class='form-group mb-3'>
                   		<h5 class="fw-bold">Content</h5>
                   			<textarea class='form-control' rows='8' name='content'></textarea>
