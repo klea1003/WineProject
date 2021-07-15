@@ -77,6 +77,15 @@ p.card-text {
  -webkit-line-clamp: 2;
  -webkit-box-orient: vertical;
 }
+.socialBtn{
+	border-radius: 80px;
+    background: #a11122;
+    color: #fff;
+    width: 11rem;
+    height: 3rem;
+    border: 1px solid #fff;
+    
+}
 
 </style>
 </head>
@@ -96,14 +105,14 @@ p.card-text {
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
-							<button class="btn btn-outline-secondary btn-sm" id='unfollowBtn' type="button">
+							<button class="socialBtn" id='unfollowBtn' type="button">
 								팔로잉<i class="bi bi-person-check-fill"></i>
 							</button>
 						</div>
 					</c:if>
 					<c:if test="${ followck == null}">
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+							<button class="socialBtn" id='followingBtn' type="button">
 								팔로우<i class="bi bi-person-plus-fill"></i>
 							</button>
 						</div>
@@ -111,7 +120,7 @@ p.card-text {
 				</c:if>				
 				<c:if test="${ user == null}">
 					<div class="btn-group">
-						<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+						<button class="socialBtn" id='followingBtn' type="button">
 							팔로우<i class="bi bi-person-plus-fill"></i>
 						</button>
 					</div>
@@ -663,6 +672,8 @@ $(document).ready(function() {
 	var userNum ='<c:out value="${userpage.userNum}"/>';
 	
 	$.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){	  
+		
+		console.log("불러오기 성공");
 		
 		console.log("ARRAY"+ arr);
 		
