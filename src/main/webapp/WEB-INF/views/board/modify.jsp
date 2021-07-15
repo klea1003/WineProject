@@ -312,25 +312,20 @@
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-				<h1 class="fw-bolder">Board Modify</h1>
+				<h1 class="fw-bolder">Modify</h1>
 			</div>
 
 			<div class="container-fluid">
 				<div class="w-50">
 					<form role="form" action="/board/modify" method="post">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+						<%-- <input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> 시큐리티--%>
 						<div class="form-group mb-2">
 							<label>NO</label><input class="form-control" name='boardNum'
 								value='<c:out value="${board.boardNum}"/>' readonly="readonly">
 						</div>
-						<div class="form-group mb-2">
-							<select name='boardType'>
-								<option value="Q&A" <c:out value="Q&A"/>>Q&A</option>
-								<option value="자유게시판" <c:out value="자유게시판"/>>자유게시판</option>
-								<option value="이벤트공지" <c:out value="이벤트공지"/>>이벤트공지</option>
-							</select>
-						</div>
+						<input type="hidden" name="boardType"
+							value="${board.boardType}" /> 
 						<div class="form-group mb-2">
 							<label>제목</label> <input class="form-control" name='title'
 								value='<c:out value="${board.title}"/>'>
@@ -349,11 +344,7 @@
 								value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.regdate}"/>'
 								readonly="readonly">
 						</div>
-						<%-- <div class="form-group">
-                 		 <label>updateDate</label> 
-                 		 <input class="form-control" name='updateDate' value='<fmt:formatDate pattern="yyyy/MM/dd"
-                           value="${board.updateDate}"/>' readonly="readonly">
-               		</div>  --%>
+						
 
 						<%-- <sec:authentication property="principal" var="pinfo"/>
 					<sec:authorize access="isAuthenticated()">
@@ -394,8 +385,8 @@
 						<button type="submit" data-oper='remove'
 							class="btn btn-outline-danger">Remove</button>
 
-						<button type='submit' data-oper='list'
-							class='btn btn-outline-dark'>List</button>
+							<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
+					      <button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
 
 						<input type='hidden' name='pageNum'
 							value='<c:out value="${cri.pageNum}"/>'> <input

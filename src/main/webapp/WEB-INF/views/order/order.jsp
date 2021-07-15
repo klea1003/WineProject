@@ -66,14 +66,14 @@
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
-  				aria-describedby="inputGroup-sizing-default" name="pickUpName" id="pickUpName" required="required" value="asdf">
+  				aria-describedby="inputGroup-sizing-default" name="pickUpName" id="pickUpName" required="required">
 			</div>
 			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum">수령인 연락처</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
   				aria-describedby="inputGroup-sizing-default" name="pickUpPhoneNum" id="pickUpPhoneNum"
-							pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13" value = "010-1111-1111"
+							pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
 							placeholder="예) 010-1234-5678"
 							onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" >
 			</div>

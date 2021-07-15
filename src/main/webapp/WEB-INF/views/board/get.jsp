@@ -59,9 +59,9 @@
 }
 </style>
 <body>
-<jsp:include page="../includes/header.jsp" flush="false"></jsp:include> 
- <script src="/resources/wine_bootstrap/js/reply.js"></script>
-<script type="text/javascript">
+	<jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
+	<script src="/resources/wine_bootstrap/js/reply.js"></script>
+	<script type="text/javascript">
 $(document).ready(function(){
 	var operForm = $('#operForm');
 	$('button[data-oper="modify"]').on("click",function(e){
@@ -71,6 +71,12 @@ $(document).ready(function(){
 	$('button[data-oper="list"]').on("click",function(e){
 		operForm.find("#boardNum").remove();
 		operForm.attr("action","/board/list");
+		operForm.submit();
+	});
+	
+	$('button[data-oper="boardList"]').on("click",function(e){
+		operForm.find("#boardNum").remove();
+		operForm.attr("action","/board/boardList");
 		operForm.submit();
 	});
 	
@@ -138,7 +144,7 @@ $(document).ready(function(){
 	
 	//작성자 null로 선언
     var replyer = null;
-	 replyer = '<c:out value="${user.userNickName}"/>';
+	replyer = '<c:out value="${user.userNickName}"/>';
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -155,7 +161,7 @@ $(document).ready(function(){
 		modal.find("input").val("");
 		
 		 //replyer (security id가 담긴)
-		 modal.find("input[name='replyer']").val(replyer); 
+		modal.find("input[name='replyer']").val(replyer); 
 		
 		modalInputReplyDate.closest("div").hide();
 		modal.find("button[id!='modalCloseBtn']").hide();
@@ -185,6 +191,12 @@ $(document).ready(function(){
 
 		});
 	});
+    
+   //댓글close창 처리
+   $("#modalCloseBtn").on("click",function(e){
+	   modal.modal("hide");//모달 창 닫음
+		showList(pageNum); //댓글이 포함된 페이지로 이동
+	}); 
 	
 	//특정 댓글의 클릭 이벤트
 	$(".chat").on("click","li",function(e){
@@ -213,7 +225,7 @@ $(document).ready(function(){
 				replyer:modalInputReplyer.val()
 				};
 		
-		/*  if(!replyer) {
+		 if(!replyer) {
 			alert("로그인 후 수정 가능");
 			modal.modal("hide");
 			return;
@@ -223,7 +235,7 @@ $(document).ready(function(){
               alert("자신이 작성한 댓글만 수정 가능");
               modal.modal("hide");
               return;
-          }  */
+          }
 		
 		replyService.update(reply,function(result){
 			alert(result);
@@ -239,7 +251,7 @@ $(document).ready(function(){
         console.log("rno" + rno);
         console.log("REPLYER : "+ replyer);
         
-       /*   if(!replyer){
+         if(!replyer){
             alert("로그인 후 삭제 가능");
             modal.modal("hide");
             return;
@@ -251,9 +263,9 @@ $(document).ready(function(){
             alert("자신이 작성한 댓글만 삭제 가능");
             modal.modal("hide");
             return;
-        }	 */ 
+        }	
 		
-		replyService.remove(rno, originalReplyer, function(result){
+		replyService.remove(rno, function(result){
 			alert(result);
 			modal.modal("hide"); //모달 창 닫음
 			showList(pageNum);//댓글이 포함된 페이지로 이동
@@ -422,7 +434,6 @@ $(document).ready(function(){
   	});//bigPictureWrapper click
      }
 </script>
-
 <body>
 	<section class="py-5">
 		<div class="container px-3 my-3">
@@ -461,29 +472,31 @@ $(document).ready(function(){
 		            <button class='btn btn-success' data-oper='modify'>Modify</button>
 		            </c:if>
 		            </sec:authorize> 시큐리티 기능--%>
-					
+
 					<div class="mb-3">
-					 <c:if test="${user.userNickName eq board.writer }">
-					<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
-					 </c:if>
-					<button class='btn btn-outline-dark' data-oper='list'>List</button>
+						<c:if test="${user.userNickName eq board.writer }">
+							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
+						</c:if>
+						<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
+						<button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
 					</div>
-					
+
 					<!-- like 영역 -->
 					<div class="row">
-						<div class="col-md-1">${like}Likes</div> &nbsp;
-						
+						<div class="col-md-1">${like}Likes</div>
+						&nbsp;
+
 						<div class="col-md-3" style="display: none;">
-						<form id='operForm' action='/board/modify' method='get'>
-							<input type='hidden' id='boardNum' name='boardNum'
-								value='<c:out value="${board.boardNum }" />'> <input
-								type='hidden' name='pageNum'
-								value='<c:out value="${cri.pageNum }"/>'> <input
-								type='hidden' name='amount'
-								value='<c:out value="${cri.amount }"/>'> <input
-								type="hidden" name="type" value="${cri.type }"> <input
-								type="hidden" name="keyword" value="${cri.keyword }">
-						</form>
+							<form id='operForm' action='/board/modify' method='get'>
+								<input type='hidden' id='boardNum' name='boardNum'
+									value='<c:out value="${board.boardNum }" />'> <input
+									type='hidden' name='pageNum'
+									value='<c:out value="${cri.pageNum }"/>'> <input
+									type='hidden' name='amount'
+									value='<c:out value="${cri.amount }"/>'> <input
+									type="hidden" name="type" value="${cri.type }"> <input
+									type="hidden" name="keyword" value="${cri.keyword }">
+							</form>
 						</div>
 
 						<div class="col-md-1">
@@ -511,8 +524,8 @@ $(document).ready(function(){
 								</button>
 							</form>
 						</div>
-						
-						
+
+
 					</div>
 					<!-- end like -->
 					<!-- Files -->
@@ -524,7 +537,7 @@ $(document).ready(function(){
 								<div class="panel-body">
 									<div class="panel-body">
 										<div class="form-group uploadDiv"></div>
-	
+
 										<div class="uploadResult">
 											<ul></ul>
 										</div>
@@ -539,7 +552,7 @@ $(document).ready(function(){
 					<!-- end Files -->
 				</div>
 
-				
+
 
 				<!-- reply 영역 -->
 
@@ -547,14 +560,16 @@ $(document).ready(function(){
 					<div class="card-header bg-light">
 						Reply <i class="bi bi-chat-fill"></i>
 						<div class="float-end">
-						<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
-							New Reply</button>
+							<c:if test="${user.userNickName != null}">
+								<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
+									New Reply</button>
+							</c:if>
 						</div>
-				
-						
+
+
 					</div>
 
-						<!-- <sec:authorize access="isAuthenticated()">
+					<!-- <sec:authorize access="isAuthenticated()">
             			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
                			Reply</button>
                 		</sec:authorize> 시큐리티-->
@@ -564,9 +579,7 @@ $(document).ready(function(){
 							<!-- start reply -->
 							<li class="left clearfix" data-rno="12">
 								<div>
-									<div class="header">
-										
-									</div>
+									<div class="header"></div>
 									<p>Good job</p>
 								</div>
 							</li>
@@ -574,7 +587,8 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-		</div><!-- end container -->
+		</div>
+		<!-- end container -->
 
 		<!-- 모달영역 -->
 		<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
@@ -612,11 +626,12 @@ $(document).ready(function(){
 			</div>
 
 			<!-- 모달영역 -->
-		
-	
-	<!--    footer 시작      -------------------------------------------------------------- -->
+
+
+			<!--    footer 시작      -------------------------------------------------------------- -->
 
 		</div>
+		
 		<!-- 모달영역 -->
 
 	</section>
