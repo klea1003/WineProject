@@ -317,7 +317,7 @@ $(document).ready(function() {
 									<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
 									<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
 									<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
-									<li><a class="dropdown-item" href="#">Settings</a></li>
+									<li><a class="dropdown-item" href="/user/settings?userNum=<c:out value="${user.userNum }"/>">Settings</a></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
 								</ul>
