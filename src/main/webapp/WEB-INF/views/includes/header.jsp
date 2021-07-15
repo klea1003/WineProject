@@ -190,12 +190,56 @@ body.modal-open {
 	.dropdown-large{
 	min-width:800px;
 	}
-}	
+}
+
+.bubble {
+	z-index:100;
+	position: relative;
+	height: auto;
+	padding: 10px 10px 10px 10px;
+	background: #FFFFFF;
+	border-radius: 5px;
+	border: #7F7F7F solid 1px;
+	position: absolute;
+	font-size: 16px;
+	text-align: left;
+	margin-left:50%;
+	margin-top: 5%;
+	}
+	
+	.bubble:after{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 16px 20px 17.5px;
+	border-color: #FFFFFF transparent;
+	display: block;
+	width: 0;
+	z-index: 1;
+	top: -18.5px; 
+	left: 49px; 
+	}
+	
+	.bubble:before 
+	{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 16px 20px 17.5px;
+	border-color: #7F7F7F transparent;
+	display: block;
+	width: 0;
+	z-index: 0;
+	top: -20px;
+	left: 49px;
+	}
 
 </style>
 
 <script>
 $(document).ready(function() {
+	
+	
   	
 	var result = '${result}';
       
@@ -237,6 +281,17 @@ $(document).ready(function() {
      	$("#loginModal").modal("show");
    		}  
 	</c:if>
+	
+	
+	
+	if(result ==1 ){
+		$('.bubble').show();	
+		setTimeout(function() {
+			$('.bubble').hide();
+		},3000);
+	} 
+	
+	
 });
 
      document.addEventListener("DOMContentLoaded", function(){
@@ -301,37 +356,36 @@ $(document).ready(function() {
 					</c:if> 
 					<!-- 로그인 된 경우 -->
 					<c:if test="${user != null }">
+						<div class="bubble" style="display:none">${user.userNickName }님 환영합니다. </div>
 						<div class="dropdown text-end mx-2">
 							<div class="dropdown">
-							<div class="row">
-								<div class="col-6">
-								<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
-									aria-expanded="false"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-										<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-										<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-									</svg>
-								</a>
-								
-								<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-									<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
-									<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
-									<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
-									<li><a class="dropdown-item" href="/user/settings?userNum=<c:out value="${user.userNum }"/>">Settings</a></li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
-								</ul>
-								</div>
-								
-								<div class="col-2">
-								<a href="/cart/list" class="d-block link-dark text-decoration-none" aria-expanded="false">
-									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-										<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 
-										.491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-									</svg>
-								</a>
-								</div>
-							</div>							
+								<div class="row">
+									<div class="col-6">								
+										<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
+											aria-expanded="false"> 
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+												<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+											</svg>
+										</a>								
+										<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+											<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
+											<li><a class="dropdown-item" href="/order/orderList">orders</a></li>
+											<li><a class="dropdown-item" href="/user/userpage?userNum=<c:out value="${user.userNum }"/>">profiles</a></li>
+											<li><a class="dropdown-item" href="/user/settings?userNum=<c:out value="${user.userNum }"/>">Settings</a></li>
+											<li><hr class="dropdown-divider"></li>
+											<li><a class="dropdown-item" href="/user/logout">Log out</a></li>
+										</ul>
+									</div>										
+									<div class="col-2">
+										<a href="/cart/list" class="d-block link-dark text-decoration-none" aria-expanded="false">
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+												<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 
+												.491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+											</svg>
+										</a>
+									</div>
+								</div>							
 							</div>
 						</div>
 					</c:if>
