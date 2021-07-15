@@ -558,14 +558,9 @@
 				console.log("i"+ obj.profileUuid); 
 				if (obj.profileFileType) {
 					var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
-				
-					
 					str +="<div data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'></div><div>"
-					
 					str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='150' height='150' class='rounded-circle'>"
 					str +="</div>"
-					
-				
 					console.log(obj.profileFileType)
 				} else {
 					str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
