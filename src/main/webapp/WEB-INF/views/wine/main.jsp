@@ -335,7 +335,7 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 							str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
 							str += list[i].avgRating 	
 						} else {
-							str += "<br><br>"
+							str += "&nbsp;Not Rating<br><br>"							
 						}
 						str += "</div>"
 						
