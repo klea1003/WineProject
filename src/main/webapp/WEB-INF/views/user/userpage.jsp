@@ -77,6 +77,15 @@ p.card-text {
  -webkit-line-clamp: 2;
  -webkit-box-orient: vertical;
 }
+.socialBtn{
+	border-radius: 80px;
+    background: #a11122;
+    color: #fff;
+    width: 11rem;
+    height: 3rem;
+    border: 1px solid #fff;
+    
+}
 
 </style>
 </head>
@@ -96,14 +105,14 @@ p.card-text {
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
-							<button class="btn btn-outline-secondary btn-sm" id='unfollowBtn' type="button">
+							<button class="socialBtn" id='unfollowBtn' type="button">
 								팔로잉<i class="bi bi-person-check-fill"></i>
 							</button>
 						</div>
 					</c:if>
 					<c:if test="${ followck == null}">
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+							<button class="socialBtn" id='followingBtn' type="button">
 								팔로우<i class="bi bi-person-plus-fill"></i>
 							</button>
 						</div>
@@ -111,7 +120,7 @@ p.card-text {
 				</c:if>				
 				<c:if test="${ user == null}">
 					<div class="btn-group">
-						<button class="btn btn-primary btn-sm" id='followingBtn' type="button">
+						<button class="socialBtn" id='followingBtn' type="button">
 							팔로우<i class="bi bi-person-plus-fill"></i>
 						</button>
 					</div>
@@ -284,7 +293,7 @@ p.card-text {
 							</div>
 						</c:forEach>
 						<div class="text-end mb-5 mb-xl-0">
-							<span id="modal_show_reviewList"><i class="bi bi-arrow-right"></i> More Rating</span>
+							<button type="button" id="modal_show_reviewList" class="btn btn-outline-secondary sm">More Rating</button>
 						</div>
 					</c:if>					
 					<c:if test="${empty socialreviewlist}">
@@ -328,9 +337,9 @@ p.card-text {
 	                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
 	                  						</div>
 						                     <div class="card-body">
-											      <p class="card-text"><b><c:out value="${w.wineTitle}" /></b></p>
-											      <p class="card-text">생산지역 : <c:out value="${w.wineCountry}" /></p>
-											      <p class="card-text">와인타입 : <c:out value="${w.wineType}" /></p>
+											      <p ><b><c:out value="${w.wineTitle}" /></b></p>
+											      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
+											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 											</div>
 						                 	<div class="card-footer">
 						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
@@ -541,7 +550,7 @@ $(document).ready(function() {
 	
 	var formObj=$("form[role='form']")
 	
-	var regex = new RegExp("(.*?)\.(jpg|png|jpeg|svg)$")
+	var regex = new RegExp("(.*?)\.(jpg|png|jpeg|svg|PNG)$")
 	
     var maxSize = 5242880;
     
@@ -663,6 +672,8 @@ $(document).ready(function() {
 	var userNum ='<c:out value="${userpage.userNum}"/>';
 	
 	$.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){	  
+		
+		console.log("불러오기 성공");
 		
 		console.log("ARRAY"+ arr);
 		
