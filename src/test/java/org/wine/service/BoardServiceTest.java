@@ -60,7 +60,7 @@ public class BoardServiceTest {
 	
 	@Test
 	public void testGetList() {
-		service.getList(new Criteria(2,5)).forEach(board->log.info(board));
+		service.getQList(new Criteria(2,5)).forEach(board->log.info(board));
 	}
 	
 	@Test

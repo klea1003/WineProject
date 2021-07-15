@@ -70,7 +70,7 @@
       }
       
       $("#regBtn").on("click",function(){
-         self.location = "/board/register";
+         self.location = "/board/boardRegister";
       });
       
       
@@ -117,7 +117,7 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
-		<h1 class="fw-bolder mb-5">Q&A</h1>
+		<h1 class="fw-bolder mb-5">BOARD</h1>
          <div class="row">
                <div>
                   <table class="table">
@@ -152,7 +152,7 @@
 
 				<div class='row'>
 					<div class="col-lg-12">
-						<form id='boardSearchForm' action='/board/list' method='get'>
+						<form id='boardSearchForm' action='/board/boardList' method='get'>
 							<select name='type'>
 								<option value=""
 									<c:out value="${pageMaker.cri.type==null?'selected':''}"/>>----</option>
@@ -171,8 +171,6 @@
 								<option value="TCW"
 									<c:out value="${pageMaker.cri.type eq'TCW'?'selected':''}"/>>제목
 									or 내용 or 작성자</option>
-								<%-- <option value="P"
-									<c:out value="${pageMaker.cri.type eq'P'?'selected':''}"/>>종류</option> --%>
 							</select> 
 							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' /> 
 							<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
