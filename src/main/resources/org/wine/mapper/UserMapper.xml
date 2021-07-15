@@ -48,8 +48,25 @@
 	<select id="read" resultMap="userInfo">
 		select * from TBL_USER where USER_NUM=#{userNum}
 	</select>
+	
+	<update id="modifyEmail">
+		update TBL_USER set USER_EMAIL=#{userEmail}
+		where USER_ID = #{userId} and USER_PASSWORD=#{userPassword}
+	</update>
+	
+	<update id="modifyPassword">
+		update TBL_USER set USER_PASSWORD=#{userPassword}
+		where USER_ID = #{userId} and USER_NUM=#{userNum}
+	</update>
+	
+	<update id="modifyUserInfo">
+		update TBL_USER set USER_PHONENUM=#{userPhoneNum}
+		,USER_REALNAME =#{userRealName}, USER_ADDRESS1 =#{userAddress1}
+		,USER_ADDRESS2 =#{userAddress2}, USER_ADDRESS3 =#{userAddress3}
+		where USER_ID = #{userId} and USER_NUM=#{userNum}
+	</update>
 
-	<update id="update">
+	<update id="update" >
 		update TBL_USER set USER_EMAIL=#{userEmail},
 		USER_PASSWORD=#{userPassword}, USER_PHONENUM=#{userPhoneNum},
 		USER_BIRTHDAY = to_char(to_date(#{userBirthDay}))
@@ -69,7 +86,7 @@
 
 	<select id='userLogin' resultMap="userInfo">
 		SELECT
-		USER_NUM,USER_ID,USER_NICKNAME,USER_EMAIL,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY
+		USER_NUM,USER_ID,USER_NICKNAME,USER_PASSWORD,USER_EMAIL,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY
 		FROM TBL_USER
 		WHERE USER_ID=#{userId} and USER_PASSWORD=#{userPassword}
 	</select>
