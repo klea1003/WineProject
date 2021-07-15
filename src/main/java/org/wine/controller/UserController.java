@@ -209,6 +209,13 @@ public class UserController {
 			return  "redirect:"+ path+query;
 
 		}
+		
+		int result = 1;
+		
+		rttr.addFlashAttribute("result", result);
+		
+		log.info(result);
+		
 		session.setAttribute("user", lvo);
 
 		Long loginNum=lvo.getUserNum();
