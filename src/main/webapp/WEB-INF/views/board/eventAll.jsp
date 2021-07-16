@@ -10,7 +10,7 @@
 <!-- Event preview section-->
 	<section class="py-5">
 	    <div class="container px-5">
-	        <h1 class="fw-bolder fs-5 mb-4">Event</h1>
+	        <h1 class="fw-bolder mb-5">Event</h1>
 	        <div class="row gx-5">
 	        <c:forEach var="list" items="${listAll}" varStatus="status">
 	            <div class="col-lg-4 mb-5">
