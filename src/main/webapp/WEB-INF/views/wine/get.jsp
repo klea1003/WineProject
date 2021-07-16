@@ -93,7 +93,7 @@
 							<c:out value="${wine.country}" />
 							<br>					
 						</p>
-						<span>￦<c:out value="${wine.price}" /></span>
+						<span>￦<fmt:formatNumber pattern="#,###,###" value="${wine.price}" /></span>
 					</div>
 
 					<div class="d-flex">

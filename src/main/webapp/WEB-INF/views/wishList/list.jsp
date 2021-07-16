@@ -109,8 +109,8 @@ $(document).ready (
 							<c:forEach var="wish" items="${map.list}" varStatus="i">
 								<tr>
 									<td><img src="http://klea-home.iptime.org:8081/<c:out value="${wish.wineImageName}" />"height="100px" width="30px"></td>
-									<td><h5 class="fw-bold"><a href= "/wine/get?wno=${wish.wineNum}" > ${wish.wineTitle}</a></h5></td>
-									<td><fmt:formatNumber pattern="#,###,###" value="${wish.winePrice}" /></td>							
+									<td><h5 class="fw-bold"><a href= "/wine/get?wno=${wish.wineNum}" > ${wish.winetitle}</a></h5></td>
+									<td>￦ <fmt:formatNumber pattern="#,###,###" value="${wish.winePrice}" /></td>							
 									<td><a href="/cart/insert?wineNum=${wish.wineNum}&wineQty=1" class="btn btn-outline-dark">Add Cart</a></td>									
 									<td><a href="/wishList/delete?wishNum=${wish.wishNum}" class="btn btn-outline-danger">삭제</a></td>
 		

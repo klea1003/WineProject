@@ -138,21 +138,21 @@ $(document).ready(function() {
 						<tr>
 							<td><input class="checkBox" type="checkbox" value=${row.cartNum}></td>
 							<td> <img src= "http://klea-home.iptime.org:8081/<c:out value="${row.imageName}" />" height="100px" width="30px"> </td>
-							<td><h5 class="fw-bold">${row.title}</h5></td>
-							<td><fmt:formatNumber pattern="#,###,###" value="${row.price}" /></td>
+							<td><h5 class="fw-bold"><a href= "/wine/get?wno=${row.wineNum}" > ${row.title}</a></h5></td>
+							<td>￦ <fmt:formatNumber pattern="#,###,###" value="${row.price}" /></td>
 							<td><input type="number" style="width: 40px;" name="wineQty" value="${row.wineQty}" min="1"> 
 							
 							<input type="hidden" name="wineNum" value="${row.wineNum}">
 							
 							<button class="btn btn-outline-secondary btn-sm btnCartUpdate" id="btnCartUpdate">수정</button>
 							
-							<td><fmt:formatNumber pattern="###,###,###" value="${row.totalPrice}" /></td>
+							<td>￦ <fmt:formatNumber pattern="###,###,###" value="${row.totalPrice}" /></td>
 							<td><a href="/cart/delete?cartNum=${row.cartNum}" class="btn-sm btn-outline-danger">삭제</a></td>
 					    </tr>
 					</c:forEach>
 					    
 					<tr>
-						<td colspan="6" align="right">금액 합계 : <fmt:formatNumber pattern="###,###,###" value="${map.sumTotalPrice}" /><br>
+						<td colspan="6" align="right">금액 합계 : ￦ <fmt:formatNumber pattern="###,###,###" value="${map.sumTotalPrice}" /><br>
 						</td>
 						<td></td>
 					</tr>
