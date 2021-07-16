@@ -234,20 +234,17 @@ p.card-text {
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
 								<div class="small text-muted">
-									<div><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-										<h5><c:out value="${socialreview.userRealName }"/></h5></a>
+									<div>
+										<h5><c:out value="${socialreview.userRealName }"/></h5>
 									</div>
 									<c:out value="${socialreview.reviewDate }"/>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
-									<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  
-									height="70" width="30"></a>
+									<img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="70" width="30">
 								</div>
 								<div class="rating_text" style="float:right; margin-top:5px; width: 730px;">
-									<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-										<h5><c:out value="${socialreview.reviewContent }"/></h5>
-									</a>
+									<h5><c:out value="${socialreview.reviewContent }"/></h5>
 								</div>
 							</div>
 						</c:forEach>
