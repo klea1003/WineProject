@@ -246,6 +246,7 @@ $(document).ready(function(){
 	
 	//삭제
 	modalRemoveBtn.on("click",function(e){
+		
 		var rno = modal.data("rno"); 
 		
         console.log("rno" + rno);
@@ -264,12 +265,12 @@ $(document).ready(function(){
             modal.modal("hide");
             return;
         }	
-		
-		replyService.remove(rno, function(result){
+          	
+		replyService.remove(rno, originalReplyer, function(result){
 			alert(result);
 			modal.modal("hide"); //모달 창 닫음
 			showList(pageNum);//댓글이 포함된 페이지로 이동
-			});
+			});modal.modal("hide");
 		
 	});
 	
