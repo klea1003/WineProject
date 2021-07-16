@@ -81,7 +81,7 @@
 							class="settings-name-input form-control input-lg mt-2" autofocus="autofocus" heap-ignore="true">
 						</div>
 						<div class="col-sm-4 form-group">
-								<button class="btn btn-outline-secondary sm mt-2"  id="settings-change-userinfo">Change UserInfo</button>
+								<button class="btn btn-outline-secondary sm mt-2"  id="settings-change-realname">Change RealName</button>
 						</div>
 					</div>
 				</div>
@@ -94,13 +94,17 @@
 					<div id="address-settings">					
 						<h2>Address &amp; Phone Number
 							<div>Can change your address information.</div>
+												
 						</h2>
 						<div class="row">
-							<div class="col-sm-12 mt-2">
+							<div class="col-sm-7 mt-2">
 								<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum" style="display: none;"></label>
 					  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="userPhoneNum" id="change_phonenum_input"
 									pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"	value="<c:out value='${setting.userPhoneNum }'/>"  onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" >
-							</div>											
+							</div>
+							<div class="col-sm-5 mt-2">
+								<button class="btn btn-outline-secondary form-control" id="settings-change-userinfo">Change Address</button>	
+							</div>												
 							<div class="col-sm-7 mt-2">
 								<input class="form-control" id="change_address_input_1" name="userAddress1" readonly="readonly" value="<c:out value='${setting.userAddress1 }'/>">
 							</div>
@@ -112,7 +116,6 @@
 							</div>							
 							<div class ="col-sm-12 mt-2">
 								<input class="form-control" id="change_address_input_3" name="userAddress3" value="<c:out value='${setting.userAddress3 }'/>"readonly="readonly">
-								<span class="final_address_ck">주소를 입력해주세요.</span>
 							</div>
 						</div>
 					</div>
@@ -165,7 +168,7 @@
 		
 		<hr>
 		
-		<div class="mt-5">
+		<div class="mt-5" style="text-align: center;">
 			<c:if test="${ imageck.size() != 0}">
 				<div class="row">
 					<div class="col-lg-12">
@@ -200,13 +203,15 @@
 					</div>
 				</div>
 			</div>		
-			<div class="mt-4">
+			<div class="mt-4" style="margin-left: 25%;">
 				<form role="form" action="/user/settings" method="post"	name="imageupload" >
 					<div class='form-group uploadDiv'>
-						<div class="input-group mb-5">
-							<input type="file" class="form-control" name='uploadFile' >
-							<button type="submit" id='insertimage' class="btn btn-outline-danger btn-sm"  >Submit</button>
-							<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-outline-secondary btn-sm' >Remove</button>
+						<div class="col-sm-8 ">
+							<div class="input-group mb-5">
+								<input type="file" class="form-control" name='uploadFile' >
+								<button type="submit" id='insertimage' class="btn btn-outline-danger btn-sm"  >Submit</button>
+								<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-outline-secondary btn-sm' >Remove</button>
+							</div>
 						</div>
 					</div>
 					<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
@@ -351,6 +356,13 @@
 	        $("#password_modify_form").submit(); 
 		}
 		return false;
+	});
+	
+	$("#settings-change-realname").click(function(){
+		
+		 $("#userInfo_modify_form").attr("action", "/user/userInfoModify");
+	     
+	     $("#userInfo_modify_form").submit(); 
 	});
 	
 	$("#settings-change-userinfo").click(function(){
