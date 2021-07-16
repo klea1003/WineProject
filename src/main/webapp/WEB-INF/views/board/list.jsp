@@ -59,32 +59,32 @@
       
 
       function checkModal(result){
-         if(result ===''||history.state){
-            return;
-         }
-         if(parseInt(result) > 0){
-            $(".modal-body").html(
-                  "게시글"+parseInt(result)+"번이 등록 되었습니다.");
-         }
-         $("#myModal").modal("show");
-      }
-      
-      $("#regBtn").on("click",function(){
-         self.location = "/board/register";
-      });
-      
-      
-      var actionForm=$("#actionForm");
-      $(".page-item a").on("click",function(e){
-         e.preventDefault();
-         console.log('click');
-         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-         actionForm.submit();
-      });
-      
- 
-      $(".move").on("click",function(e) {
+          if(result ===''||history.state){
+             return;
+          }
+          if(parseInt(result) > 0){
+             $(".modal-body").html(
+                   "게시글"+parseInt(result)+"번이 등록 되었습니다.");
+          }
+          $("#myModal").modal("show");
+       }
+       
+       $("#regBtn").on("click",function(){
+          self.location = "/board/register";
+       });
+       
+       
+       var actionForm=$("#actionForm");
+       $(".page-item a").on("click",function(e){
           e.preventDefault();
+          console.log('click');
+          actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+          actionForm.submit();
+       });
+       
+  
+       $(".move").on("click",function(e) {
+           e.preventDefault();
           actionForm.append("<input type='hidden' name='boardNum' value=' "
                    + $(this).attr("href")
                    + "'>");
@@ -93,15 +93,7 @@
 
        });
       
-      $("#backList").on("click",function(e) {
-          e.preventDefault();
-          actionForm.append("<input type='hidden' name='boardNum' value=' "
-                   + $(this).attr("href")
-                   + "'>");
-          actionForm.attr("action","/board/get");
-          actionForm.submit();
-
-       });
+    
        
       var boardSearchForm =$("#boardSearchForm");
       $("#boardSearchForm button").on("click",function(e){
@@ -222,8 +214,8 @@
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
 							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
-						 <c:if test="${keyword != null}">
-						 <button  class='btn btn-outline-danger btn-sm'>search</button>
+						 <c:if test="${pageMaker.cri.keyword != null}">
+						 <a href="/board/list">목록으로 돌아가기</a>
 						 </c:if>
                    		<div align="right">
                    		<c:if test="${user.userNickName != null}">
