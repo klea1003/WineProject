@@ -298,26 +298,10 @@ p.card-text {
 											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 											</div>
 						                 	<div class="card-footer">
-						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
-						                  	</div>
-	               						</div>
-	                 				  </div>
-	                 			  </div>
-	             		   </c:forEach>
-	             		   <c:forEach items="${wish}" var="w">
-			                	<div class="swiper-slide"> 
-			                   		<div class="col mb-5">
-			                    		<div class="card-list">
-	                  						<div class="text-center">
-	                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
-	                  						</div>
-						                     <div class="card-body">
-											      <p ><b><c:out value="${w.wineTitle}" /></b></p>
-											      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
-											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
-											</div>
-						                 	<div class="card-footer">
-						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
+						                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
+						                  		More Info</button>
+						                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/wishList/insert?wno=${w.wineNum}'">
+												Wish List</button>
 						                  	</div>
 	               						</div>
 	                 				  </div>
@@ -465,8 +449,7 @@ $(document).ready(function() {
 	           	str += "</a>";
 				str += "</div>";
 				str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
-	           	str += "<a class='link-dark text-decoration-none' href='/wine/get?wno="+list[i].wineNum+"'> "
-	           	str += "<h5>"+list[i].reviewContent+"</h5></a> ";
+	           	str += "<h5>"+list[i].reviewContent+"</h5> ";
 	           	str += "</div>";
 	            str += "</div>";
 	            str += "</div>";

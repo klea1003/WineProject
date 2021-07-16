@@ -306,16 +306,8 @@
 				</div>						
 			</div>
 		</div>
-	</div>	<!-- End Password Modal -->	
-								
-								
-								
-								
-								
-								
-								
-										
-				
+	</div>	<!-- End Password Modal -->							
+
 <%@include file="../includes/footer.jsp"%>
 </body>
 <script type="text/javascript">
