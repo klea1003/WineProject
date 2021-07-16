@@ -88,7 +88,7 @@
           actionForm.append("<input type='hidden' name='boardNum' value=' "
                    + $(this).attr("href")
                    + "'>");
-          actionForm.attr("action","/board/get");
+          actionForm.attr("action","/board/boardGet");
           actionForm.submit();
 
        });
@@ -117,7 +117,7 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
-		<h1 class="fw-bolder mb-5">BOARD</h1>
+		<h1 class="fw-bolder mb-5">Board</h1>
          <div class="row">
                <div>
                   <table class="table">
@@ -125,7 +125,6 @@
 						<tr class="table">
 					      <th scope="col">No</th>
 					      <th scope="col">제목</th>
-					      <th scope="col">종류</th>
 					      <th scope="col">작성자</th>
 					      <th scope="col">작성일</th>
 					      <th scope="col">좋아요 <i class="bi bi-hand-thumbs-up"></i></th>
@@ -139,7 +138,6 @@
 								<td>${c.boardNum }</td>
 								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td> --%>
 								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
-								<td>${c.boardType}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
 								<td>${likelist[status.index]}</td>
@@ -177,6 +175,9 @@
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
 							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
+						 <c:if test="${pageMaker.cri.keyword != null}">
+						 <a href="/board/boardList">목록으로 돌아가기</a>
+						 </c:if>
                    		<div align="right">
                    		<c:if test="${user.userNickName != null}">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>

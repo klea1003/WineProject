@@ -100,5 +100,12 @@
 		U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM =#{userNum}
         GROUP by W.WINE_NUM,WL.WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
 	</select>
+	
+	<!-- 위시리시트 개수 -->
+	<select id="getwishListCnt" resultType="int">
+  		select count(*) from tbl_wishlist_test
+		where  user_num=#{uesrNum}
+	</select>
+	
 </mapper>
  

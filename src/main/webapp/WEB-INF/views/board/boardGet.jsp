@@ -438,7 +438,7 @@ $(document).ready(function(){
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-				<h1 class="fw-bolder">Q&A</h1>
+				<h1 class="fw-bolder">Board</h1>
 			</div>
 
 			<div class="container-fluid">
@@ -477,7 +477,7 @@ $(document).ready(function(){
 						<c:if test="${user.userNickName eq board.writer }">
 							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
 						</c:if>
-						<button class='btn btn-outline-dark' data-oper='list'>back</button>
+						<button class='btn btn-outline-dark' data-oper='boardList'>back</button>
 					</div>
 
 					<!-- like 영역 -->

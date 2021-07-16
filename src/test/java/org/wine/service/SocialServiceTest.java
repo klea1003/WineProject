@@ -76,8 +76,10 @@ public class SocialServiceTest {
 	service.followingList(1L);
 	}
 	
-
-	
-	
+	@Test 
+	public void testMyReviewList() {
+		
+	service.myReviewList(1L);
+	}
 
 }

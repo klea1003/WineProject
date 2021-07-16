@@ -10,7 +10,7 @@
 <!-- Event preview section-->
 	<section class="py-5">
 	    <div class="container px-5">
-	        <h1 class="fw-bolder fs-5 mb-4">Event</h1>
+	        <h1 class="fw-bolder mb-5">Event</h1>
 	        <div class="row gx-5">
 	        <c:forEach var="list" items="${list}" varStatus="status">
 	            <div class="col-lg-4 mb-5">
@@ -37,9 +37,8 @@
 	           
 	        </div>
 	        <div class="text-end mb-5 mb-xl-0">
-	            <a class="text-decoration-none" href="/board/eventAll">
+	            <a class="btn btn-outline-danger" href="/board/eventAll">
 	                More Event
-	                <i class="bi bi-arrow-right"></i>
 	            </a>
 	        </div>
 	    </div>

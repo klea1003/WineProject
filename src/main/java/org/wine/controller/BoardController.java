@@ -113,7 +113,7 @@ public class BoardController {
 		return "redirect:/board/list" + cri.getListLink();
 	}
 
-	@GetMapping({"/get", "/modify"})
+	@GetMapping({"/get", "/modify", "/boardGet"})
 	public void get(@RequestParam("boardNum") Long boardNum, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("/get or modify");
 		model.addAttribute("board", service.get(boardNum));

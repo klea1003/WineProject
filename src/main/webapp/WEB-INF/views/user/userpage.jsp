@@ -101,7 +101,7 @@ p.card-text {
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
-				<span><c:out value='${userpage.userRealName }' />님의 Wine</span>
+				<span><c:out value='${userpage.userNickName }' />님의 Wine</span>
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
@@ -173,9 +173,11 @@ p.card-text {
 										</div>
 									</div>																	
 									<div class="h6 fw-bolder">	Following &nbsp;&nbsp; 
-										<span  id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
+										<span id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
 									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
 										<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
+									<div class="h6 fw-bolder">My Ratings &nbsp;&nbsp;&nbsp;&nbsp; 
+										<span id="modal_show_MyRatings"><c:out value='${myRatingCnt}' /></span></div>
 									<br/> 
 								</div>
 							</div>
@@ -194,7 +196,7 @@ p.card-text {
 								<c:forEach items="${followinglist}" var="fli">
 									<div class="container ">
 										<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${fli.userNum}">
-										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userRealName }"/></a>
+										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userNickName }"/></a>
 										<br>
 										<br>
 									</div>
@@ -216,7 +218,7 @@ p.card-text {
 								<c:forEach items="${followerlist}" var="flr">
 									<div class="container">
 										<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${flr.userNum}">
-										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userRealName }"/></a>
+										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userNickName }"/></a>
 										<br>
 										<br>
 									</div>
@@ -232,20 +234,17 @@ p.card-text {
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
 								<div class="small text-muted">
-									<div><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-										<h5><c:out value="${socialreview.userRealName }"/></h5></a>
+									<div>
+										<h5><c:out value="${socialreview.userNickName }"/></h5>
 									</div>
 									<c:out value="${socialreview.reviewDate }"/>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
-									<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  
-									height="70" width="30"></a>
+									<img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="70" width="30">
 								</div>
 								<div class="rating_text" style="float:right; margin-top:5px; width: 730px;">
-									<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-										<h5><c:out value="${socialreview.reviewContent }"/></h5>
-									</a>
+									<h5><c:out value="${socialreview.reviewContent }"/></h5>
 								</div>
 							</div>
 						</c:forEach>
@@ -285,8 +284,33 @@ p.card-text {
 	            	<div class="swiper-container"> 
 	            	 <!-- 보여지는 영역 --> 
 	            		<div class="swiper-wrapper"> 
-			                <!--  Card One    -->              
-			                <c:forEach items="${wish}" var="w">
+			                <!--  Card One    -->
+							<c:if test="${ getWishListCnt < 4 }">              
+				                <c:forEach items="${wish}" var="w">
+				                	<div style="width: 344px; margin-left: 90px;"> 
+				                   		<div class="col mb-5">
+				                    		<div class="card-list">
+		                  						<div class="text-center">
+		                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
+		                  						</div>
+							                     <div class="card-body">
+												      <p ><b><c:out value="${w.wineTitle}" /></b></p>
+												      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
+												      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
+												</div>
+							                 	<div class="card-footer">
+							                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
+							                  		More Info</button>
+							                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${w.wineNum}&wineQty=1'">
+													Add Cart</button>
+							                  	</div>
+		               						</div>
+		                 				</div>
+		                 			</div>
+								</c:forEach>
+							</c:if>
+							<c:if test="${ getWishListCnt > 3 }">
+				         	   <c:forEach items="${wish}" var="w">
 			                	<div class="swiper-slide"> 
 			                   		<div class="col mb-5">
 			                    		<div class="card-list">
@@ -299,16 +323,22 @@ p.card-text {
 											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 											</div>
 						                 	<div class="card-footer">
-						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
+						                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
+						                  		More Info</button>
+						                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${w.wineNum}&wineQty=1'">
+												Add Cart</button>
 						                  	</div>
 	               						</div>
 	                 				  </div>
 	                 			  </div>
-	             		   </c:forEach>
+				             	</c:forEach>							
+							</c:if> 		             		  
 	               		 </div>
+	               		 <c:if test="${ getWishListCnt > 3 }">
 	                     <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
-	                     <div class="swiper-button-prev"></div> 
-	                     <div class="swiper-button-next"></div> 
+	                     	<div class="swiper-button-prev"></div> 
+	                     	<div class="swiper-button-next"></div>
+	                     </c:if> 
 	               	</div>
             	 </div>
           	</c:if>
@@ -435,7 +465,7 @@ $(document).ready(function() {
 			for (var i = 0, len = list.length || 0; i < len; i++) {
 				str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
 				str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
-				str +="<h5>"+list[i].userRealName+"</h5></a>";
+				str +="<h5>"+list[i].userNickName+"</h5></a>";
 				str +="</div>";
 				str +=""+list[i].reviewDate+"";
 				str +="</div>";
@@ -447,8 +477,7 @@ $(document).ready(function() {
 	           	str += "</a>";
 				str += "</div>";
 				str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
-	           	str += "<a class='link-dark text-decoration-none' href='/wine/get?wno="+list[i].wineNum+"'> "
-	           	str += "<h5>"+list[i].reviewContent+"</h5></a> ";
+	           	str += "<h5>"+list[i].reviewContent+"</h5> ";
 	           	str += "</div>";
 	            str += "</div>";
 	            str += "</div>";
