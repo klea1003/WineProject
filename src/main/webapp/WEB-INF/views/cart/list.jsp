@@ -48,27 +48,6 @@ function deleteItems(){
 	location.reload(true);
 };
 
-function deleteItems(){
-	console.log("delete btn clicked")
-	
-	var _deleteCartArr = [];
-	
-	 $("input[class='checkBox']:checked").each(function(i) {
-		 _deleteCartArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
-    })
-	
-	$.ajax({
-		url: 'deleteItems',
-		type: 'get',
-		dataType: "JSON",
-		data: {
-			deleteCartArr: _deleteCartArr
-		}
-	})
-	
-	location.href = "order"
-};
-
 function orderItems(){
 	console.log("order btn clicked")
 	
@@ -115,6 +94,8 @@ $(document).ready(function() {
 				wineQty: wineQtyArr
 			}
 		})
+		
+		location.reload(true);
 	});
 	
 	// 전체 체크박스 컨트롤 ===================

@@ -6,6 +6,7 @@ import lombok.Data;
 public class OrderVO {
 	
 	private Long orderNum;
+	private String orderName;
 	private Long userNum;	
 	private String pickUpName;
 	private String pickUpPhoneNum;

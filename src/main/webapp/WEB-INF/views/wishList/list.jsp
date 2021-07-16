@@ -121,6 +121,8 @@ $(document).ready (
 				</form>
 			</c:otherwise>
 		</c:choose>
+		
+		<input type="button" value="BACK" onClick="history.go(-1)"> 
 	</div>
 	
 
