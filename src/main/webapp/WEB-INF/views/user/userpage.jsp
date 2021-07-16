@@ -284,8 +284,33 @@ p.card-text {
 	            	<div class="swiper-container"> 
 	            	 <!-- 보여지는 영역 --> 
 	            		<div class="swiper-wrapper"> 
-			                <!--  Card One    -->              
-			                <c:forEach items="${wish}" var="w">
+			                <!--  Card One    -->
+							<c:if test="${ getWishListCnt < 4 }">              
+				                <c:forEach items="${wish}" var="w">
+				                	<div style="width: 344px; margin-left: 90px;"> 
+				                   		<div class="col mb-5">
+				                    		<div class="card-list">
+		                  						<div class="text-center">
+		                     						<img src="http://klea-home.iptime.org:8081/<c:out value="${w.wineImageName}" />" height="350" width="150">
+		                  						</div>
+							                     <div class="card-body">
+												      <p ><b><c:out value="${w.wineTitle}" /></b></p>
+												      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
+												      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
+												</div>
+							                 	<div class="card-footer">
+							                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
+							                  		More Info</button>
+							                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${w.wineNum}&wineQty=1'">
+													Add Cart</button>
+							                  	</div>
+		               						</div>
+		                 				</div>
+		                 			</div>
+								</c:forEach>
+							</c:if>
+							<c:if test="${ getWishListCnt > 3 }">
+				         	   <c:forEach items="${wish}" var="w">
 			                	<div class="swiper-slide"> 
 			                   		<div class="col mb-5">
 			                    		<div class="card-list">
@@ -306,11 +331,14 @@ p.card-text {
 	               						</div>
 	                 				  </div>
 	                 			  </div>
-	             		   </c:forEach>
+				             	</c:forEach>							
+							</c:if> 		             		  
 	               		 </div>
+	               		 <c:if test="${ getWishListCnt > 3 }">
 	                     <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
-	                     <div class="swiper-button-prev"></div> 
-	                     <div class="swiper-button-next"></div> 
+	                     	<div class="swiper-button-prev"></div> 
+	                     	<div class="swiper-button-next"></div>
+	                     </c:if> 
 	               	</div>
             	 </div>
           	</c:if>
