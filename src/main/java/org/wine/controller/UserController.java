@@ -38,7 +38,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*","/order/*","/cart/*","/wishList/*"})
+@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*","/order/*","/cart/*","/wishList/*","/includes/*"})
 @AllArgsConstructor
 public class UserController {
 
@@ -69,7 +69,7 @@ public class UserController {
 	}
 	
 	@PostMapping({ "/settings" })
-	public String settingRegister(@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
+	public String settingRegister(HttpServletRequest request,@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
 		
 		if(user.getProfileList() !=null) {
 			
@@ -88,6 +88,16 @@ public class UserController {
 		service.register(user);
 		
 		rttr.addFlashAttribute("resultimage",user.getUserNum());
+		
+		HttpSession session = request.getSession();
+		
+		Long loginNum = (Long)session.getAttribute("loginNum");
+		
+		List<ProfileVO> headerck =  service.imageCk(loginNum);
+		
+		log.info("headerck : " +headerck);
+		
+		session.setAttribute("headerck",headerck);  //이미지 체크 유무
 		
 		return  "redirect:"+ path+query;
 	}
@@ -478,7 +488,7 @@ public class UserController {
 	
 	
    @PostMapping("/imageremove")
-   public String remove(@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
+   public String remove( HttpServletRequest request,@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
       log.info("remove......."+userNum);
 
       if(query==""||query==null) {
@@ -492,7 +502,21 @@ public class UserController {
 		log.info("query  remove:"+query);
 		
 		service.remove(userNum);
-			
+		
+		Object session = request.getAttribute("headerck");
+		
+		log.info("session "+ session);
+		
+		HttpSession session2 = request.getSession();
+		
+		Long loginNum = (Long)session2.getAttribute("loginNum");
+		
+		List<ProfileVO> headerck =  service.imageCk(loginNum);
+		
+		log.info("headerck : " +headerck);
+		
+		session2.setAttribute("headerck",headerck);  //이미지 체크 유무
+		
 		rttr.addFlashAttribute("result", 0 );
 		
 		return  "redirect:"+ path + query;
