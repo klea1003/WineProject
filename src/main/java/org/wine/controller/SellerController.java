@@ -41,6 +41,13 @@ public class SellerController {
 		  
 	}
 	
+	@GetMapping("/companyInfo")
+	public void companyInfo(Model model) {
+		
+		log.info("companyInfo 페이지");		
+		
+	}
+	
 	@PostMapping("/modify")
 	public String modify(SellerVO seller, RedirectAttributes rttr) {
 		
