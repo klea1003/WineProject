@@ -477,7 +477,7 @@ $(document).ready(function(){
 						<c:if test="${user.userNickName eq board.writer }">
 							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
 						</c:if>
-						<button class='btn btn-outline-dark' data-oper='boardList'>BOARD</button>
+						<button class='btn btn-outline-dark' data-oper='boardList'>back</button>
 					</div>
 
 					<!-- like 영역 -->
