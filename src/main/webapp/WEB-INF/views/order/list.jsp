@@ -24,7 +24,7 @@
 	  <c:forEach items="${orderList}" var="order" varStatus="i">
 	  <li>
 	  <div>
-		<p><span>주문번호&nbsp;</span><a href="/order/detail?n=${order.orderNum}">${order.orderNum}</a></p>
+		<p><span>주문번호&nbsp;</span><a href="/order/detail?n=${order.orderNum}">${order.orderName}</a></p>
 		<p><span>수령인 : </span>${order.pickUpName}</p>
 		<p><span>수령매장 : </span>${order.storeName}</p>
 		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${order.totalPrice}" /> 원</p>

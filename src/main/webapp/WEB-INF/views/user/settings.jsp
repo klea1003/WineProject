@@ -42,6 +42,18 @@
 		font-size: 5px;
 		text-align: center;
 	}
+	.change_nickname_input_re_1 {
+		color: green;
+		display: none;
+		font-size: 5px;
+		text-align: center;
+	}
+
+	.change_nickname_input_re_2 {
+		color: red;
+		display: none;
+		font-size: 5px;
+	}
 
 </style>
 	
@@ -71,17 +83,42 @@
 		
 		<hr>
 		
+		<section class="section-bordered section-md mt-5">
+			<div class="container">
+				<h2 class="settings-section-title text-sm">
+					NickName
+					<span class="text-block header-smaller">Change your login credentials to 너와, In.</span>
+				</h2>
+				<div class="settings-email-password-field form-group mt-4">
+					<h4>
+						<label class="semi inflate text-small">NickName</label>
+					</h4>
+					<div class="row">
+						<div class="col-sm-4">
+							<div id="settings-email-placeholder"><c:out value='${setting.userNickName }'></c:out></div>
+						</div>
+						<div class="col-sm-3">
+							<button class="btn btn-outline-secondary sm "  id="settings-change-nickname">Change NickName</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		
+		<hr>
+		
 		<form class="user" id="userInfo_modify_form" method="post">
 			<section class="section-bordered section-md mt-5">
 					<div class="container">
-					<h2 class="settings-section-title text-sm">Your Name</h2>
+					<h2 class="settings-section-title text-sm">Your RealName</h2>
 					<div class="row">
 						<div class="col-sm-4 form-group">
 							<input type="text" name="userRealName" value="<c:out value='${setting.userRealName }'></c:out>" 
 							class="settings-name-input form-control input-lg mt-2" autofocus="autofocus" heap-ignore="true">
 						</div>
 						<div class="col-sm-4 form-group">
-								<button class="btn btn-outline-secondary sm mt-2"  id="settings-change-userinfo">Change UserInfo</button>
+								<button class="btn btn-outline-secondary sm mt-2"  id="settings-change-realname">Change RealName</button>
 						</div>
 					</div>
 				</div>
@@ -94,13 +131,17 @@
 					<div id="address-settings">					
 						<h2>Address &amp; Phone Number
 							<div>Can change your address information.</div>
+												
 						</h2>
 						<div class="row">
-							<div class="col-sm-12 mt-2">
+							<div class="col-sm-7 mt-2">
 								<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum" style="display: none;"></label>
 					  			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="userPhoneNum" id="change_phonenum_input"
 									pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"	value="<c:out value='${setting.userPhoneNum }'/>"  onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" >
-							</div>											
+							</div>
+							<div class="col-sm-5 mt-2">
+								<button class="btn btn-outline-secondary form-control" id="settings-change-address">Change Address</button>	
+							</div>												
 							<div class="col-sm-7 mt-2">
 								<input class="form-control" id="change_address_input_1" name="userAddress1" readonly="readonly" value="<c:out value='${setting.userAddress1 }'/>">
 							</div>
@@ -112,7 +153,6 @@
 							</div>							
 							<div class ="col-sm-12 mt-2">
 								<input class="form-control" id="change_address_input_3" name="userAddress3" value="<c:out value='${setting.userAddress3 }'/>"readonly="readonly">
-								<span class="final_address_ck">주소를 입력해주세요.</span>
 							</div>
 						</div>
 					</div>
@@ -131,7 +171,7 @@
 		<section class="section-bordered section-md mt-5">
 			<div class="container">
 				<h2 class="settings-section-title text-sm">
-					Username &amp; Password
+					Email &amp; Password
 					<span class="text-block header-smaller">Change your login credentials to 너와, In.</span>
 				</h2>
 				<div class="settings-email-password-field form-group mt-4">
@@ -165,7 +205,7 @@
 		
 		<hr>
 		
-		<div class="mt-5">
+		<div class="mt-5" style="text-align: center;">
 			<c:if test="${ imageck.size() != 0}">
 				<div class="row">
 					<div class="col-lg-12">
@@ -200,13 +240,15 @@
 					</div>
 				</div>
 			</div>		
-			<div class="mt-4">
+			<div class="mt-4" style="margin-left: 25%;">
 				<form role="form" action="/user/settings" method="post"	name="imageupload" >
 					<div class='form-group uploadDiv'>
-						<div class="input-group mb-5">
-							<input type="file" class="form-control" name='uploadFile' >
-							<button type="submit" id='insertimage' class="btn btn-outline-danger btn-sm"  >Submit</button>
-							<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-outline-secondary btn-sm' >Remove</button>
+						<div class="col-sm-8 ">
+							<div class="input-group mb-5">
+								<input type="file" class="form-control" name='uploadFile' >
+								<button type="submit" id='insertimage' class="btn btn-outline-danger btn-sm"  >Submit</button>
+								<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-outline-secondary btn-sm' >Remove</button>
+							</div>
 						</div>
 					</div>
 					<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
@@ -306,7 +348,53 @@
 				</div>						
 			</div>
 		</div>
-	</div>	<!-- End Password Modal -->							
+	</div>	<!-- End Password Modal -->	
+	
+	<!-- NickName Modal -->
+	<div class="modal fade" id="nickNameChangeModal" tabindex="-1" role="dialog"aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered " role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 7%;">Change your login credentials to 너와, In.</h5>
+					<button type="button" id="close_nickName" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="form-group">
+							<h5 >Existing NickName</h5>
+							<div id="settings-nickname-update-placeholder"><c:out value='${setting.userNickName }'></c:out></div>
+						</div>
+						<br>
+						<form class="user" id="nickName_modify_form" method="post">
+							<div class="mb-3 mt-2">
+								<h5>New NickName</h5>
+								<input type="text" class="form-control" id="change_nickname_input" value="<c:out value='${setting.userNickName }'></c:out>" name="userNickName">
+								<span class="change_nickname_input_re_1">사용 가능한 닉네임입니다.</span> 
+								<span class="change_nickname_input_re_2">닉네임이 이미 존재합니다.</span> 
+							</div>
+							<div class="mb-3 mt-2">
+								<h5>PassWord</h5>
+								<input type="password" class="form-control" name="userPassword">
+								<c:if test="${resultNickName == 0}">
+									<div class="password_warn">비밀번호를 잘못 입력하셨습니다.</div>
+								</c:if>
+							</div>
+							<br>
+							<div class="mb-3 mt-2">
+								<input type="button"  class="btn btn-outline-danger float-end" id="nickName_modify_button" value="저장하기">
+							</div>
+							<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
+							<c:set var="query"	value="${requestScope['javax.servlet.forward.query_string']}" />
+							<input type='hidden' name='path' value="<c:out value='${path}'/>">
+							<input type='hidden' name='query' value="<c:out value='${query}'/>">
+							<input type='hidden' name='userId' value="<c:out value='${setting.userId}'/>">
+							<input type='hidden' name='userNum' value="<c:out value='${user.userNum}'/>">	
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>  <!-- End NickName Modal -->						
 
 <%@include file="../includes/footer.jsp"%>
 </body>
@@ -330,9 +418,15 @@
 	    $("#passwordChangeModal").modal("hide");
 	});
 	
+	$("#settings-change-nickname").click(function() {
+		
+		$("#nickNameChangeModal").modal("show");
+	});
 	
-	
-	var resultEmail = '${resultEmail}';
+	$("#close_nickName").click(function() {
+		
+	    $("#nickNameChangeModal").modal("hide");
+	});
 	
 	$("#email_modify_button").click(function(){
 		
@@ -353,11 +447,31 @@
 		return false;
 	});
 	
-	$("#settings-change-userinfo").click(function(){
+	$("#settings-change-realname").click(function(){
 		
 		 $("#userInfo_modify_form").attr("action", "/user/userInfoModify");
 	     
 	     $("#userInfo_modify_form").submit(); 
+	});
+	
+	$("#settings-change-address").click(function(){
+		
+		 $("#userInfo_modify_form").attr("action", "/user/userInfoModify");
+	     
+	     $("#userInfo_modify_form").submit(); 
+	});
+	
+	$("#nickName_modify_button").click(function(){
+		
+		if(changeNickNameckCheck){
+		 
+			$("#nickName_modify_form").attr("action", "/user/nickNameModify");
+		    
+		    $("#nickName_modify_form").submit();
+		}
+		
+		return false;
+	    
 	});
 
 
@@ -365,6 +479,7 @@
 	
 	var changePasswordckcorCheck = false; // 비밀번호 일치/불일치 확인   
 
+	var changeNickNameckCheck = false;
 
 	$('#original_password_input').on("propertychange change keyup paste input",function() {
 		
@@ -400,11 +515,40 @@
 		}
 	
 	});
+	
+	$('#change_nickname_input').on("propertychange change keyup paste input",
+			
+		function() {
+
+			var userNickName = $('#change_nickname_input').val();
+
+			var data = {
+				userNickName: userNickName
+			}
+
+			$.ajax({
+				type: "post",
+				url: "/user/userNickNamechk",
+				data: data,
+				success: function(result) {
+
+					if (result != 'fail') {
+						$('.change_nickname_input_re_1').css("display", "inline-block");
+						$('.change_nickname_input_re_2').css("display", "none");
+						changeNickNameckCheck = true;
+					} else {
+						$('.change_nickname_input_re_2').css("display", "inline-block");
+						$('.change_nickname_input_re_1').css("display", "none");
+						changeNickNameckCheck = false;
+					}
+				}// success 종료
+
+			}); // ajax 종료	
+
+		});// function 종료
 
 
 	$(document).ready(function() {
-		
-	
 		
 		/* 파일 업로드 영역  */
 		$("button[type='submit']").on("click",function(e){
@@ -565,15 +709,39 @@
 			$(".viewResult").html(str);
 			
 		}); //eng json
+		   
+		var resultNickName = '${resultNickName}'; //d이게 0일때만
+		 
+		 
 		
-		if(resultEmail ==0){
-			if (resultEmail === '' || history.state) {
+		if(resultNickName ==0 && resultNickName != ''){
+			alert('0번째')
+			if (resultNickName === ''|| history.state) {
+				alert('1번째 : '+history.state);
+				
 			return;
+			
 			} 
+			
+			$("#nickNameChangeModal").modal("show");
+		}   
+		
+		var resultEmail = '${resultEmail}';
+		
+		if(resultEmail == 0 && resultEmail !=''){
+			
+			if (resultEmail === '' || history.state) {
+				alert('2번째 : '+history.state);
+				
+			return;
+			
+			} 
+			
 			$("#emailChangeModal").modal("show");
 		} 
-	        
+		
 	});  //document ready function
+	
 
 	/* 다음 주소 연동 */
 	function execution_change_address(){

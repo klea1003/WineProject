@@ -138,4 +138,16 @@ public class UserServiceImpl implements UserService {
 		return mapper.modifyUserInfo(user);
 	}
 
+	@Override
+	public int getwishListCnt(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getwishListCnt(userNum);
+	}
+
+	@Override
+	public int modifyNickName(UserVO user) {
+		// TODO Auto-generated method stub
+		return mapper.modifyNickName(user);
+	}
+
 }

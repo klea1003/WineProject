@@ -156,6 +156,8 @@ public class UserController {
 		
 		model.addAttribute("myRatingCnt",socialservice.getCountByUserNumRating(userNum)); //자기 자신 레이팅 개수
 		
+		model.addAttribute("getWishListCnt",service.getwishListCnt(userNum)); //wishList 카운팅
+		
 	}
 	
 	@PostMapping({ "/userpage" })
@@ -258,6 +260,38 @@ public class UserController {
 		return  "redirect:"+ path+query;
 	}
 	
+	@RequestMapping(value = "/nickNameModify", method = RequestMethod.POST)
+	public String modifyNickName(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query,
+			UserVO user, RedirectAttributes rttr) {
+
+		log.info(user);
+		
+		int nickName = service.modifyNickName(user);
+		
+		if(query==""||query==null) {
+			
+		}else {
+			query = "?" + query;
+		}
+		
+		log.info("path :"+path);
+		
+		log.info("query :"+query);
+		
+		if (nickName == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
+			
+			int resultNickName = 0;
+			
+			rttr.addFlashAttribute("resultNickName", resultNickName);
+			
+			log.info("resultNickName : "+resultNickName);
+			
+			return "redirect:"+ path+query;
+		}
+	
+		return  "redirect:"+ path+query;
+	}
+	
 	@RequestMapping(value = "/passwordModify", method = RequestMethod.POST)
 	public String modifyPassword(@RequestParam(value="path" ,required=false) String path, @RequestParam(value="query",required=false) String query,
 			UserVO user, RedirectAttributes rttr) {
@@ -305,8 +339,11 @@ public class UserController {
 		
 		if (userInfo == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 			int resultuserInfo = 0;
+			
 			rttr.addFlashAttribute("resultuserInfo", resultuserInfo);
+			
 			log.info(resultuserInfo);
+			
 			return "redirect:"+ path+query;
 		}
 	

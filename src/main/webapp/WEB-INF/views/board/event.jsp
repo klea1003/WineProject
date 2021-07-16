@@ -37,9 +37,8 @@
 	           
 	        </div>
 	        <div class="text-end mb-5 mb-xl-0">
-	            <a class="text-decoration-none" href="/board/eventAll">
+	            <a class="btn btn-outline-danger" href="/board/eventAll">
 	                More Event
-	                <i class="bi bi-arrow-right"></i>
 	            </a>
 	        </div>
 	    </div>

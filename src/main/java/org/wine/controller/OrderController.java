@@ -75,7 +75,6 @@ public class OrderController {
 	
 	@RequestMapping(value = "/complete", method = RequestMethod.GET)
 	public String complete(HttpSession session, OrderVO order, 
-			//@RequestParam(value="list[]") List<Long> cartNumArr
 			Long[] cartNumArr
 	) throws Exception {
 		
@@ -92,11 +91,12 @@ public class OrderController {
 			subNum += (int)(Math.random() * 10);
 		}
 
-		//String orderNum = ymd + "_" + subNum;
+		String orderName = ymd + "_" + subNum;
 		
 		Long orderNum = service.getNextOrderNum();
 		
 		order.setOrderNum(orderNum);
+		order.setOrderName(orderName);
 		order.setUserNum(userNum);
 		order.setSellerNum(1L);			// to do seller 값 수정해야 됨
 		

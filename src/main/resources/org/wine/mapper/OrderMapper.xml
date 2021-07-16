@@ -4,6 +4,7 @@
 
 	<resultMap type="org.wine.domain.OrderVO" id="orderInfo">
 		<result property="orderNum" column="ORDER_NUM" />
+		<result property="orderName" column="ORDER_NAME" />
 		<result property="userNum" column="USER_NUM" />
 		<result property="pickUpName" column="PICKUP_NAME" />
 		<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
@@ -36,9 +37,9 @@
 	<!-- 주문 등록 -->
 	<insert id="insertOrder">
 		insert into tbl_order_test(
-		ORDER_NUM, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM
+		ORDER_NUM, ORDER_NAME, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM
 		) values (
-		#{orderNum}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum})
+		#{orderNum}, #{orderName}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum})
 	</insert>
 	
 	<!-- 주문 아이템 등록 -->
@@ -53,6 +54,7 @@
 	<select id="getOrderList" resultMap="orderInfo">
 		SELECT 
 		    O.ORDER_NUM,
+		    O.ORDER_NAME,
 		    O.USER_NUM,
 		    O.PICKUP_NAME,
 		    O.PICKUP_PHONENUM,
@@ -91,6 +93,7 @@
 	<select id="getOrder" resultMap="orderInfo">
 		SELECT 
 		    O.ORDER_NUM,
+		    O.ORDER_NAME,
 		    O.USER_NUM,
 		    O.PICKUP_NAME,
 		    O.PICKUP_PHONENUM,

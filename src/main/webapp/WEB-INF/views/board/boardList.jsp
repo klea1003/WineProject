@@ -117,7 +117,7 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
-		<h1 class="fw-bolder mb-5">BOARD</h1>
+		<h1 class="fw-bolder mb-5">Board</h1>
          <div class="row">
                <div>
                   <table class="table">

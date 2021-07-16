@@ -5,6 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <style>
 @media (min-width: 0) {
     .g-mr-15 {
@@ -61,6 +62,26 @@
 	text-decoration:none;
 }
 
+.main-content {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.rating-num { 
+	margin-top:0px;font-size: 54px; 
+}
+
+.progress { 
+	margin-bottom: 5px;
+}
+
+.rating-desc .col-md-3 {
+	padding-right: 0px;
+}
+
+.sr-only { 
+margin-left: 5px;overflow: visible;clip: auto; 
+}
 </style>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -93,7 +114,7 @@
 							<c:out value="${wine.country}" />
 							<br>					
 						</p>
-						<span>￦<c:out value="${wine.price}" /></span>
+						<span>￦<fmt:formatNumber pattern="#,###,###" value="${wine.price}" /></span>
 					</div>
 
 					<div class="d-flex">
@@ -308,8 +329,85 @@
 		</div>	
 	<!-- end Review -->
 	
-	<%@ include file="../includes/footer.jsp"%>
+	<!-- Rating Range -->
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 text-center">
+                        <h1 class="rating-num">4.0</h1>
+                        <div class="rating">
+                            <span><i class="bi bi-star-fill"></i></span>
+                            <span><i class="bi bi-star-fill"></i></span>
+                            <span><i class="bi bi-star-fill"></i></span>
+                            <span><i class="bi bi-star-fill"></i></span>
+                            <span><i class="bi bi-star"></i></span>
+                        </div>
+                        <div>
+                            <span>총 ratings</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="row rating-desc">
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span>5</span>
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+									style="width: 50%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+                            </div><!-- end 5 -->
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span>4</span>
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+									style="width: 30%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+                            </div><!-- end 4 -->
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span>3</span>
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+									style="width: 20%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+                            </div><!-- end 3 -->
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span>2</span>
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+									style="width: 70%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+                            </div><!-- end 2 -->
+                            <div class="col-xs-3 col-md-3 text-right">
+                                <span>1</span>
+                            </div>
+                            <div class="col-xs-8 col-md-9">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+									style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+                            </div><!-- end 1 -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</div><!-- Rating Range End -->
+
+<%@ include file="../includes/footer.jsp"%>
 
 </body>
 <script src="/resources/js/scripts.js"></script>
+
+
 </html>
