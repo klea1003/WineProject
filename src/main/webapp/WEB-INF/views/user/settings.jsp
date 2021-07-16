@@ -203,10 +203,10 @@
 			<div class="mt-4">
 				<form role="form" action="/user/settings" method="post"	name="imageupload" >
 					<div class='form-group uploadDiv'>
-						<div class="input-group mb-3">
+						<div class="input-group mb-5">
 							<input type="file" class="form-control" name='uploadFile' >
-							<button type="submit" id='insertimage' class="btn btn-primary btn-sm"  >Submit</button>
-							<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-danger btn-sm' >Remove</button>
+							<button type="submit" id='insertimage' class="btn btn-outline-danger btn-sm"  >Submit</button>
+							<button type='submit' id='removeBtn' data-oper='remove' class='btn btn-outline-secondary btn-sm' >Remove</button>
 						</div>
 					</div>
 					<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
@@ -306,16 +306,8 @@
 				</div>						
 			</div>
 		</div>
-	</div>	<!-- End Password Modal -->	
-								
-								
-								
-								
-								
-								
-								
-										
-				
+	</div>	<!-- End Password Modal -->							
+
 <%@include file="../includes/footer.jsp"%>
 </body>
 <script type="text/javascript">

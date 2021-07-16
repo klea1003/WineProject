@@ -28,9 +28,13 @@ public interface SocialMapper {
 	
 	public List<SocialReviewVO> followingReviewList(Long userFollowingId);
 	
+	public List<SocialReviewVO> myReviewList(Long userNum);
+	
 	public List<SocialReviewVO> followingReviewListPaging(
 			@Param("crire") SocialCriteriaReview crire,
 			@Param("userNum")Long userNum);
 	
 	public int getCountByuserNum(Long userNum);
+	
+	public int getCountByUserNumRating(Long userNum);
 }
