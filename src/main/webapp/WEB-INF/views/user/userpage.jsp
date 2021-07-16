@@ -300,8 +300,8 @@ p.card-text {
 						                 	<div class="card-footer">
 						                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
 						                  		More Info</button>
-						                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/wishList/insert?wno=${w.wineNum}'">
-												Wish List</button>
+						                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${w.wineNum}&wineQty=1'">
+												Add Cart</button>
 						                  	</div>
 	               						</div>
 	                 				  </div>
