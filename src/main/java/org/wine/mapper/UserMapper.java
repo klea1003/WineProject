@@ -32,4 +32,6 @@ public interface UserMapper {
 	public int modifyPassword(UserVO user);
 	
 	public int modifyUserInfo(UserVO user);
+	
+	public int getwishListCnt(Long userNum);
 }
