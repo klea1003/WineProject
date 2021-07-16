@@ -64,4 +64,16 @@ public class SocialMapperTest {
 		list.forEach(review -> log.info(review));
 		
 	}
+	
+	@Test 
+	public void testgetCountByUserNumRating() {
+		
+	mapper.getCountByUserNumRating(1L);
+	}
+	
+	@Test 
+	public void testMyReviewList() {
+		
+	mapper.myReviewList(1L);
+	}
 }

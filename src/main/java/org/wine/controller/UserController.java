@@ -153,6 +153,9 @@ public class UserController {
 		log.info("total:" + total); 
 		
 		model.addAttribute("pageReviewMaker",new SocialPageDTO(crire,total)); 
+		
+		model.addAttribute("myRatingCnt",socialservice.getCountByUserNumRating(userNum)); //자기 자신 레이팅 개수
+		
 	}
 	
 	@PostMapping({ "/userpage" })

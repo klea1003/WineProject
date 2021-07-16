@@ -111,6 +111,20 @@ public class SocialServiceImpl implements SocialService {
 		return mapper.getCountByuserNum(userNum);
 	}
 
+
+	@Override
+	public int getCountByUserNumRating(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getCountByUserNumRating(userNum);
+	}
+
+
+	@Override
+	public List<SocialReviewVO> myReviewList(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.myReviewList(userNum);
+	}
+
 }
 
 

@@ -76,11 +76,13 @@ a {
 	               </ul>
 	                 
 	               <ul>	                  
-	                  <li><a class="link-dark small" href="/footer/privacy">개인정보처리방침</a>
+	                  <li>
+	                  <strong><a class="link-dark small" href="/footer/privacy">개인정보처리방침</a></strong>
 	                  &middot;
-	                  <a class="link-dark small" href="/footer/terms">이용약관</a>
+	                  <strong><a class="link-dark small" href="/footer/terms">이용약관</a></strong>
 	                  &middot;
-	                  <a class="link-dark small" href="/footer/contact">입점문의</a></li>
+	                  <strong><a class="link-dark small" href="/footer/contact">입점문의</a></strong>
+	                  </li>
 	               </ul>
 	             </div>
              </div>

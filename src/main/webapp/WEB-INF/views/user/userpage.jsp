@@ -173,9 +173,11 @@ p.card-text {
 										</div>
 									</div>																	
 									<div class="h6 fw-bolder">	Following &nbsp;&nbsp; 
-										<span  id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
+										<span id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
 									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
 										<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
+									<div class="h6 fw-bolder">My Ratings &nbsp;&nbsp;&nbsp;&nbsp; 
+										<span id="modal_show_MyRatings"><c:out value='${myRatingCnt}' /></span></div>
 									<br/> 
 								</div>
 							</div>
@@ -232,20 +234,17 @@ p.card-text {
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
 								<div class="small text-muted">
-									<div><a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${socialreview.userNum}">
-										<h5><c:out value="${socialreview.userRealName }"/></h5></a>
+									<div>
+										<h5><c:out value="${socialreview.userRealName }"/></h5>
 									</div>
 									<c:out value="${socialreview.reviewDate }"/>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
-									<a href="/wine/get?wno=${socialreview.wineNum}"><img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  
-									height="70" width="30"></a>
+									<img src="http://klea-home.iptime.org:8081/<c:out value="${socialreview.wineImageName}" />"  height="70" width="30">
 								</div>
 								<div class="rating_text" style="float:right; margin-top:5px; width: 730px;">
-									<a class="link-dark text-decoration-none" href="/wine/get?wno=${socialreview.wineNum}">
-										<h5><c:out value="${socialreview.reviewContent }"/></h5>
-									</a>
+									<h5><c:out value="${socialreview.reviewContent }"/></h5>
 								</div>
 							</div>
 						</c:forEach>
@@ -299,7 +298,10 @@ p.card-text {
 											      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 											</div>
 						                 	<div class="card-footer">
-						                  		<a class="btn btn-outline-danger btn-sm" href="/wine/get?wno=${w.wineNum}">More Info</a>
+						                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
+						                  		More Info</button>
+						                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/wishList/insert?wno=${w.wineNum}'">
+												Wish List</button>
 						                  	</div>
 	               						</div>
 	                 				  </div>
@@ -447,8 +449,7 @@ $(document).ready(function() {
 	           	str += "</a>";
 				str += "</div>";
 				str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
-	           	str += "<a class='link-dark text-decoration-none' href='/wine/get?wno="+list[i].wineNum+"'> "
-	           	str += "<h5>"+list[i].reviewContent+"</h5></a> ";
+	           	str += "<h5>"+list[i].reviewContent+"</h5> ";
 	           	str += "</div>";
 	            str += "</div>";
 	            str += "</div>";
