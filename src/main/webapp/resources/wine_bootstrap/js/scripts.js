@@ -5,3 +5,8 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+
+
+	$('clickLike"]').on("click",function(e){
+		operForm.attr("action","/wine/clickLike").submit();
+	});

@@ -13,5 +13,9 @@ public interface ReviewService {
 	
 	public ArrayList<ReviewVO> getList(CriteriaReview cri);
 	
+	public ArrayList<ReviewVO> getList3(Long wineNum);
+	
+	public void clickLike(ReviewVO review);
+	
 	public int getTotal(CriteriaReview cri);	
 }

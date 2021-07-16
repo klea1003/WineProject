@@ -41,6 +41,31 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
+	public ArrayList<ReviewVO> getList3(Long wineNum){
+		
+		log.info("get  getList3 : "+ wineNum);
+		log.info(mapper.getList3(wineNum));
+		return mapper.getList3(wineNum);
+	}
+	
+	@Override
+	public void clickLike(ReviewVO review){	
+		log.info("click like");
+		int count =mapper.readLike(review);
+		if(count==0) {
+			mapper.insertLike(review);
+			mapper.upLike(review);
+			log.info("click like up!"+review.getReviewNum());
+		}else {
+			mapper.deleteLike(review);
+			mapper.downLike(review);
+			log.info("click like down"+review.getReviewNum());
+		}
+		
+	}
+	
+	
+	@Override
 	public int getTotal(CriteriaReview cri) {
 		
 		log.info("getTotal with Criteria: " + cri);
