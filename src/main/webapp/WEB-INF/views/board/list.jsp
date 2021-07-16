@@ -92,6 +92,16 @@
           actionForm.submit();
 
        });
+      
+      $("#backList").on("click",function(e) {
+          e.preventDefault();
+          actionForm.append("<input type='hidden' name='boardNum' value=' "
+                   + $(this).attr("href")
+                   + "'>");
+          actionForm.attr("action","/board/get");
+          actionForm.submit();
+
+       });
        
       var boardSearchForm =$("#boardSearchForm");
       $("#boardSearchForm button").on("click",function(e){
@@ -212,6 +222,9 @@
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
 							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
+						 <c:if test="${keyword != null}">
+						 <button  class='btn btn-outline-danger btn-sm'>search</button>
+						 </c:if>
                    		<div align="right">
                    		<c:if test="${user.userNickName != null}">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>
