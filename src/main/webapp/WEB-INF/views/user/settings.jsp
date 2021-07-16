@@ -74,7 +74,7 @@
 		<form class="user" id="userInfo_modify_form" method="post">
 			<section class="section-bordered section-md mt-5">
 					<div class="container">
-					<h2 class="settings-section-title text-sm">Your Name</h2>
+					<h2 class="settings-section-title text-sm">Your RealName</h2>
 					<div class="row">
 						<div class="col-sm-4 form-group">
 							<input type="text" name="userRealName" value="<c:out value='${setting.userRealName }'></c:out>" 

@@ -101,7 +101,7 @@ p.card-text {
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
-				<span><c:out value='${userpage.userRealName }' />님의 Wine</span>
+				<span><c:out value='${userpage.userNickName }' />님의 Wine</span>
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
@@ -196,7 +196,7 @@ p.card-text {
 								<c:forEach items="${followinglist}" var="fli">
 									<div class="container ">
 										<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${fli.userNum}">
-										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userRealName }"/></a>
+										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${fli.userNickName }"/></a>
 										<br>
 										<br>
 									</div>
@@ -218,7 +218,7 @@ p.card-text {
 								<c:forEach items="${followerlist}" var="flr">
 									<div class="container">
 										<a class="text-decoration-none" id="modal_show_logintojion" href="/user/userpage?userNum=${flr.userNum}">
-										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userRealName }"/></a>
+										<i style="margin-left: 15%;" class="bi bi-person-circle"></i> &nbsp;<c:out value="${flr.userNickName }"/></a>
 										<br>
 										<br>
 									</div>
@@ -235,7 +235,7 @@ p.card-text {
 							<div class="mb-2" style="width: 800px; height:130px; ">
 								<div class="small text-muted">
 									<div>
-										<h5><c:out value="${socialreview.userRealName }"/></h5>
+										<h5><c:out value="${socialreview.userNickName }"/></h5>
 									</div>
 									<c:out value="${socialreview.reviewDate }"/>
 								</div>
@@ -437,7 +437,7 @@ $(document).ready(function() {
 			for (var i = 0, len = list.length || 0; i < len; i++) {
 				str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
 				str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
-				str +="<h5>"+list[i].userRealName+"</h5></a>";
+				str +="<h5>"+list[i].userNickName+"</h5></a>";
 				str +="</div>";
 				str +=""+list[i].reviewDate+"";
 				str +="</div>";
