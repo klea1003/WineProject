@@ -32,6 +32,8 @@ public interface UserService {
 		
 		public int modifyEmail(UserVO user);
 		
+		public int modifyNickName(UserVO user);
+		
 		public int modifyPassword(UserVO user);
 		
 		public int modifyUserInfo(UserVO user);

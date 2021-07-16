@@ -518,8 +518,8 @@ $(document).ready(function() {
 					<a class="nav-link" href="#" data-bs-toggle="dropdown"> About </a>
 						<div class="dropdown-menu">
 			   				<ul class="list-unstyled">
-				    		  <li><a class="dropdown-item" href="#"> 회사소개 </a></li>
-							  <li><a class="dropdown-item" href="/seller/list"> 매장안내 </a></li>
+				    		  <li><a class="dropdown-item" href="/seller/companyInfo"> About </a></li>
+							  <li><a class="dropdown-item" href="/seller/list"> Shop </a></li>
 							  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
 							</ul>
 						</div><!-- end dropdown -->

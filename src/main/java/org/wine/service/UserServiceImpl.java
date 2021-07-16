@@ -144,4 +144,10 @@ public class UserServiceImpl implements UserService {
 		return mapper.getwishListCnt(userNum);
 	}
 
+	@Override
+	public int modifyNickName(UserVO user) {
+		// TODO Auto-generated method stub
+		return mapper.modifyNickName(user);
+	}
+
 }
