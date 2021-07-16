@@ -54,6 +54,11 @@
 		where USER_ID = #{userId} and USER_PASSWORD=#{userPassword}
 	</update>
 	
+	<update id="modifyNickName">
+		update TBL_USER set USER_NICKNAME=#{userNickName}
+		where USER_ID = #{userId} and USER_PASSWORD=#{userPassword}
+	</update>
+	
 	<update id="modifyPassword">
 		update TBL_USER set USER_PASSWORD=#{userPassword}
 		where USER_ID = #{userId} and USER_NUM=#{userNum}
