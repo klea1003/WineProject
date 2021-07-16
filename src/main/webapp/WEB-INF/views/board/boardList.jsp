@@ -88,7 +88,7 @@
           actionForm.append("<input type='hidden' name='boardNum' value=' "
                    + $(this).attr("href")
                    + "'>");
-          actionForm.attr("action","/board/get");
+          actionForm.attr("action","/board/boardGet");
           actionForm.submit();
 
        });
@@ -125,7 +125,6 @@
 						<tr class="table">
 					      <th scope="col">No</th>
 					      <th scope="col">제목</th>
-					      <th scope="col">종류</th>
 					      <th scope="col">작성자</th>
 					      <th scope="col">작성일</th>
 					      <th scope="col">좋아요 <i class="bi bi-hand-thumbs-up"></i></th>
@@ -139,7 +138,6 @@
 								<td>${c.boardNum }</td>
 								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td> --%>
 								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
-								<td>${c.boardType}</td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
 								<td>${likelist[status.index]}</td>
