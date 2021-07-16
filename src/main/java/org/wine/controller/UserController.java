@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,10 +28,8 @@ import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialListVO;
 import org.wine.domain.SocialPageDTO;
 import org.wine.domain.SocialReviewVO;
-import org.wine.domain.SocialVO;
 import org.wine.domain.SocialWishVO;
 import org.wine.domain.UserVO;
-import org.wine.domain.pageWineDTO;
 import org.wine.service.SocialService;
 import org.wine.service.UserService;
 
@@ -43,7 +38,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*","/order/*","/cart/*","/wishList/*"})
+@RequestMapping({"/user/*","/seller/*","/wine/*","/board/*","/order/*","/cart/*","/wishList/*","/includes/*"})
 @AllArgsConstructor
 public class UserController {
 
@@ -74,7 +69,7 @@ public class UserController {
 	}
 	
 	@PostMapping({ "/settings" })
-	public String settingRegister(@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
+	public String settingRegister(HttpServletRequest request,@RequestParam("path") String path, @RequestParam("query") String query, UserVO user,RedirectAttributes rttr) {
 		
 		if(user.getProfileList() !=null) {
 			
@@ -93,6 +88,16 @@ public class UserController {
 		service.register(user);
 		
 		rttr.addFlashAttribute("resultimage",user.getUserNum());
+		
+		HttpSession session = request.getSession();
+		
+		Long loginNum = (Long)session.getAttribute("loginNum");
+		
+		List<ProfileVO> headerck =  service.imageCk(loginNum);
+		
+		log.info("headerck : " +headerck);
+		
+		session.setAttribute("headerck",headerck);  //이미지 체크 유무
 		
 		return  "redirect:"+ path+query;
 	}
@@ -225,6 +230,12 @@ public class UserController {
 
 		Long loginNum=lvo.getUserNum();
 		
+		List<ProfileVO> headerck =  service.imageCk(loginNum);
+		
+		log.info("headerck : " +headerck);
+		
+		session.setAttribute("headerck",headerck);  //이미지 체크 유무
+		
 		session.setAttribute("loginNum", loginNum);
 		
 		return  "redirect:"+ path+query;
@@ -252,8 +263,11 @@ public class UserController {
 		
 		if (email == 0) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 			int resultEmail = 0;
+			
 			rttr.addFlashAttribute("resultEmail", resultEmail);
+			
 			log.info(resultEmail);
+			
 			return "redirect:"+ path+query;
 		}
 	
@@ -474,7 +488,7 @@ public class UserController {
 	
 	
    @PostMapping("/imageremove")
-   public String remove(@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
+   public String remove( HttpServletRequest request,@RequestParam("path") String path, @RequestParam("query") String query,@RequestParam("userNum") Long userNum, RedirectAttributes rttr) {
       log.info("remove......."+userNum);
 
       if(query==""||query==null) {
@@ -488,11 +502,52 @@ public class UserController {
 		log.info("query  remove:"+query);
 		
 		service.remove(userNum);
-			
+		
+		Object session = request.getAttribute("headerck");
+		
+		log.info("session "+ session);
+		
+		HttpSession session2 = request.getSession();
+		
+		Long loginNum = (Long)session2.getAttribute("loginNum");
+		
+		List<ProfileVO> headerck =  service.imageCk(loginNum);
+		
+		log.info("headerck : " +headerck);
+		
+		session2.setAttribute("headerck",headerck);  //이미지 체크 유무
+		
 		rttr.addFlashAttribute("result", 0 );
 		
 		return  "redirect:"+ path + query;
       
    }
+   
+	
+	  @PostMapping({ "/header" }) public String getProfile(@RequestParam("path")
+	  String path, @RequestParam("query") String query, UserVO
+	  user,RedirectAttributes rttr) {
+	  
+	  if(user.getProfileList() !=null) {
+	  
+	  user.getProfileList().forEach(attach ->log.info(attach)); }
+	  if(query==""||query==null) {
+	  
+	  }else { query = "?" + query; }
+	  
+	  log.info("path :"+path);
+	  
+	  log.info("query :"+query);
+	  
+	  service.register(user);
+	  
+	  rttr.addFlashAttribute("resultimage",user.getUserNum());
+	  
+	  return "redirect:"+ path+query; 
+	  
+	 }
+	 
 
+	
+	 
 }

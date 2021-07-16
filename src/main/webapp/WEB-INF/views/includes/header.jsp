@@ -238,9 +238,40 @@ body.modal-open {
 
 <script>
 $(document).ready(function() {
+		
+	var userNum ='<c:out value="${user.userNum}"/>';
+		
+	var headerck = '${headerck.size()}'
 	
-	
-  	
+	if(headerck >= 1){
+		if(userNum !=null && userNum !=''){
+			$.getJSON("/user/getAttachList",{userNum:userNum}, function(arr){	  
+				
+				console.log("불러오기 성공");
+				
+				console.log("ARRAY"+ arr);
+				
+				var str=''
+				
+				$(arr).each(function(i,obj){
+					console.log("i"+ obj.profileUuid); 
+					if (obj.profileFileType) {
+						var fileCallPath = encodeURIComponent(obj.profileUploadPath+ "/s_"+ obj.profileUuid+ "_"+ obj.profileFileName);
+						str +="<img src='/userupload/display?fileName="+fileCallPath+"'alt='mdo' width='32' height='32' class='rounded-circle'>"
+						console.log(obj.profileFileType)
+					} else {
+						str +="<li data-path='"+obj.profileUploadPath+"' data-uuid='"+obj.profileUuid+"' data-filename='"+obj.profileFileName+"' data-type='"+obj.profileFileType+"'><div>"
+						str +="<span>" + obj.profileFileName + "</span>"
+						str +="<img src='/resources/wine_bootstrap/upload_img/attach.png'>"
+						str +="</div></li>"
+						console.log(obj.profileFileType)
+					}
+				})
+				$(".profileImage").html(str);
+			}); //eng json
+				
+		}
+	}
 	var result = '${result}';
       
 	console.log(result);
@@ -360,14 +391,18 @@ $(document).ready(function() {
 						<div class="dropdown text-end mx-2">
 							<div class="dropdown">
 								<div class="row">
-									<div class="col-6">								
-										<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
-											aria-expanded="false"> 
-											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-												<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-											</svg>
-										</a>								
+									<div class="col-6 ">								
+										
+										<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle profileImage" id="dropdownUser1" data-bs-toggle="dropdown"
+											aria-expanded="false">
+										 	<c:if test='${headerck.size() == 0 }'>
+												<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='currentColor' class='bi bi-person-circle' viewBox='0 0 16 16'>"
+													<path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/>"
+													<path fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/>"
+												</svg>
+											</c:if>								
+										</a>						
+												
 										<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
 											<li><a class="dropdown-item" href="/wishList/list">My wines</a></li>
 											<li><a class="dropdown-item" href="/order/list">orders</a></li>
@@ -739,5 +774,6 @@ $(document).ready(function() {
 		 
 		    }).open();   
 	}
+
 </script>
 </html>
