@@ -7,6 +7,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script type="text/javascript">
+$(document).ready (
+	function() {
+		console.log("wineNum: " + '<c:out value="${wineNum}" />');
+		
+		var wineNum = '<c:out value="${wineNum}" />'
+		
+		checkModal(wineNum)
+		
+		function checkModal(wineNum) {
+			
+			if (wineNum == '') {
+				return;
+			}
+			
+			if(parseInt(wineNum) > 0) {
+				
+				console.log(wineNum);
+				
+				$(".modal-body").html(
+					"와인이 등록되었습니다" 		
+				)
+				
+				$('#wishModal').modal("show");
+			}
+			
+		}
+	}
+)
+</script>
+
+
 </head>
 <style>
 .cart-list {
@@ -89,9 +122,22 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+	
+
+	<!-- 와인 등록 확인 Modal-->
+	<div class="modal fade" id="wishModal" tabindex="-1" role="dialog" aria-labelledby="wishModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">등록 완료</h5>
+				</div>
+				<div class="modal-body">내용 입력 !!</div>
+			</div>
+		</div>
+	</div>
+	
 
 	<%@include file="../includes/footer.jsp"%>
-
 
 </body>
 </html>
