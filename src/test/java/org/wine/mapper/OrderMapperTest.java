@@ -29,6 +29,7 @@ public class OrderMapperTest {
 		OrderVO orderVo = new OrderVO();
 		
 		orderVo.setOrderNum(4L);
+		orderVo.setOrderName("123789NAM");
 		orderVo.setUserNum(16L);
 		
 		orderVo.setPickUpName("test수령인");

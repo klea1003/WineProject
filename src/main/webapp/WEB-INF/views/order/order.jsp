@@ -28,7 +28,7 @@
 
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
-			<h1 class="fw-bolder">RESEVATION</h1>
+			<h1 class="fw-bolder">ORDER</h1>
 		</div>
 	</div>
 		
@@ -67,7 +67,7 @@
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
   				aria-describedby="inputGroup-sizing-default" name="pickUpName" id="pickUpName" required="required">
-			</div>
+			</div><span>구매예약시 본인확인을 위해 정확하게 기재해주시기 바랍니다</span>
 			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum">수령인 연락처</label>

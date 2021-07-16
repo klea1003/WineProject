@@ -190,8 +190,8 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						<label for="rating">Rating:</label> <input type="text" id="rating"
 							readonly style="border: 0; color: #990000; font-weight: bold;">
 					</p>
-					<input type="hidden" name="price_min" id="wine_price_min" value="10000">
-					<input type="hidden" name="price_max" id="wine_price_max" value="30000">
+					<input type="hidden" name="wine_price_min" id="wine_price_min" value="10000">
+					<input type="hidden" name="wine_price_max" id="wine_price_max" value="30000">
 					<div id="rating-range"></div>
 				
 				</div>
