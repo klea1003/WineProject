@@ -28,7 +28,7 @@
 
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
-			<h1 class="fw-bolder">RESEVATION</h1>
+			<h1 class="fw-bolder">ORDER</h1>
 		</div>
 	</div>
 		
