@@ -471,7 +471,7 @@ $(document).ready(function() {
 				str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].reviewRating+"</span>";
 				str +=" <a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
 				str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
-		
+				str += "<span class='fw-bold'>("+list[i].ratingCnt+" ratings)</span>";
 				str +=" <div style='text-align:right;'> "+list[i].reviewDate+"</div>";
 				str +="</div>";  //닉네임, 리뷰데이트 우측 정렬 영역 끝
 				
