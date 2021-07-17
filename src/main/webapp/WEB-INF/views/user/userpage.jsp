@@ -233,11 +233,8 @@ p.card-text {
 					<c:if test="${!empty socialreviewlist}">
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
-								<div class="small text-muted">
-									<div>
-										<h5><c:out value="${socialreview.userNickName }"/></h5>
-									</div>
-									<c:out value="${socialreview.reviewDate }"/>
+								<div >
+									<h5><c:out value="${socialreview.wineTitle }"/></h5>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
@@ -464,6 +461,8 @@ $(document).ready(function() {
 			}
 			for (var i = 0, len = list.length || 0; i < len; i++) {
 				str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
+				str += "<div><a href='/wine/get?wno="+list[i].wineNum+"'>";
+				str +=	"<h5>"+list[i].wineTitle+"</h5></a></div> ";
 				str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
 				str +="<h5>"+list[i].userNickName+"</h5></a>";
 				str +="</div>";
