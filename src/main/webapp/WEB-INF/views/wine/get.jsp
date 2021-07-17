@@ -207,14 +207,24 @@ function addCart(_input){
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 
+<<<<<<< .merge_file_a01144
 						onclick='addWish("${wine.wno}")'>
 						
+=======
+
+						onclick='addWish("${wine.wno}")'>
+
+>>>>>>> .merge_file_a00616
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
+<<<<<<< .merge_file_a01144
 						
+=======
+
+>>>>>>> .merge_file_a00616
 						onclick='addCart("${wine.wno}")'>
 
 							<i class="bi-cart-fill me-1"></i> Add Cart

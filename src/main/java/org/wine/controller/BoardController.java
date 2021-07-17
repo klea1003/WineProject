@@ -88,6 +88,7 @@ public class BoardController {
 		}
 		service.register(board);
 		rttr.addFlashAttribute("boardResult", board.getBoardNum());
+		
 		return "redirect:/board/list"; 
 	}
 	
@@ -110,7 +111,11 @@ public class BoardController {
 		if (service.modify(board)) {
 			rttr.addFlashAttribute("resultMessege", "success");
 		}
-		return "redirect:/board/list" + cri.getListLink();
+		if(board.getBoardType().equals("자유게시판")) {
+		return "redirect:/board/boardList" + cri.getListLink();
+		}else {
+		return "redirect:/board/list" + cri.getListLink();	
+		}
 	}
 
 	@GetMapping({"/get", "/modify", "/boardGet"})
