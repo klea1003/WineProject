@@ -325,7 +325,6 @@ public class WineController {
 	@PostMapping("/clickLike")
 	public String clickLike(ReviewVO review) {
 		log.info("clickLike : " + review.getReviewNum());
-		
 		reviewSerivce.clickLike(review);
 		
 		 return "redirect:/wine/get?wno="+review.getWineNum(); 

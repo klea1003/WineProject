@@ -352,10 +352,10 @@
 										<form id='operForm' action='/wine/clickLike' method='post'>
 											<input type='hidden' id='userNum' name='userNum' value='<c:out value="${user.userNum }" />'> 
 											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${reviewVO.reviewNum }"/>'>
-											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${wine.wno}"/>'>
-												 <a class="like" id="clickLike">
+											<input type='hidden' id='wineNum' name='wineNum' value='<c:out value="${wine.wno}"/>'>
+												 <button class="like" type="submit">
 										    <i class="bi bi-hand-thumbs-up"></i> <c:out
-											value="${reviewVO.cntLike}" /> </a>
+											value="${reviewVO.cntLike}" /> </button>
 											</form>
 									</li>
 									<li class="list-inline-item g-mr-20">

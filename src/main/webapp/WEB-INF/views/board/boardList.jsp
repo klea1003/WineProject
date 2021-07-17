@@ -175,7 +175,7 @@
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
 							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
-						 <c:if test="${pageMaker.cri.keyword != null}">
+						 <c:if test="${pageMaker.cri.type != null}">
 						 <a href="/board/boardList">목록으로 돌아가기</a>
 						 </c:if>
                    		<div align="right">
