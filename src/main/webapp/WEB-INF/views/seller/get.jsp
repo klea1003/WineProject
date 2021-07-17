@@ -54,7 +54,7 @@
 			</div>
 		</div><!-- carousel end -->
 		
-		<div class="col-5 align-self-center store_info" style="float: right;">
+		<div class="col-5 align-self-center store_info mt-5" style="float: right;">
 			<div>
 				<div class="mb-5">
 				<h5 class="mb-3 fw-bold"><i class="bi bi-geo-alt-fill"></i>&nbsp;매장위치</h5> 

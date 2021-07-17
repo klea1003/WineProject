@@ -13,8 +13,8 @@
 
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-		crossorigin="anonymous" />
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous" />
 	
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -35,7 +35,8 @@
 	
 	<!-- swiper -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script> 
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+	 
 </head>
 <style type="text/css">
 .login_success_area {
@@ -555,7 +556,7 @@ $(document).ready(function() {
 			   				<ul class="list-unstyled">
 				    		  <li><a class="dropdown-item" href="/seller/companyInfo"> About </a></li>
 							  <li><a class="dropdown-item" href="/seller/list"> Shop </a></li>
-							  <li><a class="dropdown-item" href="#"> 특판문의 </a></li>
+							  <li><a class="dropdown-item" href="/seller/specialOrder"> Special Order </a></li>
 							</ul>
 						</div><!-- end dropdown -->
 					</li><!-- About End -->

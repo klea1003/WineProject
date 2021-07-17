@@ -84,7 +84,7 @@ $(document).ready (
 		</div>
 	</div>
 
-	<div class="container px-5">
+	<div class="container px-5 mb-5">
 
 		<c:choose>
 			<c:when test="${map.count == 0 }">
@@ -122,7 +122,7 @@ $(document).ready (
 			</c:otherwise>
 		</c:choose>
 		
-		<input type="button" value="BACK" onClick="history.go(-1)"> 
+		<input class="btn btn-outline-dark" type="button" value="BACK" onClick="history.go(-1)"> 
 	</div>
 	
 
