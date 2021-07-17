@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaReview;
+import org.wine.domain.ReviewRatingVO;
 import org.wine.domain.ReviewVO;
 import org.wine.mapper.ReviewMapper;
 
@@ -64,6 +65,20 @@ public class ReviewServiceImpl implements ReviewService{
 		
 	}
 	
+	@Override
+	public ReviewRatingVO getRating(Long wineNum) {
+		
+		log.info("getRating: " +  wineNum);
+		ReviewRatingVO rating = mapper.getRating( wineNum);
+		
+		Long all = rating.getRating1()+rating.getRating2()+rating.getRating3()+rating.getRating4()+rating.getRating5();
+		
+		Long allStar = (rating.getRating1()*1)+(rating.getRating2()*2)+(rating.getRating3()*3)+(rating.getRating4()*4)+(rating.getRating5()*5);
+		log.info(allStar/all);
+		rating.setRatingAll(allStar/all);
+		return rating;
+		
+	}
 	
 	@Override
 	public int getTotal(CriteriaReview cri) {

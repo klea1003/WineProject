@@ -87,6 +87,17 @@
 	overflow: visible;
 	clip: auto;
 }
+span.star-prototype, span.star-prototype > * {
+    height: 16px; 
+    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+    width: 80px;
+    display: inline-block;
+}
+ 
+span.star-prototype > * {
+    background-position: 0 0;
+    max-width:80px; 
+}
 </style>
 
 <script type="text/javascript">
@@ -129,6 +140,12 @@ function addCart(_input){
 	
 };
 
+$.fn.generateStars = function() {
+    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+};
+
+// 숫자 평점을 별로 변환하도록 호출하는 함수
+$('.star-prototype').generateStars();
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -207,24 +224,16 @@ function addCart(_input){
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 
-<<<<<<< .merge_file_a01144
-						onclick='addWish("${wine.wno}")'>
-						
-=======
 
 						onclick='addWish("${wine.wno}")'>
 
->>>>>>> .merge_file_a00616
+
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-<<<<<<< .merge_file_a01144
-						
-=======
 
->>>>>>> .merge_file_a00616
 						onclick='addCart("${wine.wno}")'>
 
 							<i class="bi-cart-fill me-1"></i> Add Cart
@@ -445,9 +454,10 @@ function addCart(_input){
 				<div class="well well-sm">
 					<div class="row">
 						<div class="col-xs-12 col-md-6 text-center">
-							<h1 class="rating-num">4.0</h1>
+							<h1 class="rating-num">${review_Rating.ratingAll}</h1>
 							<div class="rating">
-								<span><i class="bi bi-star-fill"></i></span> <span><i
+							<!-- <span class="star-prototype">4</span> -->
+								 <span><i class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
@@ -464,8 +474,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 50%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating5}%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100">${review_Rating.rating5}</div>
 									</div>
 								</div>
 								<!-- end 5 -->
@@ -475,8 +485,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 30%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating4}%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100">${review_Rating.rating4}</div>
 									</div>
 								</div>
 								<!-- end 4 -->
@@ -486,8 +496,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 20%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating3}%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100">${review_Rating.rating3}</div>
 									</div>
 								</div>
 								<!-- end 3 -->
@@ -497,8 +507,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 70%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating2}%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100">${review_Rating.rating2}</div>
 									</div>
 								</div>
 								<!-- end 2 -->
@@ -508,8 +518,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 100%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating1}%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100">${review_Rating.rating1}</div>
 									</div>
 								</div>
 								<!-- end 1 -->
@@ -526,6 +536,7 @@ function addCart(_input){
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>
+
 <script src="/resources/js/scripts.js"></script>
 
 

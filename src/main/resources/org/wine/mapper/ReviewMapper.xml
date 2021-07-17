@@ -12,6 +12,15 @@
 		<result property="rating" column="REVIEW_RATING" />
 		<result property="cntLike" column="REVIEW_COUNT_LIKE" />
 	</resultMap>
+	
+	<resultMap type="org.wine.domain.ReviewRatingVO" id="ratinginfo">
+		<result property="rating5" column="rating5" />
+		<result property="rating4" column="rating4" />
+		<result property="rating3" column="rating3" />
+		<result property="rating2" column="rating2" />
+		<result property="rating1" column="rating1" />
+		<result property="ratingAll" column="ratingAll" />
+	</resultMap>
 
 
 	<select id="getList" resultMap="reviewinfo">
@@ -57,6 +66,15 @@
 		update TBL_WINE_REVIEW set REVIEW_COUNT_LIKE=REVIEW_COUNT_LIKE-1
 		where review_Num=#{reviewNum}
 	</update>
+	
+	<select id="getRating" resultMap="ratinginfo">
+		SELECT COUNT(CASE WHEN REVIEW_RATING=5 THEN 1 END) rating5,
+COUNT(CASE WHEN REVIEW_RATING=4 or REVIEW_RATING=4.5 THEN 1 END) rating4,
+COUNT(CASE WHEN REVIEW_RATING=3 or REVIEW_RATING=3.5 THEN 1 END) rating3,
+COUNT(CASE WHEN REVIEW_RATING=2 or REVIEW_RATING=2.5 THEN 1 END) rating2,
+COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
+FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
+	</select>
 
 	<select id="getListWithPaging" resultMap="reviewinfo">
 	
