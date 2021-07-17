@@ -176,9 +176,9 @@ $(document).ready(function(e) {
 	  $.ajax({
 	  	url : '/deleteFile',
 	  	data : {fileName : targetFile, type : type},
-	    beforeSend: function(xhr){
+	   /*  beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-        },
+        }, */
 	  	dataType : 'text',
 	  	type : 'POST',
 	  		success : function(result) {
@@ -188,23 +188,7 @@ $(document).ready(function(e) {
 	  });//$.ajax
   });//uploadResult
 		 
-		$.ajax({
-			url : '/uploadAjaxAction',
-			processData : false,
-			contentType : false, 
-			/* beforeSend: function(xhr){
-	               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-	        }, 시큐리티*/
-			data : formData,
-			type : 'POST',
-			dataType : 'json',
-				success:function(result){
-					/* alert("Uploaded"); */
-					console.log(result);
-					//첨부파일을 등록하면 등록한 파일 화면에 출력
-					showUploadedFile(result);
-				}
-		});//$.ajax
+		
    });
     
 

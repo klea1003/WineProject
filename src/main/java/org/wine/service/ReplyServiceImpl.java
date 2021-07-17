@@ -54,7 +54,6 @@ public class ReplyServiceImpl implements ReplyService{
 		ReplyVO vo = mapper.read(rno);
 		log.info(vo);
 		boardMapper.updateReplyCnt(vo.getBoardNum(), -1);
-		log.info(vo);
 		return mapper.delete(rno);
 	}
 

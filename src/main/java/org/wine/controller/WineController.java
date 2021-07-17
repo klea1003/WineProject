@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.ReviewVO;
 import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
@@ -312,7 +317,17 @@ public class WineController {
 		cri.setWineNum(wno.intValue());
 		
 		model.addAttribute("review_list", reviewSerivce.getList(cri));
+		model.addAttribute("review_list3", reviewSerivce.getList3(wno));
+		log.info(reviewSerivce.getList3(wno));
 		
+	}
+	
+	@PostMapping("/clickLike")
+	public String clickLike(ReviewVO review) {
+		log.info("clickLike : " + review.getReviewNum());
+		reviewSerivce.clickLike(review);
+		
+		 return "redirect:/wine/get?wno="+review.getWineNum(); 
 	}
 	
 	
