@@ -4,7 +4,7 @@
 
 	<resultMap type="org.wine.domain.UserVO" id="userInfo">
 		<result property="userNum" column="USER_NUM" />
-		<result property="userRealName" column="USER_REALNAME" />
+		<result property="userNickName" column="USER_NICKNAME" />
 	</resultMap>
 	<resultMap type="org.wine.domain.SocialVO" id="socialInfo">
 		<result property="userFollowingId" column="USER_FOLLOWING_ID" />
@@ -52,13 +52,13 @@
    </select>
    
  	<select id='followingList' resultMap="userInfo">
- 		select u.user_realname, u.user_num
+ 		select u.user_nickname, u.user_num
 		from tbl_social s,tbl_user u
 		where s.user_following_id = u.user_num and s.user_follower_id=#{userNum}
  	</select>
  	
  	 <select id='followerList' resultMap="userInfo">
- 		select u.user_realname, u.user_num
+ 		select u.user_nickname, u.user_num
 		from tbl_social s,tbl_user u
 		where s.user_follower_id = u.user_num and s.user_following_id=#{userNum}
  	</select>
