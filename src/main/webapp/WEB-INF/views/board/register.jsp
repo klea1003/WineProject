@@ -176,9 +176,9 @@ $(document).ready(function(e) {
 	  $.ajax({
 	  	url : '/deleteFile',
 	  	data : {fileName : targetFile, type : type},
-	    beforeSend: function(xhr){
+	   /*  beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-        },
+        }, */
 	  	dataType : 'text',
 	  	type : 'POST',
 	  		success : function(result) {
@@ -188,25 +188,10 @@ $(document).ready(function(e) {
 	  });//$.ajax
   });//uploadResult
 		 
-		$.ajax({
-			url : '/uploadAjaxAction',
-			processData : false,
-			contentType : false, 
-			/* beforeSend: function(xhr){
-	               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-	        }, 시큐리티*/
-			data : formData,
-			type : 'POST',
-			dataType : 'json',
-				success:function(result){
-					/* alert("Uploaded"); */
-					console.log(result);
-					//첨부파일을 등록하면 등록한 파일 화면에 출력
-					showUploadedFile(result);
-				}
-		});//$.ajax
+		
    });
-	
+    
+
 });//end javascript
 </script>
 
@@ -215,27 +200,16 @@ $(document).ready(function(e) {
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-            <h1 class="fw-bolder">Board Register</h1>
+            <h1 class="fw-bolder">Q&A Register</h1>
             </div>
 			<div class="container-fluid">
 				<div class="w-50">
-					<form role="form" action="/board/register" method="post" autocomplete="off">
+					<form role="form" id="form-empty" action="/board/register" method="post" autocomplete="off">
 					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
 					<div class="form-group">
 						<h5 class="fw-bold">Title</h5><input class="form-control" name='title'>
 					</div><br>
-					<div class="form-group mb-3">
-                     <select name='boardType'>
-                        <option value="Q&A"
-                        <c:out value="Q&A"/>>Q&A</option>
-                        <option value="자유게시판"
-                        <c:out value="자유게시판"/>>자유게시판</option>
-                        <c:if test="${user.userNickName eq '10'}">
-                        <option value="이벤트공지"
-                        <c:out value="이벤트공지"/>>이벤트공지</option>   
-                        </c:if>            
-                     </select> 
-                     </div>
+					 <input type="hidden" name="boardType" value="Q&A"/>
 					
 					 <div class='form-group mb-3'>
                   		<h5 class="fw-bold">Content</h5>

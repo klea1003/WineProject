@@ -85,10 +85,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getList(Criteria cri) {
+	public List<BoardVO> getQList(Criteria cri) {
 		log.info("getList With criteria" + cri);
-		return mapper.getListWithPaging(cri);
+		return mapper.getQListWithPaging(cri);
 	}
+	
+	@Override
+	public List<BoardVO> getBList(Criteria cri) {
+		log.info("getList With criteria" + cri);
+		return mapper.getBListWithPaging(cri);
+	}
+	
 	@Override
 	public int updateBoardReadCount(Long boardNum) {
 		log.info("updateBoardReadCount.." + boardNum);
@@ -101,6 +108,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotal(Criteria cri) {
 		log.info("getTotal.." + cri);
 		return mapper.getTotalCount(cri);
+	}
+	
+	@Override
+	public int getBTotal(Criteria cri) {
+		log.info("getTotal.." + cri);
+		return mapper.getBTotalCount(cri);
 	}
 	
 	@Transactional

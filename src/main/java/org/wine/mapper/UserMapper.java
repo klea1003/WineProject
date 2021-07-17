@@ -26,4 +26,14 @@ public interface UserMapper {
 	public UserVO userLogin(UserVO user);
 	
 	public List<SocialWishVO> getwishList(Long userNum);
+	
+	public int modifyEmail(UserVO user);
+	
+	public int modifyNickName(UserVO user);
+	
+	public int modifyPassword(UserVO user);
+	
+	public int modifyUserInfo(UserVO user);
+	
+	public int getwishListCnt(Long userNum);
 }

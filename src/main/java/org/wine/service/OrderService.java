@@ -2,30 +2,20 @@ package org.wine.service;
 
 import java.util.List;
 
-import org.wine.domain.OrderDetailVO;
-import org.wine.domain.OrderListVO;
+import org.wine.domain.OrderItemVO;
 import org.wine.domain.OrderVO;
 
 public interface OrderService {
+	
+	public Long getNextOrderNum() throws Exception;
 
-	//주문 정보
-	public void orderInfo(OrderVO order) throws Exception;
+	public void insertOrder(OrderVO order) throws Exception;
 	
-	//주문 상세 정보
-	public void orderInfo_Detail(OrderVO orderDetail) throws Exception;
+	public List<OrderVO> getOrderList(Long userNum) throws Exception;
 	
-	//주문 목록
-	public List<OrderListVO> orderList(OrderVO order)throws Exception;
+	public List<OrderItemVO> getOrderItemList(Long orderNum) throws Exception;
 	
-	//판매자 목록
-	public OrderListVO orderSellerList(String orderNum) throws Exception;
-	
-	//특정 주문 상세 목록
-	public List<OrderListVO> orderView(OrderVO order) throws Exception;
-
-	//주문으로 넘어가면 카트 삭제
-	public void cartAllDelete(Long userNum) throws Exception;
-	
+	public OrderVO getOrder(Long orderNum) throws Exception;
 	
 
 }

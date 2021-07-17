@@ -8,9 +8,16 @@ import org.wine.domain.ReviewVO;
 public interface ReviewMapper {
 
 	 public ArrayList<ReviewVO> getList();
+	 public ArrayList<ReviewVO> getList3(Long wineNum);
 	 public ArrayList<ReviewVO> getListWithPaging(CriteriaReview cri);
 	 
 	 public void insert(ReviewVO review);
+	 
+	 public int readLike(ReviewVO review);
+	 public void insertLike(ReviewVO review);
+	 public void deleteLike(ReviewVO review);
+	 public void upLike(ReviewVO review);
+	 public void downLike(ReviewVO review);
 	 
 	 public ReviewVO read(Long reviewNum);
 	 

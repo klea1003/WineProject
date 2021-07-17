@@ -44,6 +44,12 @@
 	background-color: #b30000;
 	border-color: #b30000;
 }
+
+.table {
+	
+	text-align: center;
+
+}
 </style>
 <script type="text/javascript">
    $(document).ready(function() {//모델 보여주기 추가
@@ -53,32 +59,32 @@
       
 
       function checkModal(result){
-         if(result ===''||history.state){
-            return;
-         }
-         if(parseInt(result) > 0){
-            $(".modal-body").html(
-                  "게시글"+parseInt(result)+"번이 등록 되었습니다.");
-         }
-         $("#myModal").modal("show");
-      }
-      
-      $("#regBtn").on("click",function(){
-         self.location = "/board/register";
-      });
-      
-      
-      var actionForm=$("#actionForm");
-      $(".page-item a").on("click",function(e){
-         e.preventDefault();
-         console.log('click');
-         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-         actionForm.submit();
-      });
-      
- 
-      $(".move").on("click",function(e) {
+          if(result ===''||history.state){
+             return;
+          }
+          if(parseInt(result) > 0){
+             $(".modal-body").html(
+                   "게시글"+parseInt(result)+"번이 등록 되었습니다.");
+          }
+          $("#myModal").modal("show");
+       }
+       
+       $("#regBtn").on("click",function(){
+          self.location = "/board/register";
+       });
+       
+       
+       var actionForm=$("#actionForm");
+       $(".page-item a").on("click",function(e){
           e.preventDefault();
+          console.log('click');
+          actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+          actionForm.submit();
+       });
+       
+  
+       $(".move").on("click",function(e) {
+           e.preventDefault();
           actionForm.append("<input type='hidden' name='boardNum' value=' "
                    + $(this).attr("href")
                    + "'>");
@@ -86,22 +92,24 @@
           actionForm.submit();
 
        });
+      
+    
        
-      var searchForm =$("#searchForm");
-      $("#searchForm button").on("click",function(e){
-     /*  if(!searchForm.find("option:selected").val()){
+      var boardSearchForm =$("#boardSearchForm");
+      $("#boardSearchForm button").on("click",function(e){
+       if(!boardSearchForm.find("option:selected").val()){
          alert("검색 종류를 선택하세요");
       
       return false;
       }
-      if(!searchForm.find("input[name='keyword']").val()){
+      if(!boardSearchForm.find("input[name='keyword']").val()){
          alert("키워드를 입력하세요");
       
       return false;
-      } */
-      searchForm.find("input[name='pageNum']").val("1");
+      } 
+      boardSearchForm.find("input[name='pageNum']").val("1");
       e.preventDefault();
-      searchForm.submit();
+      boardSearchForm.submit();
      
     });
 
@@ -111,15 +119,49 @@
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
-		<h1 class="fw-bolder fs-5 mb-4">Q&A</h1>
-         <div class="row">
+		<h1 class="fw-bolder mb-5">Q&A</h1>
+		
+		<!-- accordion area -->
+		<div class="accordion accordion-flush mb-5" id="accordionFlushExample">
+		  <div class="accordion-item">
+		    <h2 class="accordion-header" id="flush-headingOne">
+		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+		        Accordion Item #1
+		      </button>
+		    </h2>
+		    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+		      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+		    </div>
+		  </div>
+		  <div class="accordion-item">
+		    <h2 class="accordion-header" id="flush-headingTwo">
+		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+		        Accordion Item #2
+		      </button>
+		    </h2>
+		    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+		      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+		    </div>
+		  </div>
+		  <div class="accordion-item">
+		    <h2 class="accordion-header" id="flush-headingThree">
+		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+		        Accordion Item #3
+		      </button>
+		    </h2>
+		    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+		      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="row">
                <div>
-                  <table class="table">
+                  <table class="table mt-5">
 					<thead>
 						<tr class="table">
 					      <th scope="col">No</th>
 					      <th scope="col">제목</th>
-					      <th scope="col">종류</th>
 					      <th scope="col">작성자</th>
 					      <th scope="col">작성일</th>
 					      <th scope="col">좋아요 <i class="bi bi-hand-thumbs-up"></i></th>
@@ -131,10 +173,8 @@
 						<c:forEach var="c" items="${boardlist}" varStatus="status">
 							<tr>
 								<td>${c.boardNum }</td>
-								<td><a
-									onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
-								<%-- <td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td> --%>
-								<td>${c.boardType}</td>
+								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td> --%>
+								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
 								<td>${likelist[status.index]}</td>
@@ -147,7 +187,7 @@
 
 				<div class='row'>
 					<div class="col-lg-12">
-						<form id='searchForm' action='/board/list' method='get'>
+						<form id='boardSearchForm' action='/board/list' method='get'>
 							<select name='type'>
 								<option value=""
 									<c:out value="${pageMaker.cri.type==null?'selected':''}"/>>----</option>
@@ -166,16 +206,24 @@
 								<option value="TCW"
 									<c:out value="${pageMaker.cri.type eq'TCW'?'selected':''}"/>>제목
 									or 내용 or 작성자</option>
-								<option value="P"
-									<c:out value="${pageMaker.cri.type eq'P'?'selected':''}"/>>종류</option>
+								<%-- <option value="P"
+									<c:out value="${pageMaker.cri.type eq'P'?'selected':''}"/>>종류</option> --%>
 							</select> 
 							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' /> 
 							<input type='hidden' name='pageNum' value="${pageMaker.cri.pageNum }" />
 							<input type='hidden' name='amount' value="${pageMaker.cri.amount }" />
-							<button type="submit" class='btn btn-outline-danger btn-sm'>search</button>
+							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
+						 <c:if test="${pageMaker.cri.type != null}">
+						  <c:if test="${pageMaker.cri.type != ''}">  
+						   <a href="/board/list">목록으로 돌아가기</a>
+						    </c:if>  
+						 </c:if>
                    		<div align="right">
+                   		<c:if test="${user.userNickName != null}">
                    		<button id='regBtn' type="button" class="btn btn-danger btn-sm">글쓰기</button></div>
+                   		</c:if>
+                   		
              		</div>
           		</div>
 			</div>

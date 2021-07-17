@@ -2,58 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.wine.mapper.WishListMapper">
 
-<resultMap type="org.wine.domain.WishListVO" id="wishList">
-<result property="wishNum" column="WISH_NUM" />
-<result property="userNum" column="USER_NUM" />
-<result property="wineNum" column="WINE_NUM" />
-<result property="wineTitle" column="WINE_TITLE" />
-<result property="wineImageName" column="WINE_IMAGENAME" />
-</resultMap>
-
-
-
-	<select id="getList" resultMap="wishList">
-		<![CDATA[
-		select*from tbl_wishlist_test where WISH_NUM > 0
-		]]>
-	</select>
-
-
+	<resultMap type="org.wine.domain.WishListVO" id="wishListInfo">
+		<result property="wishNum" column="WISH_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineTitle" column="WINE_TITLE" />
+		<result property="wineImageName" column="WINE_IMAGENAME" />
+		<result property="winePrice" column="WINE_PRICE" />
+		
+	</resultMap>
+	
 	<insert id="insert">
-		insert into tbl_wishlist_test(
+		INSERT INTO TBL_WISHLIST_TEST(
 		WISH_NUM, USER_NUM, WINE_NUM
-		)values(
+		)VALUES(
 		SEQ_WISHLIST_TEST.NEXTVAL, #{userNum}, #{wineNum}
 		)
 	</insert>
 
-
-<select id = "listWish" resultMap="wishList">
-
-	select WISH_NUM, U.USER_NUM, W.WINE_NUM, WINE_TITLE, WINE_IMAGENAME
-	from
-	TBL_USER U, TBL_WISHLIST_TEST H, TBL_WINE_TEST W
-	where
-	U.USER_NUM = H.USER_NUM and H.WINE_NUM = W.WINE_NUM
-	and H.USER_NUM = #{userNum} order by WISH_NUM 
-</select>
-
-
-<select id = "countWish" resultType="int">
-
-	select count(*)
-	from
-	TBL_WISHLIST_TEST where
-	USER_NUM = #{userNum} and WINE_NUM =  #{wineNum} order by WISH_NUM 
-</select>
-
-
-	<!--삭제 -->
+	<select id ="getList" resultMap="wishListInfo">	
+		SELECT WISH_NUM, USER_NUM, W.WINE_NUM, WINE_TITLE, WINE_IMAGENAME,WINE_PRICE
+		from
+		TBL_WISHLIST_TEST H, TBL_WINE_TEST W
+		where H.WINE_NUM = W.WINE_NUM and H.USER_NUM = #{userNum} order by WISH_NUM
+	</select>
+	
 	<delete id ="delete">
-	delete from TBL_WISHLIST_TEST
-	where WISH_NUM = #{wishNum}
+		delete from TBL_WISHLIST_TEST
+		where WISH_NUM = #{wishNum}
 	</delete>
 
-
+	<select id = "countWish" resultType="int">	
+		select count(*)
+		from TBL_WISHLIST_TEST where
+		USER_NUM = #{userNum} and WINE_NUM =  #{wineNum}
+	</select>
+	
 </mapper>
  

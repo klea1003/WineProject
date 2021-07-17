@@ -18,82 +18,61 @@ public class CartMapperTest {
 
 	@Setter(onMethod_ = @Autowired)
 	private CartMapper mapper;
-
-	
-	@Test
-	public void testGetList() {
-		mapper.getList().forEach(cart->log.info(cart));
-	}
-
-
-	@Test
-	public void testListCart() {
-		mapper.listCart((long) 1).forEach(cart->log.info(cart));
-	}
-
 	
 	@Test
 	public void testInsert() {
 
-		CartVO cartvo = new CartVO();
+		CartVO cartVo = new CartVO();
+		
+		cartVo.setUserNum(12L);
+		cartVo.setWineNum(16L);
+		cartVo.setWineQty(2);
 
-		cartvo.setUserNum((long) 7);
-		cartvo.setSellerNum((long)31);
-		cartvo.setWineNum((long)4);
-		cartvo.setCartQty(5);
-
-		mapper.insert(cartvo);
-		log.info(cartvo);	
+		mapper.insert(cartVo);
+		log.info(cartVo);
+		
 	}
+	
+	@Test
+	public void testGetCount() {		
+		log.info(mapper.getCount(16L, 2L));
+	}
+	
+	@Test
+	public void testUpdateWineQty() {
 
+		CartVO cartVo = new CartVO();
+		
+		cartVo.setUserNum(16L);
+		cartVo.setWineNum(2L);
+		cartVo.setWineQty(4);
+
+		log.info(mapper.updateWineQty(cartVo));
+	}
 	
 	@Test
 	public void testDelete() {
-		log.info(mapper.delete(32L));	
+		log.info(mapper.delete(282L));	
 	}
-
 	
 	@Test
-	public void testModifyCart() {
-
-		CartVO cartvo = new CartVO();
-
-		cartvo.setUserNum((long)1);
-		cartvo.setSellerNum((long)21);
-		cartvo.setWineNum((long)4);
-		cartvo.setCartQty(4);
-
-		log.info(mapper.modifyCart(cartvo));
+	public void testDeleteByUserAndWine() {
+		log.info(mapper.deleteByUserAndWine(16L, 2L));
 	}
 
+	@Test
+	public void testGetList() {
+		mapper.getList(16L).forEach(cartDisInfo->log.info(cartDisInfo));
+	}
 	
 	@Test
-	public void testSumTotalPrice() {
-		log.info(mapper.sumTotalPrice((long) 1));
+	public void testgetTotalPrice() {
+		log.info(mapper.getTotalPrice(16L));
 	}
-
 
 	@Test
-	public void testCountCart() {
-		CartVO cartvo = new CartVO();
-
-		cartvo.setUserNum((long) 1);
-		cartvo.setSellerNum((long)21);
-		cartvo.setWineNum((long)4);
-
-		log.info(mapper.countCart(cartvo));
+	public void testCountWine() {
+		log.info(mapper.countWine(16L, 2L));
 	}
 
-
-	@Test
-	public void testUpdateCart() {
-		CartVO cartvo = new CartVO();
-
-		cartvo.setCartQty(6);
-		cartvo.setUserNum((long)1);
-		cartvo.setSellerNum((long)21);
-		cartvo.setWineNum((long)4);
-
-		log.info(mapper.updateCart(cartvo));
-	}
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.UserVO;
 import org.wine.domain.WishListVO;
 import org.wine.service.WishListService;
@@ -32,12 +32,12 @@ public class WishListController {
 		UserVO user = (UserVO) session.getAttribute("user");
         Long userNum = user.getUserNum();
 		
+        List<WishListVO> list = service.listWish(userNum);
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<WishListVO> list = service.listWish(userNum);
-		map.put("list", list); //리스트
+		Map<String, Object> map = new HashMap<String, Object>();		
+		map.put("list", list); 
 		 log.info(list);
-		map.put("count", list.size()); //상품 유무
+		map.put("count", list.size()); 
 		mav.setViewName("wishList/list");
 		mav.addObject("map", map);
 		return mav;
@@ -46,24 +46,31 @@ public class WishListController {
 
 	// 추가
 	@RequestMapping("/insert")
-	public String insert(@RequestParam("wno")Long wno, HttpSession session) {
-        log.info("wishList...insert");
+	public String insert(
+			@RequestParam("wno")Long wno, 
+			HttpSession session, 
+			RedirectAttributes rttr
+	) {
+        
+		log.info("wishList...insert");
         UserVO user = (UserVO) session.getAttribute("user");
         Long userNum = user.getUserNum();
         
-        WishListVO wishList = new WishListVO();
+        WishListVO wishItem = new WishListVO();
         
-		wishList.setUserNum(userNum); 
-		wishList.setWineNum(wno); 
-		int count = service.countWish(wishList);
-
-		if(count == 0) { service.insert(wishList);
-		}else {
+        wishItem.setUserNum(userNum); 
+        wishItem.setWineNum(wno); 
 		
-		} 
-		log.info(wishList);
-		return "redirect:/wishList/list"; 
+		int count = service.countWish(wishItem);
+
+		if (count == 0) {
+			service.insert(wishItem);
+			rttr.addFlashAttribute("wineNum", wno);
 		}
+		
+		return "redirect:/wishList/list";
+		
+	}
 
 
 	// 장바구니 삭제

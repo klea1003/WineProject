@@ -2,48 +2,50 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<jsp:include page="../includes/header.jsp" flush="false"/>    
+
 <!DOCTYPE html>
 <html>
-  <body>
-    
-      
-        <!-- Page Content-->
-        <div class="container px-4 px-lg-5">
-            
-            <!-- Heading Row-->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"></div>
-                <div class="col-lg-5">
-                	<h1 class="font-weight-light"></h1>
-                </div>
-            </div>
-            
-            <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
-            	<c:forEach items="${list}" var="seller">    
-                
-                <!-- Card -->
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title"><c:out value="${seller.sellerStoreName}"/></h2>
-                            <p class="card-text"><c:out value="${seller.sellerLocation}"/></p>
-                            <p class="card-text"><c:out value="${seller.sellerPhoneNum}"/></p>
-                        </div>
-                        <a  href="/user/userpage?userNum=<c:out value="${c.userNum }"/>"><c:out value="${c.userId }"/></a>
-                        
-                        <div class="card-footer"><a class="btn btn-outline-danger btn-sm" href="/seller/get?sellerNum=${seller.sellerNum}">More Info</a></div>
-                     </div>
-                </div>
-              	
-              	</c:forEach>	
-            </div>
-            
+
+<jsp:include page="../includes/header.jsp" flush="false"/>
+   
+<body>
+	<div class="container px-5 my-5">
+		<div class="text-center mb-5">
+            <h1 class="fw-bolder"> 직영매장안내 </h1><br>
+            <h4>와인이 필요한 순간 너와,IN 매장을 찾아주세요!</h4>
+            <h6>6개 직영매장 (압구정점 / 경희궁점 / 양평점 / 청담점 / 코엑스점/ 서래마을점)으로 운영됩니다.</h6><br>
         </div>
-	
-	
+	</div>
     
-  </body>
-<jsp:include page="../includes/footer.jsp" flush="false"/>
+	<!-- Page Content-->
+	<div class="container px-4 px-lg-5 mb-5">
+    		
+	<!-- Table Content -->
+	<table class="table">
+		<thead>
+			<tr class="table">
+		      <th scope="col">매장명</th>
+		      <th scope="col">주소</th>
+		      <th scope="col">전화번호</th>
+		      <th scope="col">매장정보</th>
+		    </tr>
+		</thead>
+			
+		<tbody>
+			<c:forEach items="${list}" var="seller">    
+				<tr>
+				<td>${seller.sellerStoreName}</td>
+				<td>${seller.sellerLocation}</td>
+				<td>${seller.sellerPhoneNum}</td>
+				<td>
+				<a class="btn btn-outline-secondary btn-sm" href="/seller/get?sellerNum=${seller.sellerNum}">매장 정보</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+			
+	</table><!-- End Table Content -->
+	</div>
+
+<jsp:include page="../includes/footer.jsp" flush="false"/>  
+</body>
 </html>

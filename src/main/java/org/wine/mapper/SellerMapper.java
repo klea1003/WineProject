@@ -2,6 +2,7 @@ package org.wine.mapper;
 
 import java.util.List;
 
+import org.wine.domain.SellerImageVO;
 import org.wine.domain.SellerVO;
 
 
@@ -9,7 +10,7 @@ public interface SellerMapper {
 	
 	public List<SellerVO> getList();
 	
-	public List<SellerVO> getListWine(Long wineNum);
+	public List<SellerImageVO> getImageList(Long sellerNum);
 	
 	public SellerVO read(Long sellerNum);
 	

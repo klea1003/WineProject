@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.OrderListVO;
+import org.wine.domain.OrderItemVO;
 import org.wine.domain.OrderVO;
 
 import lombok.Setter;
@@ -20,39 +20,53 @@ public class OrderMapperTest {
 	private OrderMapper mapper;
 	
 	@Test
-	public void testOrderInfo() throws Exception {
-		OrderVO order = new OrderVO();
-		
-		order.setOrderNum("123456");
-		order.setUserNum((long) 9);
-		order.setPickUpName("test수령인");
-		order.setTotalPrice(150000);
-		order.setPickUpPhoneNum("010-1234-5678");
-	//	order.setPickUpDate('');
-		
-		mapper.orderInfo(order);
-		log.info(order);
-	
-	
+	public void testGetNextOrderNum() throws Exception {
+		log.info(mapper.getNextOrderNum());
 	}
 	
 	@Test
-	public void testOrderList() throws Exception {
-		OrderVO order = new OrderVO();
+	public void testInsertOrder() throws Exception {
+		OrderVO orderVo = new OrderVO();
 		
-		order.setUserNum((long) 1);
-		log.info(mapper.orderList(order));
+		orderVo.setOrderNum(4L);
+		orderVo.setOrderName("123789NAM");
+		orderVo.setUserNum(16L);
+		
+		orderVo.setPickUpName("test수령인");
+		orderVo.setPickUpPhoneNum("010-1234-5678");
+		orderVo.setPickUpDate("123");
+		
+		orderVo.setSellerNum(3L);
+		
+		mapper.insertOrder(orderVo);
+		log.info(orderVo);
 	}
 	
 	@Test
-	public void testOrderView() throws Exception{
-		OrderListVO orderList = new OrderListVO();
+	public void testInsertOrderItem() throws Exception {
+		OrderItemVO orderItemVo = new OrderItemVO();		
 		
-		orderList.setUserNum((long) 1);
-		orderList.setOrderNum("1");
-		log.info(orderList);
+		orderItemVo.setOrderNum(4L);
+		orderItemVo.setWineNum(15L);
+		orderItemVo.setWineQty(3);
+		
+		mapper.insertOrderItem(orderItemVo);
+		log.info(orderItemVo);
+	}	
 	
+	@Test
+	public void testGetOrderList() throws Exception {
+		log.info(mapper.getOrderList(16L));
 	}
 	
-
+	@Test
+	public void getOrderItemList() throws Exception {
+		mapper.getOrderItemList(4L).forEach(item -> log.info(item));
+	}
+	
+	@Test
+	public void testGetOrder() throws Exception {
+		log.info(mapper.getOrder(4L));
+	}
+	
 }

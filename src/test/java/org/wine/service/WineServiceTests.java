@@ -63,6 +63,14 @@ public class WineServiceTests {
 	}
 	
 	@Test
+	public void testGetGrapeList() {
+		CriteriaWine cri = new CriteriaWine(2,10);
+		cri.setWineGrapeArr(new ArrayList<String>(Arrays.asList("Malbec")));		
+		
+		service.getList(cri).forEach(wine -> log.info(wine));
+	}
+	
+	@Test
 	public void testGet() {
 		log.info(service.get(1L));
 	}

@@ -5,30 +5,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+
 <style>
-@media (min-width: 0) {
-    .g-mr-15 {
-        margin-right: 1.07143rem !important;
-    }
+@media ( min-width : 0) {
+	.g-mr-15 {
+		margin-right: 1.07143rem !important;
+	}
 }
-@media (min-width: 0){
-    .g-mt-3 {
-        margin-top: 0.21429rem !important;
-    }
+
+@media ( min-width : 0) {
+	.g-mt-3 {
+		margin-top: 0.21429rem !important;
+	}
 }
 
 .g-height-50 {
-    height: 50px;
+	height: 50px;
 }
 
 .g-width-50 {
-    width: 50px !important;
+	width: 50px !important;
 }
 
-@media (min-width: 0){
-    .g-pa-30 {
-        padding: 2.14286rem !important;
-    }
+@media ( min-width : 0) {
+	.g-pa-30 {
+		padding: 2.14286rem !important;
+	}
 }
 
 .svgicon {
@@ -42,26 +46,90 @@
 }
 
 .rating {
-	background-color: #f9f7d6;
-	color: #a26f01;
+	color: #ffcc00;
 }
 
-.like{
-	color: 	#000000;
-	text-decoration:none;
+.like {
+	color: #000000;
+	text-decoration: none;
 }
 
-.dislike{
-	color: 	#000000;
-	text-decoration:none;
+.dislike {
+	color: #000000;
+	text-decoration: none;
 }
 
-.reply{
-	color: 	#000000;
-	text-decoration:none;
+.reply {
+	color: #000000;
+	text-decoration: none;
 }
 
+.main-content {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.rating-num {
+	margin-top: 0px;
+	font-size: 54px;
+}
+
+.progress {
+	margin-bottom: 5px;
+}
+
+.rating-desc .col-md-3 {
+	padding-right: 0px;
+}
+
+.sr-only {
+	margin-left: 5px;
+	overflow: visible;
+	clip: auto;
+}
 </style>
+
+<script type="text/javascript">
+var user = '${user}';
+
+
+function addWish(_input){
+	
+	if(user == null || user ==''){
+		
+		$("#loginModal").modal("show");
+		
+		return
+	}
+	
+	if(user != null || user !=''){
+		
+		console.log("add wish button clicked" + _input)
+		
+		location.href = "/wishList/insert?wno=" + _input;
+	}
+};
+
+function addCart(_input){
+	
+	if(user == null || user ==''){
+		
+		$("#loginModal").modal("show");
+		
+		return
+	}
+	
+	if(user != null || user !=''){
+		
+	console.log("add cart button clicked" + _input)
+	
+	location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
+	
+	}
+	
+};
+
+</script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
 
@@ -80,50 +148,106 @@
 				</div>
 				<div class="col-md-6">
 					<div class="small mb-1">
-						<h4><c:out value="${wine.winenery}" /></h4>
+						<h4>
+							<c:out value="${wine.winenery}" />
+						</h4>
 					</div>
 					<h3 class="fw-bolder">
-						<c:out value="${wine.title}" /></h3>
+						<c:out value="${wine.title}" />
+					</h3>
 					<div class="fs-5 mb-5">
 						<p class="lead">
-							<span>
-							<svg class="svgicon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16"><line x1="8" y1="10.8649" x2="8" y2="14.75" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><path d="M8,10.8649A21.2965,21.2965,0,0,0,11.03,8.431a4.2805,4.2805,0,0,0,.6017-3.5547c-.2314-1.2886-.7634-3.6263-.7634-3.6263H5.1318S4.6,3.5877,4.3683,4.8763A4.2784,4.2784,0,0,0,4.97,8.431,21.3,21.3,0,0,0,8,10.8649" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><line x1="5.375" y1="14.7498" x2="10.625" y2="14.7498" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><line x1="4.2775" y1="6.2311" x2="11.7225" y2="6.2311" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></line><path d="M4.6782,6.6055a4.1859,4.1859,0,0,0,.7392,1.8224A4.3054,4.3054,0,0,0,8,10.4a4.2965,4.2965,0,0,0,2.5738-1.9721,4.36,4.36,0,0,0,.77-1.8224Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.0782,6.9792c.0087.3122.4443.7875.8557,1.4219A3.8792,3.8792,0,0,0,8,9.9219a3.87,3.87,0,0,0,2.059-1.5208,4.6045,4.6045,0,0,0,.8218-1.4219Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5823,7.4c.0066.2428.5595.5185.8682,1.0119A2.5878,2.5878,0,0,0,8,9.5,2.5812,2.5812,0,0,0,9.5442,8.4119c.3086-.4934.8258-.769.8323-1.0119Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.3128,7.7c.0054.1735.1387.37.3959.7228A1.8377,1.8377,0,0,0,8,9.0664a1.83,1.83,0,0,0,1.2869-.6436c.2572-.3524.4053-.5493.4107-.7228Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round"></path></svg><c:out value="${wine.wineType}" /> from</span>
+							<span> <svg class="svgicon"
+									xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
+									<line x1="8" y1="10.8649" x2="8" y2="14.75" fill="none"
+										stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></line>
+									<path
+										d="M8,10.8649A21.2965,21.2965,0,0,0,11.03,8.431a4.2805,4.2805,0,0,0,.6017-3.5547c-.2314-1.2886-.7634-3.6263-.7634-3.6263H5.1318S4.6,3.5877,4.3683,4.8763A4.2784,4.2784,0,0,0,4.97,8.431,21.3,21.3,0,0,0,8,10.8649"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path>
+									<line x1="5.375" y1="14.7498" x2="10.625" y2="14.7498"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></line>
+									<line x1="4.2775" y1="6.2311" x2="11.7225" y2="6.2311"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></line>
+									<path
+										d="M4.6782,6.6055a4.1859,4.1859,0,0,0,.7392,1.8224A4.3054,4.3054,0,0,0,8,10.4a4.2965,4.2965,0,0,0,2.5738-1.9721,4.36,4.36,0,0,0,.77-1.8224Z"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path>
+									<path
+										d="M5.0782,6.9792c.0087.3122.4443.7875.8557,1.4219A3.8792,3.8792,0,0,0,8,9.9219a3.87,3.87,0,0,0,2.059-1.5208,4.6045,4.6045,0,0,0,.8218-1.4219Z"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path>
+									<path
+										d="M5.5823,7.4c.0066.2428.5595.5185.8682,1.0119A2.5878,2.5878,0,0,0,8,9.5,2.5812,2.5812,0,0,0,9.5442,8.4119c.3086-.4934.8258-.769.8323-1.0119Z"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path>
+									<path
+										d="M6.3128,7.7c.0054.1735.1387.37.3959.7228A1.8377,1.8377,0,0,0,8,9.0664a1.83,1.83,0,0,0,1.2869-.6436c.2572-.3524.4053-.5493.4107-.7228Z"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path>
+									<path
+										d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z"
+										fill="none" stroke="#1e1e1e" stroke-linecap="round"
+										stroke-linejoin="round"></path></svg>
+								<c:out value="${wine.wineType}" /> from
+							</span>
 							<c:out value="${wine.region}" />
 							<br>
 							<c:out value="${wine.country}" />
-							<br>					
+							<br>
 						</p>
-						<span>￦<c:out value="${wine.price}" /></span>
+						<span>￦<fmt:formatNumber pattern="#,###,###"
+								value="${wine.price}" /></span>
 					</div>
 
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-						onclick="location.href='/wishList/insert?wno=${wine.wno}'">
+
+<<<<<<< .merge_file_a01144
+						onclick='addWish("${wine.wno}")'>
+						
+=======
+
+						onclick='addWish("${wine.wno}")'>
+
+>>>>>>> .merge_file_a00616
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-						onclick="location.href='/seller/listWine?wineNum=${wine.wno}'">
-							<i class="bi-cart-fill me-1"></i> Find Seller
+<<<<<<< .merge_file_a01144
+						
+=======
+
+>>>>>>> .merge_file_a00616
+						onclick='addCart("${wine.wno}")'>
+
+							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Facts about the wine -->
-	<div class="container mb-5" style="margin-left: 15%;">
-	<h3>Facts about the wine</h3>
-	
-	<table class="table">
-		
-		<c:if test='${wine.winenery ne null}'>
-			<tr class="table">
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" 
-				d="M23.596 18.608V5.483c0-.564-.605-1.042-1.322-1.042h-2.057v3.21a.5.5 0 0 1-.5.5h-3.35a.5.5 
+	<div class="container mt-5 mb-5"
+		style="padding-left: 15%; padding-right: 10%;">
+		<h3>Facts about the wine</h3>
+
+		<table class="table">
+
+			<c:if test='${wine.winenery ne null}'>
+				<tr class="table">
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M23.596 18.608V5.483c0-.564-.605-1.042-1.322-1.042h-2.057v3.21a.5.5 0 0 1-.5.5h-3.35a.5.5 
 				0 0 1-.5-.5V4.44h-3.744v3.21a.5.5 0 0 1-.5.5h-3.34a.5.5 0 0 1-.5-.5V4.44H5.726c-.717 0-1.322.478-1.322 1.042v13.125c0 
 				1.785 5.792 4.986 9.587 6.658 4.058-1.942 9.605-5.225 9.605-6.658zM22.274 3.44c1.28 0 2.322.916 2.322 2.042v13.125c0 
 				2.614-8.649 6.839-10.383 7.66a.496.496 
@@ -144,15 +268,16 @@
 				0 0 1-2.424-.24 1.068 1.068 0 0 1-.49.133 1.29 1.29 0 0 1-.163-.012l-.446-.068a1.064 1.064 0 0 1-.774-.562 21.38 21.38 0 0 1-1.745-.478c-.526-.17-.851-.544-.85-.973l.042-6.407c.005-.429.335-.798.862-.962.55-.17 1.14-.322 1.75-.456.159-.287.436-.505.78-.553l.448-.062c.225-.033.44.03.636.131a13.216 13.216 
 				0 0 1 4.805.014c.006.001.012.006.018.007.194-.092.401-.147.622-.116l.447.068c.343.052.61.264.765.544.677.183 1.32.394 1.902.636z">
 				</path></svg> Winery</td>
-				<td><c:out value="${wine.winenery}" /></td>			
-			</tr>
-		</c:if>
-		
-		<c:if test='${wine.grapes ne null}'>
-			<tr>
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" 
-				d="M17.463 13.193a2.234 2.234 0 0 1 2.214-2.54c.482 0 .949.157 1.34.452a2.233 2.233 0 0 1-1.037 3.989 2.236 2.236 
+					<td><c:out value="${wine.winenery}" /></td>
+				</tr>
+			</c:if>
+
+			<c:if test='${wine.grapes ne null}'>
+				<tr>
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M17.463 13.193a2.234 2.234 0 0 1 2.214-2.54c.482 0 .949.157 1.34.452a2.233 2.233 0 0 1-1.037 3.989 2.236 2.236 
 				0 0 1-2.517-1.901m.375 7.282a2.236 2.236 0 0 1-2.518-1.902 2.215 2.215 0 0 1 .43-1.651 2.211 2.211 
 				0 0 1 1.78-.887c1.095 0 2.053.809 2.209 1.924a2.234 2.234 0 0 1-1.901 2.516m-.57 4.235a2.233 2.233 
 				0 0 1-3.56-2.689 2.22 2.22 0 0 1 1.78-.886c1.096 0 2.054.808 2.209 1.922.082.59-.07 1.178-.43 1.653m-6.491-3.911a2.211 2.211 
@@ -173,32 +298,34 @@
 				0 0 0 1.94.654c.12 0 .244-.012.366-.025a3.193 3.193 0 0 0 1.06 3.717 3.207 3.207 0 0 0 2.394.622 3.21 3.21 
 				0 0 0 2.132-1.252 3.21 3.21 0 0 0 .62-2.393 3.188 3.188 0 0 0-.621-1.476 3.206 3.206 0 0 0 2.042-1.23 3.208 3.208 
 				0 0 0 .622-2.394 3.215 3.215 0 0 0-.808-1.722c.065-.005.13-.004.197-.013a3.236 3.236 0 0 0 2.754-3.646"></path></svg>
-				Grapes</td>
-				<td><c:out value="${wine.grapes}" /></td>			
-			</tr>
-		</c:if>
-		
-		<c:if test='${wine.region ne null}'>
-			<tr>
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" 
-				d="M17.145 13.928a4.447 4.447 0 0 1-6.281 0 4.448 4.448 0 0 1 0-6.28 4.427 4.427 0 0 1 3.141-1.3c1.137 
+						Grapes</td>
+					<td><c:out value="${wine.grapes}" /></td>
+				</tr>
+			</c:if>
+
+			<c:if test='${wine.region ne null}'>
+				<tr>
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M17.145 13.928a4.447 4.447 0 0 1-6.281 0 4.448 4.448 0 0 1 0-6.28 4.427 4.427 0 0 1 3.141-1.3c1.137 
 				0 2.274.434 3.14 1.3a4.446 4.446 0 0 1 0 6.28m4.197-10.097a10.293 10.293 0 0 1 3.04 7.332c0 2.77-1.08 5.373-3.04 7.332l-6.954 8.527a.498.498 
 				0 0 1-.775 0l-6.988-8.565a10.25 10.25 0 0 1-3.007-7.294c0-2.77 1.08-5.374 3.04-7.332 4.049-4.042 10.636-4.042 
 				14.684 0zM20.6 17.825c1.806-1.807 2.782-4.16 2.782-6.662a9.3 9.3 0 0 0-2.748-6.624A9.359 9.359 
 				0 0 0 14 1.799a9.358 9.358 0 0 0-6.634 2.74 9.3 9.3 0 0 0-2.748 6.624 9.3 9.3 
 				0 0 0 2.748 6.624L14 25.915l6.6-8.09zM10.157 6.94a5.447 5.447 0 0 1 7.695 0 5.446 5.446 0 0 1 0 7.695 5.423 5.423 
 				0 0 1-3.847 1.591 5.424 5.424 0 0 1-3.848-1.59 5.448 5.448 0 0 1 0-7.696z"></path></svg>
-				Region</td>
-				<td><c:out value="${wine.region}" /></td>			
-			</tr>
-		</c:if>
-		
-		<c:if test='${wine.wineStyle ne null}'>
-			<tr>
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" 
-				d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 0 0 1 2.367-3.476c.001 
+						Region</td>
+					<td><c:out value="${wine.region}" /></td>
+				</tr>
+			</c:if>
+
+			<c:if test='${wine.wineStyle ne null}'>
+				<tr>
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 0 0 1 2.367-3.476c.001 
 				0 .002 0 .003-.002a.525.525 0 0 0 .126-.082c.012-.01.027-.015.038-.025.022-.023.035-.052.053-.079.018-.026.042-.05.054-.08.006-.014.005-.03.01-.045a.52.52 
 				0 0 0 .03-.147V1.96c0-.09.086-.165.188-.165h1.736c.101 
 				0 .187.075.187.164V8.49l.001.005c0 .05.014.098.03.145.004.015.003.032.01.046.011.03.034.051.051.077.018.027.032.058.055.082.011.01.026.015.036.024.04.033.08.063.128.083l.004.002a3.779 
@@ -206,16 +333,17 @@
 				0 0 1-1.815 1.816H11.08a1.819 1.819 0 0 1-1.816-1.817V12.43c0-1.832 1.046-3.457 2.681-4.25V1.96c0-.643.533-1.165 
 				1.188-1.165h1.736c.654 0 1.187.522 1.187 1.164V8.18zm-3.673 9.555v-4.647h3.235v4.647h-3.235zm3.735-5.647h-4.236a.5.5 
 				0 0 0-.5.5v5.647a.5.5 0 0 0 .5.5h4.236a.5.5 0 0 0 .5-.5v-5.647a.5.5 0 0 0-.5-.5z"></path></svg>
-				Wine style</td>
-				<td><c:out value="${wine.wineStyle}" /></td>			
-			</tr>
-		</c:if>
-		
-		<c:if test='${wine.allergens ne null}'>
-			<tr>
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" 
-				d="M18.189 20.318c4.538-1.67 7.43-5.58 8.079-6.536-.505-1.125-2.991-6.039-8.35-7.765a8.234 8.234 
+						Wine style</td>
+					<td><c:out value="${wine.wineStyle}" /></td>
+				</tr>
+			</c:if>
+
+			<c:if test='${wine.allergens ne null}'>
+				<tr>
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M18.189 20.318c4.538-1.67 7.43-5.58 8.079-6.536-.505-1.125-2.991-6.039-8.35-7.765a8.234 8.234 
 				0 0 1 4.309 7.233c0 3.006-1.625 5.632-4.038 7.068zM2.366 14.65c.315.403 1.649 1.838 2.389 2.425.83.658 2.383 1.788 4.232 2.683-1.95-1.505-3.214-3.859-3.214-6.508a8.232 8.232 
 				0 0 1 4.308-7.232c-5.36 1.726-7.845 6.641-8.35 7.765.128.188.342.492.635.867zm4.407-1.4c0 3.985 3.242 7.227 7.228 7.227 3.984 
 				0 7.226-3.242 7.226-7.227 0-3.985-3.242-7.227-7.226-7.227-3.986 0-7.228 3.242-7.228 7.227zm-.245 12.383a1.948 1.948 
@@ -226,89 +354,179 @@
 				0-.927.164-1.294.472a2.004 2.004 0 0 0-.713 1.371 2.007 2.007 0 0 0 .464 1.474c.347.413.834.667 1.372.713a1.99 1.99 
 				0 0 0 1.473-.465c.413-.347.666-.833.713-1.37zm-1.748-3.184a3.022 3.022 0 0 1 1.679 5.32 2.998 2.998 0 0 1-2.203.696 3.002 3.002 
 				0 0 1-2.051-1.067 2.998 2.998 0 0 1-.696-2.203 3.004 3.004 0 0 1 1.067-2.05 2.983 2.983 0 0 1 2.204-.696z"></path></svg>
-				Allergens</td>
-				<td><c:out value="${wine.allergens}" /></td>			
-			</tr>
-		</c:if>
-		
-		<c:if test='${wine.alcohol ne null}'>
-			<tr>
-				<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
-				<path fill="#A8A5A3" fill-rule="evenodd" d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 
+						Allergens</td>
+					<td><c:out value="${wine.allergens}" /></td>
+				</tr>
+			</c:if>
+
+			<c:if test='${wine.alcohol ne null}'>
+				<tr>
+					<td><svg class="svgicon" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 28 28">
+				<path fill="#A8A5A3" fill-rule="evenodd"
+								d="M17.736 25.39c0 .45-.366.816-.815.816H11.08a.818.818 0 0 1-.816-.817V12.43a3.78 3.78 
 				0 0 1 2.367-3.476c.001 0 .002 0 .003-.002a.525.525 0 0 0 .126-.082c.012-.01.027-.015.038-.025.022-.023.035-.052.053-.079.018-.026.042-.05.054-.08.006-.014.005-.03.01-.045a.52.52 
 				0 0 0 .03-.147V1.96c0-.09.086-.165.188-.165h1.736c.101 0 .187.075.187.164V8.49l.001.005c0 .05.014.098.03.145.004.015.003.032.01.046.011.03.034.051.051.077.018.027.032.058.055.082.011.01.026.015.036.024.04.033.08.063.128.083l.004.002a3.779 3.779 
 				0 0 1 2.366 3.476v12.96zm-1.68-17.21c1.634.792 2.68 2.417 2.68 4.25v12.96a1.818 1.818 
 				0 0 1-1.815 1.816H11.08a1.819 1.819 0 0 1-1.816-1.817V12.43c0-1.832 1.046-3.457 2.681-4.25V1.96c0-.643.533-1.165 1.188-1.165h1.736c.654 0 1.187.522 1.187 1.164V8.18zm-3.673 9.555v-4.647h3.235v4.647h-3.235zm3.735-5.647h-4.236a.5.5 
 				0 0 0-.5.5v5.647a.5.5 0 0 0 .5.5h4.236a.5.5 0 0 0 .5-.5v-5.647a.5.5 0 0 0-.5-.5z"></path></svg>
-				Alcohol content</td>
-				<td><c:out value="${wine.alcohol}" />%</td>			
-			</tr>
-		</c:if>
-		
-	</table>
+						Alcohol content</td>
+					<td><c:out value="${wine.alcohol}" />%</td>
+				</tr>
+			</c:if>
+
+		</table>
 	</div>
 	<!-- end Facts about the wine -->
-	
+
 	<!-- Review -->
-	<div class="container mb-5" style="margin-left: 30%">
-	<div class="row">
-    	<div class="col-md-8">
-        	<div class="media">
-            <div class="media-body">
-          
-			<h3>Community reviews</h3>
-		
-			<c:forEach items="${review_list}" var="reviewVO">
-				<div class="card mb-3">
-					<div class="card-header">
-					
-	             	<span class="rating mb-2">
-	             	<i class="bi bi-star-fill"></i>
-					<c:out value="${reviewVO.rating}" />
-					</span>
-					
-	             	<span class="mb-2 user">
-	             	<c:out value="${reviewVO.userNum}" />
-					<c:out value="${reviewVO.userRealName}" /></span>
-	             	
-					</div>
-         
-					<div class="card-body">
-						<c:out value="${reviewVO.content}" />
-					</div>
-		
-				<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
-	            <li class="list-inline-item g-mr-20">
-	              <a class="like" href="#!">
-	                <i class="bi bi-hand-thumbs-up"></i>
-	                <c:out value="${reviewVO.cntLike}" />
-				  </a>
-				 </li>
-				 <li class="list-inline-item g-mr-20">
-				    <a class="dislike" href="#!">
-				      <i class="bi bi-hand-thumbs-down"></i>
-				      34
-				    </a>
-				 </li>
-				 <li class="list-inline-item ml-auto">
+	<div class="container mt-3 mb-5" style="margin-left: 30%">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="media">
+					<div class="media-body">
+
+						<h3>Community reviews</h3>
+
+						<c:forEach items="${review_list3}" var="reviewVO">
+							<div class="card mb-3">
+								<div class="card-header">
+
+									<span class="rating mb-2 fw-bold"> <i
+										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
+									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
+											value="${reviewVO.userNum}" /> <c:out
+											value="${reviewVO.userNickName}" />(총 이 유저가 한 레이팅 갯수)
+									</span>
+
+								</div>
+
+								<div class="card-body fw-bold">
+									<c:out value="${reviewVO.content}" />
+								</div>
+
+								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
+									<li class="list-inline-item g-mr-20">
+										<form id='operForm' action='/wine/clickLike' method='post'>
+											<input type='hidden' id='userNum' name='userNum' value='<c:out value="${user.userNum }" />'> 
+											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${reviewVO.reviewNum }"/>'>
+											<input type='hidden' id='wineNum' name='wineNum' value='<c:out value="${wine.wno}"/>'>
+												 <button class="like" type="submit">
+										    <i class="bi bi-hand-thumbs-up"></i> <c:out
+											value="${reviewVO.cntLike}" /> </button>
+											</form>
+									</li>
+									<li class="list-inline-item g-mr-20">
+										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
+
+									</li>
+									<!-- <li class="list-inline-item ml-auto">
 				   <a class="reply" href="#!">
 				      <i class="bi bi-chat"></i>
 				      Reply
 				   </a>
-				 </li>
-				</ul>
+				 </li>  -->
+								</ul>
+							</div>
+						</c:forEach>
+
+					</div>
 				</div>
-				</c:forEach>
-		
-				</div>
-		        </div>
-    		</div>
+			</div>
 		</div>
-		</div>	
+		<a href="#" class="btn btn-outline-danger">Show more reviews</a>
+	</div>
 	<!-- end Review -->
-	
+
+	<!-- Rating Range -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<div class="well well-sm">
+					<div class="row">
+						<div class="col-xs-12 col-md-6 text-center">
+							<h1 class="rating-num">4.0</h1>
+							<div class="rating">
+								<span><i class="bi bi-star-fill"></i></span> <span><i
+									class="bi bi-star-fill"></i></span> <span><i
+									class="bi bi-star-fill"></i></span> <span><i
+									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
+							</div>
+							<div>
+								<span>총 ratings</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="row rating-desc">
+								<div class="col-xs-3 col-md-3 text-right">
+									<span>5</span>
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<div class="progress">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 50%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+								<!-- end 5 -->
+								<div class="col-xs-3 col-md-3 text-right">
+									<span>4</span>
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<div class="progress">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 30%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+								<!-- end 4 -->
+								<div class="col-xs-3 col-md-3 text-right">
+									<span>3</span>
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<div class="progress">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 20%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+								<!-- end 3 -->
+								<div class="col-xs-3 col-md-3 text-right">
+									<span>2</span>
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<div class="progress">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 70%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+								<!-- end 2 -->
+								<div class="col-xs-3 col-md-3 text-right">
+									<span>1</span>
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<div class="progress">
+										<div class="progress-bar bg-warning" role="progressbar"
+											style="width: 100%" aria-valuenow="75" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+								<!-- end 1 -->
+							</div>
+							<!-- end row -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Rating Range End -->
+
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>
 <script src="/resources/js/scripts.js"></script>
+
+
 </html>

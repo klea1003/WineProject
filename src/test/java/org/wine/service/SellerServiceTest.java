@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wine.domain.SellerVO;
-import org.wine.service.SellerService;
+
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -37,9 +37,15 @@ public class SellerServiceTest {
 	}
 	
 	@Test
+	public void testgetImageList() {
+		
+		service.getImageList(3L);
+	}
+	
+	@Test
 	public void testGet(){
 		
-		log.info(service.get(28L));
+		log.info(service.get(2L));
 		
 	}
 	

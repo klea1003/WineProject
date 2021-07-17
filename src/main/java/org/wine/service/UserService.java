@@ -29,4 +29,14 @@ public interface UserService {
 		public int remove(Long userNum);
 		
 		public List<SocialWishVO> getwishList(Long userNum); //목록
+		
+		public int modifyEmail(UserVO user);
+		
+		public int modifyNickName(UserVO user);
+		
+		public int modifyPassword(UserVO user);
+		
+		public int modifyUserInfo(UserVO user);
+		
+		public int getwishListCnt(Long userNum);
 }

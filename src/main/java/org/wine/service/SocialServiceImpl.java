@@ -48,6 +48,12 @@ public class SocialServiceImpl implements SocialService {
 		
 		log.info("userFollowingId : "+ userFollowingId);
 		
+		if(userFollowerId==null) {
+			
+			userFollowerId = 0L;
+				
+		}
+		
 		return  mapper.followingBtn(userFollowingId,userFollowerId);
 	}
 
@@ -103,6 +109,20 @@ public class SocialServiceImpl implements SocialService {
 	public int getCountByuserNum(Long userNum) {
 		// TODO Auto-generated method stub
 		return mapper.getCountByuserNum(userNum);
+	}
+
+
+	@Override
+	public int getCountByUserNumRating(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.getCountByUserNumRating(userNum);
+	}
+
+
+	@Override
+	public List<SocialReviewVO> myReviewList(Long userNum) {
+		// TODO Auto-generated method stub
+		return mapper.myReviewList(userNum);
 	}
 
 }

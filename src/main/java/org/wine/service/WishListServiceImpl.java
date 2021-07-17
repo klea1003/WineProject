@@ -21,7 +21,7 @@ public class WishListServiceImpl implements WishListService {
 	//목록
 	@Override
 	public List<WishListVO> listWish(Long userNum) {
-		return mapper.listWish(userNum);
+		return mapper.getList(userNum);
 	}
 	
 	//추가

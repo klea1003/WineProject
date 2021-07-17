@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.wine.domain.CartDisplayVO;
 import org.wine.domain.CartVO;
 import org.wine.domain.UserVO;
 import org.wine.service.CartService;
@@ -31,89 +31,92 @@ public class CartController {
 	@RequestMapping("/list")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
+		UserVO user = (UserVO) session.getAttribute("user");
+		long userNum = user.getUserNum();
 
-
+		List<CartDisplayVO> list = service.getList(userNum);
+		int totalPrice = service.getTotalPrice(userNum);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<CartVO> list = service.listCart(userNum);
-		int sumTotalPrice = service.sumTotalPrice(userNum);
 		map.put("list", list);
 		map.put("count", list.size());
-		map.put("sumTotalPrice", sumTotalPrice);
+		map.put("sumTotalPrice", totalPrice);
+		
 		mav.setViewName("cart/list");
 		mav.addObject("map", map);
 		return mav;
-
 	}
 
-	// 목록
-	/*
-	 * @GetMapping("/list") public void listgettest() { log.info("카트 리스트 페이지 테스트"); }
-	 */
-
-	// 추가
-	
-	  @RequestMapping("/insert")
-	  public String insert(@ModelAttribute CartVO cartvo,
-			  @RequestParam("userNum") Long userNum, 
-			  @RequestParam("sellerNum") Long sellerNum) {
-	 
-		/* Long userNum=(Long)session.getAttribute("userNum"); */
-	      cartvo.setUserNum(userNum); 
-	      cartvo.setSellerNum(sellerNum); 
-	      int count = service.countCart(cartvo);
-	      log.info(cartvo);
-	  if(count == 0) { 
-		  service.insert(cartvo);
-		  }
-	  else { service.updateCart(cartvo);
-	  }
-	  
-	  return "redirect:/cart/list"; 
-	  }
-	 
+	@RequestMapping("/insert")
+	public String insert(@ModelAttribute CartVO cartVo, HttpSession session) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
+        cartVo.setUserNum(userNum);	// session의 userNum 사용
+        
+        log.info(cartVo);
+        
+        service.addWine(cartVo);
+        
+		return "redirect:/cart/list";
+	}
 
 	// 장바구니 삭제
 	@RequestMapping("/delete")
 	public String delete(@RequestParam Long cartNum) {
-		service.delete(cartNum);
+		service.deleteCart(cartNum);
 		return "redirect:/cart/list";
-
 	}
 
 	// 동일한 상품 장바구니에 추가한 경우 수량 업데이트
-	@RequestMapping("/update")
-	public String update(@RequestParam int[] cartQty, @RequestParam Long[] wineNum, HttpSession session) {
+	@GetMapping("/update")
+	public String update(
+			@RequestParam(value="wineNum[]", required=false)List<Long> wineNum,
+			@RequestParam(value="wineQty[]", required=false)List<Integer> wineQty,
+			HttpSession session
+	) {
 
-		// 세션 유저넘버 불러오기
-		UserVO lvo =  (UserVO) session.getAttribute("user");
-        long userNum=lvo.getUserNum();
+		UserVO user = (UserVO) session.getAttribute("user");
+        Long userNum = user.getUserNum();
+        
+        int length = wineNum.size();
+        
+        for(int i=0; i<length; i++) {
+        	CartVO cartVo = new CartVO();
+        	
+        	cartVo.setUserNum(userNum);
+        	cartVo.setWineNum(wineNum.get(i));
+        	cartVo.setWineQty(wineQty.get(i));
+        	
+        	service.modifyCart(cartVo);
+        }
 
-		for (int i = 0; i < wineNum.length; i++) {
-
-			CartVO cartvo = new CartVO();
-			cartvo.setUserNum(userNum);
-			cartvo.setCartQty(cartQty[i]);
-			cartvo.setWineNum(wineNum[i]);
-			service.modifyCart(cartvo);
-		}
 		return "redirect:/cart/list";
 
 	}
 	
+	@GetMapping("/deleteItems")
+	public String delete(@RequestParam(value="deleteCartArr[]")List<Long> deleteCartArr) {
+		log.info(deleteCartArr);
+		
+		for (Long cartNum : deleteCartArr) {
+			service.deleteCart(cartNum);
+		}
+		return "redirect:/cart/list";
+	}
+
 	@RequestMapping("/modifyCart")
 	public String modifyCart(@ModelAttribute("cartvo") CartVO cartvo) {
 		log.info("cartVO===" + cartvo);
-		int cartQty = cartvo.getCartQty();
+		int cartQty = cartvo.getWineQty();
 		Long cartNum = cartvo.getCartNum();
-		
-		if(cartQty == 0) {
-			service.delete(cartNum);
-		}else if(cartQty > 0) {
+
+		if (cartQty == 0) {
+			service.deleteCart(cartNum);
+		} else if (cartQty > 0) {
 			service.modifyCart(cartvo);
 		}
 		return "redirect:/cart/list";
-		}
 	}
-	
+}

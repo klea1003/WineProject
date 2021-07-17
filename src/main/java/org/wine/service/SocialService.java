@@ -30,4 +30,8 @@ public interface SocialService {
 		public SocialPageDTO followingReviewListPaging(SocialCriteriaReview crire,Long userNum);
 
 		public int getCountByuserNum(Long userNum);
+		
+		public int getCountByUserNumRating(Long userNum);
+		
+		public List<SocialReviewVO> myReviewList(Long userNum);
 }

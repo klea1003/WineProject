@@ -5,232 +5,127 @@
 <jsp:include page="../includes/header.jsp" flush="false"/>
 <!DOCTYPE html>
 <html>
-<head>
-    
-</head>
 
-<style>
-.list-card {
-	height:600px;
-}
+<body>
+	<!-- Introduce Seller-->
+	<div class="container px-5 my-5">
+		<div class="text-center mb-5">
+            <h4> 직영점 </h4>
+            <h2 class="fw-bolder">${getseller.sellerStoreName}</h2>
+            <h5>${getseller.sellerPhoneNum}</h5><br>
+            <h6 class="fw-bolder">${getseller.sellerContent }</h6>
+        </div>
+	</div>
+	
+	<!-- Seller Image -->
+	<div class="col-12 mb-5">
+		<div class="col-6" style="width: 800px; margin-left: 10%; float: left;">
+			<div id="shopImageCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+			  
+			  <div class="carousel-indicators">
+			    <button type="button" data-bs-target="#shopImageCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#shopImageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#shopImageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  	<button type="button" data-bs-target="#shopImageCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+			  </div>
+			  <div class="carousel-inner">
+			  <c:forEach items="${sellerImage}" var="c" varStatus="status" begin="0" end="0" step="1">
+			    <div class="carousel-item active">
+			      <img src="http://klea-home.iptime.org:8081/<c:out value='${c.sellerImage}'/>" style="width: 100%" alt="...">
+			    </div>
+			  
+			  </c:forEach>
+			  <c:forEach items="${sellerImage}" var="c" varStatus="status" begin="1" end="3" step="1">
+			  
+			    <div class="carousel-item">
+			      <img src="http://klea-home.iptime.org:8081/<c:out value='${c.sellerImage}'/>" style="width: 100%" alt="...">
+			    </div>
+			 
+			  </c:forEach>
+			  </div><!-- inner end -->
+			  <button class="carousel-control-prev" type="button" data-bs-target="#shopImageCarousel" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#shopImageCarousel" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+		</div><!-- carousel end -->
+		
+		<div class="col-5 align-self-center store_info mt-5" style="float: right;">
+			<div>
+				<div class="mb-5">
+				<h5 class="mb-3 fw-bold"><i class="bi bi-geo-alt-fill"></i>&nbsp;매장위치</h5> 
+				${getseller.sellerLocation}
+				</div>
+				<div class="mb-5">
+				<h5 class="mb-3 fw-bold"><i class="bi bi-clock"></i>&nbsp;영업시간</h5>
+				${getseller.sellerBusinessHour}
+				</div>
+				<div class="mb-5">
+				<h5 class="mb-3 fw-bold"><i class="bi bi-file-person"></i>&nbsp;Shop Master </h5>
+				${getseller.sellerManger}
+				${getseller.sellerMagEmail}
+				</div>
+			</div>
+		</div>
+	</div><!-- Seller Image end -->
+	
+	<div class="container mt-5 mb-5">
+		<div class="text-center mb-5">
+		<h3 class="fw-bold">매장위치</h3>
+		</div>
+	</div>
+	
+	<!-- Map API  -->
+	<div>
+		<div class="mb-5" id="map" style="width:100%; height:500px;"></div> 
+	</div>
+	
+	
+</body>
 
-p.card-text {
-	margin-bottom: 0;
-} 
-.swiper-slide { 
-	text-align: center; 
-	font-size: 18px; 
-	background: #fff; 
-/* Center slide text vertically */ 
-	display: -webkit-box; 
-	display: -ms-flexbox;
-	display: -webkit-flex; 
-	display: flex; 
-	-webkit-box-pack: center; 
-	-ms-flex-pack: center; 
-	-webkit-justify-content: center; 
-	justify-content: center; 
-	-webkit-box-align: center; 
-	-ms-flex-align: center; 
-	-webkit-align-items: center; 
-	align-items: center; 
-} 
-
-.swiper-button-next {
-  color: #BDBDBD;
-}
-
-.swiper-button-prev {
-  
-  color: #BDBDBD;
-} 
-
-.swiper-container-vertical>.swiper-pagination-bullets { 
-	top: unset !important; 
-	bottom: 10px; 
-	left: 0; 
-	width: 100%; 
-}
-.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet { 
-	display : inline-block !important; 
-	margin: 6px 2px !important; 
-}
-</style>
-
-
- <body>
-
-       
-        <!-- Page Content-->
-        <div class="container px-4 px-lg-5">
-            
-            <!-- Heading Row-->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7">
-                   
-                   <!-- Map API  -->
-                   <p style="margin-top:-12px">
-                   <em class="link">
-                       <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-                           혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-                       </a>
-                   </em>
-               </p>
-               
-               <div id="map" style="width:700px; height:400px;"></div>
-
-             </div><!-- Map End -->
-                
-                <div class="col-lg-5">
-                   <h1 class="font-weight-light">${seller.sellerStoreName}</h1>
-                   <a class="btn btn-danger" href="#!">예약현황</a>
-                </div>
-            </div>
-            
-            <!-- Introduce Seller Wine Card-->
-            <div class="card my-5 py-4 text-center">
-                <div class="card-body"><p class="text-dark m-0">▼ 판매자가 현재 판매하고 있는 와인들을 소개해 드립니다</p></div>
-            </div>
-            
-            <!--  Content Row -->
-            <div class="row gx-4 gx-lg-5">
-            <!-- swiper슬라이더 메인컨테이너 -->
-             <div class="swiper-container"> 
-             <!-- 보여지는 영역 --> 
-            <div class="swiper-wrapper"> 
-                <!--  Card One    -->              
-                <c:forEach items="${product}" var="p">
-                   <div class="swiper-slide"> 
-                   <div class="col mb-5">
-                    <div class="card-list">
-                  <div class="text-center">
-                     <img src="http://klea-home.iptime.org:8081/<c:out value="${p.imageName}" />" height="350" width="150">
-                  </div>
-                     <div class="card-body">
-					      <p class="card-text"><b><c:out value="${p.wineTitle}" /></b></p>
-					      <p class="card-text">생산지역 : <c:out value="${p.wineCountry}" /></p>
-					      <p class="card-text">와인타입 : <c:out value="${p.wineType}" /></p>
-					      <p class="card-text">가격 : <c:out value="${p.sellerPrice}" />원</p>
-					      <p class="card-text">재고량 : <c:out value="${p.sellerWineQty}" /></p>
-					 </div>
-                  <div class="card-footer">
-
-                  <c:if test="${ p.sellerWineQty != 0}">
-                  <a class="btn btn-outline-dark btn-sm" href="/wine/get?wno=${p.wineNum}">More Info</a>
-                  <a class="btn btn-outline-danger btn-sm" href="/cart/insert?userNum=${user.userNum }&sellerNum=${seller.sellerNum}&wineNum=${p.wineNum}">Add to Cart</a>
-                  </c:if>               
-                  <c:if test="${ p.sellerWineQty == 0}">
-                  <a class="btn btn-secondary btn-sm">sold out</a>
-                  </c:if>
-                  </div>
-                  
-               </div>
-                   </div>
-                   </div>
-                </c:forEach>
-                </div>
-                       <!-- 방향 버튼 상황에 따라 추가 삭제가능 --> 
-                       <div class="swiper-button-prev"></div> 
-                       <div class="swiper-button-next"></div> 
-                
-                </div>
-             </div>
-          </div>
-          
-            
-
-       
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b5333d53ac31b106857d8f1c63a600d7&libraries=services"></script>
 <script>
-      
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                  mapOption = {
-                      
-         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                       
-         level: 3 // 지도의 확대 레벨
-         
-                };  
 
-      // 지도를 생성합니다    
-      var map = new kakao.maps.Map(mapContainer, mapOption); 
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			 level: 3 // 지도의 확대 레벨
+			};  
 
-      // 주소-좌표 변환 객체를 생성합니다
-      var geocoder = new kakao.maps.services.Geocoder();
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${getseller.sellerLocation}' , function(result, status) {
 
-      // 주소로 좌표를 검색합니다
-      geocoder.addressSearch('${seller.sellerLocation}' , function(result, status) {
+		// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
+			
+			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-       // 정상적으로 검색이 완료됐으면 
-        if (status === kakao.maps.services.Status.OK) {
+			// 결과값으로 받은 위치를 마커로 표시합니다
+			var marker = new kakao.maps.Marker({
+				map: map,
+				position: coords
+			});
 
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			// 인포윈도우로 장소에 대한 설명을 표시합니다
+			var infowindow = new kakao.maps.InfoWindow({
+				content: '<div style="width:150px;text-align:center;padding:6px 0;">${getseller.sellerStoreName}</div>'
+			});
+			infowindow.open(map, marker);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			map.setCenter(coords);
+    	} 
+	}); //Map End
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${seller.sellerStoreName}</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-}); //Map End
-
-
-   const swiper = new Swiper('.swiper-container', {
-     //기본 셋팅
-     //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
-     direction: 'horizontal',
-     //한번에 보여지는 페이지 숫자
-     slidesPerView: 3,
-     //페이지와 페이지 사이의 간격
-     spaceBetween: 30,
-     //드레그 기능 true 사용가능 false 사용불가
-     debugger: false,
-     //마우스 휠기능 true 사용가능 false 사용불가
-     mousewheel: false,
-     //반복 기능 true 사용가능 false 사용불가
-     loop: true,
-     //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
-     centeredSlides: true,
-     // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
-     // effect: 'fade',
-     
-     
-     //자동 스크를링
-     autoplay: {
-       //시간 1000 이 1초
-       delay: 5000,
-       disableOnInteraction: false,
-      },
-     
-     //페이징
-     pagination: {
-       //페이지 기능
-       el: '.swiper-pagination',
-       //클릭 가능여부
-       clickable: true,
-     },
-
-     //방향표
-     navigation: {
-       //다음페이지 설정
-       nextEl: '.swiper-button-next',
-       //이전페이지 설정
-       prevEl: '.swiper-button-prev',
-     },
-     
-   }); //swiper End
-      
-   
 </script>              
-</body>
- <jsp:include page="../includes/footer.jsp" flush="false"/>
+<jsp:include page="../includes/footer.jsp" flush="false"/>
 </html>
