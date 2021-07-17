@@ -19,6 +19,7 @@ public class WineVO {
     private String wineStyle;
     private String imageName;
     private Double avgRating;
+    private String wineneryLink;
     
 }
 

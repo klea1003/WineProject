@@ -23,11 +23,6 @@ public class WineMapperTests {
 	private WineMapper mapper;
 	
 	@Test
-	public void testGetList() {
-		mapper.getList().forEach(wine->log.info(wine));
-	}
-	
-	@Test
 	public void testInsert() {
 		WineVO wine = new WineVO();
 		wine.setTitle("wine1");
@@ -51,7 +46,7 @@ public class WineMapperTests {
 	@Test
 	public void testRead() {
 		
-		WineVO wine = mapper.read(8L);		
+		WineVO wine = mapper.read(100L);		
 		log.info(wine);
 	}
 	

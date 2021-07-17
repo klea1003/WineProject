@@ -7,8 +7,6 @@ import org.wine.domain.WineVO;
 
 public interface WineMapper {
 	
-	public List<WineVO> getList();
-	
 	public List<WineVO> getListWithPaging(CriteriaWine cri); 
 	
 	public void insert(WineVO wine);
