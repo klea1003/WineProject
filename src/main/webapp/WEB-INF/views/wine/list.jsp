@@ -381,14 +381,44 @@ input[type=radio]{
 <script src="/resources/wine_bootstrap/js/wine.js"></script>
 <script type="text/javascript">   
 
+
+	var user = '${user}';
+	
+	
 	function addWish(_input){
-		console.log("add wish button clicked" + _input)
-		location.href = "/wishList/insert?wno=" + _input;
+		
+		if(user == null || user ==''){
+			
+			$("#loginModal").modal("show");
+			
+			return
+		}
+		
+		if(user != null || user !=''){
+			
+			console.log("add wish button clicked" + _input)
+			
+			location.href = "/wishList/insert?wno=" + _input;
+		}
 	};
 	
 	function addCart(_input){
+		
+		if(user == null || user ==''){
+			
+			$("#loginModal").modal("show");
+			
+			return
+		}
+		
+		if(user != null || user !=''){
+			
 		console.log("add cart button clicked" + _input)
+		
 		location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
+		
+		}
+		
 	};
 
 	$(document).ready(function() {
