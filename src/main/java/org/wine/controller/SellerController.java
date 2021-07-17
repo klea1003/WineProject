@@ -48,6 +48,13 @@ public class SellerController {
 		
 	}
 	
+	@GetMapping("/specialOrder")
+	public void specialOrder(Model model) {
+		
+		log.info("특판문의 페이지");
+		
+	}
+	
 	@PostMapping("/modify")
 	public String modify(SellerVO seller, RedirectAttributes rttr) {
 		
