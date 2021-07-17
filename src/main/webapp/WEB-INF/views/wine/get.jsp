@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <style>
 @media ( min-width : 0) {
 	.g-mr-15 {
@@ -86,6 +88,48 @@
 	clip: auto;
 }
 </style>
+
+<script type="text/javascript">
+var user = '${user}';
+
+
+function addWish(_input){
+	
+	if(user == null || user ==''){
+		
+		$("#loginModal").modal("show");
+		
+		return
+	}
+	
+	if(user != null || user !=''){
+		
+		console.log("add wish button clicked" + _input)
+		
+		location.href = "/wishList/insert?wno=" + _input;
+	}
+};
+
+function addCart(_input){
+	
+	if(user == null || user ==''){
+		
+		$("#loginModal").modal("show");
+		
+		return
+	}
+	
+	if(user != null || user !=''){
+		
+	console.log("add cart button clicked" + _input)
+	
+	location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
+	
+	}
+	
+};
+
+</script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
 
@@ -162,13 +206,18 @@
 
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-							onclick="location.href='/wishList/insert?wno=${wine.wno}'">
+
+
+						onclick='addWish("${wine.wno}")'>
+
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-							onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+
+						onclick='addCart("${wine.wno}")'>
+
 							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
 					</div>

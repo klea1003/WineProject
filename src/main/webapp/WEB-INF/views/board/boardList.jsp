@@ -176,7 +176,9 @@
 							<button  class='btn btn-outline-danger btn-sm'>search</button>
 						</form>
 						 <c:if test="${pageMaker.cri.type != null}">
-						 <a href="/board/boardList">목록으로 돌아가기</a>
+						   <c:if test="${pageMaker.cri.type != ''}">
+						     <a href="/board/boardList">목록으로 돌아가기</a>
+						   </c:if>
 						 </c:if>
                    		<div align="right">
                    		<c:if test="${user.userNickName != null}">
@@ -213,7 +215,7 @@
        </ul>
     </div>
         
-    <form id="actionForm" action="/board/list" method="get">
+    <form id="actionForm" action="/board/boardList" method="get">
 	    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 	    <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 	    <input type="hidden" name="type" value="${pageMaker.cri.type }">
