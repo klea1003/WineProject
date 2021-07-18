@@ -87,34 +87,31 @@
 	overflow: visible;
 	clip: auto;
 }
-span.star-prototype, span.star-prototype > * {
-    height: 16px; 
-    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-    width: 80px;
-    display: inline-block;
-}
- 
-span.star-prototype > * {
-    background-position: 0 0;
-    max-width:80px; 
+
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	width: 80px;
+	display: inline-block;
 }
 
-.wineneryImg{
-	
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
+
+.wineneryImg {
 	background: url("/resources/images/winery_image.jpg");
 	height: 400px;
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    opacity: 0.8;
-    color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	opacity: 0.8;
+	color: #fff;
+	background-repeat: no-repeat;
+	background-position: center;
 }
-
-
 </style>
 
 <script type="text/javascript">
@@ -157,12 +154,66 @@ function addCart(_input){
 	
 };
 
-$.fn.generateStars = function() {
-    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
-};
-
-// 숫자 평점을 별로 변환하도록 호출하는 함수
-$('.star-prototype').generateStars();
+$(document).ready(function() {
+	function getListRating(param, callback, error) {
+		var wno = param.wno;
+		var page = param.page || 1;
+		
+		$.getJSON("/wine/pages/" + wno,
+			function(data) {
+					
+				
+			}).fail(function(xhr, status, err) {
+		if (error) {
+			error();
+			}
+		});
+	} 
+function showList(page) {
+		
+			
+	}// end showList
+	$("#modal_show_reviewList").click(function() {
+		$("#reviewModal").modal("show");
+	});
+        
+	$("#close_review").click(function() {
+		$("#reviewModal").modal("hide");
+	});
+	$('#reviewModal').scroll(function() {
+		
+		console.log("modalscroll");
+		if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
+			
+			console.log("modaltest");
+	
+			
+			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+			var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
+			
+			if(currentPageNum +1 <= totalPageNum){	
+				
+				actionForm.find("input[name='pageNum']").val(currentPageNum +1);
+				
+				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+				
+				showList(currentPageNum)
+			}
+		}
+	})
+$('#reviewModal').on('hidden.bs.modal', function (e) {
+		
+		actionForm.find("input[name='pageNum']").val(currentPageNum = 1);
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		
+		ratingUL.empty();
+		
+		showList(1);
+		
+	});
+	
+}
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -226,8 +277,8 @@ $('.star-prototype').generateStars();
 									<path
 										d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z"
 										fill="none" stroke="#1e1e1e" stroke-linecap="round"
-										stroke-linejoin="round"></path></svg>
-								<c:out value="${wine.wineType}" /> from
+										stroke-linejoin="round"></path></svg> <c:out
+									value="${wine.wineType}" /> from
 							</span>
 							<c:out value="${wine.region}" />
 							<br>
@@ -240,9 +291,7 @@ $('.star-prototype').generateStars();
 
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-
-
-						onclick='addWish("${wine.wno}")'>
+							onclick='addWish("${wine.wno}")'>
 
 
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
@@ -250,8 +299,7 @@ $('.star-prototype').generateStars();
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-
-						onclick='addCart("${wine.wno}")'>
+							onclick='addCart("${wine.wno}")'>
 
 							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
@@ -403,10 +451,10 @@ $('.star-prototype').generateStars();
 
 		</table>
 	</div>
-	<!-- end Facts about the wine -->	
+	<!-- end Facts about the wine -->
 	<a href='<c:out value="${wine.wineneryLink}" />'>
-		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1><br>
-	</a> 
+		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
+	</a>
 	<!-- Review -->
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
@@ -436,13 +484,17 @@ $('.star-prototype').generateStars();
 								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
 									<li class="list-inline-item g-mr-20">
 										<form id='operForm' action='/wine/clickLike' method='post'>
-											<input type='hidden' id='userNum' name='userNum' value='<c:out value="${user.userNum }" />'> 
-											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${reviewVO.reviewNum }"/>'>
-											<input type='hidden' id='wineNum' name='wineNum' value='<c:out value="${wine.wno}"/>'>
-												 <button class="like" type="submit">
-										    <i class="bi bi-hand-thumbs-up"></i> <c:out
-											value="${reviewVO.cntLike}" /> </button>
-											</form>
+											<input type='hidden' id='userNum' name='userNum'
+												value='<c:out value="${user.userNum }" />'> <input
+												type='hidden' id='reviewNum' name='reviewNum'
+												value='<c:out value="${reviewVO.reviewNum }"/>'> <input
+												type='hidden' id='wineNum' name='wineNum'
+												value='<c:out value="${wine.wno}"/>'>
+											<button class="like" type="submit">
+												<i class="bi bi-hand-thumbs-up"></i>
+												<c:out value="${reviewVO.cntLike}" />
+											</button>
+										</form>
 									</li>
 									<li class="list-inline-item g-mr-20">
 										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
@@ -462,7 +514,7 @@ $('.star-prototype').generateStars();
 				</div>
 			</div>
 		</div>
-		<a href="#" class="btn btn-outline-danger">Show more reviews</a>
+		<a id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</a>
 	</div>
 	<!-- end Review -->
 
@@ -475,8 +527,8 @@ $('.star-prototype').generateStars();
 						<div class="col-xs-12 col-md-6 text-center">
 							<h1 class="rating-num">${review_Avg}</h1>
 							<div class="rating">
-							<!-- <span class="star-prototype">4</span> -->
-								 <span><i class="bi bi-star-fill"></i></span> <span><i
+								<!-- <span class="star-prototype">4</span> -->
+								<span><i class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
@@ -493,8 +545,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating5}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating5}</div>
+											style="width: ${review_Rating.rating5}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating5}</div>
 									</div>
 								</div>
 								<!-- end 5 -->
@@ -504,8 +556,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating4}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating4}</div>
+											style="width: ${review_Rating.rating4}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating4}</div>
 									</div>
 								</div>
 								<!-- end 4 -->
@@ -515,8 +567,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating3}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating3}</div>
+											style="width: ${review_Rating.rating3}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating3}</div>
 									</div>
 								</div>
 								<!-- end 3 -->
@@ -526,8 +578,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating2}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating2}</div>
+											style="width: ${review_Rating.rating2}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating2}</div>
 									</div>
 								</div>
 								<!-- end 2 -->
@@ -537,8 +589,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating1}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating1}</div>
+											style="width: ${review_Rating.rating1}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating1}</div>
 									</div>
 								</div>
 								<!-- end 1 -->
@@ -551,7 +603,24 @@ $('.star-prototype').generateStars();
 		</div>
 	</div>
 	<!-- Rating Range End -->
-
+	<section class="py-5 bg-light" >
+		<div class="container px-5">
+			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h2>
+								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class=" modal-body followingreview">
+					
+							</div>			
+						</div>
+					</div>
+				</div>	
+			</div>
+		
+	</section>
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>

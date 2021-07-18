@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,8 @@ import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.ReviewVO;
+import org.wine.domain.SocialCriteriaReview;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
 import org.wine.service.ReviewService;
@@ -334,5 +337,18 @@ public class WineController {
 		 return "redirect:/wine/get?wno="+review.getWineNum(); 
 	}
 	
+	 @GetMapping(value="/pages/{wno}", 
+			  produces= {MediaType.APPLICATION_XML_VALUE, 
+					  MediaType.APPLICATION_JSON_VALUE})
+	   public ResponseEntity<List<ReviewVO>> getList(@PathVariable("wno")Long wno) {
+	      
+		 CriteriaReview cri = new CriteriaReview();
+			cri.setWineNum(wno.intValue());
+	      
+	      log.info("cri: "+cri);
+	      
+	      return new ResponseEntity<>(reviewSerivce.getList(cri), 
+	    		  HttpStatus.OK);
+	   }
 	
 }
