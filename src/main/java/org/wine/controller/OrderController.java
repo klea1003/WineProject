@@ -64,6 +64,7 @@ public class OrderController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", ret_list);
+		map.put("sellerList", sellerService.getList());
 		map.put("count", ret_list.size());
 		map.put("sumTotalPrice", totalPrice);
 		
@@ -98,7 +99,6 @@ public class OrderController {
 		order.setOrderNum(orderNum);
 		order.setOrderName(orderName);
 		order.setUserNum(userNum);
-		order.setSellerNum(1L);			// to do seller 값 수정해야 됨
 		
 		log.info(order);
 		service.insertOrder(order);

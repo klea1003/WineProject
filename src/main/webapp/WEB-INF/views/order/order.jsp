@@ -63,6 +63,13 @@
 				</tbody>
 			</table>
 			
+			<label for="sellers">Choose a 판매자:</label>
+			<select name="sellerNum">
+				<c:forEach var="row" items="${map.sellerList}" varStatus="status">
+					<option value='<c:out value="${row.sellerNum}" />'><c:out value="${row.sellerStoreName}" /></option>
+				</c:forEach>
+			</select>
+			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
