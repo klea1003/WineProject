@@ -164,13 +164,16 @@ p.card-text {
 											</div>
 										</div>
 									</div>																	
-									<div class="h6 fw-bolder">	Following &nbsp;&nbsp; 
-										<span id="modal_show_followingList"><c:out value='${followingcnt}'/> </span></div> 
-									<div class="h6 fw-bolder">Follower &nbsp;&nbsp;&nbsp;&nbsp; 
-										<span id="modal_show_followerList"><c:out value='${followercnt}' /></span></div>
-									<div class="h6 fw-bolder">My Ratings &nbsp;&nbsp;&nbsp;&nbsp; 
-										<span id="modal_show_MyRatings"><c:out value='${myRatingCnt}' /></span></div>
-									<br/> 
+									<div>	
+										<button  id="modal_show_followingList" type="button" class="fw-bolder btn btn-outline-dark rounded-pill" >
+											Following <span class="badge rounded-pill bg-light text-dark">
+											<c:out value='${followingcnt}'/> </span>
+										</button>									
+										<button  id="modal_show_followerList" type="button" class="fw-bolder btn btn-outline-dark rounded-pill" >
+											Follower <span class="badge rounded-pill bg-light text-dark">
+											<c:out value='${followercnt}' /></span>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -287,7 +290,7 @@ p.card-text {
 												      <p ><h6>생산지역 : <c:out value="${w.wineCountry}" /></h6></p>
 												      <p ><h6>와인타입 : <c:out value="${w.wineType}" /></h6></p>
 												</div>
-							                 	<div class="card-footer">
+							                 	<div class="card-footer text-center">
 							                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${w.wineNum}'">
 							                  		More Info</button>
 							                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${w.wineNum}&wineQty=1'">
@@ -333,7 +336,6 @@ p.card-text {
           	</c:if>
      	    <c:if test="${ empty wish}">
         		<h4 style="font-style: bold;">This user hasn't wish listed any wines yet</h4>
-        		
             </c:if>             
 		</div>
 	</section>
@@ -347,17 +349,25 @@ p.card-text {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#modal_show_followingList").click(function() {
-    	$("#followingModal").modal("show");
-	});
-     
+	var followingcnt = <c:out value='${followingcnt}'/>;
+	
+	var followercnt = <c:out value='${followercnt}' />;
+	
+	if(followingcnt != 0){
+		$("#modal_show_followingList").click(function() {
+	    	$("#followingModal").modal("show");
+		});
+	}
+	
     $("#close_following").click(function() {
         $("#followingModal").modal("hide");
 	});
 
-    $("#modal_show_followerList").click(function() {
-     	$("#followerModal").modal("show");
-	});
+    if(followercnt !=0){
+    	$("#modal_show_followerList").click(function() {
+     		$("#followerModal").modal("show");
+		});
+    }
 
 	$("#close_follower").click(function() {
 		$("#followerModal").modal("hide");
@@ -452,6 +462,7 @@ $(document).ready(function() {
 				return;
 			}
 			for (var i = 0, len = list.length || 0; i < len; i++) {
+				
 				str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
 				
 				str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
