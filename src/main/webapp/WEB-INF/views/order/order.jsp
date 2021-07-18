@@ -68,7 +68,7 @@
 			<c:forEach var="row" items="${map.sellerList}" varStatus="status">
 				<div>
 					<input type="radio" name="sellerNum" value='<c:out value="${row.sellerNum}" />' <c:if test="${status.index eq 0}">required</c:if>>
-					<label for=<c:out value="${row.sellerStoreName}" />> (<c:out value="${row.sellerBusinessHour}" />)</label>
+					<c:out value="${row.sellerStoreName}" /> (<c:out value="${row.sellerBusinessHour}" />)
 				</div>
 			</c:forEach>
 			<br>

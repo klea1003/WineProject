@@ -19,7 +19,6 @@ import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.ReviewVO;
-import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
 import org.wine.service.ReviewService;
