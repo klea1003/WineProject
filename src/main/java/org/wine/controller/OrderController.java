@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.wine.domain.CartDisplayVO;
+import org.wine.domain.OrderItemVO;
 import org.wine.domain.OrderVO;
 import org.wine.domain.UserVO;
 import org.wine.service.CartService;
@@ -76,8 +77,11 @@ public class OrderController {
 	
 	@RequestMapping(value = "/complete", method = RequestMethod.GET)
 	public String complete(HttpSession session, OrderVO order, 
-			Long[] cartNumArr
+			@RequestParam(value="cartNumArr") ArrayList<Long> cartNumArr
 	) throws Exception {
+		log.info("order complete");
+		log.info("cartNumArr: " + cartNumArr);
+		log.info("cartNumArr: " + cartNumArr.get(0));
 		
 		UserVO user = (UserVO)session.getAttribute("user"); 
 		Long userNum = user.getUserNum();
@@ -103,8 +107,28 @@ public class OrderController {
 		log.info(order);
 		service.insertOrder(order);
 		
-		return "redirect:/order/list";  
+		Long cartNum;
+		for(CartDisplayVO cart: cartService.getList(userNum)) {
+			
+			cartNum = cart.getCartNum();
+			
+			if (cartNumArr.contains(cartNum) == true) {
+				OrderItemVO orderItem = new OrderItemVO();
+				
+				orderItem.setOrderNum(orderNum);
+				orderItem.setWineNum(cart.getWineNum());
+				orderItem.setWineQty(cart.getWineQty());
+				
+				log.info("orderItem: " + orderItem);
+				
+				service.insertOrderItem(orderItem);
+				
+				cartService.deleteCart(cartNum);
+			}
 
+		}		
+		
+		return "redirect:/order/list";
 	}
 	
 	@RequestMapping(value= "/list", method= RequestMethod.GET)	
