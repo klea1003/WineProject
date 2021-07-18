@@ -25,5 +25,5 @@ public interface ReviewMapper {
 	 public int delete(Long reviewNum);
 	 public int update(ReviewVO review);
 	 
-	 public int getTotalCount(CriteriaReview cri);
+	 public int getTotalCountAll(Long wineNum);
 }

@@ -67,15 +67,10 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Override
 	public double getAvgRating(Long wineNum) {
-		return mapper.getAvgRating(wineNum);
-	}
-	
-	@Override
-	public int getTotal(CriteriaReview cri) {
-		
-		log.info("getTotal with Criteria: " + cri);
-		
-		return mapper.getTotalCount(cri);
-		
+		if (mapper.getTotalCountAll(wineNum) > 0) {
+			return mapper.getAvgRating(wineNum);
+		} else {
+			return 0.0;
+		}		
 	}
 }

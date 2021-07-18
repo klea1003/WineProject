@@ -20,6 +20,6 @@ public interface ReviewService {
 	
 	public void clickLike(ReviewVO review);
 	
-	public int getTotal(CriteriaReview cri);	
+	//public int getTotal(CriteriaReview cri); todo. criteria 가 이상해서 확인 후 올릴 것
 
 }

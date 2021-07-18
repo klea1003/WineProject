@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.WinePropertyDTO;
 import org.wine.domain.WinePropertyVO;
+import org.wine.domain.WineTasteVO;
 import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 import org.wine.mapper.WinePropertyMapper;
+import org.wine.mapper.WineTasteMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -22,6 +24,7 @@ public class WineServiceImpl implements WineService {
 
 	private WineMapper mapper;
 	private WinePropertyMapper propertyMapper;
+	private WineTasteMapper tasteMapper;
 
 	@Override
 	public void register(WineVO wine) {
@@ -55,6 +58,7 @@ public class WineServiceImpl implements WineService {
 		
 	}
 	
+	@Override
 	public ArrayList<WinePropertyDTO> getWinPropertyDTO(String propertyArea, ArrayList<Integer> ids){
 		
 		ArrayList<String> listArea = new ArrayList<>(Arrays.asList(
@@ -82,6 +86,10 @@ public class WineServiceImpl implements WineService {
 		
 		return results;
 	}
-		
+	
+	@Override
+	public List<WineTasteVO> getTasteList(Long wno){
+		return tasteMapper.getList(wno);
+	}		
 
 }
