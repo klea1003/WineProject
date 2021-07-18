@@ -112,6 +112,58 @@ span.star-prototype>* {
 	background-repeat: no-repeat;
 	background-position: center;
 }
+
+.progress_bar .pro-bar {
+    background: hsl(0, 0%, 97%);
+    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.1) inset;
+    height:4px;
+    margin-bottom: 12px;
+    margin-top: 50px;
+    position: relative;
+}
+.progress_bar .progress_bar_title{
+    color: hsl(218, 4%, 50%);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+    top: -28px;
+    z-index: 1;
+}
+.progress_bar .progress_number{
+    float: right;
+    margin-top: -24px;
+}
+.progress_bar .progress-bar-inner {
+    background-color: hsl(0, 0%, 88%);
+    display: block;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 1s linear 0s;
+}
+.progress_bar .progress-bar-inner:before {
+    content: "";
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    right: 1px;
+    top: 0;
+    z-index: 1;
+}
+.progress_bar .progress-bar-inner:after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background-color: inherit;
+    border-radius: 50%;
+    position: absolute;
+    right: -4px;
+    top: -5px;
+}
 </style>
 
 <script type="text/javascript">
@@ -251,12 +303,22 @@ function addCart(_input){
 	</section>
 	
 	<!-- Taste about the wine -->
+	
 	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+		<h3>Tastes about the wine</h3>
 		<table>
 			<c:forEach items="${taste_list}" var="taste">
 				<tr>
 					<td><c:out value="${taste.leftColumn}" /></td>
-					<td><c:out value="${taste.ratio}" /></td>
+					<td width="100%">
+						<div class="progress_bar">
+							<div class="pro-bar">
+								<!-- <span class="progress_number"><c:out value="${taste.ratio}" />%</span> -->
+								<span class="progress-bar-inner" style='background-color: #1abc9c; width: <c:out value="${taste.ratio}" />%;' 
+									data-value='<c:out value="${taste.ratio}" />' data-percentage-value='<c:out value="${taste.ratio}" />'></span>
+							</div>
+						</div>
+					</td>
 					<td><c:out value="${taste.rightColumn}" /></td>
 				</tr>
 			</c:forEach>
