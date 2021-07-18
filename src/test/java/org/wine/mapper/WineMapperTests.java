@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wine.domain.CriteriaWine;
-import org.wine.domain.WineRatingVO;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -22,11 +21,6 @@ public class WineMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private WineMapper mapper;
-	
-	@Test
-	public void testGetList() {
-		mapper.getList().forEach(wine->log.info(wine));
-	}
 	
 	@Test
 	public void testInsert() {
@@ -52,7 +46,7 @@ public class WineMapperTests {
 	@Test
 	public void testRead() {
 		
-		WineVO wine = mapper.read(8L);		
+		WineVO wine = mapper.read(100L);		
 		log.info(wine);
 	}
 	
@@ -67,7 +61,7 @@ public class WineMapperTests {
 	}
 	
 	@Test
-	public void testGetTotalCount() {
+	public void testGetTotalCount1() {
 		
 		CriteriaWine cri = new CriteriaWine();		
 		int count = mapper.getTotalCount(cri);		
@@ -75,7 +69,7 @@ public class WineMapperTests {
 	}
 	
 	@Test
-	public void testGetTotalCountWithPaging() {
+	public void testGetTotalCount2() {
 		
 		CriteriaWine cri = new CriteriaWine(); 
 		
@@ -85,7 +79,7 @@ public class WineMapperTests {
 		
 		cri.setWineGrapeArr(wineGrapeArr);
 		
-		int count = mapper.getTotalCountWithPaging(cri);		
+		int count = mapper.getTotalCount(cri);		
 		log.info(count);
 	}
 	
@@ -168,7 +162,7 @@ public class WineMapperTests {
 		CriteriaWine cri = new CriteriaWine(); 
 		
 		ArrayList<String> wineRegionArr = new ArrayList<>(); 
-		wineRegionArr.add("Sapin");
+		wineRegionArr.add("Spain");
 		
 		cri.setWineRegionArr(wineRegionArr);
 		
@@ -211,7 +205,7 @@ public class WineMapperTests {
 		
 		cri.setWineRating(3);
 		
-		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		List<WineVO> list = mapper.getListWithPaging(cri);
 		log.info(cri);
 		log.info(list.size());
 		log.info(list);
@@ -237,7 +231,7 @@ public class WineMapperTests {
 		
 		cri.setWineTypeArr(wineTypeArr);
 		
-		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		List<WineVO> list = mapper.getListWithPaging(cri);
 		log.info("list size" +  list.size());
 		log.info(list);
 	}
@@ -245,7 +239,7 @@ public class WineMapperTests {
 	@Test
 	public void testGetwineRead() {
 		
-		WineRatingVO wine = mapper.readWithRating(8L);		
+		WineVO wine = mapper.read(8L);
 		log.info(wine);				
 	}
 	@Test
@@ -253,7 +247,7 @@ public class WineMapperTests {
 		CriteriaWine cri = new CriteriaWine();
 		cri.setWinePriceRange(80000, 100000);
 		
-		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		List<WineVO> list = mapper.getListWithPaging(cri);
 		log.info("list size" +  list.size());
 		log.info(list);
 		
@@ -267,7 +261,7 @@ public class WineMapperTests {
 		
 		cri.setWineGrapeArr(wineGrapeArr);
 		
-		List<WineRatingVO> list = mapper.getRatingListWithPaging(cri);
+		List<WineVO> list = mapper.getListWithPaging(cri);
 		log.info("list size" +  list.size());
 		log.info(list);
 		

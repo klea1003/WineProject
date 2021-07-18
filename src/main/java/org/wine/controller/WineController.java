@@ -194,7 +194,7 @@ public class WineController {
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineRatingVO>> getWineList(
+	public ResponseEntity<List<WineVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value="wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value="wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
@@ -237,7 +237,7 @@ public class WineController {
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		cri.setKeyword(wineKeyword);
 		
-		ResponseEntity<List<WineRatingVO>> result = null;
+		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
 		
 		return result;
