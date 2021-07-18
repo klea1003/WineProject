@@ -15,4 +15,5 @@ public class SocialReviewVO {
 	private String wineTitle;
 	private String reviewRating;
 	private String userNickName;
+	private  int ratingCnt;
 }
