@@ -154,66 +154,7 @@ function addCart(_input){
 	
 };
 
-$(document).ready(function() {
-	function getListRating(param, callback, error) {
-		var wno = param.wno;
-		var page = param.page || 1;
-		
-		$.getJSON("/wine/pages/" + wno,
-			function(data) {
-					
-				
-			}).fail(function(xhr, status, err) {
-		if (error) {
-			error();
-			}
-		});
-	} 
-function showList(page) {
-		
-			
-	}// end showList
-	$("#modal_show_reviewList").click(function() {
-		$("#reviewModal").modal("show");
-	});
-        
-	$("#close_review").click(function() {
-		$("#reviewModal").modal("hide");
-	});
-	$('#reviewModal').scroll(function() {
-		
-		console.log("modalscroll");
-		if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
-			
-			console.log("modaltest");
 	
-			
-			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
-			var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
-			
-			if(currentPageNum +1 <= totalPageNum){	
-				
-				actionForm.find("input[name='pageNum']").val(currentPageNum +1);
-				
-				var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
-				
-				showList(currentPageNum)
-			}
-		}
-	})
-$('#reviewModal').on('hidden.bs.modal', function (e) {
-		
-		actionForm.find("input[name='pageNum']").val(currentPageNum = 1);
-		
-		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
-		
-		ratingUL.empty();
-		
-		showList(1);
-		
-	});
-	
-}
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -602,14 +543,14 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 			</div>
 		</div>
 	</div>
-	<!-- Rating Range End -->
-	<section class="py-5 bg-light" >
+	<!-- review modal -->
+	<!-- <section class="py-5 bg-light" >
 		<div class="container px-5">
 			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h2>
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">review</h2>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class=" modal-body followingreview">
@@ -620,7 +561,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 				</div>	
 			</div>
 		
-	</section>
+	</section> -->
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>
