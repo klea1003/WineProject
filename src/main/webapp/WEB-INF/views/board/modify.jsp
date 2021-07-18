@@ -385,9 +385,7 @@
 						<button type="submit" data-oper='remove'
 							class="btn btn-outline-danger">Remove</button>
 
-							<button class='btn btn-outline-dark' data-oper='list'>Q&A</button>
-					      <button class='btn btn-outline-danger' data-oper='boardList'>BOARD</button>
-
+						<button type="reset" class="btn btn-outline-dark">back</button>
 						<input type='hidden' name='pageNum'
 							value='<c:out value="${cri.pageNum}"/>'> <input
 							type='hidden' name='amount'
