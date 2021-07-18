@@ -67,8 +67,8 @@
 
 			<c:forEach var="row" items="${map.sellerList}" varStatus="status">
 				<div>
-					<input type="radio" name="sellerNum" value='<c:out value="${row.sellerNum}" />' >
-					<label for=<c:out value="${row.sellerStoreName}" />><c:out value="${row.sellerStoreName}" /> (<c:out value="${row.sellerBusinessHour}" />)</label>
+					<input type="radio" name="sellerNum" value='<c:out value="${row.sellerNum}" />' <c:if test="${status.index eq 0}">required</c:if>>
+					<label for=<c:out value="${row.sellerStoreName}" />> (<c:out value="${row.sellerBusinessHour}" />)</label>
 				</div>
 			</c:forEach>
 			<br>
@@ -95,6 +95,22 @@
   				<input type="text" class="form-control" aria-label="Sizing example input" 
   				aria-describedby="inputGroup-sizing-default" id="datepicker" name="pickUpDate" placeholder="날짜를 선택하세요">
 			</div>
+			
+			<div class="inputArea input-group mb-3" style="width: 500px; height: 300px;">
+  				<label class="input-group-text" id="inputGroup-sizing-default" for="orderCommnet">구매자 요구 사항</label>
+  				<input type="text" class="form-control" aria-label="Sizing example input" 
+  				aria-describedby="inputGroup-sizing-default" name="orderComment" id="orderComment">
+			</div>
+			
+
+			<div>
+				<input type="radio" name=paymentNum value='1' required>
+				<label for='신용카드'>신용카드</label>
+				
+				<input type="radio" name=paymentNum value='2' >
+				<label for='현금'>현금</label>
+			</div>
+
 				<h6>※ 당일 픽업은 불가하며, 픽업일자는 주문일자로부터 7일 이내에서 선택 가능합니다.</h6>
 					<hr>
 					<div>
