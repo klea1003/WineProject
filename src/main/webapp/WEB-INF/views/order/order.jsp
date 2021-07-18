@@ -63,12 +63,17 @@
 				</tbody>
 			</table>
 			
-			<label for="sellers">Choose a 판매자:</label>
-			<select name="sellerNum">
-				<c:forEach var="row" items="${map.sellerList}" varStatus="status">
-					<option value='<c:out value="${row.sellerNum}" />'><c:out value="${row.sellerStoreName}" /></option>
-				</c:forEach>
-			</select>
+			<label for="sellers">(필수)구매예약 매장을 선택하세요</label>
+
+			<c:forEach var="row" items="${map.sellerList}" varStatus="status">
+				<div>
+					<input type="radio" name="sellerNum" value='<c:out value="${row.sellerNum}" />' >
+					<label for=<c:out value="${row.sellerStoreName}" />><c:out value="${row.sellerStoreName}" /> (<c:out value="${row.sellerBusinessHour}" />)</label>
+				</div>
+			</c:forEach>
+			<br>
+			
+			와인 나라 구매 예약 상품은 주류통신 판매 행정고시에 따라 1) 택배*퀵 발송 2) 주문 완료 후 '수령지 정보' 변경이 불가합니다. <br><br>
 			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
