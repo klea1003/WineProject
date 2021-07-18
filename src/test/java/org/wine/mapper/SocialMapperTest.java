@@ -74,6 +74,6 @@ public class SocialMapperTest {
 	@Test 
 	public void testMyReviewList() {
 		
-	mapper.myReviewList(1L);
+	mapper.followingReviewList(1L);
 	}
 }

@@ -11,18 +11,10 @@
 
 
 <style type="text/css">
-.login_success_area {
+
+.rating {
 	
-}
-
-.login_success_area>span {
-	display: block;
-	text-align: left;
-}
-
-.login_success>div {
-	display: block;
-	text-align: left;
+	color: #ffcc00;
 }
 .list-card {
 	height:600px;
@@ -81,7 +73,7 @@ p.card-text {
 	border-radius: 80px;
     background: #a11122;
     color: #fff;
-    width: 11rem;
+    width: 7rem;
     height: 3rem;
     border: 1px solid #fff;
     
@@ -101,7 +93,7 @@ p.card-text {
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
-				<span><c:out value='${userpage.userNickName }' />님의 Wine</span>
+				<span style="font: italic bold 1em/0.5em Georgia, serif ;"><c:out value='${userpage.userNickName }' />님의 Wine</span>
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
@@ -233,11 +225,8 @@ p.card-text {
 					<c:if test="${!empty socialreviewlist}">
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
-								<div class="small text-muted">
-									<div>
-										<h5><c:out value="${socialreview.userNickName }"/></h5>
-									</div>
-									<c:out value="${socialreview.reviewDate }"/>
+								<div >
+									<h5><span style="font: italic bold 1em/0.5em Georgia, serif ;"><c:out value="${socialreview.wineTitle }"/></span></h5>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
@@ -261,10 +250,10 @@ p.card-text {
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h5>
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h2>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body followingreview">
+							<div class=" modal-body followingreview">
 					
 							</div>			
 						</div>
@@ -463,24 +452,37 @@ $(document).ready(function() {
 				return;
 			}
 			for (var i = 0, len = list.length || 0; i < len; i++) {
-				str += "<div class='small text-muted' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> ";
-				str += "<div ><a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
-				str +="<h5>"+list[i].userNickName+"</h5></a>";
-				str +="</div>";
-				str +=""+list[i].reviewDate+"";
-				str +="</div>";
+				str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
+				
+				str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
+				str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
+				str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+list[i].wineTitle+"</span></a>"; //타이틀 a태그 영역 끝
+				str +="</div>"; //타이틀 영역 끝
 				 
-				str += "<div>";
-				str += "<div style='height: 350px; width:23%; margin-left:2%; float:left'>";
+				str += "<div>"; //우측에 대한 영역
+				
+				str += "<div style='height: 350px; width:23%; margin-left:2%; float:left;'>"; //이미지 영역
 				str += "<a href='/wine/get?wno="+list[i].wineNum+"'>";
 				str +=" <img src='http://klea-home.iptime.org:8081/" +list[i].wineImageName+ "'  height='350' width='150'>";
 	           	str += "</a>";
-				str += "</div>";
-				str += "<div class='card bg-light p-2' style='height: 350px; width:73%; margin-right:2%; float:left'> ";
-	           	str += "<h5>"+list[i].reviewContent+"</h5> ";
-	           	str += "</div>";
-	            str += "</div>";
-	            str += "</div>";
+				str += "</div>";  //이미지 영역 끝
+				
+				str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
+				str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].reviewRating+"</span>";
+				str +=" <a class='text-decoration-none text-dark' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+				str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
+				str += "<span class='fw-bold'>("+list[i].ratingCnt+" ratings)</span>";
+				str +=" <div style='text-align:right;'> "+list[i].reviewDate+"</div>";
+				str +="</div>";  //닉네임, 리뷰데이트 우측 정렬 영역 끝
+				
+				str += "<div class='card bg-light p-2 mt-2' style='height: 290px; width:73%; margin-right:2%; float:left'> "; //리뷰 컨텐츠 영역
+	          	str += "<h5>"+list[i].reviewContent+"</h5> "; 
+	           	str += "</div>"; //리뷰 컨텐츠 영역 끝
+	           	
+	           
+	            str += "</div>"; //우측에 대한 영역 끝
+	            
+	            str += "</div>"; //카드 영역 끝
 			}
 			ratingUL.append(str);
 		});
