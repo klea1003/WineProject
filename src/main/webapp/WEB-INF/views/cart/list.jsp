@@ -115,7 +115,7 @@ $(document).ready(function() {
 	
 	<c:choose>
 		<c:when test="${map.count == 0 }">
-        	장바구니에 담긴 상품이 없습니다.
+        	<span class="text-center mt-5"><h3>장바구니에 담긴 상품이 없습니다.</h3></span>
 		</c:when>
 	
 		<c:otherwise>		
@@ -161,11 +161,11 @@ $(document).ready(function() {
 				
 			<input type="hidden" name="count" value="${map.count}"></td>
 			
-			<button type="button" class="btn btn-outline-dark" onclick="location.href='/wine/list'">쇼핑 계속하기</button>
+			<button type="button" class="btn btn-outline-dark mt-3 mb-5" onclick="location.href='/wine/list'">쇼핑 계속하기</button>
 			
 			
 			
-			<div style="float: right;"> 
+			<div class="mt-3 mb-5" style="float: right;"> 
 				<button type="button" class="btn btn-outline-danger" onclick="deleteItems();">삭제하기</button>
 				<button type="button" class="btn btn-outline-danger" onclick="orderItems();">주문하기</button>
 			</div>
