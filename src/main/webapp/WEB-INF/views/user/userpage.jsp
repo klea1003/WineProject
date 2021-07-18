@@ -73,7 +73,7 @@ p.card-text {
 	border-radius: 80px;
     background: #a11122;
     color: #fff;
-    width: 11rem;
+    width: 7rem;
     height: 3rem;
     border: 1px solid #fff;
     
@@ -93,7 +93,7 @@ p.card-text {
 	<section class="py-5">
 		<div class="container px-5">
 			<h1 class="fw-bolder fs-5 mb-4">
-				<span><c:out value='${userpage.userNickName }' />님의 Wine</span>
+				<span style="font: italic bold 1em/0.5em Georgia, serif ;"><c:out value='${userpage.userNickName }' />님의 Wine</span>
 				<c:if test="${ user != null}">
 					<c:if test="${ followck != null}">
 						<div class="btn-group">
@@ -226,7 +226,7 @@ p.card-text {
 						<c:forEach items="${socialreviewlist}" var="socialreview" begin="0" end="2" step="1" varStatus="status">
 							<div class="mb-2" style="width: 800px; height:130px; ">
 								<div >
-									<h5><c:out value="${socialreview.wineTitle }"/></h5>
+									<h5><span style="font: italic bold 1em/0.5em Georgia, serif ;"><c:out value="${socialreview.wineTitle }"/></span></h5>
 								</div>
 								
 								<div style="float:left; margin-left: 20px;">
@@ -250,7 +250,7 @@ p.card-text {
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h5>
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">Ratings</h2>
 								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class=" modal-body followingreview">
@@ -455,7 +455,7 @@ $(document).ready(function() {
 				str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
 				
 				str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
-				str += "<a href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
+				str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
 				str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+list[i].wineTitle+"</span></a>"; //타이틀 a태그 영역 끝
 				str +="</div>"; //타이틀 영역 끝
 				 
@@ -469,7 +469,7 @@ $(document).ready(function() {
 				
 				str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
 				str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].reviewRating+"</span>";
-				str +=" <a class='text-decoration-none' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+				str +=" <a class='text-decoration-none text-dark' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
 				str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
 				str += "<span class='fw-bold'>("+list[i].ratingCnt+" ratings)</span>";
 				str +=" <div style='text-align:right;'> "+list[i].reviewDate+"</div>";
