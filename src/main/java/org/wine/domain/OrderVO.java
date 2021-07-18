@@ -16,4 +16,8 @@ public class OrderVO {
 	private Long sellerNum;
 	private String storeName;
 	
+	private String orderComment;
+	private Long paymentNum;
+	private String paymentTitle;
+	
 }

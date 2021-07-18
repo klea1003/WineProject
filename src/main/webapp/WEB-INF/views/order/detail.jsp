@@ -38,6 +38,14 @@
 					<span>총 주문금액 : </span>
 					<fmt:formatNumber pattern="###,###,###"	value="${map.order.totalPrice}" /> 원
 				</p>
+				
+				<p>
+					<span>결제수단  : ${map.order.paymentTitle}</span>
+				</p>
+				
+				<p>
+					<span>고객 요청 사항  : ${map.order.orderComment}</span>
+				</p>
 
 			</div>
 		</div>
