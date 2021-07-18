@@ -216,24 +216,6 @@ $("#email_check_button").click(function() {
 
 });// function 종료
 
-$("#email_check_input").blur(function() {
-
-	var inputCode = $("#email_check_input").val();
-
-	var checkResult = $("#email_check_input_box_warn");
-
-	if (inputCode == code) {
-		checkResult.html("인증번호가 일치합니다.");
-		checkResult.attr("id", "correct");
-		emailnumCheck = true;
-	} else {
-		checkResult.html("인증번호를 다시 확인해주세요.");
-		checkResult.attr("id", "incorrect");
-		emailnumCheck = false;
-	}
-
-}); // function 종료
-
 $('#passwordck_input').on("propertychange change keyup paste input",
 	function() {
 
