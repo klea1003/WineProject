@@ -63,6 +63,18 @@
 				</tbody>
 			</table>
 			
+			<label for="sellers">(필수)구매예약 매장을 선택하세요</label>
+
+			<c:forEach var="row" items="${map.sellerList}" varStatus="status">
+				<div>
+					<input type="radio" name="sellerNum" value='<c:out value="${row.sellerNum}" />' >
+					<label for=<c:out value="${row.sellerStoreName}" />><c:out value="${row.sellerStoreName}" /> (<c:out value="${row.sellerBusinessHour}" />)</label>
+				</div>
+			</c:forEach>
+			<br>
+			
+			와인 나라 구매 예약 상품은 주류통신 판매 행정고시에 따라 1) 택배*퀵 발송 2) 주문 완료 후 '수령지 정보' 변경이 불가합니다. <br><br>
+			
 			<div class="inputArea input-group mb-3" style="width: 300px;">
   				<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpName">수령인</label>
   				<input type="text" class="form-control" aria-label="Sizing example input" 
@@ -95,6 +107,15 @@
 								<li>수령하시는 매장의 정보를 확인해 주세요.(잘못 선택하셨을 경우 주문 취소 후 재주문 바랍니다.)</li>
 								<li>수령이 불가할 경우 지정한 픽업 날짜 1일 전까지 취소가 가능합니다.</li>
 								<li>환불 및 교환은 수령 매장에서 가능하므로 매장으로 문의주시기 바랍니다.</li>
+								<hr>
+								<li>*주류 상품의 수령일 안내</li>
+								<li>① 14시까지의 결제완료 건은 익일 17시부터 수령 가능합니다.</li>
+								<li>② 14시이후의 결제완료 건은 익익일 17시부터 수령 가능합니다.</li>
+								<li>③ 금요일 14시까지의 결제완료 건은 토/일/월 수령 가능합니다. (일요일 코엑스점만 가능)</li>
+								<li>④ 금요일 14시이후~월요일 14시까지의 결제완료 건은 화요일 17시부터 수령 가능합니다.</li>
+								<li>⑤ 수령일이 휴점일,공휴일,국경일인 경우 익일 수령 가능합니다.</li>
+								
+								<li>* 액세서리 상품의 배송은 결제완료일로부터 평균 3~6일 정도 소요됩니다. (토요일, 공휴일,국경일 제외)</li>
 							</ul>
 						</div> 
 					</div>  

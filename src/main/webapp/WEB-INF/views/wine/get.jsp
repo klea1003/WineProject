@@ -98,6 +98,23 @@ span.star-prototype > * {
     background-position: 0 0;
     max-width:80px; 
 }
+
+.wineneryImg{
+	
+	background: url("/resources/images/winery_image.jpg");
+	height: 400px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0.8;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -388,6 +405,10 @@ $('.star-prototype').generateStars();
 	</div>
 	<!-- end Facts about the wine -->
 
+	<!-- end Facts about the wine -->	
+	<a href='<c:out value="${wine.wineneryLink}" />'>
+		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1><br>
+	</a>	
 	<!-- Review -->
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
