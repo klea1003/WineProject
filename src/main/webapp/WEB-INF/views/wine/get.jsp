@@ -403,12 +403,10 @@ $('.star-prototype').generateStars();
 
 		</table>
 	</div>
-	<!-- end Facts about the wine -->
-	
+	<!-- end Facts about the wine -->	
 	<a href='<c:out value="${wine.wineneryLink}" />'>
 		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1><br>
-	</a>
-	
+	</a> 
 	<!-- Review -->
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
