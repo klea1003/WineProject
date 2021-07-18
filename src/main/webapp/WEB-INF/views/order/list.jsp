@@ -28,6 +28,7 @@
 		<p><span>수령인 : </span>${order.pickUpName}</p>
 		<p><span>수령매장 : </span>${order.storeName}</p>
 		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${order.totalPrice}" /> 원</p>
+		<p><span>결제 수단 : </span>${order.paymentTitle}</p>
 		<hr>
 	  </div>
 	  </li>

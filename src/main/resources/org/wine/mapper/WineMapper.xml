@@ -15,31 +15,10 @@
 		<result property="price" column="WINE_PRICE" />
 		<result property="alcohol" column="WINE_ALCOHOL" />
 		<result property="wineStyle" column="WINESTYLE" />
-		<result property="imageName" column="WINE_IMAGENAME" /> 		
-	</resultMap>
-	
-	<resultMap type="org.wine.domain.WineRatingVO" id="WineRatingInfo">
-		<result property="wno" column="WINE_NUM" />
-		<result property="title" column="WINE_TITLE" />
-		<result property="winenery" column="WINENERY" />
-		<result property="grapes" column="WINE_GRAPES" />
-		<result property="regions" column="WINE_REGIONS" />
-		<result property="allergens" column="WINE_ALLERGENS" />
-		<result property="wineType" column="WINETYPE" />
-		<result property="region" column="WINE_REGION" />
-		<result property="country" column="WINE_COUNTRY" />
-		<result property="price" column="WINE_PRICE" />
-		<result property="alcohol" column="WINE_ALCOHOL" />
-		<result property="wineStyle" column="WINESTYLE" />
 		<result property="imageName" column="WINE_IMAGENAME" />
-		<result property="avgRating" column="AVG_RATING" />  		
+		<result property="avgRating" column="AVG_RATING" />
+		<result property="wineneryLink" column="WINENERY_LINK" />  		
 	</resultMap>
-
-	<select id="getList" resultMap="WineInfo">
-	  <![CDATA[
-	  	select * from TBL_WINE_TEST where WINE_NUM > 0
-	  ]]>
-	</select>
 
 	<insert id="insert">
 		<selectKey keyProperty="wno" order="BEFORE" resultType="long">
@@ -55,26 +34,18 @@
 	<delete id="delete">
 		delete from tbl_wine_test where WINE_NUM=#{wno}
 	</delete>
-
-	<update id="update">
-		update tbl_wine_test set title=#{title}, content=#{content}, writer=#{writer},
-		updateDate = sysdate
-		where WINE_NUM=#{wno}
-	</update>
-
-	<select id="read" resultMap="WineInfo">
-		select * from tbl_wine_test where WINE_NUM = #{wno}
-	</select>
 	
-	<select id="readWithRating" resultMap="WineRatingInfo">
+	<select id="read" resultMap="WineInfo">
 	
 		SELECT WINE.WINE_NUM WINE_NUM, WINE_TITLE,
 		WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-		WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
+		WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY.WINENERY_LINK
 		FROM TBL_WINE_TEST WINE
-		LEFT
-		JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
-		ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE WINE.WINE_NUM = #{wno}
+		LEFT JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+		ON WINE.WINE_NUM = REVIEW.WINE_NUM 
+		LEFT JOIN (SELECT * FROM TBL_WINE_WINENERY) WINENERY
+		ON WINE.WINE_NUM = WINENERY.WINE_NUM 
+		WHERE WINE.WINE_NUM = #{wno}
 				
 	</select>
 	
@@ -84,43 +55,18 @@
 			<![CDATA[
 			SELECT WINE_NUM,WINE_TITLE,
 			WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-			WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
+			WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY_LINK
 			FROM ( 
-				SELECT /*+INDEX_DESC(TBL_WINE_TEST PK_WINE)*/ ROWNUM RN, WINE.WINE_NUM WINE_NUM, WINE_TITLE,
-				WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-				WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
-				FROM TBL_WINE_TEST WINE
-				LEFT
-				JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
-				ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE ]]>
-				
-				<include refid="criteriaWineType"></include>
-				<include refid="criteriaWineGrape"></include>
-				<include refid="criteriaWineRegion"></include>
-				<include refid="criteriaWineCountry"></include>
-				<include refid="criteriaWineStyle"></include>
-				<include refid="criteriaWinePrice"></include>
-				<include refid="criteriaKeyword"></include>				
-				
-				<![CDATA[rownum <= #{pageNum}*#{amount})
-			where rn>(#{pageNum}-1)*#{amount}]]>
-		
-	</select>
-	
-	<select id="getRatingListWithPaging" resultMap="WineRatingInfo">
-	
-			<![CDATA[
-			SELECT WINE_NUM,WINE_TITLE,
-			WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-			WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
-			FROM ( 
-				SELECT /*+INDEX_DESC(TBL_WINE_TEST PK_WINE)*/ ROWNUM RN, WINE.WINE_NUM WINE_NUM, WINE_TITLE,
-				WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-				WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING
-				FROM TBL_WINE_TEST WINE
-				LEFT
-				JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
-				ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE ]]>
+			    SELECT /*+INDEX_DESC(TBL_WINE_TEST PK_WINE)*/ ROWNUM RN, WINE.WINE_NUM WINE_NUM, WINE_TITLE,
+			    WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
+			    WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY.WINENERY_LINK WINENERY_LINK
+			    FROM TBL_WINE_TEST WINE
+			    LEFT
+			    JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+			    ON WINE.WINE_NUM = REVIEW.WINE_NUM 
+			    LEFT JOIN (SELECT * FROM TBL_WINE_WINENERY) WINENERY
+			    ON WINE.WINE_NUM = WINENERY.WINE_NUM 				
+			    WHERE ]]>
 				
 				<include refid="criteriaWineType"></include>
 				<include refid="criteriaWineGrape"></include>
@@ -129,20 +75,14 @@
 				<include refid="criteriaWineStyle"></include>
 				<include refid="criteriaWinePrice"></include>
 				<include refid="criteriaKeyword"></include>
-				<include refid="criteriaWineRating"></include>			
+				<include refid="criteriaWineRating"></include>				
 				
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
 		
 	</select>
 	
-	<select id ="getTotalCount" resultType="int"> 
-		<![CDATA[
-		select count(*) from tbl_wine_test where wine_num > 0
-		]]>
-	</select>
-	
-	<select id="getTotalCountWithPaging" resultType="int">
+	<select id="getTotalCount" resultType="int">
 		 <![CDATA[
 
 			SELECT COUNT(*)
