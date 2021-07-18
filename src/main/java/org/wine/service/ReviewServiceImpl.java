@@ -42,14 +42,6 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public ArrayList<ReviewVO> getList3(Long wineNum){
-		
-		log.info("get  getList3 : "+ wineNum);
-		log.info(mapper.getList3(wineNum));
-		return mapper.getList3(wineNum);
-	}
-	
-	@Override
 	public void clickLike(ReviewVO review){	
 		log.info("click like");
 		int count =mapper.readLike(review);
@@ -69,23 +61,16 @@ public class ReviewServiceImpl implements ReviewService{
 	public ReviewRatingVO getRating(Long wineNum) {
 		
 		log.info("getRating: " +  wineNum);
-		ReviewRatingVO rating = mapper.getRating( wineNum);
-		
-		Long all = rating.getRating1()+rating.getRating2()+rating.getRating3()+rating.getRating4()+rating.getRating5();
-		
-		Long allStar = (rating.getRating1()*1)+(rating.getRating2()*2)+(rating.getRating3()*3)+(rating.getRating4()*4)+(rating.getRating5()*5);
-		log.info(allStar/all);
-		rating.setRatingAll(allStar/all);
-		return rating;
+		return mapper.getRating(wineNum);
 		
 	}
 	
 	@Override
-	public int getTotal(CriteriaReview cri) {
-		
-		log.info("getTotal with Criteria: " + cri);
-		
-		return mapper.getTotalCount(cri);
-		
+	public double getAvgRating(Long wineNum) {
+		if (mapper.getTotalCountAll(wineNum) > 0) {
+			return mapper.getAvgRating(wineNum);
+		} else {
+			return 0.0;
+		}		
 	}
 }
