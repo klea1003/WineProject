@@ -416,7 +416,7 @@ $('.star-prototype').generateStars();
 
 						<h3>Community reviews</h3>
 
-						<c:forEach items="${review_list3}" var="reviewVO">
+						<c:forEach items="${review_list_3line}" var="reviewVO">
 							<div class="card mb-3">
 								<div class="card-header">
 
@@ -424,7 +424,7 @@ $('.star-prototype').generateStars();
 										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
 									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 											value="${reviewVO.userNum}" /> <c:out
-											value="${reviewVO.userNickName}" />(총 이 유저가 한 레이팅 갯수)
+											value="${reviewVO.userNickName}" />(총 이 유저가 한 평가 갯수)
 									</span>
 
 								</div>
@@ -473,7 +473,7 @@ $('.star-prototype').generateStars();
 				<div class="well well-sm">
 					<div class="row">
 						<div class="col-xs-12 col-md-6 text-center">
-							<h1 class="rating-num">${review_Rating.ratingAll}</h1>
+							<h1 class="rating-num">${review_Avg}</h1>
 							<div class="rating">
 							<!-- <span class="star-prototype">4</span> -->
 								 <span><i class="bi bi-star-fill"></i></span> <span><i

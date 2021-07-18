@@ -315,10 +315,14 @@ public class WineController {
 		CriteriaReview cri = new CriteriaReview();
 		cri.setWineNum(wno.intValue());
 		
-		model.addAttribute("review_list", reviewSerivce.getList(cri));
-		model.addAttribute("review_list3", reviewSerivce.getList3(wno));
-		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
+		CriteriaReview cri3Line = new CriteriaReview();
+		cri3Line.setWineNum(wno.intValue());
+		cri3Line.setAmount(3);		
 		
+		model.addAttribute("review_list", reviewSerivce.getList(cri));
+		model.addAttribute("review_list_3line", reviewSerivce.getList(cri3Line));
+		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
+		model.addAttribute("review_Avg", reviewSerivce.getAvgRating(wno));
 		
 	}
 	
