@@ -115,8 +115,8 @@ span.star-prototype>* {
 </style>
 
 <script type="text/javascript">
-var user = '${user}';
 
+var user = '${user}';
 
 function addWish(_input){
 	
@@ -153,8 +153,123 @@ function addCart(_input){
 	}
 	
 };
-
+$(document).ready(function() {
 	
+	var wno = '${wine.wno}';
+	var ratingUL = $(".followingreview");
+	
+	showList(1);	
+	
+function getListRating(param, callback, error) {
+	var wno = param.wno; 
+	var page = param.page || 1;
+	
+	$.getJSON("/wine/pages/" + wno + "/" + page + ".json",
+		function(data) {
+				
+			if (callback) {
+			   callback(data.reviewCnt, data.list);
+			}
+		}).fail(function(xhr, status, err) {
+	if (error) {
+		error();
+		}
+	});
+} 
+function showList(page) {
+	
+	getListRating({wno :wno, page : page|| 1},			
+	
+	function(reviewCnt, list) {
+		console.log("reviewCnt: "+ reviewCnt)
+		console.log("list: "+list)
+      		
+		if(page==-1) {
+			pageNum=Math.ceil(reviewCnt/10.0)
+			showList(pageNum)
+			return
+        } 
+		var str = "";
+            
+		if (list == null|| list.length == 0) {
+			return;
+		}
+		for (var i = 0, len = list.length || 0; i < len; i++) {
+			
+			str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
+			
+			str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
+			str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
+			str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+와인으로 가기+"</span></a>"; //타이틀 a태그 영역 끝
+			str +="</div>"; //타이틀 영역 끝
+			 
+			str += "<div>"; //우측에 대한 영역
+				
+			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
+			str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].Rating+"</span>";
+			str +=" <a class='text-decoration-none text-dark' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+			str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
+			str += "<span class='fw-bold'>("+list[i].cntLike+" ratings)</span>";
+			str +=" <div style='text-align:right;'> "+list[i].date+"</div>";
+			str +="</div>";  //닉네임, 리뷰데이트 우측 정렬 영역 끝
+			
+			str += "<div class='card bg-light p-2 mt-2' style='height: 290px; width:73%; margin-right:2%; float:left'> "; //리뷰 컨텐츠 영역
+          	str += "<h5>"+list[i].content+"</h5> "; 
+           	str += "</div>"; //리뷰 컨텐츠 영역 끝
+           	
+           
+            str += "</div>"; //우측에 대한 영역 끝
+            
+            str += "</div>"; //카드 영역 끝
+		}
+		ratingUL.append(str);
+	});
+		
+}// end showList
+
+var actionForm = $("#actionForm");
+
+$('#reviewModal').scroll(function() {
+
+	console.log("modalscroll");
+	if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
+		
+		console.log("modaltest");
+
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
+		
+		if(currentPageNum +1 <= totalPageNum){	
+			
+			actionForm.find("input[name='pageNum']").val(currentPageNum +1);
+			
+			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+			
+			showList(currentPageNum)
+		}
+	}
+})
+$('#reviewModal').on('hidden.bs.modal', function (e) {
+		
+		actionForm.find("input[name='pageNum']").val(currentPageNum = 1);
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		
+		ratingUL.empty();
+		
+		showList(1);
+		
+	});
+$("#modal_show_reviewList").click(function() {
+    alert("연결");
+	$("#reviewModal").modal("show");
+});
+    
+$("#close_review").click(function() {
+	$("#reviewModal").modal("hide");
+});
+}
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -410,6 +525,9 @@ function addCart(_input){
 		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
 	</a>
 	<!-- Review -->
+	 <section class="py-5 bg-light" >
+		<div class="container px-5">
+		<div class="row gx-5">
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
 			<div class="col-md-8">
@@ -426,7 +544,7 @@ function addCart(_input){
 										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
 									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 											value="${reviewVO.userNum}" /> <c:out
-											value="${reviewVO.userNickName}" />(총 이 유저가 한 평가 갯수)
+											value="${reviewVO.userNickName}" />
 									</span>
 
 								</div>
@@ -468,7 +586,7 @@ function addCart(_input){
 				</div>
 			</div>
 		</div>
-		<a id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</a>
+		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</button>
 	</div>
 	<!-- end Review -->
 
@@ -557,8 +675,6 @@ function addCart(_input){
 		</div>
 	</div>
 	<!-- review modal -->
-	<!-- <section class="py-5 bg-light" >
-		<div class="container px-5">
 			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
@@ -573,8 +689,13 @@ function addCart(_input){
 					</div>
 				</div>	
 			</div>
-		
-	</section> -->
+		</div>
+	</section> 
+	<form id="actionForm" action="/wine/get?wno=${wine.wno }" method="get">
+		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
+		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
+		<input type="hidden" name="totalPageNum" value="${pageReviewMaker.totalPageNum}">
+	</form>
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>

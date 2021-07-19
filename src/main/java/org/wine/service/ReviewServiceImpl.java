@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaReview;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.domain.ReviewRatingVO;
 import org.wine.domain.ReviewVO;
 import org.wine.mapper.ReviewMapper;
@@ -39,6 +40,25 @@ public class ReviewServiceImpl implements ReviewService{
 		log.info("get List with Criteria: "+ cri);
 		
 		return mapper.getListWithPaging(cri);
+	}
+	
+	@Override
+	public int getTotal(Long wno) {
+		
+		log.info("get Total: "+ wno);
+		
+		return mapper.getTotalCountAll(wno);
+	}
+	
+	@Override
+	public ReviewPageDTO getListPage(CriteriaReview cri, Long wno){
+		
+		log.info("get List with reviewCriteria: "+ cri);
+		
+		cri.setWineNum(wno.intValue());
+		return new ReviewPageDTO(
+				mapper.getTotalCountAll(wno),
+				mapper.getListWithPaging(cri));
 	}
 	
 	@Override
