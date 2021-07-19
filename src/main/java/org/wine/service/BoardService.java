@@ -19,7 +19,6 @@ public interface BoardService {
 	public List<BoardVO> getBList(Criteria cri);
 	public int getTotal(Criteria cri);
 	public int getBTotal(Criteria cri);
-	public int updateBoardReadCount(Long boardNum);
 	public int like(BoardLikeVO boardLike);
 	public int disLike(BoardLikeVO boardLike);
 	public int totalLike(Long boardNum);

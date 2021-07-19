@@ -113,9 +113,7 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   	update tbl_Board_Test set replycnt = replycnt + #{amount} where board_Num = #{boardNum}
   </update>
   
-  <update id="updateBoardReadCount">
-  	update tbl_Board_Test set Board_Read_Count = Board_Read_Count + 1 where board_Num = #{boardNum}
-  </update>
+  
   
   
   
