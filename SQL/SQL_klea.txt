@@ -82,13 +82,13 @@ VALUES (1,'wine_type', 'Red wine', 'Red');
 INSERT INTO TBL_WINE_PROPERTY 
 VALUES (2,'wine_type', 'White wine', 'White');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (3,'wine_type', 'Sparkling', 'Sparkling');
+VALUES (3,'wine_type', 'Sparkling wine', 'Sparkling');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (4,'wine_type', 'Rosé', 'Rosé');
+VALUES (4,'wine_type', 'Rosé wine', 'Rosé');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (5,'wine_type', 'Dessert', 'Dessert');
+VALUES (5,'wine_type', 'Dessert wine', 'Dessert');
 INSERT INTO TBL_WINE_PROPERTY 
-VALUES (6,'wine_type', 'Fortified', 'Fortified');
+VALUES (6,'wine_type', 'Fortified Wine', 'Fortified');
 
 INSERT INTO TBL_WINE_PROPERTY 
 VALUES (1,'wine_grape', 'Cabernet Franc', 'Cabernet Franc');

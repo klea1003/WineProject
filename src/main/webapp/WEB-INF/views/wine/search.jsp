@@ -223,7 +223,11 @@ input[type=radio]{
 						
 							
 						str += "<span style='color:rgb(156,22,49)''><i class='fa fa-xl fa-star'> </i></span>"
-						str += "&nbsp;"+list[i].avgRating + "<br>"
+						if(list[i].avgRating != null) {
+							str += "&nbsp;"+list[i].avgRating + "<br>"
+						} else {
+							str += "&nbsp;Not Rating<br>"
+						}		
 						str += "<h5> ￦ " + list[i].price  + "</h5>"
 						
 						str += "<div class='mt-5'>"
