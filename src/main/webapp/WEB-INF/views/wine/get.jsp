@@ -249,6 +249,19 @@ function addCart(_input){
 			</div>
 		</div>
 	</section>
+	
+	<!-- Taste about the wine -->
+	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+		<table>
+			<c:forEach items="${taste_list}" var="taste">
+				<tr>
+					<td><c:out value="${taste.leftColumn}" /></td>
+					<td><c:out value="${taste.ratio}" /></td>
+					<td><c:out value="${taste.rightColumn}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 
 	<!-- Facts about the wine -->
 	<div class="container mt-5 mb-5"

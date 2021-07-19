@@ -326,6 +326,7 @@ public class WineController {
 		model.addAttribute("review_list_3line", reviewSerivce.getList(cri3Line));
 		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
 		model.addAttribute("review_Avg", reviewSerivce.getAvgRating(wno));
+		model.addAttribute("taste_list", service.getTasteList(wno));
 		
 	}
 	

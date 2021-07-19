@@ -101,18 +101,12 @@
 	</select>
 	
 	<select id="getAvgRating" resultType="double">
-		 SELECT ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW 
-		 GROUP BY WINE_NUM HAVING WINE_NUM = #{wineNum}
+		SELECT ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW 
+		GROUP BY WINE_NUM HAVING WINE_NUM = #{wineNum}
 	</select>
 
-	<select id="getTotalCount" resultType="int">
-		 <![CDATA[
-			SELECT COUNT(*) FROM (
-			    SELECT * FROM TBL_WINE_REVIEW WHERE ]]>
-
-		<include refid="criteriaWine"></include>
-
-		wine_num > 0)
+	<select id="getTotalCountAll" resultType="int">
+		SELECT COUNT(*) FROM TBL_WINE_REVIEW WHERE WINE_NUM = #{wineNum}
 	</select>
 
 	<sql id="criteriaWine">
