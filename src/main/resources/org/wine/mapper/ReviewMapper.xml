@@ -37,13 +37,13 @@
 	</select>
 
 	<insert id="insertLike">
-		insert into TBL_REPLY_LIKE
+		insert into TBL_REVIEW_LIKE
 		values (SEQ_WINE_REPLY.nextval, #{reviewNum},
 		#{userNum})
 	</insert>
 
 	<delete id="deleteLike">
-		delete from TBL_REPLY_LIKE where review_Num=#{reviewNum} and
+		delete from TBL_REVIEW_LIKE where review_Num=#{reviewNum} and
 		user_num=#{userNum}
 	</delete>
 
