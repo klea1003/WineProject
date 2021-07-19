@@ -11,6 +11,8 @@ public interface OrderService {
 
 	public void insertOrder(OrderVO order) throws Exception;
 	
+	public void insertOrderItem(OrderItemVO orderItemVo) throws Exception;
+	
 	public List<OrderVO> getOrderList(Long userNum) throws Exception;
 	
 	public List<OrderItemVO> getOrderItemList(Long orderNum) throws Exception;

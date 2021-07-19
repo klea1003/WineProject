@@ -30,6 +30,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public void insertOrderItem(OrderItemVO orderItemVo) throws Exception {
+		mapper.insertOrderItem(orderItemVo);
+	}
+	
+	@Override
 	public List<OrderVO> getOrderList(Long userNum) throws Exception{
 		return mapper.getOrderList(userNum);
 	}

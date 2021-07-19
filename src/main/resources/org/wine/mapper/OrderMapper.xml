@@ -13,6 +13,9 @@
 		<result property="sellerNum" column="SELLER_NUM" />
 		<result property="totalPrice" column="TOTAL_PRICE" />
 		<result property="storeName" column="SELLER_STORENAME" />	
+		<result property="orderComment" column="ORDER_COMMENT" />	
+		<result property="paymentNum" column="PAYMENT_NUM" />
+		<result property="paymentTitle" column="PAYMENT_TITLE" />		
 	</resultMap>
 
 	<resultMap type="org.wine.domain.OrderItemVO" id="orderItemInfo">
@@ -37,9 +40,9 @@
 	<!-- 주문 등록 -->
 	<insert id="insertOrder">
 		insert into tbl_order_test(
-		ORDER_NUM, ORDER_NAME, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM
+		ORDER_NUM, ORDER_NAME, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM, ORDER_COMMENT, PAYMENT_NUM
 		) values (
-		#{orderNum}, #{orderName}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum})
+		#{orderNum}, #{orderName}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum}, #{orderComment}, #{paymentNum})
 	</insert>
 	
 	<!-- 주문 아이템 등록 -->
@@ -62,7 +65,10 @@
 		    O.ORDER_DATE,
 		    O.SELLER_NUM,
 		    T.TOTAL_PRICE,
-		    S.SELLER_STORENAME
+		    S.SELLER_STORENAME,
+		    O.ORDER_COMMENT,
+		    O.PAYMENT_NUM,
+		    P.PAYMENT_TITLE
 		FROM TBL_ORDER_TEST O
 		LEFT JOIN (
 		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
@@ -73,6 +79,8 @@
 		ON O.ORDER_NUM = T.ORDER_NUM
 		INNER JOIN TBL_SELLER S
 		ON O.SELLER_NUM = S.SELLER_NUM
+		INNER JOIN TBL_ORDER_PAYMENT P
+		ON O.PAYMENT_NUM = P.PAYMENT_NUM
 		WHERE O.USER_NUM = #{userNum}
 	</select>
 	
@@ -101,7 +109,10 @@
 		    O.ORDER_DATE,
 		    O.SELLER_NUM,
 		    T.TOTAL_PRICE,
-		    S.SELLER_STORENAME
+		    S.SELLER_STORENAME,
+		    O.ORDER_COMMENT,
+		    O.PAYMENT_NUM,
+		    P.PAYMENT_TITLE
 		FROM TBL_ORDER_TEST O
 		INNER JOIN (
 		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
@@ -112,6 +123,8 @@
 		ON O.ORDER_NUM = T.ORDER_NUM
 		INNER JOIN TBL_SELLER S
 		ON O.SELLER_NUM = S.SELLER_NUM
+		INNER JOIN TBL_ORDER_PAYMENT P
+		ON O.PAYMENT_NUM = P.PAYMENT_NUM
 		WHERE O.ORDER_NUM = #{orderNum}
 	</select>
 </mapper>

@@ -11,8 +11,14 @@
 <jsp:include page="../includes/header.jsp" flush="false"/>
 <body>
 
+	<div class="container px-5 my-5">
+		<div class="text-center mb-5">
+            <h1 class="fw-bolder">특판 문의</h1>
+        </div>
+	</div>
+
 <div class="container">
-	<h2>특판문의</h2>
+	
 		<form name="form" id="form" role="form" method="post" action="">
 			<div class="mb-3">
 				<label for="title">제목</label>

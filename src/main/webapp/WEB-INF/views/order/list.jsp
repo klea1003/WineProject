@@ -6,35 +6,46 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<title>Insert title here</title>
-
 </head>
+<style>
+
+</style>
 <body>
 <%@include file="../includes/header.jsp"%>
 	<div class="container px-5 my-5">
 		<div class="text-center mb-5">
-            <h1 class="fw-bolder">ORDER LIST</h1>
-        </div>
+           <h1 class="fw-bolder">ORDER LIST</h1>
+       </div>
 	</div>
 
-<section id="content" class="container px-5 mb-5">
- 
-	 <ul class="orderList">
-	  <c:forEach items="${orderList}" var="order" varStatus="i">
-	  <li>
-	  <div>
-		<p><span>주문번호&nbsp;</span><a href="/order/detail?n=${order.orderNum}">${order.orderName}</a></p>
-		<p><span>수령인 : </span>${order.pickUpName}</p>
-		<p><span>수령매장 : </span>${order.storeName}</p>
-		<p><span>가격 : </span><fmt:formatNumber pattern="###,###,###" value="${order.totalPrice}" /> 원</p>
-		<hr>
-	  </div>
-	  </li>
-	  </c:forEach>
-	 </ul>
-
-</section>
+	<div class="container px-5">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>주문번호</th>
+					<th>수령인</th>
+					<th>수령매장</th>
+					<th>가격</th>
+					<th>결제 수단</th>
+				</tr>
+			</thead>
+		
+			<tbody>
+				<c:forEach items="${orderList}" var="order" varStatus="i">
+					<tr>
+						<td class="fw-bold"><a class="text-dark" href="/order/detail?n=${order.orderNum}">${order.orderName}</a></td>
+						<td>${order.pickUpName}</td>
+						<td>${order.storeName}</td>
+						<td><fmt:formatNumber pattern="###,###,###" value="${order.totalPrice}" /> 원</td>
+						<td>${order.paymentTitle}</td>
+		
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-outline-danger" onclick="location.href='/wine/list'">와인 더 보러가기</button>
+	</div>
+	
 
 <%@include file="../includes/footer.jsp"%>
 </body>

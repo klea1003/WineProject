@@ -173,4 +173,14 @@ INSERT INTO TBL_WINE_PROPERTY
 VALUES (10,'wine_style', 'New Zealand Sauvignon Blanc', 'New Zealand Sauvignon Blanc');
 COMMIT;
 
+
+
 --------------------------------------------------------
+CREATE TABLE TBL_WINE_TASTE (
+    TASTE_NUM NUMBER(20) NOT NULL,
+    WINE_NUM NUMBER(20) NOT NULL,
+    TASTE_LEFT_COLUMN VARCHAR2(100),
+    TASTE_RIGHT_COLUMN VARCHAR2(100),
+    TASTE_RATIO FLOAT
+);
+

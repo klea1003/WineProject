@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,8 @@ import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.ReviewVO;
-import org.wine.domain.WineRatingVO;
+import org.wine.domain.SocialCriteriaReview;
+import org.wine.domain.SocialPageDTO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
 import org.wine.service.ReviewService;
@@ -194,7 +196,7 @@ public class WineController {
 	}
 	
 	@GetMapping(value = "/requestWineList")
-	public ResponseEntity<List<WineRatingVO>> getWineList(
+	public ResponseEntity<List<WineVO>> getWineList(
 			@RequestParam(value="pageNum") int pageNum, 
 			@RequestParam(value="wineTypeArr[]", required=false) ArrayList<String> wineTypeArr,
 			@RequestParam(value="wineGrapeArr[]", required=false) ArrayList<String> wineGrapeArr,
@@ -237,7 +239,7 @@ public class WineController {
 		cri.setWinePriceRange(Integer.parseInt(winePriceMin), Integer.parseInt(winePriceMax));
 		cri.setKeyword(wineKeyword);
 		
-		ResponseEntity<List<WineRatingVO>> result = null;
+		ResponseEntity<List<WineVO>> result = null;
 		result = ResponseEntity.status(HttpStatus.OK).body(service.getList(cri));
 		
 		return result;
@@ -316,9 +318,15 @@ public class WineController {
 		CriteriaReview cri = new CriteriaReview();
 		cri.setWineNum(wno.intValue());
 		
+		CriteriaReview cri3Line = new CriteriaReview();
+		cri3Line.setWineNum(wno.intValue());
+		cri3Line.setAmount(3);		
+		
 		model.addAttribute("review_list", reviewSerivce.getList(cri));
-		model.addAttribute("review_list3", reviewSerivce.getList3(wno));
-		log.info(reviewSerivce.getList3(wno));
+		model.addAttribute("review_list_3line", reviewSerivce.getList(cri3Line));
+		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
+		model.addAttribute("review_Avg", reviewSerivce.getAvgRating(wno));
+		model.addAttribute("taste_list", service.getTasteList(wno));
 		
 	}
 	
@@ -330,5 +338,18 @@ public class WineController {
 		 return "redirect:/wine/get?wno="+review.getWineNum(); 
 	}
 	
+	 @GetMapping(value="/pages/{wno}", 
+			  produces= {MediaType.APPLICATION_XML_VALUE, 
+					  MediaType.APPLICATION_JSON_VALUE})
+	   public ResponseEntity<List<ReviewVO>> getList(@PathVariable("wno")Long wno) {
+	      
+		 CriteriaReview cri = new CriteriaReview();
+			cri.setWineNum(wno.intValue());
+	      
+	      log.info("cri: "+cri);
+	      
+	      return new ResponseEntity<>(reviewSerivce.getList(cri), 
+	    		  HttpStatus.OK);
+	   }
 	
 }

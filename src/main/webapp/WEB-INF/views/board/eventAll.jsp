@@ -15,7 +15,7 @@
 	        <c:forEach var="list" items="${listAll}" varStatus="status">
 	            <div class="col-lg-4 mb-5">
 	                <div class="card h-100 shadow border-0">
-	                    <img src="/resources/images/wineMainImg.png"  />
+	                    <img src="/resources/images/${list.eventImage }"  />
 	                    <div class="card-body p-4">
 	                        <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:if test="${status.index==0 }">News</c:if></div>
 	                        <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">${list.eventTitle}</div></a>

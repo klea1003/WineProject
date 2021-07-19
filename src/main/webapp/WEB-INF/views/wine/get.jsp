@@ -87,6 +87,31 @@
 	overflow: visible;
 	clip: auto;
 }
+
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	width: 80px;
+	display: inline-block;
+}
+
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
+
+.wineneryImg {
+	background: url("/resources/images/winery_image.jpg");
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	opacity: 0.8;
+	color: #fff;
+	background-repeat: no-repeat;
+	background-position: center;
+}
 </style>
 
 <script type="text/javascript">
@@ -129,6 +154,7 @@ function addCart(_input){
 	
 };
 
+	
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -192,8 +218,8 @@ function addCart(_input){
 									<path
 										d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z"
 										fill="none" stroke="#1e1e1e" stroke-linecap="round"
-										stroke-linejoin="round"></path></svg>
-								<c:out value="${wine.wineType}" /> from
+										stroke-linejoin="round"></path></svg> <c:out
+									value="${wine.wineType}" /> from
 							</span>
 							<c:out value="${wine.region}" />
 							<br>
@@ -206,26 +232,15 @@ function addCart(_input){
 
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
+							onclick='addWish("${wine.wno}")'>
 
-<<<<<<< .merge_file_a01144
-						onclick='addWish("${wine.wno}")'>
-						
-=======
 
-						onclick='addWish("${wine.wno}")'>
-
->>>>>>> .merge_file_a00616
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-<<<<<<< .merge_file_a01144
-						
-=======
-
->>>>>>> .merge_file_a00616
-						onclick='addCart("${wine.wno}")'>
+							onclick='addCart("${wine.wno}")'>
 
 							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
@@ -234,6 +249,19 @@ function addCart(_input){
 			</div>
 		</div>
 	</section>
+	
+	<!-- Taste about the wine -->
+	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+		<table>
+			<c:forEach items="${taste_list}" var="taste">
+				<tr>
+					<td><c:out value="${taste.leftColumn}" /></td>
+					<td><c:out value="${taste.ratio}" /></td>
+					<td><c:out value="${taste.rightColumn}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 
 	<!-- Facts about the wine -->
 	<div class="container mt-5 mb-5"
@@ -378,7 +406,9 @@ function addCart(_input){
 		</table>
 	</div>
 	<!-- end Facts about the wine -->
-
+	<a href='<c:out value="${wine.wineneryLink}" />'>
+		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
+	</a>
 	<!-- Review -->
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
@@ -388,7 +418,7 @@ function addCart(_input){
 
 						<h3>Community reviews</h3>
 
-						<c:forEach items="${review_list3}" var="reviewVO">
+						<c:forEach items="${review_list_3line}" var="reviewVO">
 							<div class="card mb-3">
 								<div class="card-header">
 
@@ -396,7 +426,7 @@ function addCart(_input){
 										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
 									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 											value="${reviewVO.userNum}" /> <c:out
-											value="${reviewVO.userNickName}" />(총 이 유저가 한 레이팅 갯수)
+											value="${reviewVO.userNickName}" />(총 이 유저가 한 평가 갯수)
 									</span>
 
 								</div>
@@ -408,13 +438,17 @@ function addCart(_input){
 								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
 									<li class="list-inline-item g-mr-20">
 										<form id='operForm' action='/wine/clickLike' method='post'>
-											<input type='hidden' id='userNum' name='userNum' value='<c:out value="${user.userNum }" />'> 
-											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${reviewVO.reviewNum }"/>'>
-											<input type='hidden' id='wineNum' name='wineNum' value='<c:out value="${wine.wno}"/>'>
-												 <button class="like" type="submit">
-										    <i class="bi bi-hand-thumbs-up"></i> <c:out
-											value="${reviewVO.cntLike}" /> </button>
-											</form>
+											<input type='hidden' id='userNum' name='userNum'
+												value='<c:out value="${user.userNum }" />'> <input
+												type='hidden' id='reviewNum' name='reviewNum'
+												value='<c:out value="${reviewVO.reviewNum }"/>'> <input
+												type='hidden' id='wineNum' name='wineNum'
+												value='<c:out value="${wine.wno}"/>'>
+											<button class="like" type="submit">
+												<i class="bi bi-hand-thumbs-up"></i>
+												<c:out value="${reviewVO.cntLike}" />
+											</button>
+										</form>
 									</li>
 									<li class="list-inline-item g-mr-20">
 										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
@@ -434,7 +468,7 @@ function addCart(_input){
 				</div>
 			</div>
 		</div>
-		<a href="#" class="btn btn-outline-danger">Show more reviews</a>
+		<a id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</a>
 	</div>
 	<!-- end Review -->
 
@@ -445,8 +479,9 @@ function addCart(_input){
 				<div class="well well-sm">
 					<div class="row">
 						<div class="col-xs-12 col-md-6 text-center">
-							<h1 class="rating-num">4.0</h1>
+							<h1 class="rating-num">${review_Avg}</h1>
 							<div class="rating">
+								<!-- <span class="star-prototype">4</span> -->
 								<span><i class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
@@ -464,8 +499,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 50%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating5}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating5}</div>
 									</div>
 								</div>
 								<!-- end 5 -->
@@ -475,8 +510,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 30%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating4}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating4}</div>
 									</div>
 								</div>
 								<!-- end 4 -->
@@ -486,8 +521,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 20%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating3}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating3}</div>
 									</div>
 								</div>
 								<!-- end 3 -->
@@ -497,8 +532,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 70%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating2}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating2}</div>
 									</div>
 								</div>
 								<!-- end 2 -->
@@ -508,8 +543,8 @@ function addCart(_input){
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 100%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100"></div>
+											style="width: ${review_Rating.rating1}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating1}</div>
 									</div>
 								</div>
 								<!-- end 1 -->
@@ -521,11 +556,29 @@ function addCart(_input){
 			</div>
 		</div>
 	</div>
-	<!-- Rating Range End -->
-
+	<!-- review modal -->
+	<!-- <section class="py-5 bg-light" >
+		<div class="container px-5">
+			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">review</h2>
+								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class=" modal-body followingreview">
+					
+							</div>			
+						</div>
+					</div>
+				</div>	
+			</div>
+		
+	</section> -->
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>
+
 <script src="/resources/js/scripts.js"></script>
 
 

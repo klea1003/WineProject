@@ -136,8 +136,8 @@
 						<c:forEach var="c" items="${boardlist}" varStatus="status">
 							<tr>
 								<td>${c.boardNum }</td>
-								<%-- <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td> --%>
-								<td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td>
+								 <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
+								<%-- <td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td> --%>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
 								<td>${likelist[status.index]}</td>
@@ -199,8 +199,8 @@
     <div class="Pagination"> 
     	<ul class="pagination justify-content-center">
        		<c:if test="${pageMaker.prev}">
-				<li class='paginate_button previous'>
-				<a class="page-link" href="${pageMaker.startPage-1 }">Previous</a></li>
+				<li class='page-item previous'>
+				<a class="page-link" href="${pageMaker.startPage-1}">앞으로</a></li>
 			</c:if>
           
             <c:forEach var='num' begin='${pageMaker.startPage }' end='${pageMaker.endPage }'>
@@ -210,7 +210,7 @@
           	
           	<c:if test="${pageMaker.next }">
 				<li class="page-item next">
-          		<a class="page-link" href="${pageMaker.endPage+1 }">Next</a></li>
+          		<a class="page-link" href="${pageMaker.endPage+1 }">뒤로</a></li>
           	</c:if>
        </ul>
     </div>

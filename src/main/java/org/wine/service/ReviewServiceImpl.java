@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaReview;
+import org.wine.domain.ReviewRatingVO;
 import org.wine.domain.ReviewVO;
 import org.wine.mapper.ReviewMapper;
 
@@ -41,14 +42,6 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public ArrayList<ReviewVO> getList3(Long wineNum){
-		
-		log.info("get  getList3 : "+ wineNum);
-		log.info(mapper.getList3(wineNum));
-		return mapper.getList3(wineNum);
-	}
-	
-	@Override
 	public void clickLike(ReviewVO review){	
 		log.info("click like");
 		int count =mapper.readLike(review);
@@ -64,13 +57,20 @@ public class ReviewServiceImpl implements ReviewService{
 		
 	}
 	
+	@Override
+	public ReviewRatingVO getRating(Long wineNum) {
+		
+		log.info("getRating: " +  wineNum);
+		return mapper.getRating(wineNum);
+		
+	}
 	
 	@Override
-	public int getTotal(CriteriaReview cri) {
-		
-		log.info("getTotal with Criteria: " + cri);
-		
-		return mapper.getTotalCount(cri);
-		
+	public double getAvgRating(Long wineNum) {
+		if (mapper.getTotalCountAll(wineNum) > 0) {
+			return mapper.getAvgRating(wineNum);
+		} else {
+			return 0.0;
+		}		
 	}
 }

@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaWine;
 import org.wine.domain.WinePropertyDTO;
 import org.wine.domain.WinePropertyVO;
-import org.wine.domain.WineRatingVO;
+import org.wine.domain.WineTasteVO;
 import org.wine.domain.WineVO;
 import org.wine.mapper.WineMapper;
 import org.wine.mapper.WinePropertyMapper;
+import org.wine.mapper.WineTasteMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -23,6 +24,7 @@ public class WineServiceImpl implements WineService {
 
 	private WineMapper mapper;
 	private WinePropertyMapper propertyMapper;
+	private WineTasteMapper tasteMapper;
 
 	@Override
 	public void register(WineVO wine) {
@@ -33,29 +35,30 @@ public class WineServiceImpl implements WineService {
 	}
 
 	@Override
-	public WineRatingVO get(Long wno) {
+	public WineVO get(Long wno) {
 
 		log.info("get......." + wno);
 		
-		return mapper.readWithRating(wno);
+		return mapper.read(wno);
 	}
 
 	@Override
-	public List<WineRatingVO> getList(CriteriaWine cri) {
+	public List<WineVO> getList(CriteriaWine cri) {
 		
 		log.info("get List with CriteriaWine: "+ cri);
 		
-		return mapper.getRatingListWithPaging(cri);
+		return mapper.getListWithPaging(cri);
 
 	}
 	@Override
 	public int getTotal(CriteriaWine cri) {
 		
 		log.info("get total count");
-		return mapper.getTotalCountWithPaging(cri);
+		return mapper.getTotalCount(cri);
 		
 	}
 	
+	@Override
 	public ArrayList<WinePropertyDTO> getWinPropertyDTO(String propertyArea, ArrayList<Integer> ids){
 		
 		ArrayList<String> listArea = new ArrayList<>(Arrays.asList(
@@ -83,6 +86,10 @@ public class WineServiceImpl implements WineService {
 		
 		return results;
 	}
-		
+	
+	@Override
+	public List<WineTasteVO> getTasteList(Long wno){
+		return tasteMapper.getList(wno);
+	}		
 
 }
