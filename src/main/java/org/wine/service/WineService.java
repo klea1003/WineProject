@@ -16,6 +16,8 @@ public interface WineService {
 		
 	public List<WineVO> getList(CriteriaWine cri);
 	
+	public List<WineVO> getListSameWinery(Long wno);
+	
 	public int getTotal(CriteriaWine cri);
 	
 	public ArrayList<WinePropertyDTO> getWinPropertyDTO(String propertyArea, ArrayList<Integer> ids);

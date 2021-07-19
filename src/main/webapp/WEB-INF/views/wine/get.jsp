@@ -533,7 +533,43 @@ function addCart(_input){
 		<a id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</a>
 	</div>
 	<!-- end Review -->
-
+	
+	<!-- Same Winery Wine List Area -->
+	<div class="container">
+		<!-- swiper슬라이더 메인컨테이너 -->
+		<div class="swiper-container">
+			<!-- 보여지는 영역 -->
+			<div class="swiper-wrapper">
+				<c:forEach items="${list_same_winery}" var="wine">
+                	<div style="width: 344px; margin-left: 90px;"> 
+                   		<div class="col mb-5">
+                    		<div class="card-list">
+                				<div class="text-center">
+                   					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="350" width="150">
+                				</div>
+			                     <div class="card-body">
+								      <p ><b><c:out value="${wine.title}" /></b></p>
+								      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
+								      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
+								</div>
+			                 	<div class="card-footer text-center">
+			                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
+			                  		More Info</button>
+			                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+									Add Cart</button>
+			                  	</div>
+             				</div>
+               			</div>
+               		</div>
+				</c:forEach>
+			</div>
+			<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+	</div>
+	<!-- Same Winery Wine List Area -->
+	
 	<!-- Rating Range -->
 	<div class="container">
 		<div class="row">
