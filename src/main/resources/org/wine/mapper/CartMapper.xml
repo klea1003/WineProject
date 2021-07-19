@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.CartMapper">
+
+	<resultMap type="org.wine.domain.CartVO" id="cartInfo">
+		<result property="cartNum" column="CART_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineQty" column="WINE_QTY" />
+	</resultMap>
+	
+	<resultMap type="org.wine.domain.CartDisplayVO" id="cartDisplayInfo">
+		<result property="cartNum" column="CART_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineQty" column="WINE_QTY" />
+		<result property="title" column="WINE_TITLE" />
+		<result property="price" column="WINE_PRICE" />
+		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="imageName" column="WINE_IMAGENAME" />
+	</resultMap>
+
+	<!--장바구니 추가 -->
+	<insert id="insert">
+		<selectKey keyProperty="cartNum" order="BEFORE" resultType="long">
+			select seq_wine.nextval from dual
+		</selectKey>
+		
+		insert into tbl_cart_test(
+			CART_NUM, USER_NUM, WINE_NUM, WINE_QTY
+		) values (
+			#{cartNum}, #{userNum}, #{wineNum}, #{wineQty}
+		)
+	</insert>
+	
+	<select id = "getCount" resultType='int'>
+		SELECT WINE_QTY 
+		FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
+	</select>
+	
+	<!-- 장바구니 물량 업데이트 -->
+	<update id = "updateWineQty">
+		update TBL_CART_TEST
+		set WINE_QTY = #{wineQty}
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
+	</update>
+
+	<!-- 장바구니 목록 -->
+	<select id = "getList" resultMap="cartDisplayInfo">
+		SELECT C.CART_NUM, C.USER_NUM, C.WINE_NUM, C.WINE_QTY, W.WINE_TITLE, W.WINE_PRICE, C.WINE_QTY * W.WINE_PRICE as TOTAL_PRICE, W.WINE_IMAGENAME
+		FROM TBL_CART_TEST C, TBL_WINE_TEST W
+		WHERE C.WINE_NUM = W.WINE_NUM AND USER_NUM = #{userNum}
+	</select>	
+	
+	<!-- 장바구니 목록 -->
+	<select id = "getTotalCartNum" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum}
+	</select>	
+	
+	
+	<!-- 장바구니 삭제 -->
+	<delete id ="delete">
+		delete from TBL_CART_TEST
+		where CART_NUM = #{cartNum}
+	</delete>
+	
+	<!-- 장바구니 삭제 by userNum, wineNum -->
+	<delete id ="deleteByUserAndWine">
+		DELETE FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
+	</delete>
+	
+	<!-- 전체 가격 구하기 -->
+	<select id ="getTotalPrice" resultType="int">
+		SELECT SUM(C.WINE_QTY*W.WINE_PRICE) AS TOTAL_PRICE
+		FROM TBL_CART_TEST C, TBL_WINE_TEST W
+		WHERE C.WINE_NUM = W.WINE_NUM AND USER_NUM = #{userNum}
+	</select>
+	
+	
+	<!-- 상품 갯수 세는 함수 for exist 체크용 -->
+	<select id = "countWine" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_CART_TEST
+		WHERE USER_NUM = #{userNum} AND WINE_NUM = #{wineNum}
+	</select>
+
+</mapper>
+ 

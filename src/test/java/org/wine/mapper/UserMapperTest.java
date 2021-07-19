@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wine.domain.ProfileVO;
 import org.wine.domain.UserVO;
 import org.wine.mapper.UserMapper;
 
@@ -18,6 +19,9 @@ public class UserMapperTest {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserAttachMapper attachmapper;
 
 	@Test
 	public void testGetList() {
@@ -27,7 +31,7 @@ public class UserMapperTest {
 	@Test
 	public void testJoin() {
 		UserVO user = new UserVO();
-		user.setUserId("yosepId");
+		user.setUserId("yosepId5");
 		user.setUserNickName("yosepNickname");
 		user.setUserEmail("yosep@yosep.com");
 		user.setUserPassword("yosepPWD");
@@ -91,5 +95,16 @@ public class UserMapperTest {
 		System.out.println("결과 값 : " + mapper.userLogin(user));
 
 	}
+	
+	@Test
+	public void testRead() {
+		UserVO user = mapper.read(1L);
+		log.info(user);
+	}
 
+	@Test
+	public void testdelete() {
+		attachmapper.deleteimage(6L);
+		
+	}
 }

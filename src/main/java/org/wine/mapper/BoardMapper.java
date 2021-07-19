@@ -15,10 +15,12 @@ public interface BoardMapper {
 	 public BoardVO read(Long boardNum);
 	 public int delete(Long boardNum);
 	 public int update(BoardVO board);
-	 public List<BoardVO> getListWithPaging(Criteria cri);
+	 public List<BoardVO> getQListWithPaging(Criteria cri);
+	 public List<BoardVO> getBListWithPaging(Criteria cri);
 	 public int getTotalCount(Criteria cri);
+	 public int getBTotalCount(Criteria cri);
 	 public void updateBoardReadCount(Long boardNum);
-	 public void updateLike(Long boardNum);
+	 
 	 
 	 public void updateReplyCnt(@Param("boardNum") Long boardNum, @Param("amount") int amount);
 	

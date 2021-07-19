@@ -1,0 +1,109 @@
+create table tbl_social(
+user_following_id number,
+user_follower_id number
+);
+
+drop table tbl_social_test;
+
+SELECT    *  FROM tbl_user_test;
+
+SELECT    *  FROM tbl_social_test;
+
+select *
+from tbl_social_test
+where user_follower_id = 'test'; 
+--팔로잉 버튼 유무
+
+select count(*)
+from tbl_social_test
+where user_follower_id = 'test';
+-- 팔로잉 수
+
+select count(*)
+from tbl_social_test
+where user_following_id = 2;
+-- 팔로워 수
+
+create table tbl_profile_test(
+profile_num number not null,
+profile_uuid varchar2(100) not null,
+profile_uploadPath varchar2(200) not null,
+profile_fileName varchar2(100) not null,
+profile_filetype char(1) DEFAULT 'I',
+user_num number
+);
+
+CREATE SEQUENCE SEQ_PROFILE_TEST
+START WITH 1
+INCREMENT BY 1;
+
+
+drop table tbl_profile_test;
+
+
+CREATE TABLE TBL_USER(
+	USER_NUM NUMBER,
+	USER_ID VARCHAR2(100) NOT NULL,
+	USER_NICKNAME VARCHAR2(100) NOT NULL,
+	USER_EMAIL VARCHAR2(100) NOT NULL,
+	USER_PASSWORD VARCHAR2(50) NOT NULL,
+	USER_PHONENUM VARCHAR2(50) NOT NULL,
+	USER_REALNAME VARCHAR2(100) NOT NULL,
+	USER_BIRTHDAY DATE NOT NULL,
+	USER_ADDRESS1 VARCHAR2(100) NOT NULL,
+    USER_ADDRESS2 VARCHAR2(100) NOT NULL,
+    USER_ADDRESS3 VARCHAR2(100) NOT NULL);
+
+insert into TBL_USER(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY)
+		values(USER_UNM.nextval,USER_ID.nextval,USER_NICKNAME.nextval,USER_EMAIL.nextval,USER_PASSWORD.nextval,'010-1111-1111','test',
+        '1996-11-11');
+
+insert into {table_name}(USER_NUM, USER_ID, USER_NICKNAME,
+		USER_EMAIL,USER_PASSWORD,USER_PHONENUM,USER_REALNAME,USER_BIRTHDAY) values ({userNum},USER_ID.nextval,USER_NICKNAME.nextval,USER_EMAIL.nextval,USER_PASSWORD.nextval,'010-1111-1111','{realname}','1996-11-11')
+
+SELECT * FROM
+(SELECT *FROM tbl_profile_test ORDER BY profile_uploadpath DESC , profile_num  desc)
+WHERE ROWNUM = 1 and user_num=6;
+
+delete  from tbl_profile_test a
+where a.user_num =6
+and a.profile_num<(select max(x.profile_num)
+from tbl_profile_test x
+where x.user_num = a.user_num);
+
+
+-----------        
+select WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+from
+TBL_USER U, tbl_wishlist_test WL, TBL_WINE_TEST W
+where
+U.USER_NUM = WL.USER_NUM and WL.WINE_NUM = W.WINE_NUM and WL.USER_NUM = 1 
+        GROUP by WISH_NUM, U.USER_NUM,W.WINETYPE,W.WINE_COUNTRY,W.WINE_TITLE, W.WINE_IMAGENAME
+        order by WL.WISH_NUM;
+
+
+상위 2ㅐ프로
+select * from tbl_wine_test wr
+where wr.wine_num in(        
+select wine_num as topwine from(
+    select ROWNUM as rn,wine_num,avgrating
+        from (
+            select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+                from tbl_wine_review wr, tbl_social s, tbl_user u
+                where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=1
+                group by wr.wine_num
+                order by avgrating desc )
+                 ) where rn < (select (count (wine_num)*0.2) as cnt
+                                from (
+                                    select ROWNUM as rn,wine_num,avgrating
+                                        from (
+                                            select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+                                                from tbl_wine_review wr, tbl_social s, tbl_user u
+                                                where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=1
+                                                group by wr.wine_num
+                                                order by avgrating desc
+                                             )
+                                     )
+                             )
+                    );

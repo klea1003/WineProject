@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WineTasteMapper">
+	
+	<resultMap type="org.wine.domain.WineTasteVO" id="TasteInfo">
+		<result property="tasteNum" column="TASTE_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="leftColumn" column="TASTE_LEFT_COLUMN" />
+		<result property="rightColumn" column="TASTE_RIGHT_COLUMN" />
+		<result property="ratio" column="TASTE_RATIO" />
+	</resultMap>
+	
+	<select id="getList" resultMap="TasteInfo">
+	
+		SELECT * FROM TBL_WINE_TASTE WHERE WINE_NUM = #{wineNum}
+				
+	</select>
+	
+</mapper>

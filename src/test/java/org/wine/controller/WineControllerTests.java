@@ -16,18 +16,14 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-
-// test for Controller
 @WebAppConfiguration
-
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Log4j
-public class WineControllerTests {
 
+public class WineControllerTests {
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-
 	private MockMvc mockMvc;
 
 	@Before
@@ -71,6 +67,7 @@ public class WineControllerTests {
 			.param("price", "100")
 			.param("alcohol", "1.2")
 			.param("wineStyle", "wineStyle2")
+			.param("imageName", "wineimage2")
 		).andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);		

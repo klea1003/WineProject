@@ -1,5 +1,6 @@
 package org.wine.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -7,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -20,11 +21,6 @@ public class WineMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private WineMapper mapper;
-	
-	@Test
-	public void testGetList() {
-		mapper.getList().forEach(wine->log.info(wine));
-	}
 	
 	@Test
 	public void testInsert() {
@@ -50,31 +46,225 @@ public class WineMapperTests {
 	@Test
 	public void testRead() {
 		
-		WineVO wine = mapper.read(8L);
-		
+		WineVO wine = mapper.read(100L);		
 		log.info(wine);
 	}
 	
 	@Test
 	public void testPaging() {
 		
-		Criteria cri = new Criteria();
-		
-		cri.setPageNum(3);
-		
-		cri.setAmount(10);		
-		
-		List<WineVO> list = mapper.getListWithPaging(cri); 
-		
+		CriteriaWine cri = new CriteriaWine();		
+		cri.setPageNum(3);		
+		cri.setAmount(10);				
+		List<WineVO> list = mapper.getListWithPaging(cri);		
 		list.forEach(wine-> log.info(wine.getWno()));
 	}
 	
 	@Test
-	public void testGetTotalCount() {
-		Criteria cri = new Criteria();
+	public void testGetTotalCount1() {
 		
-		int count = mapper.getTotalCount(cri);
-		
+		CriteriaWine cri = new CriteriaWine();		
+		int count = mapper.getTotalCount(cri);		
 		log.info(count);
 	}
+	
+	@Test
+	public void testGetTotalCount2() {
+		
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec");
+		wineGrapeArr.add("Gamay"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		int count = mapper.getTotalCount(cri);		
+		log.info(count);
+	}
+	
+	@Test
+	public void testWineTypeArr1() {
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>();
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
+		log.info(list);
+		
+	}
+	
+	@Test
+	public void testWineTypeArr2() {
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
+		log.info(list);
+		
+	}
+	
+	@Test
+	public void testWineTypeArr3() {
+		CriteriaWine cri = new CriteriaWine();
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		wineTypeArr.add("White wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(list.size());
+		log.info(list);
+		
+	}
+	
+	@Test
+	public void testWineGrapeArr1() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list); 
+	}
+	
+	@Test
+	public void testWineGrapeArr2() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 
+		wineGrapeArr.add("Malbec");
+		wineGrapeArr.add("Gamay"); 
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list); 
+	}
+	
+	@Test
+	public void testWineRegionArr() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineRegionArr = new ArrayList<>(); 
+		wineRegionArr.add("Spain");
+		
+		cri.setWineRegionArr(wineRegionArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testWineCountryArr() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineCountryArr = new ArrayList<>(); 
+		wineCountryArr.add("France");
+		
+		cri.setWineCountryArr(wineCountryArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testWineStyleArr() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineStyleArr = new ArrayList<>(); 
+		wineStyleArr.add("Spanish Red");
+		
+		cri.setWineStyleArr(wineStyleArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testWineRating() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		cri.setWineRating(3);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info(cri);
+		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testWineKeyword() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		cri.setKeyword("Lady");;
+		
+		List<WineVO> list = mapper.getListWithPaging(cri); 
+		log.info(list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testGetWineRatingList() {
+		CriteriaWine cri = new CriteriaWine(); 
+		
+		ArrayList<String> wineTypeArr = new ArrayList<>(); 		
+		wineTypeArr.add("Red wine");
+		
+		cri.setWineTypeArr(wineTypeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+	}
+	
+	@Test
+	public void testGetwineRead() {
+		
+		WineVO wine = mapper.read(8L);
+		log.info(wine);				
+	}
+	@Test
+	public void testGetWinePriceList() {
+		CriteriaWine cri = new CriteriaWine();
+		cri.setWinePriceRange(80000, 100000);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+		
+	}
+	@Test
+	public void testGetWineGrapeList() {
+		CriteriaWine cri = new CriteriaWine();
+
+		ArrayList<String> wineGrapeArr = new ArrayList<>(); 		
+		wineGrapeArr.add("Malbec");
+		
+		cri.setWineGrapeArr(wineGrapeArr);
+		
+		List<WineVO> list = mapper.getListWithPaging(cri);
+		log.info("list size" +  list.size());
+		log.info(list);
+		
+	}
+	
 }

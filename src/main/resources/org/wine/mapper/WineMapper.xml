@@ -15,15 +15,10 @@
 		<result property="price" column="WINE_PRICE" />
 		<result property="alcohol" column="WINE_ALCOHOL" />
 		<result property="wineStyle" column="WINESTYLE" />
-		<result property="imageName" column="WINE_IMAGENAME" /> 		
+		<result property="imageName" column="WINE_IMAGENAME" />
+		<result property="avgRating" column="AVG_RATING" />
+		<result property="wineneryLink" column="WINENERY_LINK" />  		
 	</resultMap>
-	
-
-	<select id="getList" resultMap="WineInfo">
-	  <![CDATA[
-	  	select * from TBL_WINE_TEST where WINE_NUM > 0
-	  ]]>
-	</select>
 
 	<insert id="insert">
 		<selectKey keyProperty="wno" order="BEFORE" resultType="long">
@@ -39,35 +34,150 @@
 	<delete id="delete">
 		delete from tbl_wine_test where WINE_NUM=#{wno}
 	</delete>
-
-	<update id="update">
-		update tbl_wine_test set title=#{title}, content=#{content}, writer=#{writer},
-		updateDate = sysdate
-		where WINE_NUM=#{wno}
-	</update>
-
+	
 	<select id="read" resultMap="WineInfo">
-		select * from tbl_wine_test where WINE_NUM = #{wno}
-	</select>
-
-	<select id="getListWithPaging" resultMap="WineInfo">
-		 <![CDATA[
-			SELECT WINE_NUM,WINE_TITLE,
-		    WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-			WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME
-		    FROM (
-			    SELECT /*+INDEX_DESC(TBL_WINE_TEST_PK_WINE)*/ ROWNUM RN,WINE_NUM,WINE_TITLE,
-			    WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
-				WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME
-			    FROM TBL_WINE_TEST WHERE ROWNUM <= #{pageNum}*#{amount})
-			WHERE RN> (#{pageNum} -1)* #{amount}
-		 ]]>
+	
+		SELECT WINE.WINE_NUM WINE_NUM, WINE_TITLE,
+		WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
+		WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY.WINENERY_LINK
+		FROM TBL_WINE_TEST WINE
+		LEFT JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+		ON WINE.WINE_NUM = REVIEW.WINE_NUM 
+		LEFT JOIN (SELECT * FROM TBL_WINE_WINENERY) WINENERY
+		ON WINE.WINE_NUM = WINENERY.WINE_NUM 
+		WHERE WINE.WINE_NUM = #{wno}
+				
 	</select>
 	
-	<select id ="getTotalCount" resultType="int"> 
-		<![CDATA[
-		select count(*) from tbl_wine_test where wine_num > 0
-		]]>
+
+	<select id="getListWithPaging" resultMap="WineInfo">
+			
+			<![CDATA[
+			SELECT WINE_NUM,WINE_TITLE,
+			WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
+			WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY_LINK
+			FROM ( 
+			    SELECT /*+INDEX_DESC(TBL_WINE_TEST PK_WINE)*/ ROWNUM RN, WINE.WINE_NUM WINE_NUM, WINE_TITLE,
+			    WINENERY,WINE_GRAPES,WINE_REGIONS,WINE_ALLERGENS,WINETYPE,
+			    WINE_REGION,WINE_COUNTRY,WINE_PRICE,WINE_ALCOHOL,WINESTYLE,WINE_IMAGENAME, AVG_RATING, WINENERY.WINENERY_LINK WINENERY_LINK
+			    FROM TBL_WINE_TEST WINE
+			    LEFT
+			    JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+			    ON WINE.WINE_NUM = REVIEW.WINE_NUM 
+			    LEFT JOIN (SELECT * FROM TBL_WINE_WINENERY) WINENERY
+			    ON WINE.WINE_NUM = WINENERY.WINE_NUM 				
+			    WHERE ]]>
+				
+				<include refid="criteriaWineType"></include>
+				<include refid="criteriaWineGrape"></include>
+				<include refid="criteriaWineRegion"></include>
+				<include refid="criteriaWineCountry"></include>
+				<include refid="criteriaWineStyle"></include>
+				<include refid="criteriaWinePrice"></include>
+				<include refid="criteriaKeyword"></include>
+				<include refid="criteriaWineRating"></include>				
+				
+				<![CDATA[rownum <= #{pageNum}*#{amount})
+			where rn>(#{pageNum}-1)*#{amount}]]>
+		
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		 <![CDATA[
+
+			SELECT COUNT(*)
+			FROM TBL_WINE_TEST WINE
+			LEFT
+			JOIN ( SELECT WINE_NUM, ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW GROUP BY WINE_NUM) REVIEW
+			ON WINE.WINE_NUM = REVIEW.WINE_NUM WHERE ]]>
+			
+			<include refid="criteriaWineType"></include>
+			<include refid="criteriaWineGrape"></include>
+			<include refid="criteriaWineRegion"></include>
+			<include refid="criteriaWineCountry"></include>
+			<include refid="criteriaWineStyle"></include>
+			<include refid="criteriaWinePrice"></include>
+			<include refid="criteriaKeyword"></include>
+			<include refid="criteriaWineRating"></include>			
+			
+			<![CDATA[WINE.WINE_NUM > 0]]>
 	</select>
 
+	<sql id="criteriaWineType">
+		<if test="wineTypeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineType" collection="wineTypeArr">
+					<trim prefix="OR">
+						wineType = #{wineType}		
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+
+	
+	<sql id="criteriaWineGrape">
+		<if test="wineGrapeArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineGrape" collection="wineGrapeArr">
+					<trim prefix="OR">
+						 Wine_Grapes like '%'||#{wineGrape}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineRegion">
+		<if test="wineRegionArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineRegion" collection="wineRegionArr">
+					<trim prefix="OR">
+						 Wine_Regions like '%'||#{wineRegion}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineCountry">
+		<if test="wineCountryArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineCountry" collection="wineCountryArr">
+					<trim prefix="OR">
+						 Wine_Country like '%'||#{wineCountry}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineStyle">
+		<if test="wineStyleArr.size!=0">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item="wineStyle" collection="wineStyleArr">
+					<trim prefix="OR">
+						 WineStyle like '%'||#{wineStyle}||'%' 
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
+	<sql id="criteriaWineRating">
+		<if test="wineRatingMin!=0.0">
+			AVG_RATING BETWEEN #{wineRatingMin} AND #{wineRatingMax} AND
+		</if>
+	</sql>		
+	
+	<sql id="criteriaWinePrice">
+		WINE_PRICE BETWEEN #{priceMin} AND #{priceMax} AND
+	</sql>
+	
+	<sql id="criteriaKeyword">
+		<if test="keyword!=null">
+			UPPER(WINE_TITLE) like '%'||UPPER(#{keyword})||'%' AND
+		</if>
+	</sql>
+	
 </mapper>

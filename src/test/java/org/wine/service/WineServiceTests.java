@@ -1,14 +1,16 @@
 package org.wine.service;
 
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaWine;
 import org.wine.domain.WineVO;
 
 import lombok.Setter;
@@ -53,12 +55,34 @@ public class WineServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList(new Criteria(2,10)).forEach(wine -> log.info(wine));
+		CriteriaWine cri = new CriteriaWine(2,10);
+		cri.setWineTypeArr(new ArrayList<String>(Arrays.asList("Red wine")));
+		cri.setWineGrapeArr(new ArrayList<String>(Arrays.asList("Malbec")));		
+		
+		service.getList(cri).forEach(wine -> log.info(wine));
+	}
+	
+	@Test
+	public void testGetGrapeList() {
+		CriteriaWine cri = new CriteriaWine(2,10);
+		cri.setWineGrapeArr(new ArrayList<String>(Arrays.asList("Malbec")));		
+		
+		service.getList(cri).forEach(wine -> log.info(wine));
 	}
 	
 	@Test
 	public void testGet() {
 		log.info(service.get(1L));
+	}
+	
+	@Test
+	public void testWinePropertyList() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
+		
+		service.getWinPropertyDTO("wine_type", ids).forEach(propertyDTO -> log.info(propertyDTO));
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package org.wine.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.wine.domain.SellerImageVO;
 import org.wine.domain.SellerVO;
 import org.wine.mapper.SellerMapper;
 
@@ -17,15 +18,6 @@ import lombok.extern.log4j.Log4j;
 public class SellerServiceImpl implements SellerService{
 	
 	private SellerMapper mapper;
-
-	@Override
-	public void register(SellerVO seller) {
-		
-		log.info("register......" + seller);
-		
-		mapper.sellerSelectKey(seller);
-		
-	}
 	
 	@Override
 	public List<SellerVO> getList() {
@@ -34,6 +26,15 @@ public class SellerServiceImpl implements SellerService{
 		
 		return mapper.getList();
 	}
+	
+	@Override
+	public List<SellerImageVO> getImageList(Long sellerNum) {
+		
+		log.info("getImageList..........");
+		
+		return mapper.getImageList(sellerNum);
+		
+	}	
 
 	@Override
 	public SellerVO get(Long sellerNum) {
@@ -58,9 +59,5 @@ public class SellerServiceImpl implements SellerService{
 		
 		return mapper.delete(sellerNum) == 1;
 	}
-
-	
-	
-	
-
+ 
 }

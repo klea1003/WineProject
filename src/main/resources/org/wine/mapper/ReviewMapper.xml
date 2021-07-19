@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.ReviewMapper">
+
+	<resultMap type="org.wine.domain.ReviewVO" id="reviewinfo">
+		<result property="reviewNum" column="REVIEW_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="userNickName" column="USER_NICKNAME" />
+		<result property="content" column="REVIEW_CONTENT" />
+		<result property="date" column="REVIEW_DATE" />
+		<result property="rating" column="REVIEW_RATING" />
+		<result property="cntLike" column="REVIEW_COUNT_LIKE" />
+	</resultMap>
+	
+	<resultMap type="org.wine.domain.ReviewRatingVO" id="ratinginfo">
+		<result property="rating5" column="rating5" />
+		<result property="rating4" column="rating4" />
+		<result property="rating3" column="rating3" />
+		<result property="rating2" column="rating2" />
+		<result property="rating1" column="rating1" />
+	</resultMap>
+
+
+	<select id="getList" resultMap="reviewinfo">
+		<![CDATA[
+			SELECT REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+			FROM TBL_WINE_REVIEW WINE, TBL_USER
+			WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND REVIEW_NUM > 0
+		]]>
+	</select>
+
+	<select id="readLike" resultType="int">
+		select count(*) from
+		TBL_REPLY_LIKE where review_Num=#{reviewNum} and
+		user_num=#{userNum} 
+	</select>
+
+	<insert id="insertLike">
+		insert into TBL_REPLY_LIKE
+		values (SEQ_WINE_REPLY.nextval, #{reviewNum},
+		#{userNum})
+	</insert>
+
+	<delete id="deleteLike">
+		delete from TBL_REPLY_LIKE where review_Num=#{reviewNum} and
+		user_num=#{userNum}
+	</delete>
+
+	<update id="upLike">
+		update TBL_WINE_REVIEW set REVIEW_COUNT_LIKE=REVIEW_COUNT_LIKE+1
+		where review_Num=#{reviewNum}
+	</update>
+
+	<update id="downLike">
+		update TBL_WINE_REVIEW set REVIEW_COUNT_LIKE=REVIEW_COUNT_LIKE-1
+		where review_Num=#{reviewNum}
+	</update>
+	
+	<select id="getRating" resultMap="ratinginfo">
+		SELECT COUNT(CASE WHEN REVIEW_RATING=5 THEN 1 END) rating5,
+		COUNT(CASE WHEN REVIEW_RATING=4 or REVIEW_RATING=4.5 THEN 1 END) rating4,
+		COUNT(CASE WHEN REVIEW_RATING=3 or REVIEW_RATING=3.5 THEN 1 END) rating3,
+		COUNT(CASE WHEN REVIEW_RATING=2 or REVIEW_RATING=2.5 THEN 1 END) rating2,
+		COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
+		FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
+	</select>
+
+	<select id="getListWithPaging" resultMap="reviewinfo">
+	
+		<![CDATA[
+			SELECT REVIEW_NUM, USER_NUM, WINE_NUM, USER_NICKNAME, REVIEW_CONTENT, 
+			REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+			FROM (
+				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, 
+				REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+				FROM TBL_WINE_REVIEW WINE, TBL_USER
+				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND ]]>
+
+				<include refid="criteriaWine"></include>
+					
+				<![CDATA[rownum <= #{pageNum}*#{amount})
+			where rn>(#{pageNum}-1)*#{amount}]]>
+
+	</select>
+
+	<insert id="insert">
+		<selectKey keyProperty="reviewNum" order="BEFORE"
+			resultType="long">
+			select seq_review.nextval from dual
+		</selectKey>
+
+		insert into TBL_WINE_REVIEW
+		values (#{reviewNum}, #{userNum},
+		#{wineNum}, #{content}, #{date}, #{rating}, #{cntLike})
+	</insert>
+
+	<select id="read" resultMap="reviewinfo">
+		select * from TBL_WINE_REVIEW where
+		REVIEW_NUM=#{reviewNum}
+	</select>
+	
+	<select id="getAvgRating" resultType="double">
+		SELECT ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW 
+		GROUP BY WINE_NUM HAVING WINE_NUM = #{wineNum}
+	</select>
+
+	<select id="getTotalCountAll" resultType="int">
+		SELECT COUNT(*) FROM TBL_WINE_REVIEW WHERE WINE_NUM = #{wineNum}
+	</select>
+
+	<sql id="criteriaWine">
+		<if test="wineNum!=0">
+			WINE_NUM = #{wineNum} AND
+		</if>
+	</sql>
+
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.OrderMapper">
+
+	<resultMap type="org.wine.domain.OrderVO" id="orderInfo">
+		<result property="orderNum" column="ORDER_NUM" />
+		<result property="orderName" column="ORDER_NAME" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="pickUpName" column="PICKUP_NAME" />
+		<result property="pickUpPhoneNum" column="PICKUP_PHONENUM" />
+		<result property="pickUpDate" column="PICKUP_DATE" />
+		<result property="orderDate" column="ORDER_DATE" />
+		<result property="sellerNum" column="SELLER_NUM" />
+		<result property="totalPrice" column="TOTAL_PRICE" />
+		<result property="storeName" column="SELLER_STORENAME" />	
+		<result property="orderComment" column="ORDER_COMMENT" />	
+		<result property="paymentNum" column="PAYMENT_NUM" />
+		<result property="paymentTitle" column="PAYMENT_TITLE" />		
+	</resultMap>
+
+	<resultMap type="org.wine.domain.OrderItemVO" id="orderItemInfo">
+	
+		<result property="orderItemNum" column="ORDER_ITEM_NUM" />
+		<result property="orderNum" column="ORDER_NUM" />
+		
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineQty" column="WINE_QTY" />
+		
+		<result property="title" column="WINE_TITLE" />
+		<result property="price" column="WINE_PRICE" />		
+		<result property="imageName" column="WINE_IMAGENAME" />
+		
+		<result property="totalPrice" column="TOTAL_PRICE" />
+	</resultMap>
+	
+	<select id="getNextOrderNum" resultType="Long">
+		SELECT SEQ_ORDER_TEST.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 주문 등록 -->
+	<insert id="insertOrder">
+		insert into tbl_order_test(
+		ORDER_NUM, ORDER_NAME, USER_NUM, PICKUP_NAME, PICKUP_PHONENUM, PICKUP_DATE, SELLER_NUM, ORDER_COMMENT, PAYMENT_NUM
+		) values (
+		#{orderNum}, #{orderName}, #{userNum}, #{pickUpName}, #{pickUpPhoneNum}, #{pickUpDate}, #{sellerNum}, #{orderComment}, #{paymentNum})
+	</insert>
+	
+	<!-- 주문 아이템 등록 -->
+	<insert id="insertOrderItem">
+		insert into TBL_ORDER_ITEM(
+		ORDER_ITEM_NUM, ORDER_NUM, WINE_NUM, WINE_QTY
+		) values (
+		SEQ_TBL_ORDER_ITEM.NEXTVAL, #{orderNum}, #{wineNum}, #{wineQty})
+	</insert>
+	
+	<!-- 주문 리스트 -->
+	<select id="getOrderList" resultMap="orderInfo">
+		SELECT 
+		    O.ORDER_NUM,
+		    O.ORDER_NAME,
+		    O.USER_NUM,
+		    O.PICKUP_NAME,
+		    O.PICKUP_PHONENUM,
+		    O.PICKUP_DATE,
+		    O.ORDER_DATE,
+		    O.SELLER_NUM,
+		    T.TOTAL_PRICE,
+		    S.SELLER_STORENAME,
+		    O.ORDER_COMMENT,
+		    O.PAYMENT_NUM,
+		    P.PAYMENT_TITLE
+		FROM TBL_ORDER_TEST O
+		LEFT JOIN (
+		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
+		    FROM TBL_ORDER_ITEM I, TBL_WINE_TEST W
+		    WHERE I.WINE_NUM = W.WINE_NUM
+		    GROUP BY I.ORDER_NUM
+		    ) T
+		ON O.ORDER_NUM = T.ORDER_NUM
+		INNER JOIN TBL_SELLER S
+		ON O.SELLER_NUM = S.SELLER_NUM
+		INNER JOIN TBL_ORDER_PAYMENT P
+		ON O.PAYMENT_NUM = P.PAYMENT_NUM
+		WHERE O.USER_NUM = #{userNum}
+	</select>
+	
+	<select id="getOrderItemList" resultMap="orderItemInfo">
+		SELECT 
+		    O.ORDER_ITEM_NUM,
+		    O.ORDER_NUM,
+		    O.WINE_NUM,
+		    O.WINE_QTY,
+		    W.WINE_TITLE,
+		    W.WINE_PRICE,
+		    W.WINE_IMAGENAME,
+		    (W.WINE_PRICE * O.WINE_QTY) AS TOTAL_PRICE
+		FROM TBL_ORDER_ITEM O, TBL_WINE_TEST W
+		WHERE O.WINE_NUM = W.WINE_NUM AND O.ORDER_NUM = #{orderNum}
+	</select>
+	
+	<select id="getOrder" resultMap="orderInfo">
+		SELECT 
+		    O.ORDER_NUM,
+		    O.ORDER_NAME,
+		    O.USER_NUM,
+		    O.PICKUP_NAME,
+		    O.PICKUP_PHONENUM,
+		    O.PICKUP_DATE,
+		    O.ORDER_DATE,
+		    O.SELLER_NUM,
+		    T.TOTAL_PRICE,
+		    S.SELLER_STORENAME,
+		    O.ORDER_COMMENT,
+		    O.PAYMENT_NUM,
+		    P.PAYMENT_TITLE
+		FROM TBL_ORDER_TEST O
+		INNER JOIN (
+		    SELECT SUM(WINE_QTY * WINE_PRICE) as TOTAL_PRICE, I.ORDER_NUM
+		    FROM TBL_ORDER_ITEM I, TBL_WINE_TEST W
+		    WHERE I.WINE_NUM = W.WINE_NUM
+		    GROUP BY I.ORDER_NUM
+		    ) T
+		ON O.ORDER_NUM = T.ORDER_NUM
+		INNER JOIN TBL_SELLER S
+		ON O.SELLER_NUM = S.SELLER_NUM
+		INNER JOIN TBL_ORDER_PAYMENT P
+		ON O.PAYMENT_NUM = P.PAYMENT_NUM
+		WHERE O.ORDER_NUM = #{orderNum}
+	</select>
+</mapper>
+ 

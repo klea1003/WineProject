@@ -27,7 +27,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardControllerTest {
 	@Setter(onMethod_ = { @Autowired })
 	private WebApplicationContext ctx;
-	private MockMvc mockMvc; // MockMvc :��¥ mvc
+	private MockMvc mockMvc; 
 
 	@Before
 	public void setup() {
@@ -39,7 +39,24 @@ public class BoardControllerTest {
 		log.info(
 				mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView().getModelMap());
 	}
-
+	@Test
+	public void testLike() throws Exception {
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/like")
+						.param("userID", "user000")
+						.param("boardNum", "1"))
+						.andReturn().getModelAndView().getViewName();
+		log.info("Like"+resultPage);
+	}
+	@Test
+	public void testDisLike() throws Exception {
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/dislike")
+						.param("userID", "user000")
+						.param("boardNum", "1"))
+						.andReturn().getModelAndView().getViewName();
+		log.info("disLike"+resultPage);
+	}
 	@Test
 	public void testResister() throws Exception {
 		String resultPage = mockMvc
@@ -47,7 +64,7 @@ public class BoardControllerTest {
 						.param("title", "test from controller")
 						.param("content", "test from controller")
 						.param("writer", "user0000")
-						.param("type", "Q&A"))
+						.param("boardType", "Q&A"))
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 	}
@@ -66,7 +83,7 @@ public class BoardControllerTest {
 						.param("title", "test modify from controller")
 						.param("content", "test modify from controller")
 						.param("writer", "user0001")
-						.param("type", "Q&A"))
+						.param("boardType", "Q&A"))
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 				

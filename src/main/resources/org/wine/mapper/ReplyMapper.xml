@@ -3,11 +3,11 @@
 
 <mapper namespace="org.wine.mapper.ReplyMapper">
 
-<resultMap type="org.wine.domain.ReplyVO" id="replyinfo">
-  <result property="rno" column="RNO"/>
+ <resultMap type="org.wine.domain.ReplyVO" id="ReplyVO">
+  <result property="rno" column="rno"/>
   <result property="boardNum" column="BOARD_NUM"/>
-  <result property="replyer" column="REPLYER"/>
   <result property="reply" column="REPLY"/>
+  <result property="replyer" column="REPLYER"/>
   <result property="replyDate" column="REPLY_DATE"/>
  </resultMap>
  
@@ -16,7 +16,7 @@
  values (seq_reply.nextval, #{boardNum}, #{replyer}, #{reply})
 </insert>
 
-<select id = "read" resultType="org.wine.domain.ReplyVO"> 
+<select id = "read" resultMap="ReplyVO"> 
 select * from tbl_Reply_Test where rno = #{rno}
 </select> 
 
@@ -35,7 +35,7 @@ from tblReplyTest
 where boardNum=#{boardNum}
 </select> -->
 
-<select id="getListWithPaging" resultMap="replyinfo">
+<select id="getListWithPaging" resultMap="ReplyVO">
 <![CDATA[
 select rno, board_Num, reply, replyer, reply_Date
 from

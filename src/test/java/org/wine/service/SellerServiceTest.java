@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wine.domain.SellerVO;
-import org.wine.service.SellerService;
+
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -28,23 +28,7 @@ public class SellerServiceTest {
 		assertNotNull(service);
 		
 	}
-	
-	@Test
-	public void testRegister() {
-		
-		SellerVO seller = new SellerVO();
-		seller.setSellerId("seller 서비스단");
-		seller.setSellerStoreName("seller 서비스단 와인");
-		seller.setSellerContent("서비스단 와인입니다");
-		seller.setSellerPhoneNum("010-1234-1234");
-		seller.setSellerLocation("수원시");
-		
-		service.register(seller);
-		
-		log.info("생성된 셀러의 번호 : " + seller.getSellerNum());
-		
-	}
-	
+
 	@Test
 	public void testGetList() {
 		
@@ -53,9 +37,15 @@ public class SellerServiceTest {
 	}
 	
 	@Test
+	public void testgetImageList() {
+		
+		service.getImageList(3L);
+	}
+	
+	@Test
 	public void testGet(){
 		
-		log.info(service.get(28L));
+		log.info(service.get(2L));
 		
 	}
 	

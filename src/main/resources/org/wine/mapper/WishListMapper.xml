@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.WishListMapper">
+
+	<resultMap type="org.wine.domain.WishListVO" id="wishListInfo">
+		<result property="wishNum" column="WISH_NUM" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="wineNum" column="WINE_NUM" />
+		<result property="wineTitle" column="WINE_TITLE" />
+		<result property="wineImageName" column="WINE_IMAGENAME" />
+		<result property="winePrice" column="WINE_PRICE" />
+		
+	</resultMap>
+	
+	<insert id="insert">
+		INSERT INTO TBL_WISHLIST_TEST(
+		WISH_NUM, USER_NUM, WINE_NUM
+		)VALUES(
+		SEQ_WISHLIST_TEST.NEXTVAL, #{userNum}, #{wineNum}
+		)
+	</insert>
+
+	<select id ="getList" resultMap="wishListInfo">	
+		SELECT WISH_NUM, USER_NUM, W.WINE_NUM, WINE_TITLE, WINE_IMAGENAME,WINE_PRICE
+		from
+		TBL_WISHLIST_TEST H, TBL_WINE_TEST W
+		where H.WINE_NUM = W.WINE_NUM and H.USER_NUM = #{userNum} order by WISH_NUM
+	</select>
+	
+	<delete id ="delete">
+		delete from TBL_WISHLIST_TEST
+		where WISH_NUM = #{wishNum}
+	</delete>
+
+	<select id = "countWish" resultType="int">	
+		select count(*)
+		from TBL_WISHLIST_TEST where
+		USER_NUM = #{userNum} and WINE_NUM =  #{wineNum}
+	</select>
+	
+</mapper>
+ 

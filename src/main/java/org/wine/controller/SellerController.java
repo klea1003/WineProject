@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.SellerVO;
 import org.wine.service.SellerService;
+//import org.wine.service.WineProductService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,30 +25,34 @@ public class SellerController {
 	@GetMapping("/list")
 	public void list(Model model){
 		
-		log.info("list");
+		log.info("seller/list 페이지입니다.");
 		
 		model.addAttribute("list", service.getList());
 		
 	}
 	
-	@PostMapping("/register")
-	public String register(SellerVO seller, RedirectAttributes rttr){
-		
-		log.info("register: " + seller);
-		
-		service.register(seller);
-		
-		rttr.addFlashAttribute("result", seller.getSellerNum());
-		
-		return "redirect:/seller/list";
-	}
-
-	@GetMapping("/get") public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
+	@GetMapping("/get") 
+	public void get(@RequestParam("sellerNum") Long sellerNum, Model model) {
 		  
 		  log.info("/get");
 		  
-		  model.addAttribute("seller", service.get(sellerNum));
+		  model.addAttribute("getseller", service.get(sellerNum));
+		  model.addAttribute("sellerImage", service.getImageList(sellerNum));
 		  
+	}
+	
+	@GetMapping("/companyInfo")
+	public void companyInfo(Model model) {
+		
+		log.info("companyInfo 페이지");		
+		
+	}
+	
+	@GetMapping("/specialOrder")
+	public void specialOrder(Model model) {
+		
+		log.info("특판문의 페이지");
+		
 	}
 	
 	@PostMapping("/modify")

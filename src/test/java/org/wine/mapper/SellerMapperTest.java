@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wine.domain.SellerVO;
-import org.wine.mapper.SellerMapper;
+
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -24,42 +24,15 @@ public class SellerMapperTest {
 		mapper.getList().forEach(seller->log.info(seller));
 	}
 	
-	@Test
-	public void testSellerInsert() {
-		
-		SellerVO seller = new SellerVO();
-		
-		seller.setSellerId("Keumyang International");
-		seller.setSellerStoreName("금양인터내셔널");
-		seller.setSellerContent("www.keumyang.com");
-		seller.setSellerPhoneNum("02-2109-9200");
-		seller.setSellerLocation("서울 영등포구 의사당대로8 (여의도동)");
-				
-		mapper.sellerInsert(seller);
-		log.info(seller);
-		
-	}
-		
 	@Test 
-	public void testSellerSelectKey() {
-	  
-		SellerVO seller = new SellerVO();
-		  
-		seller.setSellerId("GoriWineShop");
-		seller.setSellerStoreName("고리 와인샵");
-		seller.setSellerContent("고리와인샵 입니다.");
-		seller.setSellerPhoneNum("031-287-1250");
-		seller.setSellerLocation("경기 성남시 분당구 황새울로 234 (수내동)");
-		  
-		mapper.sellerSelectKey(seller); 
-		log.info(seller); 
-	  
+	public void testgetImageList() {
+	  mapper.getImageList(2L);
 	}
 	
 	@Test
 	public void testRead() {
 		
-		SellerVO seller = mapper.read(25L);
+		SellerVO seller = mapper.read(3L);
 		
 		log.info(seller);
 		
@@ -70,7 +43,7 @@ public class SellerMapperTest {
 		
 		SellerVO seller = new SellerVO();
 		
-		seller.setSellerNum(25L);
+		seller.setSellerNum(6L);
 		seller.setSellerPhoneNum("111111");
 		seller.setSellerLocation("주소이전 업데이트");
 		

@@ -55,7 +55,7 @@ public class ReplyMapperTest {
 	   
 	      @Test
 	      public void testRead() {
-	         Long targetrno = 51L;
+	         Long targetrno = 150L;
 	         ReplyVO vo =mapper.read(targetrno);
 	         log.info(vo);
 	      }

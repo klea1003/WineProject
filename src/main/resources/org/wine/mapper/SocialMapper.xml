@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.SocialMapper">
+
+	<resultMap type="org.wine.domain.UserVO" id="userInfo">
+		<result property="userNum" column="USER_NUM" />
+		<result property="userNickName" column="USER_NICKNAME" />
+	</resultMap>
+	<resultMap type="org.wine.domain.SocialVO" id="socialInfo">
+		<result property="userFollowingId" column="USER_FOLLOWING_ID" />
+		<result property="userFollowerId" column="USER_FOLLOWER_ID" />
+	</resultMap>
+	<resultMap type="org.wine.domain.SocialReviewVO" id="reviewListInfo">
+		<result property="reviewNum" column="REVIEW_NUM"/>
+		<result property="userNum" column="USER_NUM"/>
+		<result property="wineNum" column="WINE_NUM"/> 
+		<result property="userRealName" column="USER_REALNAME"/> 
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="reviewDate" column="REVIEW_DATE"/>
+		<result property="wineImageName" column="WINE_IMAGENAME"/>
+		<result property="wineTitle" column="WINE_TITLE"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="userNickName" column="USER_NICKNAME"/>
+	</resultMap>
+	
+	<insert id="following">
+		insert into tbl_social(USER_FOLLOWING_ID, USER_FOLLOWER_ID)
+		values(#{userFollowingId},#{userFollowerId})
+	</insert>
+	
+	<delete id="unfollowing">
+		delete tbl_social
+		where USER_FOLLOWING_ID = #{userFollowingId} and USER_FOLLOWER_ID=#{userFollowerId}
+	</delete>
+	
+	<select id="followingBtn" resultMap="socialInfo">
+		select user_following_id from tbl_social
+		where user_following_id = #{userFollowingId} and user_follower_id =#{userFollowerId}
+	</select>
+
+	<select id='getCountByFollower' resultType="int" >
+      select count(USER_FOLLOWER_ID) as SOCIAL_CNT
+      from tbl_social 
+      where USER_FOLLOWING_ID=#{userNum}
+   </select>
+  
+   	<select id='getCountByFollowing' resultType="int">
+       select  count(USER_FOLLOWING_ID) as SOCIAL_CNT
+       from tbl_social 
+       where USER_FOLLOWER_ID=#{userNum}
+   </select>
+   
+ 	<select id='followingList' resultMap="userInfo">
+ 		select u.user_nickname, u.user_num
+		from tbl_social s,tbl_user u
+		where s.user_following_id = u.user_num and s.user_follower_id=#{userNum}
+ 	</select>
+ 	
+ 	 <select id='followerList' resultMap="userInfo">
+ 		select u.user_nickname, u.user_num
+		from tbl_social s,tbl_user u
+		where s.user_follower_id = u.user_num and s.user_following_id=#{userNum}
+ 	</select>
+
+	<sql id="socialList">
+		<![CDATA[
+			select wr.review_num,wr.wine_num,wr.user_num, u.user_Realname, wr.review_date,wr.review_content,w.wine_ImageName, w.wine_title,wr.review_rating,
+			 u.user_NickName,(SELECT  COUNT(*)	FROM TBL_WINE_REVIEW wr2 where wr2.user_num = wr.user_num GROUP BY USER_NUM	)as ratingCnt
+	        from tbl_wine_review wr, tbl_social s, tbl_user u, tbl_wine_test w
+	        where wr.user_num= s.user_following_id and wr.user_num=u.user_num and wr.wine_num = w.wine_num and s.user_follower_id=#{userNum}
+	        order by to_date ( wr.review_date , ' Mon DD , YYYY ' , 'NLS_DATE_LANGUAGE = AMERICAN') desc
+		]]>
+	</sql>
+	<sql id="myList">
+		<![CDATA[
+			select wr.review_num,wr.wine_num,wr.user_num, u.user_Realname, wr.review_date,wr.review_content,w.wine_ImageName, w.wine_title, wr.review_rating, u.user_NickName
+	        from tbl_wine_review wr,  tbl_user u, tbl_wine_test w
+	        where  wr.user_num=u.user_num and wr.wine_num = w.wine_num and u.user_num= #{user_num}
+	        group by wr.review_num,wr.user_num,u.user_Realname, wr.review_date,wr.review_content ,wr.wine_num,w.wine_ImageName,w.wine_title,wr.review_rating,, u.user_NickName
+	        order by to_date ( wr.review_date , ' Mon DD , YYYY ' , 'NLS_DATE_LANGUAGE = AMERICAN') desc
+		]]>
+	</sql>
+	
+	<select id="myReviewList" resultMap="reviewListInfo">
+		<include refid="myList"></include>
+	</select>
+
+	<select id="followingReviewList" resultMap="reviewListInfo">
+		<include refid="socialList"></include>
+	</select>
+	
+	<select id="followingReviewListPaging" resultMap="reviewListInfo">
+		<![CDATA[
+		select*from(
+        	select*from(
+        		select
+        		rownum rn,review_num,wine_num,user_num,user_Realname, review_date,review_content,wine_ImageName,wine_title,review_rating,user_nickname,ratingCnt
+        		from(]]>
+       				<include refid="socialList"></include>    				
+       				<![CDATA[)
+   				)where  review_num > 0  and rownum <=#{crire.pageNum}*#{crire.amount} )
+       where rn>(#{crire.pageNum}-1)*#{crire.amount} 
+		]]>
+	</select>
+	
+	<select id='getCountByuserNum' resultType='int'>
+      <![CDATA[
+		select  count(u.user_num)
+		from tbl_wine_review wr, tbl_social s, tbl_user u, tbl_wine_test w
+		where wr.user_num= s.user_following_id and wr.user_num=u.user_num and wr.wine_num = w.wine_num and s.user_follower_id=#{userNum}
+     	]]>
+   </select>
+   
+	<sql id ='topRating'>
+		<![CDATA[
+			select * from tbl_wine_test wr
+			where wr.wine_num in(        
+				select wine_num as topwine from(
+					select ROWNUM as rn,wine_num,avgrating
+					from (
+						select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+						from tbl_wine_review wr, tbl_social s, tbl_user u
+						where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=#{userNum}
+						group by wr.wine_num
+						order by avgrating desc )
+					) where rn < (select (count (wine_num)*0.2) as cnt
+									from (
+									select ROWNUM as rn,wine_num,avgrating
+									from (
+										select  wr.wine_num, round(avg(wr.review_rating),1) as avgrating
+										from tbl_wine_review wr, tbl_social s, tbl_user u
+										where  wr.user_num= s.user_following_id  and wr.user_num=u.user_num and s.user_follower_id=#{userNum}
+										group by wr.wine_num
+										order by avgrating desc)
+											)
+										)
+									)
+		]]>    
+	</sql>
+	<select id='getCountByUserNumRating' resultType="int" >
+		select count(*)  
+		from tbl_wine_review wr , tbl_user u
+		where wr.user_num = u.user_num and u.user_num=#{userNum}
+   </select>
+	
+</mapper>
+ 
