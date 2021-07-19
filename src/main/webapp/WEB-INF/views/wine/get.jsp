@@ -570,6 +570,17 @@ function addCart(_input){
 	</div>
 	<!-- Same Winery Wine List Area -->
 	
+	<div class="container">
+		<iframe
+			width="600"
+			height="500"
+			style="border:0"
+			loading="lazy"
+			allowfullscreen
+			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
+		</iframe>
+	</div>
+	
 	<!-- Rating Range -->
 	<div class="container">
 		<div class="row">
