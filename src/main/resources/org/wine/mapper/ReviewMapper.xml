@@ -75,11 +75,11 @@
 				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, 
 				REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
 				FROM TBL_WINE_REVIEW WINE, TBL_USER
-				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND Wine_Num=#{wineNum} AND]]>
+				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND]]>
 
 				<include refid="criteriaWine"></include>
 					
-				<![CDATA[rownum <= #{pageNum}*#{amount})
+				<![CDATA[Wine_Num=#{wineNum} AND rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
 
 	</select>

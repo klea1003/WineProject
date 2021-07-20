@@ -51,13 +51,13 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public ReviewPageDTO getListPage(CriteriaReview cri, Long wno){
+	public ReviewPageDTO getListPage(CriteriaReview cri, Long wineNum){
 		
 		log.info("get List with reviewCriteria: "+ cri);
 		
-		cri.setWineNum(wno.intValue());
+		cri.setWineNum(wineNum.intValue());
 		return new ReviewPageDTO(
-				mapper.getTotalCountAll(wno),
+				mapper.getTotalCountAll(wineNum),
 				mapper.getListWithPaging(cri));
 	}
 	

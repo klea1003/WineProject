@@ -153,18 +153,27 @@ function addCart(_input){
 	}
 	
 };
-$(document).ready(function() {
+
 	
-	var wno = '${wine.wno}';
+	$("#modal_show_reviewList").click(function() {
+		$("#reviewModal").modal("show");
+	});
+	    
+	$("#close_review").click(function() {
+		$("#reviewModal").modal("hide");
+	});
+	
+	var wineNum = '${wine.wno}';
+	
 	var ratingUL = $(".followingreview");
 	
 	showList(1);	
 	
 function getListRating(param, callback, error) {
-	var wno = param.wno; 
+	var wineNum = param.wineNum; 
 	var page = param.page || 1;
 	
-	$.getJSON("/wine/pages/" + wno + "/" + page + ".json",
+	$.getJSON("/wine/pages/" + wineNum + "/" + page + ".json",
 		function(data) {
 				
 			if (callback) {
@@ -176,9 +185,10 @@ function getListRating(param, callback, error) {
 		}
 	});
 } 
+
 function showList(page) {
 	
-	getListRating({wno :wno, page : page|| 1},			
+	getListRating({wineNum :wineNum, page : page|| 1},			
 	
 	function(reviewCnt, list) {
 		console.log("reviewCnt: "+ reviewCnt)
@@ -198,11 +208,11 @@ function showList(page) {
 			
 			str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
 			
-			str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
+			 /* str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
 			str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
 			str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+와인으로 가기+"</span></a>"; //타이틀 a태그 영역 끝
-			str +="</div>"; //타이틀 영역 끝
-			 
+			str +="</div>"; //타이틀 영역 끝*/
+ 		 
 			str += "<div>"; //우측에 대한 영역
 				
 			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
@@ -261,15 +271,8 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 		showList(1);
 		
 	});
-$("#modal_show_reviewList").click(function() {
-    alert("연결");
-	$("#reviewModal").modal("show");
-});
-    
-$("#close_review").click(function() {
-	$("#reviewModal").modal("hide");
-});
-}
+
+
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -550,7 +553,7 @@ $("#close_review").click(function() {
 								</div>
 
 								<div class="card-body fw-bold">
-									<c:out value="${reviewVO.content}" />
+									<c:out value="${reviewVO.content}/${reviewVO.wineNum }" />
 								</div>
 
 								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
@@ -691,7 +694,7 @@ $("#close_review").click(function() {
 			</div>
 		</div>
 	</section> 
-	<form id="actionForm" action="/wine/get?wno=${wine.wno }" method="get">
+	<form id="actionForm" action="/wine/get" method="get">
 		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
 		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
 		<input type="hidden" name="totalPageNum" value="${pageReviewMaker.totalPageNum}">

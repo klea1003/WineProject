@@ -342,16 +342,16 @@ public class WineController {
 	}
 	
 	
-	 @GetMapping(value="/pages/{wno}/{page}", 
+	 @GetMapping(value="/pages/{wineNum}/{page}", 
 			  produces= {MediaType.APPLICATION_XML_VALUE, 
 					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<ReviewPageDTO> getList(@PathVariable("page")int page, @PathVariable("wno")Long wno) {
+	   public ResponseEntity<ReviewPageDTO> getList(@PathVariable("page")int page, @PathVariable("wineNum")Long wineNum) {
 	      
 		 CriteriaReview cri=new CriteriaReview(page, 10);
 	      
 	      log.info("modal review: "+cri);
 	      
-	      return new ResponseEntity<>(reviewSerivce.getListPage(cri, wno), 
+	      return new ResponseEntity<>(reviewSerivce.getListPage(cri, wineNum), 
 	    		  HttpStatus.OK);
 	   }
 	

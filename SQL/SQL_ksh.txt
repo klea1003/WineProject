@@ -1,47 +1,31 @@
-CREATE TABLE TBL_REVIEW(
-	REVIEW_NUM NUMBER,
-	WINE_NUM NUMBER,
-	USER_NUM NUMBER,
-	REVIEW_CONTENT VARCHAR2(2048),
-	REGDATE DATE DEFAULT SYSDATE,
-	STAR_RATING VARCHAR2(50));
-create SEQUENCE seq_board;
-create SEQUENCE seq_reply;
-select seq_board.nextval from dual;
-alter sequence seq_board increment by -41;
-
 CREATE TABLE tbl_Reply_Test(
-	rno NUMBER,
+	rno NUMBER primary key,
 	boardNum NUMBER,
 	replyer varchar2(20),
 	reply varchar2(100),
 	replyDate DATE DEFAULT SYSDATE);
-    
-drop table tblBoardTest;
+
+create SEQUENCE seq_board;
+create SEQUENCE seq_reply;
+create SEQ_BOARD_LIKE;
+create SEQ_EVENT;
 
 CREATE TABLE TBL_BOARD_TEST(
-	board_Num NUMBER,
-	board_writer VARCHAR2(50),
-	board_Type VARCHAR2(50),
-	board_Title VARCHAR2(50),
-	board_Content VARCHAR2(50),
+	board_Num NUMBER primary key,
+	board_writer VARCHAR2(50) not null,
+	board_Type VARCHAR2(50) not null,
+	board_Title VARCHAR2(200),
+	board_Content VARCHAR2(2000),
 	REGDATE DATE DEFAULT SYSDATE,
-	board_Read_Count NUMBER default 0,
-    replyCnt number default 0,
-    board_like number default 0);
+    replyCnt number default 0);
     
-CREATE TABLE TBL_BOARD(
-	BOARD_NUM NUMBER,
-	USER_name VARCHAR2(50),
-	BOARD_TYPE VARCHAR2(50),
-	BOARD_TITLE VARCHAR2(50),
-	BOARD_CONTENT VARCHAR2(50),
-	REGDATE DATE DEFAULT SYSDATE,
-	BOARD_READ_COUNT NUMBER,
-    replyCnt number);
-	
-commit;
 
+CREATE TABLE TBL_BOARD_LIKE(
+	LIKE_Num NUMBER PRIMARY KEY,
+	board_NUM number,
+    user_ID varchar2(50),
+    like_stack number);
+    
 CREATE TABLE TBL_BOARD_IMAGE_test(
 	uuid varchar2(50),
     uploadpath varchar2(50),
@@ -49,15 +33,35 @@ CREATE TABLE TBL_BOARD_IMAGE_test(
     filetype varchar2(50),
     boardNum number);
 	
-commit;
+CREATE TABLE TBL_BOARD_IMAGE_test(
+	uuid varchar2(50),
+    uploadpath varchar2(50),
+    filename varchar2(50),
+    filetype varchar2(50),
     boardNum number);
 	
-commit;
-	
-CREATE TABLE TBL_BOARD_LIKE(
-	WINElIKE_NUM NUMBER,
-	BOARD_NUM NUMBER,
-	USER_NUM NUMBER,
-	LIKES VARCHAR2(50));
+CREATE TABLE TBL_event_test(
+	event_num number primary key,
+    event_title varchar2(50),
+    event_content varchar2(200),
+    event_start date,
+    event_end date,
+    event_image varchar2(50));
+
+CREATE TABLE TBL_WINE_REVIEW (
+    REVIEW_NUM NUMBER(20) NOT NULL,
+    USER_NUM NUMBER(20) NOT NULL,
+    WINE_NUM NUMBER(20) NOT NULL,
+    REVIEW_CONTENT VARCHAR2(1000),
+    REVIEW_DATE VARCHAR2(100),
+    REVIEW_RATING FLOAT,
+    REVIEW_COUNT_LIKE NUMBER(20)
+);
+
+CREATE TABLE TBL_review_LIKE(
+	LIKE_Num NUMBER PRIMARY KEY,
+	review_NUM number,
+    user_nickname varchar2(50),
+    like_stack number);
 	
 commit;
