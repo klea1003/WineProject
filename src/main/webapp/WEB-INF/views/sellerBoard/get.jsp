@@ -18,44 +18,26 @@
 	</div>
 
 <div class="container">
-	
-	<form role="form" action="/sellerBoard/register" method="post">
-		<div class="form-group mb-3">
+	<div class="form-group mb-3">
 			<label for="title">제목</label>
-			<input class="form-control" name="title" type="text" id="title" placeholder="제목을 입력해 주세요">
+			<input class="form-control" name="title" value='<c:out value="${sellerBoard.title }"/>' readonly="readonly">
 		</div>
 
 		<div class="form-group mb-3">
 			<label for="writer">작성자</label>
-			<input class="form-control" name="writer" type="text" id="writer" placeholder="이름을 입력해 주세요">
+			<input class="form-control" name="writer" value='<c:out value="${sellerBoard.writer }"/>' readonly="readonly">
 		</div>
 
 		<div class="form-group mb-5">
 			<label for="content">내용</label>
-			<textarea class="form-control" rows="5" name="content" id="content">
-			
-			<p><b><span>* 해당 정보를 기입해주시면 보다 빠른 안내로 도와드리겠습니다 :)</span></b></p>
-			<p><span>&nbsp;</span></p>
-			<p>1. 수령날짜 : 2021. 00. 00까지</span></p>
-
-			<p>2. 수령장소 : 역삼동 00-00</p>
-
-			<p>3. 필요상품 : 레드와인 50병 1병당 4~5만원대 추천해주세요!</p>
-
-			<p>4. 수령형태 : 택배 or 퀵 or 픽업 등</p>
-
-			<p>5. 입금형태 : 세금계산서 or 법인카드 결제 등</p>
-			
-			<p>6. 추가내용 : 개별 선물용이라 포장 추가해주세요 ~ ! 등</p>  
-			
+			<textarea class="form-control" rows="5" name="content" id="content" readonly="readonly">
+			<c:out value="${sellerBoard.content }"></c:out>
 			</textarea>
 		</div>
 	<div class="mb-5">
 		<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
-		<button type="submit" class="btn btn-outline-danger" id="btnSave">저장</button>
+		<button type="submit" class="btn btn-outline-danger" id="btnSave">수정</button>
 	</div>
-	</form>
-
 </div>
 
 
