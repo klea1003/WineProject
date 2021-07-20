@@ -82,6 +82,13 @@
 		
 	</select>
 	
+	<select id="getListSameWinery" resultMap="WineInfo">
+			
+			SELECT * FROM TBL_WINE_TEST 
+			WHERE WINENERY = (SELECT WINENERY FROM TBL_WINE_TEST WHERE WINE_NUM = #{wno})
+		
+	</select>
+	
 	<select id="getTotalCount" resultType="int">
 		 <![CDATA[
 

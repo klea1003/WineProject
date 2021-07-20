@@ -54,16 +54,7 @@ CREATE TABLE TBL_WINE(
 	
 commit;
 
----- 아로마 테이블
-CREATE TABLE TBL_AROMA(
-	AROMA_NUM NUMBER,
-	REVIEW_NUM NUMBER,
-	WINE_NUM NUMBER,
-	FIRST_CATEGORYID VARCHAR2(50),
-	SECOND_CATEGORYID VARCHAR2(50));
-	
-commit;
-	
+
 ---------------------------------------------------- 은영 기능
 
 
