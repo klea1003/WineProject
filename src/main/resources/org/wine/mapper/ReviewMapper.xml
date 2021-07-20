@@ -19,7 +19,6 @@
 		<result property="rating3" column="rating3" />
 		<result property="rating2" column="rating2" />
 		<result property="rating1" column="rating1" />
-		<result property="ratingAll" column="ratingAll" />
 	</resultMap>
 
 
@@ -31,29 +30,20 @@
 		]]>
 	</select>
 
-	<select id="getList3" resultMap="reviewinfo">
-		<![CDATA[
-			select * from 
-(SELECT REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
-			FROM TBL_WINE_REVIEW WINE, TBL_USER
-			WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND REVIEW_NUM > 0 and wine_num = #{wineNum} order by REVIEW_COUNT_LIKE desc)where rownum <4
-		]]>
-	</select>
-
 	<select id="readLike" resultType="int">
 		select count(*) from
-		TBL_REPLY_LIKE where review_Num=#{reviewNum} and
+		TBL_REVIEW_LIKE where review_Num=#{reviewNum} and
 		user_num=#{userNum} 
 	</select>
 
 	<insert id="insertLike">
-		insert into TBL_REPLY_LIKE
+		insert into TBL_REVIEW_LIKE
 		values (SEQ_WINE_REPLY.nextval, #{reviewNum},
 		#{userNum})
 	</insert>
 
 	<delete id="deleteLike">
-		delete from TBL_REPLY_LIKE where review_Num=#{reviewNum} and
+		delete from TBL_REVIEW_LIKE where review_Num=#{reviewNum} and
 		user_num=#{userNum}
 	</delete>
 
@@ -69,11 +59,11 @@
 	
 	<select id="getRating" resultMap="ratinginfo">
 		SELECT COUNT(CASE WHEN REVIEW_RATING=5 THEN 1 END) rating5,
-COUNT(CASE WHEN REVIEW_RATING=4 or REVIEW_RATING=4.5 THEN 1 END) rating4,
-COUNT(CASE WHEN REVIEW_RATING=3 or REVIEW_RATING=3.5 THEN 1 END) rating3,
-COUNT(CASE WHEN REVIEW_RATING=2 or REVIEW_RATING=2.5 THEN 1 END) rating2,
-COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
-FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
+		COUNT(CASE WHEN REVIEW_RATING=4 or REVIEW_RATING=4.5 THEN 1 END) rating4,
+		COUNT(CASE WHEN REVIEW_RATING=3 or REVIEW_RATING=3.5 THEN 1 END) rating3,
+		COUNT(CASE WHEN REVIEW_RATING=2 or REVIEW_RATING=2.5 THEN 1 END) rating2,
+		COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
+		FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
 	</select>
 
 	<select id="getListWithPaging" resultMap="reviewinfo">
@@ -85,9 +75,9 @@ FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
 				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, 
 				REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
 				FROM TBL_WINE_REVIEW WINE, TBL_USER
-				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND ]]>
+				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND Wine_Num=#{wineNum} AND]]>
 
-		<include refid="criteriaWine"></include>
+				<include refid="criteriaWine"></include>
 					
 				<![CDATA[rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
@@ -109,15 +99,14 @@ FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
 		select * from TBL_WINE_REVIEW where
 		REVIEW_NUM=#{reviewNum}
 	</select>
+	
+	<select id="getAvgRating" resultType="double">
+		SELECT ROUND(AVG(REVIEW_RATING),2) as AVG_RATING FROM TBL_WINE_REVIEW 
+		GROUP BY WINE_NUM HAVING WINE_NUM = #{wineNum}
+	</select>
 
-	<select id="getTotalCount" resultType="int">
-		 <![CDATA[
-			SELECT COUNT(*) FROM (
-			    SELECT * FROM TBL_WINE_REVIEW WHERE ]]>
-
-		<include refid="criteriaWine"></include>
-
-		wine_num > 0)
+	<select id="getTotalCountAll" resultType="int">
+		SELECT COUNT(*) FROM TBL_WINE_REVIEW WHERE WINE_NUM = #{wineNum}
 	</select>
 
 	<sql id="criteriaWine">

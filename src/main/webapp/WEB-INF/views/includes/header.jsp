@@ -98,14 +98,20 @@
 	text-align: center;
 }
 
-.correct {
+#correct {
 	color: green;
 	font-size: 5px;
+	text-align: center;
+	display: none;
+	
 }
 
-.incorrect {
+#incorrect {
 	color: red;
 	font-size: 5px;
+	text-align: center;
+	display: none;
+	
 }
 
 .final_id_ck {
@@ -654,8 +660,9 @@ $(document).ready(function() {
 							<!-- row  -->
 							<div class="col-sm-7">
 								<input type="email" class="form-control" id="email_input" name="userEmail" placeholder="이메일 입력"> 
-								<span class="final_email_ck">이메일을 입력해주세요</span> 
+								<span class="final_email_ck">이메일을 입력해주세요</span>
 								<span class="email_input_box_warn"></span>
+								
 							</div>
 							<div class="col-sm-5">
 								<input type="button" class="form-control" id="email_check_button" name="userEmail" value="인증번호 전송">
@@ -663,8 +670,10 @@ $(document).ready(function() {
 							<div class="col-sm-12">
 								<div class="email_check_input_box" id="email_check_input_box_false">
 									<input type="text" class="form-control " id="email_check_input"	disabled="disabled">
+									<span id ="correct">인증번호가 일치 합니다.</span>
+									<span id ="incorrect">인증번호를 다시 입력해주세요.</span>
 								</div>
-								<span id="email_check_input_box_warn"></span>
+								
 							</div>
 							<div class="col-sm-12">
 								<label class="input-group-text" id="inputGroup-sizing-default" for="pickUpPhoneNum" style="display: none;"></label>
@@ -711,6 +720,25 @@ $(document).ready(function() {
 	<!-- 회원가입 js -->
 </body>
 <script type="text/javascript">   
+
+	$("#email_check_input").on("propertychange change keyup paste input",
+		function() {
+
+		var inputCode = $("#email_check_input").val();
+
+		if (inputCode == code) {
+			$('#correct').css('display', 'block');
+			$('#incorrect').css('display', 'none');
+			emailnumCheck = true;
+		} else {
+			$('#incorrect').css('display', 'block');
+			$('#correct').css('display', 'none');
+			emailnumCheck = false;
+		}
+
+	}); // function 종료
+
+
 	var searchForm = $("#searchForm");
 	
 	$('#searchForm button').on("click", function(e){

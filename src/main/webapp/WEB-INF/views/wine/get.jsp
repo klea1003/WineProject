@@ -87,39 +87,88 @@
 	overflow: visible;
 	clip: auto;
 }
-span.star-prototype, span.star-prototype > * {
-    height: 16px; 
-    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
-    width: 80px;
-    display: inline-block;
-}
- 
-span.star-prototype > * {
-    background-position: 0 0;
-    max-width:80px; 
+
+span.star-prototype, span.star-prototype>* {
+	height: 16px;
+	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+	width: 80px;
+	display: inline-block;
 }
 
-.wineneryImg{
-	
+span.star-prototype>* {
+	background-position: 0 0;
+	max-width: 80px;
+}
+
+.wineneryImg {
 	background: url("/resources/images/winery_image.jpg");
 	height: 400px;
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    opacity: 0.8;
-    color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	opacity: 0.8;
+	color: #fff;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-
+.progress_bar .pro-bar {
+    background: hsl(0, 0%, 97%);
+    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.1) inset;
+    height:4px;
+    margin-bottom: 12px;
+    margin-top: 50px;
+    position: relative;
+}
+.progress_bar .progress_bar_title{
+    color: hsl(218, 4%, 50%);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+    top: -28px;
+    z-index: 1;
+}
+.progress_bar .progress_number{
+    float: right;
+    margin-top: -24px;
+}
+.progress_bar .progress-bar-inner {
+    background-color: hsl(0, 0%, 88%);
+    display: block;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 1s linear 0s;
+}
+.progress_bar .progress-bar-inner:before {
+    content: "";
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    right: 1px;
+    top: 0;
+    z-index: 1;
+}
+.progress_bar .progress-bar-inner:after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background-color: inherit;
+    border-radius: 50%;
+    position: absolute;
+    right: -4px;
+    top: -5px;
+}
 </style>
 
 <script type="text/javascript">
-var user = '${user}';
 
+var user = '${user}';
 
 function addWish(_input){
 	
@@ -156,13 +205,123 @@ function addCart(_input){
 	}
 	
 };
+$(document).ready(function() {
+	
+	var wno = '${wine.wno}';
+	var ratingUL = $(".followingreview");
+	
+	showList(1);	
+	
+function getListRating(param, callback, error) {
+	var wno = param.wno; 
+	var page = param.page || 1;
+	
+	$.getJSON("/wine/pages/" + wno + "/" + page + ".json",
+		function(data) {
+				
+			if (callback) {
+			   callback(data.reviewCnt, data.list);
+			}
+		}).fail(function(xhr, status, err) {
+	if (error) {
+		error();
+		}
+	});
+} 
+function showList(page) {
+	
+	getListRating({wno :wno, page : page|| 1},			
+	
+	function(reviewCnt, list) {
+		console.log("reviewCnt: "+ reviewCnt)
+		console.log("list: "+list)
+      		
+		if(page==-1) {
+			pageNum=Math.ceil(reviewCnt/10.0)
+			showList(pageNum)
+			return
+        } 
+		var str = "";
+            
+		if (list == null|| list.length == 0) {
+			return;
+		}
+		for (var i = 0, len = list.length || 0; i < len; i++) {
+			
+			str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
+			
+			str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
+			str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
+			str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+와인으로 가기+"</span></a>"; //타이틀 a태그 영역 끝
+			str +="</div>"; //타이틀 영역 끝
+			 
+			str += "<div>"; //우측에 대한 영역
+				
+			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
+			str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].Rating+"</span>";
+			str +=" <a class='text-decoration-none text-dark' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
+			str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
+			str += "<span class='fw-bold'>("+list[i].cntLike+" ratings)</span>";
+			str +=" <div style='text-align:right;'> "+list[i].date+"</div>";
+			str +="</div>";  //닉네임, 리뷰데이트 우측 정렬 영역 끝
+			
+			str += "<div class='card bg-light p-2 mt-2' style='height: 290px; width:73%; margin-right:2%; float:left'> "; //리뷰 컨텐츠 영역
+          	str += "<h5>"+list[i].content+"</h5> "; 
+           	str += "</div>"; //리뷰 컨텐츠 영역 끝
+           	
+           
+            str += "</div>"; //우측에 대한 영역 끝
+            
+            str += "</div>"; //카드 영역 끝
+		}
+		ratingUL.append(str);
+	});
+		
+}// end showList
 
-$.fn.generateStars = function() {
-    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
-};
+var actionForm = $("#actionForm");
 
-// 숫자 평점을 별로 변환하도록 호출하는 함수
-$('.star-prototype').generateStars();
+$('#reviewModal').scroll(function() {
+
+	console.log("modalscroll");
+	if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight){
+		
+		console.log("modaltest");
+
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		var totalPageNum = parseInt(actionForm.find("input[name='totalPageNum']").val());
+		
+		if(currentPageNum +1 <= totalPageNum){	
+			
+			actionForm.find("input[name='pageNum']").val(currentPageNum +1);
+			
+			var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+			
+			showList(currentPageNum)
+		}
+	}
+})
+$('#reviewModal').on('hidden.bs.modal', function (e) {
+		
+		actionForm.find("input[name='pageNum']").val(currentPageNum = 1);
+		
+		var currentPageNum = parseInt(actionForm.find("input[name='pageNum']").val());
+		
+		ratingUL.empty();
+		
+		showList(1);
+		
+	});
+$("#modal_show_reviewList").click(function() {
+    alert("연결");
+	$("#reviewModal").modal("show");
+});
+    
+$("#close_review").click(function() {
+	$("#reviewModal").modal("hide");
+});
+}
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -226,8 +385,8 @@ $('.star-prototype').generateStars();
 									<path
 										d="M6.7378,8.1146c.0044.0694.0234.0336.2292.1745A2.5588,2.5588,0,0,0,8,8.6a2.5478,2.5478,0,0,0,1.03-.3109c.2057-.1409.2283-.1051.2327-.1745Z"
 										fill="none" stroke="#1e1e1e" stroke-linecap="round"
-										stroke-linejoin="round"></path></svg>
-								<c:out value="${wine.wineType}" /> from
+										stroke-linejoin="round"></path></svg> <c:out
+									value="${wine.wineType}" /> from
 							</span>
 							<c:out value="${wine.region}" />
 							<br>
@@ -240,9 +399,7 @@ $('.star-prototype').generateStars();
 
 					<div class="d-flex">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-
-
-						onclick='addWish("${wine.wno}")'>
+							onclick='addWish("${wine.wno}")'>
 
 
 							<i class="bi bi-emoji-heart-eyes"></i> Wish List
@@ -250,8 +407,7 @@ $('.star-prototype').generateStars();
 						&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-
-						onclick='addCart("${wine.wno}")'>
+							onclick='addCart("${wine.wno}")'>
 
 							<i class="bi-cart-fill me-1"></i> Add Cart
 						</button>
@@ -260,6 +416,29 @@ $('.star-prototype').generateStars();
 			</div>
 		</div>
 	</section>
+	
+	<!-- Taste about the wine -->
+	
+	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+		<h3>Tastes about the wine</h3>
+		<table>
+			<c:forEach items="${taste_list}" var="taste">
+				<tr>
+					<td><c:out value="${taste.leftColumn}" /></td>
+					<td width="100%">
+						<div class="progress_bar">
+							<div class="pro-bar">
+								<!-- <span class="progress_number"><c:out value="${taste.ratio}" />%</span> -->
+								<span class="progress-bar-inner" style='background-color: #1abc9c; width: <c:out value="${taste.ratio}" />%;' 
+									data-value='<c:out value="${taste.ratio}" />' data-percentage-value='<c:out value="${taste.ratio}" />'></span>
+							</div>
+						</div>
+					</td>
+					<td><c:out value="${taste.rightColumn}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 
 	<!-- Facts about the wine -->
 	<div class="container mt-5 mb-5"
@@ -403,11 +582,14 @@ $('.star-prototype').generateStars();
 
 		</table>
 	</div>
-	<!-- end Facts about the wine -->	
+	<!-- end Facts about the wine -->
 	<a href='<c:out value="${wine.wineneryLink}" />'>
-		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1><br>
-	</a> 
+		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
+	</a>
 	<!-- Review -->
+	 <section class="py-5 bg-light" >
+		<div class="container px-5">
+		<div class="row gx-5">
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
 			<div class="col-md-8">
@@ -416,7 +598,7 @@ $('.star-prototype').generateStars();
 
 						<h3>Community reviews</h3>
 
-						<c:forEach items="${review_list3}" var="reviewVO">
+						<c:forEach items="${review_list_3line}" var="reviewVO">
 							<div class="card mb-3">
 								<div class="card-header">
 
@@ -424,7 +606,7 @@ $('.star-prototype').generateStars();
 										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
 									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 											value="${reviewVO.userNum}" /> <c:out
-											value="${reviewVO.userNickName}" />(총 이 유저가 한 레이팅 갯수)
+											value="${reviewVO.userNickName}" />
 									</span>
 
 								</div>
@@ -436,13 +618,17 @@ $('.star-prototype').generateStars();
 								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
 									<li class="list-inline-item g-mr-20">
 										<form id='operForm' action='/wine/clickLike' method='post'>
-											<input type='hidden' id='userNum' name='userNum' value='<c:out value="${user.userNum }" />'> 
-											<input type='hidden' id='reviewNum' name='reviewNum' value='<c:out value="${reviewVO.reviewNum }"/>'>
-											<input type='hidden' id='wineNum' name='wineNum' value='<c:out value="${wine.wno}"/>'>
-												 <button class="like" type="submit">
-										    <i class="bi bi-hand-thumbs-up"></i> <c:out
-											value="${reviewVO.cntLike}" /> </button>
-											</form>
+											<input type='hidden' id='userNum' name='userNum'
+												value='<c:out value="${user.userNum }" />'> <input
+												type='hidden' id='reviewNum' name='reviewNum'
+												value='<c:out value="${reviewVO.reviewNum }"/>'> <input
+												type='hidden' id='wineNum' name='wineNum'
+												value='<c:out value="${wine.wno}"/>'>
+											<button class="like" type="submit">
+												<i class="bi bi-hand-thumbs-up"></i>
+												<c:out value="${reviewVO.cntLike}" />
+											</button>
+										</form>
 									</li>
 									<li class="list-inline-item g-mr-20">
 										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
@@ -462,10 +648,57 @@ $('.star-prototype').generateStars();
 				</div>
 			</div>
 		</div>
-		<a href="#" class="btn btn-outline-danger">Show more reviews</a>
+		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</button>
 	</div>
 	<!-- end Review -->
-
+	
+	<!-- Same Winery Wine List Area -->
+	<div class="container">
+		<!-- swiper슬라이더 메인컨테이너 -->
+		<div class="swiper-container">
+			<!-- 보여지는 영역 -->
+			<div class="swiper-wrapper">
+				<c:forEach items="${list_same_winery}" var="wine">
+                	<div style="width: 344px; margin-left: 90px;"> 
+                   		<div class="col mb-5">
+                    		<div class="card-list">
+                				<div class="text-center">
+                   					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="350" width="150">
+                				</div>
+			                     <div class="card-body">
+								      <p ><b><c:out value="${wine.title}" /></b></p>
+								      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
+								      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
+								</div>
+			                 	<div class="card-footer text-center">
+			                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
+			                  		More Info</button>
+			                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+									Add Cart</button>
+			                  	</div>
+             				</div>
+               			</div>
+               		</div>
+				</c:forEach>
+			</div>
+			<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+	</div>
+	<!-- Same Winery Wine List Area -->
+	
+	<div class="container">
+		<iframe
+			width="600"
+			height="500"
+			style="border:0"
+			loading="lazy"
+			allowfullscreen
+			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
+		</iframe>
+	</div>
+	
 	<!-- Rating Range -->
 	<div class="container">
 		<div class="row">
@@ -473,10 +706,10 @@ $('.star-prototype').generateStars();
 				<div class="well well-sm">
 					<div class="row">
 						<div class="col-xs-12 col-md-6 text-center">
-							<h1 class="rating-num">${review_Rating.ratingAll}</h1>
+							<h1 class="rating-num">${review_Avg}</h1>
 							<div class="rating">
-							<!-- <span class="star-prototype">4</span> -->
-								 <span><i class="bi bi-star-fill"></i></span> <span><i
+								<!-- <span class="star-prototype">4</span> -->
+								<span><i class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
@@ -493,8 +726,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating5}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating5}</div>
+											style="width: ${review_Rating.rating5}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating5}</div>
 									</div>
 								</div>
 								<!-- end 5 -->
@@ -504,8 +737,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating4}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating4}</div>
+											style="width: ${review_Rating.rating4}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating4}</div>
 									</div>
 								</div>
 								<!-- end 4 -->
@@ -515,8 +748,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating3}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating3}</div>
+											style="width: ${review_Rating.rating3}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating3}</div>
 									</div>
 								</div>
 								<!-- end 3 -->
@@ -526,8 +759,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating2}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating2}</div>
+											style="width: ${review_Rating.rating2}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating2}</div>
 									</div>
 								</div>
 								<!-- end 2 -->
@@ -537,8 +770,8 @@ $('.star-prototype').generateStars();
 								<div class="col-xs-8 col-md-9">
 									<div class="progress">
 										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating1}%" aria-valuenow="75" aria-valuemin="0"
-											aria-valuemax="100">${review_Rating.rating1}</div>
+											style="width: ${review_Rating.rating1}%" aria-valuenow="75"
+											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating1}</div>
 									</div>
 								</div>
 								<!-- end 1 -->
@@ -550,8 +783,28 @@ $('.star-prototype').generateStars();
 			</div>
 		</div>
 	</div>
-	<!-- Rating Range End -->
-
+	<!-- review modal -->
+			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">review</h2>
+								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class=" modal-body followingreview">
+					
+							</div>			
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</section> 
+	<form id="actionForm" action="/wine/get?wno=${wine.wno }" method="get">
+		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
+		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
+		<input type="hidden" name="totalPageNum" value="${pageReviewMaker.totalPageNum}">
+	</form>
 	<%@ include file="../includes/footer.jsp"%>
 
 </body>

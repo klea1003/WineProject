@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaReview;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.domain.ReviewRatingVO;
 import org.wine.domain.ReviewVO;
 import org.wine.mapper.ReviewMapper;
@@ -42,11 +43,22 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public ArrayList<ReviewVO> getList3(Long wineNum){
+	public int getTotal(Long wno) {
 		
-		log.info("get  getList3 : "+ wineNum);
-		log.info(mapper.getList3(wineNum));
-		return mapper.getList3(wineNum);
+		log.info("get Total: "+ wno);
+		
+		return mapper.getTotalCountAll(wno);
+	}
+	
+	@Override
+	public ReviewPageDTO getListPage(CriteriaReview cri, Long wno){
+		
+		log.info("get List with reviewCriteria: "+ cri);
+		
+		cri.setWineNum(wno.intValue());
+		return new ReviewPageDTO(
+				mapper.getTotalCountAll(wno),
+				mapper.getListWithPaging(cri));
 	}
 	
 	@Override
@@ -69,23 +81,16 @@ public class ReviewServiceImpl implements ReviewService{
 	public ReviewRatingVO getRating(Long wineNum) {
 		
 		log.info("getRating: " +  wineNum);
-		ReviewRatingVO rating = mapper.getRating( wineNum);
-		
-		Long all = rating.getRating1()+rating.getRating2()+rating.getRating3()+rating.getRating4()+rating.getRating5();
-		
-		Long allStar = (rating.getRating1()*1)+(rating.getRating2()*2)+(rating.getRating3()*3)+(rating.getRating4()*4)+(rating.getRating5()*5);
-		log.info(allStar/all);
-		rating.setRatingAll(allStar/all);
-		return rating;
+		return mapper.getRating(wineNum);
 		
 	}
 	
 	@Override
-	public int getTotal(CriteriaReview cri) {
-		
-		log.info("getTotal with Criteria: " + cri);
-		
-		return mapper.getTotalCount(cri);
-		
+	public double getAvgRating(Long wineNum) {
+		if (mapper.getTotalCountAll(wineNum) > 0) {
+			return mapper.getAvgRating(wineNum);
+		} else {
+			return 0.0;
+		}		
 	}
 }
