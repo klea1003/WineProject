@@ -38,7 +38,7 @@
 						<c:forEach var="sb" items="${list}" varStatus="status">
 							<tr>
 								<td>${sb.sellerBno}</td>
-								<td><a onclick="location.href='/sellerBoard/get?boardNum=<c:out value="${sb.sellerBno}"/>'">${sb.title}</a></td> 
+								<td><a onclick="location.href='/sellerBoard/get?sellerBno=<c:out value="${sb.sellerBno}"/>'">${sb.title}</a></td> 
 								
 								<td>${sb.writer}</td>
 								<td>${sb.regdate}</td>
