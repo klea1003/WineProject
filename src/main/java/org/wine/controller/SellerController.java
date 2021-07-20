@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.SellerVO;
 import org.wine.service.SellerService;
-//import org.wine.service.WineProductService;
+
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -45,13 +45,6 @@ public class SellerController {
 	public void companyInfo(Model model) {
 		
 		log.info("companyInfo 페이지");		
-		
-	}
-	
-	@GetMapping("/specialOrder")
-	public void specialOrder(Model model) {
-		
-		log.info("특판문의 페이지");
 		
 	}
 	

@@ -53,7 +53,7 @@
 		</form>
 
 		<div class="justify-content-center mb-5">
-			<button type="button" class="btn btn-outline-secondary" id="btnList">목록</button>
+			<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
 			<button type="button" class="btn btn-outline-danger" id="btnSave">저장</button>
 		</div>
 </div>
@@ -69,7 +69,5 @@
 			console.error(error);
 			
 		});
-
-
 </script>
 </html>
