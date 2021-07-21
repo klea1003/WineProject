@@ -9,7 +9,7 @@ import org.wine.domain.ReviewVO;
 
 public interface ReviewService {
 
-	public void register(ReviewVO review);
+	public int register(ReviewVO review);
 	
 	public ReviewVO get(Long reviewNum);
 	
@@ -24,6 +24,8 @@ public interface ReviewService {
 	public ReviewPageDTO getListPage(CriteriaReview cri, Long wno);
 
 	public int getTotal(Long wno);
+
+	public ArrayList<ReviewVO> getMyList(ReviewVO review);
 
 	
 	//public int getTotal(CriteriaReview cri); todo. criteria 가 이상해서 확인 후 올릴 것

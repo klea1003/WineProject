@@ -9,6 +9,7 @@ import org.wine.domain.ReviewVO;
 public interface ReviewMapper {
 
 	 public ArrayList<ReviewVO> getList();
+	 public ArrayList<ReviewVO> getMyList(ReviewVO review);
 	 public ArrayList<ReviewVO> getListWithPaging(CriteriaReview cri);
 	 public ReviewRatingVO getRating(Long wineNum);
 	 public double getAvgRating(Long wineNum);

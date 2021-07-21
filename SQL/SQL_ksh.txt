@@ -9,6 +9,7 @@ create SEQUENCE seq_board;
 create SEQUENCE seq_reply;
 create SEQ_BOARD_LIKE;
 create SEQ_EVENT;
+create SEQ_REVIEW;
 
 CREATE TABLE TBL_BOARD(
 	board_Num NUMBER primary key,

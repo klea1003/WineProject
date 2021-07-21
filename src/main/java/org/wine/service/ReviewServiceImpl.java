@@ -19,11 +19,14 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewMapper mapper;
 	
 	@Override
-	public void register(ReviewVO review) {
+	public int register(ReviewVO review) {
 		
+		Float a = Float.parseFloat(review.getRating());
+		review.setRatingF(a);
 		log.info("register......." + review);
-		
 		mapper.insert(review);
+		
+		return 1;
 	}
 	
 	@Override
@@ -41,6 +44,15 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		return mapper.getListWithPaging(cri);
 	}
+	
+	@Override
+	public ArrayList<ReviewVO> getMyList(ReviewVO review){
+		
+		log.info("get List with Criteria: "+review);
+		
+		return mapper.getMyList(review);
+	}
+	
 	
 	@Override
 	public int getTotal(Long wno) {

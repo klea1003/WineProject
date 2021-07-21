@@ -52,18 +52,7 @@ public class ReplyController {
       return new ResponseEntity<>(service.getListPage(cri, boardNum), HttpStatus.OK);
    }
    
-   @GetMapping(value="/winepages/{wineNum}/{page}", 
-			  produces= {MediaType.APPLICATION_XML_VALUE, 
-					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<ReviewPageDTO> getReviewList(@PathVariable("page")int page, @PathVariable("wineNum")Long wineNum) {
-	      
-		 CriteriaReview cri=new CriteriaReview(page, 10);
-	      
-	      log.info("modal review: "+cri);
-	      
-	      return new ResponseEntity<>(reviewService.getListPage(cri, wineNum), 
-	    		  HttpStatus.OK);
-	   }
+  
    
    @GetMapping(value="/{rno}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
    public ResponseEntity<ReplyVO> get(@PathVariable("rno")Long rno) {

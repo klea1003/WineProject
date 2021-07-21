@@ -316,7 +316,6 @@ public class WineController {
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
 		
-		/* CriteriaReview cri = new CriteriaReview(); */
 		cri.setWineNum(wno.intValue());
 		
 		int total = reviewSerivce.getTotal(wno);
