@@ -1,4 +1,4 @@
-CREATE TABLE tbl_Reply_Test(
+CREATE TABLE tbl_Reply(
 	rno NUMBER primary key,
 	boardNum NUMBER,
 	replyer varchar2(20),
@@ -10,7 +10,7 @@ create SEQUENCE seq_reply;
 create SEQ_BOARD_LIKE;
 create SEQ_EVENT;
 
-CREATE TABLE TBL_BOARD_TEST(
+CREATE TABLE TBL_BOARD(
 	board_Num NUMBER primary key,
 	board_writer VARCHAR2(50) not null,
 	board_Type VARCHAR2(50) not null,
@@ -26,21 +26,15 @@ CREATE TABLE TBL_BOARD_LIKE(
     user_ID varchar2(50),
     like_stack number);
     
-CREATE TABLE TBL_BOARD_IMAGE_test(
+CREATE TABLE TBL_BOARD_IMAGE(
 	uuid varchar2(50),
     uploadpath varchar2(50),
     filename varchar2(50),
     filetype varchar2(50),
     boardNum number);
 	
-CREATE TABLE TBL_BOARD_IMAGE_test(
-	uuid varchar2(50),
-    uploadpath varchar2(50),
-    filename varchar2(50),
-    filetype varchar2(50),
-    boardNum number);
 	
-CREATE TABLE TBL_event_test(
+CREATE TABLE TBL_event(
 	event_num number primary key,
     event_title varchar2(50),
     event_content varchar2(200),

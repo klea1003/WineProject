@@ -153,7 +153,7 @@ function addCart(_input){
 	}
 	
 };
-
+$(document).ready(function() {
 	
 	$("#modal_show_reviewList").click(function() {
 		$("#reviewModal").modal("show");
@@ -163,9 +163,9 @@ function addCart(_input){
 		$("#reviewModal").modal("hide");
 	});
 	
-	var wineNum = '${wine.wno}';
+	var wineNumValue = "${wine.wno}";
 	
-	var ratingUL = $(".followingreview");
+	var ratingUL = $(".wineReview");
 	
 	showList(1);	
 	
@@ -173,7 +173,7 @@ function getListRating(param, callback, error) {
 	var wineNum = param.wineNum; 
 	var page = param.page || 1;
 	
-	$.getJSON("/wine/pages/" + wineNum + "/" + page + ".json",
+	$.getJSON("/replies/winepages/" + wineNum + "/" + page + ".json",
 		function(data) {
 				
 			if (callback) {
@@ -188,7 +188,7 @@ function getListRating(param, callback, error) {
 
 function showList(page) {
 	
-	getListRating({wineNum :wineNum, page : page|| 1},			
+	getListRating({wineNum :wineNumValue, page : page|| 1},			
 	
 	function(reviewCnt, list) {
 		console.log("reviewCnt: "+ reviewCnt)
@@ -272,7 +272,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 		
 	});
 
-
+});
 </script>
 <body>
 	<%@ include file="../includes/header.jsp"%>
@@ -367,9 +367,10 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Taste about the wine -->
-	<div class="container mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+	<div class="container mt-5 mb-5"
+		style="padding-left: 15%; padding-right: 10%;">
 		<table>
 			<c:forEach items="${taste_list}" var="taste">
 				<tr>
@@ -528,176 +529,185 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
 	</a>
 	<!-- Review -->
-	 <section class="py-5 bg-light" >
+	<section class="py-5 bg-light">
 		<div class="container px-5">
-		<div class="row gx-5">
-	<div class="container mt-3 mb-5" style="margin-left: 30%">
-		<div class="row">
-			<div class="col-md-8">
-				<div class="media">
-					<div class="media-body">
+			<div class="row gx-5">
+				<div class="container mt-3 mb-5" style="margin-left: 30%">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="media">
+								<div class="media-body">
 
-						<h3>Community reviews</h3>
+									<h3>Community reviews</h3>
 
-						<c:forEach items="${review_list_3line}" var="reviewVO">
-							<div class="card mb-3">
-								<div class="card-header">
+									<c:forEach items="${review_list_3line}" var="reviewVO">
+										<div class="card mb-3">
+											<div class="card-header">
 
-									<span class="rating mb-2 fw-bold"> <i
-										class="bi bi-star-fill"></i> <c:out value="${reviewVO.rating}" />
-									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
-											value="${reviewVO.userNum}" /> <c:out
-											value="${reviewVO.userNickName}" />
-									</span>
+												<span class="rating mb-2 fw-bold"> <i
+													class="bi bi-star-fill"></i> <c:out
+														value="${reviewVO.rating}" />
+												</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
+														value="${reviewVO.userNum}" /> <c:out
+														value="${reviewVO.userNickName}" />
+												</span>
 
-								</div>
+											</div>
 
-								<div class="card-body fw-bold">
-									<c:out value="${reviewVO.content}/${reviewVO.wineNum }" />
-								</div>
+											<div class="card-body fw-bold">
+												<c:out value="${reviewVO.content}/${reviewVO.wineNum }" />
+											</div>
 
-								<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
-									<li class="list-inline-item g-mr-20">
-										<form id='operForm' action='/wine/clickLike' method='post'>
-											<input type='hidden' id='userNum' name='userNum'
-												value='<c:out value="${user.userNum }" />'> <input
-												type='hidden' id='reviewNum' name='reviewNum'
-												value='<c:out value="${reviewVO.reviewNum }"/>'> <input
-												type='hidden' id='wineNum' name='wineNum'
-												value='<c:out value="${wine.wno}"/>'>
-											<button class="like" type="submit">
-												<i class="bi bi-hand-thumbs-up"></i>
-												<c:out value="${reviewVO.cntLike}" />
-											</button>
-										</form>
-									</li>
-									<li class="list-inline-item g-mr-20">
-										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
+											<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
+												<li class="list-inline-item g-mr-20">
+													<form id='operForm' action='/wine/clickLike' method='post'>
+														<input type='hidden' id='userNum' name='userNum'
+															value='<c:out value="${user.userNum }" />'> <input
+															type='hidden' id='reviewNum' name='reviewNum'
+															value='<c:out value="${reviewVO.reviewNum }"/>'>
+														<input type='hidden' id='wineNum' name='wineNum'
+															value='<c:out value="${wine.wno}"/>'>
+														<button class="like" type="submit">
+															<i class="bi bi-hand-thumbs-up"></i>
+															<c:out value="${reviewVO.cntLike}" />
+														</button>
+													</form>
+												</li>
+												<li class="list-inline-item g-mr-20">
+													&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
 
-									</li>
-									<!-- <li class="list-inline-item ml-auto">
+												</li>
+												<!-- <li class="list-inline-item ml-auto">
 				   <a class="reply" href="#!">
 				      <i class="bi bi-chat"></i>
 				      Reply
 				   </a>
 				 </li>  -->
-								</ul>
+											</ul>
+										</div>
+									</c:forEach>
+
+								</div>
 							</div>
-						</c:forEach>
-
+						</div>
 					</div>
+					<button id="modal_show_reviewList" class="btn btn-outline-danger">Show
+						more reviews</button>
 				</div>
-			</div>
-		</div>
-		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</button>
-	</div>
-	<!-- end Review -->
+				<!-- end Review -->
 
-	<!-- Rating Range -->
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-md-6">
-				<div class="well well-sm">
+				<!-- Rating Range -->
+				<div class="container">
 					<div class="row">
-						<div class="col-xs-12 col-md-6 text-center">
-							<h1 class="rating-num">${review_Avg}</h1>
-							<div class="rating">
-								<!-- <span class="star-prototype">4</span> -->
-								<span><i class="bi bi-star-fill"></i></span> <span><i
-									class="bi bi-star-fill"></i></span> <span><i
-									class="bi bi-star-fill"></i></span> <span><i
-									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
-							</div>
-							<div>
-								<span>총 ratings</span>
-							</div>
-						</div>
 						<div class="col-xs-12 col-md-6">
-							<div class="row rating-desc">
-								<div class="col-xs-3 col-md-3 text-right">
-									<span>5</span>
-								</div>
-								<div class="col-xs-8 col-md-9">
-									<div class="progress">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating5}%" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating5}</div>
+							<div class="well well-sm">
+								<div class="row">
+									<div class="col-xs-12 col-md-6 text-center">
+										<h1 class="rating-num">${review_Avg}</h1>
+										<div class="rating">
+											<!-- <span class="star-prototype">4</span> -->
+											<span><i class="bi bi-star-fill"></i></span> <span><i
+												class="bi bi-star-fill"></i></span> <span><i
+												class="bi bi-star-fill"></i></span> <span><i
+												class="bi bi-star-fill"></i></span> <span><i
+												class="bi bi-star"></i></span>
+										</div>
+										<div>
+											<span>총 ratings</span>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="row rating-desc">
+											<div class="col-xs-3 col-md-3 text-right">
+												<span>5</span>
+											</div>
+											<div class="col-xs-8 col-md-9">
+												<div class="progress">
+													<div class="progress-bar bg-warning" role="progressbar"
+														style="width: ${review_Rating.rating5}%"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${review_Rating.rating5}</div>
+												</div>
+											</div>
+											<!-- end 5 -->
+											<div class="col-xs-3 col-md-3 text-right">
+												<span>4</span>
+											</div>
+											<div class="col-xs-8 col-md-9">
+												<div class="progress">
+													<div class="progress-bar bg-warning" role="progressbar"
+														style="width: ${review_Rating.rating4}%"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${review_Rating.rating4}</div>
+												</div>
+											</div>
+											<!-- end 4 -->
+											<div class="col-xs-3 col-md-3 text-right">
+												<span>3</span>
+											</div>
+											<div class="col-xs-8 col-md-9">
+												<div class="progress">
+													<div class="progress-bar bg-warning" role="progressbar"
+														style="width: ${review_Rating.rating3}%"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${review_Rating.rating3}</div>
+												</div>
+											</div>
+											<!-- end 3 -->
+											<div class="col-xs-3 col-md-3 text-right">
+												<span>2</span>
+											</div>
+											<div class="col-xs-8 col-md-9">
+												<div class="progress">
+													<div class="progress-bar bg-warning" role="progressbar"
+														style="width: ${review_Rating.rating2}%"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${review_Rating.rating2}</div>
+												</div>
+											</div>
+											<!-- end 2 -->
+											<div class="col-xs-3 col-md-3 text-right">
+												<span>1</span>
+											</div>
+											<div class="col-xs-8 col-md-9">
+												<div class="progress">
+													<div class="progress-bar bg-warning" role="progressbar"
+														style="width: ${review_Rating.rating1}%"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${review_Rating.rating1}</div>
+												</div>
+											</div>
+											<!-- end 1 -->
+										</div>
+										<!-- end row -->
 									</div>
 								</div>
-								<!-- end 5 -->
-								<div class="col-xs-3 col-md-3 text-right">
-									<span>4</span>
-								</div>
-								<div class="col-xs-8 col-md-9">
-									<div class="progress">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating4}%" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating4}</div>
-									</div>
-								</div>
-								<!-- end 4 -->
-								<div class="col-xs-3 col-md-3 text-right">
-									<span>3</span>
-								</div>
-								<div class="col-xs-8 col-md-9">
-									<div class="progress">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating3}%" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating3}</div>
-									</div>
-								</div>
-								<!-- end 3 -->
-								<div class="col-xs-3 col-md-3 text-right">
-									<span>2</span>
-								</div>
-								<div class="col-xs-8 col-md-9">
-									<div class="progress">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating2}%" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating2}</div>
-									</div>
-								</div>
-								<!-- end 2 -->
-								<div class="col-xs-3 col-md-3 text-right">
-									<span>1</span>
-								</div>
-								<div class="col-xs-8 col-md-9">
-									<div class="progress">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: ${review_Rating.rating1}%" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100">${review_Rating.rating1}</div>
-									</div>
-								</div>
-								<!-- end 1 -->
 							</div>
-							<!-- end row -->
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<!-- review modal -->
-			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<!-- review modal -->
+				<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg"
+						role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">review</h2>
-								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel"
+									style="margin-left: 45%;">review</h2>
+								<button type="button" id="close_review" class="btn-close"
+									data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class=" modal-body followingreview">
-					
-							</div>			
+							<div class=" modal-body wineReview">
+							
+							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
-	</section> 
+	</section>
 	<form id="actionForm" action="/wine/get" method="get">
-		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
-		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
-		<input type="hidden" name="totalPageNum" value="${pageReviewMaker.totalPageNum}">
+		<input type="hidden" name="pageNum"
+			value="${pageReviewMaker.crire.pageNum}"> <input
+			type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
+		<input type="hidden" name="totalPageNum"
+			value="${pageReviewMaker.totalPageNum}">
 	</form>
 	<%@ include file="../includes/footer.jsp"%>
 

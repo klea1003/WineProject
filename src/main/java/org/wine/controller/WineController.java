@@ -311,12 +311,12 @@ public class WineController {
 	}
 	
 	@GetMapping("/get")
-	public void get(@RequestParam("wno") Long wno, Model model) {
+	public void get(@RequestParam("wno") Long wno, Model model, CriteriaReview cri ) {
 		
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
 		
-		CriteriaReview cri = new CriteriaReview();
+		/* CriteriaReview cri = new CriteriaReview(); */
 		cri.setWineNum(wno.intValue());
 		
 		int total = reviewSerivce.getTotal(wno);
@@ -342,18 +342,7 @@ public class WineController {
 	}
 	
 	
-	 @GetMapping(value="/pages/{wineNum}/{page}", 
-			  produces= {MediaType.APPLICATION_XML_VALUE, 
-					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<ReviewPageDTO> getList(@PathVariable("page")int page, @PathVariable("wineNum")Long wineNum) {
-	      
-		 CriteriaReview cri=new CriteriaReview(page, 10);
-	      
-	      log.info("modal review: "+cri);
-	      
-	      return new ResponseEntity<>(reviewSerivce.getListPage(cri, wineNum), 
-	    		  HttpStatus.OK);
-	   }
+	
 	
 	
 }
