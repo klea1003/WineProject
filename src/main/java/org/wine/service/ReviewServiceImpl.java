@@ -29,6 +29,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return 1;
 	}
 	
+	
+	@Override
+	public int remove(Long reviewNum) {
+		
+		log.info("remove......." + reviewNum);
+		
+		
+		return mapper.delete(reviewNum);
+	}
+	
 	@Override
 	public ReviewVO get(Long reviewNum) {
 		

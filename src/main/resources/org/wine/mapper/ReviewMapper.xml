@@ -73,6 +73,10 @@
 		COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
 		FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
 	</select>
+	
+	<delete id="delete">
+		delete from TBL_WINE_REVIEW where review_Num=#{reviewNum} 
+	</delete>
 
 	<select id="getListWithPaging" resultMap="reviewinfo">
 	

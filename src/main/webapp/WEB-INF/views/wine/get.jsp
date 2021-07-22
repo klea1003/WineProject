@@ -227,6 +227,28 @@ $(document).ready(function() {
 		});
 	}//getListRating
 	
+	function remove(reviewNum, callback, error) {
+	    console.log("*********", reviewNum);  
+		$.ajax({
+	         type:'delete',
+	         url:'/reviews/'+reviewNum,
+	         
+	         data:JSON.stringify({reviewNum:reviewNum}),
+	         
+	         contentType:"application/json; charset=utf-8",
+	         
+	         success:function(deleteResult, status, xhr) {
+	            if(callback){callback(deleteResult)
+	            }
+	         },
+	         error:function(xhr,status, er){
+	            if(error){error(er)}
+	         }
+	      })
+	   
+
+	   }//remove
+	  
  $("#modalRegisterBtn").on("click",function(e){
 	
 		var review={
@@ -239,10 +261,25 @@ $(document).ready(function() {
 			alert(result);
 			modal.find("input").val(""); //댓글 등록이 정상적으로 이뤄지면 내용을 지움
 			modal.modal("hide");//모달 창 닫음
-			showList(pageNum); //댓글이 포함된 페이지로 이동
+			window.location.reload();
 
 		});
 	});
+	
+//삭제
+   $("#myReviewRemove").on("click",function(e){
+	  
+		var reviewNum =$("#myReview").find("input[name='reviewNum']").val();
+        console.log("reviewNum" + reviewNum);
+     
+		remove(reviewNum, function(result){
+			alert(result);
+			$("#myReview").modal("hide"); //모달 창 닫음
+			window.location.reload();
+			});
+		
+	});
+	
 function showList(page) {
 	getListRating({wineNum :wineNumValue, page : page|| 1},			
 	
@@ -264,17 +301,10 @@ function showList(page) {
 			
 			str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
 			
-			/* str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
-			str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
-			str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+와인으로 가기+"</span></a>"; //타이틀 a태그 영역 끝
-			str +="</div>"; //타이틀 영역 끝 */
- 		 
 			str += "<div>"; //우측에 대한 영역
 			
 			str += "<div style='height: 350px; width:23%; margin-left:2%; float:left;'>"; //이미지 영역
-			/* str += "<a href='/wine/get?wno="+list[i].wineNum+"'>";
-			str +=" <img src='http://klea-home.iptime.org:8081/" +list[i].wineImageName+ "'  height='350' width='150'>";
-           	str += "</a>"; */
+
 			str += "</div>";  //이미지 영역 끝
 				
 			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
@@ -777,6 +807,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 							</div>
 							<div class='modal-body'>
 								<div class='form-group'>
+								<i class="bi bi-star-fill"></i>
 									<select name="reviewRating">
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -791,7 +822,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 								</div>
 								
 								<div class='form-group'>
-									<label>Replyer</label> <input class='form-control'
+									<label>작성자</label> <input class='form-control'
 										name='userNickName' value='${user.userNickName }'
 										readonly='readonly'>
 										<input type="hidden"
@@ -820,7 +851,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 								<button type="button" id="close_follower" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
-								<c:forEach items="${review_list_3line}" var="reviewVO">
+								<c:forEach items="${myList}" var="reviewVO">
 										<div class="card mb-3">
 											<div class="card-header">
 
@@ -830,6 +861,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 												</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 														value="${reviewVO.userNum}" /> <c:out
 														value="${reviewVO.userNickName}" />
+														<button id="myReviewRemove" class="btn btn-outline-danger">X</button>
 												</span>
 
 											</div>

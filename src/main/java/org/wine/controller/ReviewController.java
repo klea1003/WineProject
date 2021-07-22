@@ -37,7 +37,6 @@ import lombok.extern.log4j.Log4j;
 public class ReviewController {
 
 	@Autowired
-	private SocialService service;
 	private ReviewService reviewService;
 
 	@PostMapping(value="/new", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
@@ -49,18 +48,12 @@ public class ReviewController {
 	            :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	
-	 @GetMapping(value="/mylist/{wineNum}/{userNum}", 
-			  produces= {MediaType.APPLICATION_XML_VALUE, 
-					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<ArrayList<ReviewVO>> getMyReviewList(@PathVariable("wineNum")Long wineNum,@PathVariable("userNum")Long userNum) {
-	      
-		 ReviewVO re=new ReviewVO();
-		 re.setUserNum(userNum);
-		 re.setWineNum(wineNum);
-	      
-	      log.info("modal review: "+re);
-	      return new ResponseEntity<>(reviewService.getMyList(re), 
-	    		  HttpStatus.OK);
+	@DeleteMapping(value = "/{reviewNum}" , produces= {MediaType.TEXT_PLAIN_VALUE} )
+	   public ResponseEntity<String> remove(@PathVariable("reviewNum")Long reviewNum) {
+	      log.info("remove : "+reviewNum );
+	      return reviewService.remove(reviewNum)==1
+	            ? new ResponseEntity<>("success", HttpStatus.OK)
+	            : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	 
 	

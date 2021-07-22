@@ -27,6 +27,8 @@ public interface ReviewService {
 
 	public ArrayList<ReviewVO> getMyList(ReviewVO review);
 
+	public int remove(Long reviewNum);
+
 	
 	//public int getTotal(CriteriaReview cri); todo. criteria 가 이상해서 확인 후 올릴 것
 
