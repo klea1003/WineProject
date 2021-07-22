@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.domain.ReviewVO;
 import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialPageDTO;
@@ -318,11 +319,13 @@ public class WineController {
 		CriteriaReview cri = new CriteriaReview();
 		cri.setWineNum(wno.intValue());
 		
+		int total = reviewSerivce.getTotal(wno);
+		
 		CriteriaReview cri3Line = new CriteriaReview();
 		cri3Line.setWineNum(wno.intValue());
 		cri3Line.setAmount(3);		
 		
-		model.addAttribute("review_list", reviewSerivce.getList(cri));
+		model.addAttribute("pageReviewMaker",new ReviewPageDTO(cri,total));
 		model.addAttribute("review_list_3line", reviewSerivce.getList(cri3Line));
 		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
 		model.addAttribute("review_Avg", reviewSerivce.getAvgRating(wno));
@@ -339,18 +342,19 @@ public class WineController {
 		 return "redirect:/wine/get?wno="+review.getWineNum(); 
 	}
 	
-	 @GetMapping(value="/pages/{wno}", 
+	
+	 @GetMapping(value="/pages/{wno}/{page}", 
 			  produces= {MediaType.APPLICATION_XML_VALUE, 
 					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<List<ReviewVO>> getList(@PathVariable("wno")Long wno) {
+	   public ResponseEntity<ReviewPageDTO> getList(@PathVariable("page")int page, @PathVariable("wno")Long wno) {
 	      
-		 CriteriaReview cri = new CriteriaReview();
-			cri.setWineNum(wno.intValue());
+		 CriteriaReview cri=new CriteriaReview(page, 10);
 	      
-	      log.info("cri: "+cri);
+	      log.info("modal review: "+cri);
 	      
-	      return new ResponseEntity<>(reviewSerivce.getList(cri), 
+	      return new ResponseEntity<>(reviewSerivce.getListPage(cri, wno), 
 	    		  HttpStatus.OK);
 	   }
+	
 	
 }

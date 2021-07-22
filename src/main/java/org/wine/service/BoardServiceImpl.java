@@ -96,12 +96,6 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getBListWithPaging(cri);
 	}
 	
-	@Override
-	public int updateBoardReadCount(Long boardNum) {
-		log.info("updateBoardReadCount.." + boardNum);
-		mapper.updateBoardReadCount(boardNum);
-		return 1;
-	}
 	
 
 	@Override

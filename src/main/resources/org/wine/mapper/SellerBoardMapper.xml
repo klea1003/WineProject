@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.SellerBoardMapper">
+
+	<resultMap type="org.wine.domain.SellerBoardVO" id="sellerBoardInfo">
+		<result property="sellerBno" column="SELLER_BNO"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="writer" column="WRITER"/>
+		<result property="regdate" column="REGDATE"/>
+		<result property="UpdateDate" column="UPDATEDATE"/>
+		
+	</resultMap>
+	
+	<select id="getList" resultMap="sellerBoardInfo">
+		SELECT * FROM TBL_SELLER_BOARD WHERE SELLER_BNO > 0
+	</select>
+	
+	<select id="read" resultMap="sellerBoardInfo">
+		select*from tbl_seller_board where SELLER_BNO = #{sellerBno}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO TBL_SELLER_BOARD (SELLER_BNO, TITLE, CONTENT, WRITER)
+		VALUES (SEQ_SELLER_BOARD.NEXTVAL, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		
+		<selectKey keyProperty="sellerBno" order="BEFORE" resultType="long">
+			select SEQ_SELLER_BOARD.NEXTVAL from dual
+		</selectKey>
+		
+		INSERT INTO TBL_SELLER_BOARD (SELLER_BNO, TITLE, CONTENT, WRITER)
+		VALUES (#{sellerBno}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	
+	
+	<update id="update">
+		update tbl_seller_board
+		set TITLE = #{title},
+		CONTENT = #{content},
+		WRITER = #{writer},
+		updateDate = sysdate
+		where seller_bno = #{sellerBno}	
+	</update>
+	
+	<delete id="delete">
+		delete from tbl_seller_board where seller_bno = #{sellerBno}
+	</delete>
+	
+	
+</mapper>

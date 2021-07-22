@@ -562,7 +562,7 @@ $(document).ready(function() {
 			   				<ul class="list-unstyled">
 				    		  <li><a class="dropdown-item" href="/seller/companyInfo"> About </a></li>
 							  <li><a class="dropdown-item" href="/seller/list"> Shop </a></li>
-							  <li><a class="dropdown-item" href="/seller/specialOrder"> Special Order </a></li>
+							  <li><a class="dropdown-item" href="/sellerBoard/register"> Special Order </a></li>
 							</ul>
 						</div><!-- end dropdown -->
 					</li><!-- About End -->
