@@ -12,20 +12,20 @@
  </resultMap>
  
 <insert id="insert">
- insert into tbl_Reply_Test(rno, board_Num, replyer, reply)
+ insert into tbl_Reply(rno, board_Num, replyer, reply)
  values (seq_reply.nextval, #{boardNum}, #{replyer}, #{reply})
 </insert>
 
 <select id = "read" resultMap="ReplyVO"> 
-select * from tbl_Reply_Test where rno = #{rno}
+select * from tbl_Reply where rno = #{rno}
 </select> 
 
 <delete id="delete">
-delete from tbl_Reply_Test where rno = #{rno}
+delete from tbl_Reply where rno = #{rno}
 </delete>
 
 <update id ="update">
- update tbl_Reply_Test set reply = #{reply}
+ update tbl_Reply set reply = #{reply}
  where rno = #{rno}
 </update>
 
@@ -41,7 +41,7 @@ select rno, board_Num, reply, replyer, reply_Date
 from
 (select /*+ INDEX(tblReplyTest idx_reply) */
 rownum rn, rno, board_Num, reply, replyer, reply_Date
-from tbl_Reply_Test
+from tbl_Reply
 where board_Num=#{boardNum}
 and rno>0
 and rownum <= #{cri.pageNum} * #{cri.amount}
@@ -52,7 +52,7 @@ where rn > (#{cri.pageNum}-1)*#{cri.amount}
 
 <select id="getCountByboardNum" resultType="int">
 select count(rno)
-from tbl_Reply_Test where board_Num = #{boardNum}
+from tbl_Reply where board_Num = #{boardNum}
 </select>
 
 

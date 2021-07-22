@@ -10,12 +10,12 @@
 <!-- Event preview section-->
 	<section class="py-5">
 	    <div class="container px-5">
-	        <h1 class="fw-bolder mb-5">Event</h1>
+	        <h1 class="fw-bolder mb-5">Event All</h1>
 	        <div class="row gx-5">
 	        <c:forEach var="list" items="${listAll}" varStatus="status">
 	            <div class="col-lg-4 mb-5">
 	                <div class="card h-100 shadow border-0">
-	                    <img src="/resources/images/${list.eventImage }"  />
+	                   <img src="http://klea-home.iptime.org:8081/<c:out value="${list.eventImage }" />" />
 	                    <div class="card-body p-4">
 	                        <div class="badge bg-primary bg-gradient rounded-pill mb-2"><c:if test="${status.index==0 }">News</c:if></div>
 	                        <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">${list.eventTitle}</div></a>

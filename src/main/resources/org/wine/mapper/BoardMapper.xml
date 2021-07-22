@@ -14,21 +14,21 @@
 
 
   <select id="getList" resultMap="boardinfo">
-  select*from tbl_Board_Test where board_Num > 0 order by board_num desc
+  select*from tbl_Board where board_Num > 0 order by board_num desc
   </select>
   
   <select id="read" resultMap="boardinfo">
-  select*from tbl_Board_Test where board_Num=#{boardNum}
+  select*from tbl_Board where board_Num=#{boardNum}
   </select>
   
   <select id="getTotalCount" resultType="int">
-  select count(*) from tbl_Board_Test where board_type like '%' ||'Q'||'%' and
+  select count(*) from tbl_Board where board_type like '%' ||'Q'||'%' and
   <include refid="criteria"></include>
   board_Num > 0
   </select>
   
   <select id="getBTotalCount" resultType="int">
-  select count(*) from tbl_Board_Test where board_type like '%' ||'자유'||'%' and
+  select count(*) from tbl_Board where board_type like '%' ||'자유'||'%' and
   <include refid="criteria"></include>
   board_Num > 0
   </select>
@@ -53,10 +53,10 @@
   
   <select id="getQListWithPaging" resultMap="boardinfo">
   <![CDATA[ select * from(
-	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	select /*+INDEX_desc(tbl_Board pk_board)*/
 	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
 	replycnt
-	from (select*from tbl_Board_Test order by board_num desc) 
+	from (select*from tbl_Board order by board_num desc) 
 	where board_type like '%' ||'Q'||'%' and ]]> 
 	
 	<include refid="criteria"></include>
@@ -70,10 +70,10 @@ where rn>(#{pageNum}-1)*#{amount}]]>
 
 <select id="getBListWithPaging" resultMap="boardinfo">
   <![CDATA[ select * from(
-	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	select /*+INDEX_desc(tbl_Board pk_board)*/
 	rownum rn,board_Num,board_Title,board_Type,board_Content,board_writer,regdate,
 	replycnt
-	from (select*from tbl_Board_Test order by board_num desc) 
+	from (select*from tbl_Board order by board_num desc) 
 	where board_type like '%' ||'자유'||'%' and ]]> 
 	
 	<include refid="criteria"></include>
@@ -86,17 +86,17 @@ where rn>(#{pageNum}-1)*#{amount}]]>
 </select> 
 
   <delete id="delete">
-  delete from tbl_Board_Test where board_Num=#{boardNum}
+  delete from tbl_Board where board_Num=#{boardNum}
   </delete>
   
   <update id="update">
-  update tbl_Board_Test set board_Title=#{title}, board_Content=#{content}, board_writer=#{writer}, board_Type=#{boardType}
+  update tbl_Board set board_Title=#{title}, board_Content=#{content}, board_writer=#{writer}, board_Type=#{boardType}
   where board_Num=#{boardNum}
   </update> 
 
   
   <insert id="insert">
-  insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
+  insert into tbl_Board(board_Num, board_Type, board_Title, board_Content, board_writer)
   values(seq_board.nextval, #{boardType}, #{title}, #{content}, #{writer})
   </insert>
   
@@ -104,12 +104,12 @@ where rn>(#{pageNum}-1)*#{amount}]]>
   <selectKey keyProperty="boardNum" order="BEFORE" resultType="long">
   select seq_board.nextval from dual
   </selectKey>
-   insert into tbl_Board_Test(board_Num, board_Type, board_Title, board_Content, board_writer)
+   insert into tbl_Board(board_Num, board_Type, board_Title, board_Content, board_writer)
   values(#{boardNum}, #{boardType}, #{title}, #{content}, #{writer})
   </insert>
   
   <update id="updateReplyCnt">
-  	update tbl_Board_Test set replycnt = replycnt + #{amount} where board_Num = #{boardNum}
+  	update tbl_Board set replycnt = replycnt + #{amount} where board_Num = #{boardNum}
   </update>
   
   

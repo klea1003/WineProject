@@ -183,7 +183,7 @@ $(document).ready(function(){
 			replyer:modalInputReplyer.val(),
 			boardNum:boardNumValue
 		};
-		replyService.add(reply,function(result){
+		reviewService.add(review,function(result){
 			alert(result);
 			modal.find("input").val(""); //댓글 등록이 정상적으로 이뤄지면 내용을 지움
 			modal.modal("hide");//모달 창 닫음
