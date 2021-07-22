@@ -165,9 +165,9 @@ span.star-prototype>* {
     top: -5px;
 }
 </style>
-
+	<%@ include file="../includes/header.jsp"%>
 <script type="text/javascript">
-
+	
 var user = '${user}';
 
 function addWish(_input){
@@ -206,31 +206,133 @@ function addCart(_input){
 	
 };
 $(document).ready(function() {
+	 var modal=$("#myModal");
+	 var modalInputReply = modal.find("input[name='content']");
+	 var modalInputReplyer = modal.find("input[name='userNum']");
+	 var modalInputRating = modal.find("select[name='reviewRating']");
+	 
+	$("#modal_show_reviewList").click(function() {
+		$("#reviewModal").modal("show");
+	});
+	    
+	$("#close_review").click(function() {
+		$("#reviewModal").modal("hide");
+	});
 	
-	var wno = '${wine.wno}';
-	var ratingUL = $(".followingreview");
+	$("#modalOpenBtn").click(function() {
+		$("#myModal").modal("show");
+	});
+	    
+	$("#modalCloseBtn").click(function() {
+		$("#myModal").modal("hide");
+	});
+	$("#MyReviewOpen").click(function() {
+		$("#myReview").modal("show");
+	});
+	    
+	$("#myReviewClose").click(function() {
+		$("#myReview").modal("hide");
+	});
+	
+	var wineNumValue = "${wine.wno}";
+	
+	var ratingUL = $(".wineReview");
 	
 	showList(1);	
-	
-function getListRating(param, callback, error) {
-	var wno = param.wno; 
-	var page = param.page || 1;
-	
-	$.getJSON("/wine/pages/" + wno + "/" + page + ".json",
-		function(data) {
-				
-			if (callback) {
-			   callback(data.reviewCnt, data.list);
+	function add(review, callback, error) {
+	      console.log("add reply...");
+
+	      $.ajax({
+	         type: 'post',
+	         url: '/reviews/new',
+	         data: JSON.stringify(review),
+	         contentType: "application/json; charset=utf-8",
+	         success: function(result, status, xhr) {
+	            if (callback) {
+	               callback(result);
+	            }
+	         },
+	         error: function(xhr, status, er) {
+	            if (error) {
+	               error(er);
+	            }
+	         }
+
+	      })
+	   } //add
+	   
+	   function getListRating(param, callback, error) {
+		var wineNum = param.wineNum; 
+		var page = param.page || 1;
+		
+		$.getJSON("/reviews/pages/" + wineNum + "/" + page + ".json",
+			function(data) {
+					
+				if (callback) {
+				   callback(data.reviewCnt, data.list);
+				}
+			}).fail(function(xhr, status, err) {
+		if (error) {
+			error();
 			}
-		}).fail(function(xhr, status, err) {
-	if (error) {
-		error();
-		}
-	});
-} 
-function showList(page) {
+		});
+	}//getListRating
 	
-	getListRating({wno :wno, page : page|| 1},			
+	function remove(reviewNum, callback, error) {
+	    console.log("*********", reviewNum);  
+		$.ajax({
+	         type:'delete',
+	         url:'/reviews/'+reviewNum,
+	         
+	         data:JSON.stringify({reviewNum:reviewNum}),
+	         
+	         contentType:"application/json; charset=utf-8",
+	         
+	         success:function(deleteResult, status, xhr) {
+	            if(callback){callback(deleteResult)
+	            }
+	         },
+	         error:function(xhr,status, er){
+	            if(error){error(er)}
+	         }
+	      })
+	   
+
+	   }//remove
+	  
+ $("#modalRegisterBtn").on("click",function(e){
+	
+		var review={
+			content:modalInputReply.val(),
+			userNum:modalInputReplyer.val(),
+			wineNum:wineNumValue,
+			rating:modalInputRating.val()
+		};
+		add(review,function(result){
+			alert(result);
+			modal.find("input").val(""); //댓글 등록이 정상적으로 이뤄지면 내용을 지움
+			modal.modal("hide");//모달 창 닫음
+			window.location.reload();
+
+		});
+	});
+	
+//삭제
+   $("#myReviewRemove").on("click",function(e){
+	  
+		var reviewNum =$("#myReview").find("input[name='reviewNum']").val();
+        console.log("reviewNum" + reviewNum);
+     
+		remove(reviewNum, function(result){
+			alert(result);
+			$("#myReview").modal("hide"); //모달 창 닫음
+			window.location.reload();
+			});
+		
+	});
+	
+function showList(page) {
+	getListRating({wineNum :wineNumValue, page : page|| 1},			
 	
 	function(reviewCnt, list) {
 		console.log("reviewCnt: "+ reviewCnt)
@@ -250,18 +352,17 @@ function showList(page) {
 			
 			str += "<div class='card mb-4'style='padding-bottom:2%;'>" //카드 영역
 			
-			str += "<div class='small text-muted mt-4 mb-4' style='padding-left: 2%;' data-reviewNum="+list[i].reviewNum+"> "; //타이틀 영역
-			str += "<a class='text-dark' href='/wine/get?wno="+list[i].wineNum+"'>"; //타이틀 a태그 영역
-			str += "<span class='fw-bold' style='font: italic bold 2em/1em Georgia, serif ;'> "+와인으로 가기+"</span></a>"; //타이틀 a태그 영역 끝
-			str +="</div>"; //타이틀 영역 끝
-			 
 			str += "<div>"; //우측에 대한 영역
+			
+			str += "<div style='height: 350px; width:23%; margin-left:2%; float:left;'>"; //이미지 영역
+
+			str += "</div>";  //이미지 영역 끝
 				
 			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
-			str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].Rating+"</span>";
+			str += "<span class='rating fw-bold'><i class='bi bi-star-fill'></i>"+list[i].rating+"</span>";
 			str +=" <a class='text-decoration-none text-dark' id='modal_show_logintojion' href='/user/userpage?userNum="+list[i].userNum+"'>";
 			str +="<span class='fw-bold' style='font: italic bold 1.3em/1em Georgia, serif ;'>"+list[i].userNickName+"<span></a>";
-			str += "<span class='fw-bold'>("+list[i].cntLike+" ratings)</span>";
+			str += "<span class='fw-bold'>("+list[i].cntLike+" <i class='bi bi-hand-thumbs-up'></i>)</span>";
 			str +=" <div style='text-align:right;'> "+list[i].date+"</div>";
 			str +="</div>";  //닉네임, 리뷰데이트 우측 정렬 영역 끝
 			
@@ -313,18 +414,10 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 		showList(1);
 		
 	});
-$("#modal_show_reviewList").click(function() {
-    alert("연결");
-	$("#reviewModal").modal("show");
+
 });
-    
-$("#close_review").click(function() {
-	$("#reviewModal").modal("hide");
-});
-}
 </script>
 <body>
-	<%@ include file="../includes/header.jsp"%>
 
 	<!-- Product section-->
 
@@ -587,9 +680,6 @@ $("#close_review").click(function() {
 		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
 	</a>
 	<!-- Review -->
-	 <section class="py-5 bg-light" >
-		<div class="container px-5">
-		<div class="row gx-5">
 	<div class="container mt-3 mb-5" style="margin-left: 30%">
 		<div class="row">
 			<div class="col-md-8">
@@ -648,57 +738,18 @@ $("#close_review").click(function() {
 				</div>
 			</div>
 		</div>
-		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show more reviews</button>
+		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show
+						more reviews</button>
+						<c:if test="${user.userNickName != null}">
+					<button id="modalOpenBtn" class="btn btn-outline-danger">리뷰 쓰기
+						</button>
+						</c:if>
+						<c:if test="${user.userNickName != null}">
+					<button id="MyReviewOpen" class="btn btn-outline-danger">내가 쓴 리뷰
+						</button>
+						</c:if>
 	</div>
 	<!-- end Review -->
-	
-	<!-- Same Winery Wine List Area -->
-	<div class="container">
-		<!-- swiper슬라이더 메인컨테이너 -->
-		<div class="swiper-container">
-			<!-- 보여지는 영역 -->
-			<div class="swiper-wrapper">
-				<c:forEach items="${list_same_winery}" var="wine">
-                	<div style="width: 344px; margin-left: 90px;"> 
-                   		<div class="col mb-5">
-                    		<div class="card-list">
-                				<div class="text-center">
-                   					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="350" width="150">
-                				</div>
-			                     <div class="card-body">
-								      <p ><b><c:out value="${wine.title}" /></b></p>
-								      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
-								      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
-								</div>
-			                 	<div class="card-footer text-center">
-			                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
-			                  		More Info</button>
-			                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
-									Add Cart</button>
-			                  	</div>
-             				</div>
-               			</div>
-               		</div>
-				</c:forEach>
-			</div>
-			<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-		</div>
-	</div>
-	<!-- Same Winery Wine List Area -->
-	
-	<div class="container">
-		<iframe
-			width="600"
-			height="500"
-			style="border:0"
-			loading="lazy"
-			allowfullscreen
-			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
-		</iframe>
-	</div>
-	
 	<!-- Rating Range -->
 	<div class="container">
 		<div class="row">
@@ -783,23 +834,168 @@ $("#close_review").click(function() {
 			</div>
 		</div>
 	</div>
+	<!-- Same Winery Wine List Area -->
+	<div class="container">
+		<!-- swiper슬라이더 메인컨테이너 -->
+		<div class="swiper-container">
+			<!-- 보여지는 영역 -->
+			<div class="swiper-wrapper">
+				<c:forEach items="${list_same_winery}" var="wine">
+                	<div style="width: 344px; margin-left: 90px;"> 
+                   		<div class="col mb-5">
+                    		<div class="card-list">
+                				<div class="text-center">
+                   					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="350" width="150">
+                				</div>
+			                     <div class="card-body">
+								      <p ><b><c:out value="${wine.title}" /></b></p>
+								      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
+								      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
+								</div>
+			                 	<div class="card-footer text-center">
+			                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
+			                  		More Info</button>
+			                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+									Add Cart</button>
+			                  	</div>
+             				</div>
+               			</div>
+               		</div>
+				</c:forEach>
+			</div>
+			<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+	</div>
+	<!-- Same Winery Wine List Area -->
+	
+	<div class="container">
+		<iframe
+			width="600"
+			height="500"
+			style="border:0"
+			loading="lazy"
+			allowfullscreen
+			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
+		</iframe>
+	</div>
+	<section>
 	<!-- review modal -->
-			<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg"
+						role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2 class="modal-title fw-bolder" id="exampleModalLabel" style="margin-left: 45%;">review</h2>
-								<button type="button" id="close_review" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<h2 class="modal-title fw-bolder" id="exampleModalLabel"
+									style="margin-left: 45%;">review</h2>
+								<button type="button" id="close_review" class="btn-close"
+									data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class=" modal-body followingreview">
-					
-							</div>			
+							<div class=" modal-body wineReview"></div>
 						</div>
 					</div>
-				</div>	
-			</div>
-		</div>
-	</section> 
+				</div>
+				<!-- review insert -->
+				<div class='modal fade' id='myModal' tabindex='-1' role='dialog'
+					aria-labelledby='myModallabel' aria-hidden='true'>
+					<div class='modal-dialog'>
+						<div class='modal-content'>
+							<div class='modal-header'>
+								<h4 class='modal-title' id='myModalLabel'>insert review</h4>
+							</div>
+							<div class='modal-body'>
+								<div class='form-group'>
+								<i class="bi bi-star-fill"></i>
+									<select name="reviewRating">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+								</div>
+								<div class='form-group'>
+									<label>리뷰 내용</label> <input class='form-control' name='content'
+										value='New Reply'>
+								</div>
+								
+								<div class='form-group'>
+									<label>작성자</label> <input class='form-control'
+										name='userNickName' value='${user.userNickName }'
+										readonly='readonly'>
+										<input type="hidden"
+										name='userNum' value='${user.userNum }'
+										readonly='readonly'>
+								</div>
+							</div>
+							<div class='modal-footer'>
+								<!-- <button id='modalModBtn' type='button' class='btn btn-info'>Modify</button> -->
+								<!--  <button id='modalRemoveBtn' type='button' class='btn btn-info'>Remove</button> -->
+								<button id='modalRegisterBtn' type='button' class='btn btn-info'
+									data-dismiss='modal'>Register</button>
+								<button id='modalCloseBtn' type='button' class='btn btn-info'
+									data-dismiss='modal'>Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- my review -->
+				<div class="modal fade" id="myReview" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 40%;">Follower</h5>
+								<button type="button" id="close_follower" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<c:forEach items="${myList}" var="reviewVO">
+										<div class="card mb-3">
+											<div class="card-header">
+
+												<span class="rating mb-2 fw-bold"> <i
+													class="bi bi-star-fill"></i> <c:out
+														value="${reviewVO.rating}" />
+												</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
+														value="${reviewVO.userNum}" /> <c:out
+														value="${reviewVO.userNickName}" />
+														<button id="myReviewRemove" class="btn btn-outline-danger">X</button>
+												</span>
+
+											</div>
+
+											<div class="card-body fw-bold">
+												<c:out value="${reviewVO.content}" />
+											</div>
+
+											<ul class="list-inline d-sm-flex my-0 mx-3 mb-2">
+												<li class="list-inline-item g-mr-20">
+													<form id='operForm' action='/wine/clickLike' method='post'>
+														<input type='hidden' id='userNum' name='userNum'
+															value='<c:out value="${user.userNum }" />'> <input
+															type='hidden' id='reviewNum' name='reviewNum'
+															value='<c:out value="${reviewVO.reviewNum }"/>'>
+														<input type='hidden' id='wineNum' name='wineNum'
+															value='<c:out value="${wine.wno}"/>'>
+														<button class="like" type="submit">
+															<i class="bi bi-hand-thumbs-up"></i>
+															<c:out value="${reviewVO.cntLike}" />
+														</button>
+													</form>
+												</li>
+												<li class="list-inline-item g-mr-20">
+													&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
+												</li>
+											</ul>
+										</div>
+									</c:forEach>					
+							</div>						
+						</div>
+					</div>
+				</div>
+ </section>
 	<form id="actionForm" action="/wine/get?wno=${wine.wno }" method="get">
 		<input type="hidden" name="pageNum" value="${pageReviewMaker.crire.pageNum}">
 		<input type="hidden" name="amount" value="${pageReviewMaker.crire.amount}">
