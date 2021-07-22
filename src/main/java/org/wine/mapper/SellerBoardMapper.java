@@ -18,7 +18,8 @@ public interface SellerBoardMapper {
 	public int update(SellerBoardVO board);
 	
 	public int delete(Long sellerBno);
+		
+	public void insertAnswerSelectKey(SellerBoardVO board);
 	
-	
-
+	public SellerBoardVO answerBtn(Long parentSellerBno);
 }

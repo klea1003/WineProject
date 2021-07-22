@@ -44,18 +44,36 @@ public class SellerBoardController {
 		
 		service.register(sellerboard);
 		
-		rttr.addFlashAttribute("result", sellerboard.getSellerBno());
+		rttr.addFlashAttribute("sellerBoardResult", sellerboard.getParentSellerBno());
 		
 		return "redirect:/sellerBoard/list";
 		
 	}
 	
 	@GetMapping("/get")
-	public void get(@RequestParam("sellerBno") Long sellerBno, Model model) {
+	public void get(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
 		
 		log.info("/get");
 		
-		model.addAttribute("sellerBoard", service.get(sellerBno));
+		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		model.addAttribute("answerBtn", service.answerBtn(parentSellerBno));
+	}
+	
+	@GetMapping("/answer")
+	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
+		
+		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		
+	}
+	
+	@PostMapping("/answer")
+	public String answer(SellerBoardVO sellerboard, RedirectAttributes rttr) {
+		
+		service.insertAnswerSelectKey(sellerboard);
+		
+		rttr.addFlashAttribute("sellerBoardAnswerResult", sellerboard.getParentSellerBno());
+		
+		return "redirect:/sellerBoard/list";
 		
 	}
 	
@@ -65,7 +83,7 @@ public class SellerBoardController {
 		log.info("modify : " + sellerBoard);
 		
 		if(service.modify(sellerBoard)) {
-			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("SellerBoardModifyresult", "success");
 		}
 		
 		return "redirect:/sellerBoard/list";

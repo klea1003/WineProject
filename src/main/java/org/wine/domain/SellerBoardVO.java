@@ -7,10 +7,13 @@ import lombok.Data;
 @Data
 public class SellerBoardVO {
 	
-	private Long sellerBno;
+	private Long rn;
+	private Long parentSellerBno;
+	private Long childSellerBno;
+	private Long groupOrder;
 	private String title;
 	private String content;
 	private String writer;
 	private Date regdate;
-	private Date UpdateDate;
+	
 }
