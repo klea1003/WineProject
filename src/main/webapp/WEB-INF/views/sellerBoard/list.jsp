@@ -7,19 +7,19 @@
 <%@include file="../includes/header.jsp"%>
 <script type="text/javascript">
 
-	/* var userNickName = '${user.userNickName}'; //로그인 된 해당 닉네임 */
-	var writer = '${list.writer}';
+	var userNickName = '${user.userNickName}'; //로그인 된 해당 닉네임
+	
 		
 	function clickSellerBoardTitle(_input){
 			
-	if(writer != writer ){
+	if(userNickName != userNickName ){
 		
 		alert('해당 작성자만 확인가능합니다.')
 		
 		return
 	}
 	
-	if(writer == writer ){
+	if(userNickName == userNickName ){
 		
 		location.href = "/sellerBoard/get?parentSellerBno=" + _input;
 	}
