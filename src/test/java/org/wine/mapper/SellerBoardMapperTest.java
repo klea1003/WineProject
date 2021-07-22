@@ -65,7 +65,7 @@ public class SellerBoardMapperTest {
 		
 		SellerBoardVO sellerBoard = new SellerBoardVO();
 		
-		sellerBoard.setSellerBno(2L);
+		sellerBoard.setParentSellerBno(2L);
 		sellerBoard.setTitle("와인도매문의드립니다");
 		sellerBoard.setContent("와인도매");
 		sellerBoard.setWriter("user1212");

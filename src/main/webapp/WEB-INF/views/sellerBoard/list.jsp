@@ -5,21 +5,32 @@
 <!DOCTYPE html>
 <html>
 <%@include file="../includes/header.jsp"%>
-<style>
+<script type="text/javascript">
 
-.table {
+	/* var userNickName = '${user.userNickName}'; //로그인 된 해당 닉네임 */
+	var writer = '${list.writer}';
+		
+	function clickSellerBoardTitle(_input){
+			
+	if(writer != writer ){
+		
+		alert('해당 작성자만 확인가능합니다.')
+		
+		return
+	}
 	
-	text-align: center;
+	if(writer == writer ){
+		
+		location.href = "/sellerBoard/get?parentSellerBno=" + _input;
+	}
+};
 
-}
-</style>
-
+</script>
 <body>
 <!-- Section -->    	
 <section class="py-5">
 	<div class="container px-5">
 		<h1 class="fw-bolder mb-5">특판문의 게시판</h1>
-		
 		
 		
 		<div class="row">
@@ -37,9 +48,11 @@
 					<tbody>
 						<c:forEach var="sb" items="${list}" varStatus="status">
 							<tr>
-								<td>${sb.sellerBno}</td>
-								<td><a onclick="location.href='/sellerBoard/get?sellerBno=<c:out value="${sb.sellerBno}"/>'">${sb.title}</a></td> 
-								
+								<td >${sb.rn}</td>
+								<td>
+								<c:if test="${sb.writer == '관리자' }"><i class="bi bi-arrow-return-right"></i>&nbsp;<span class="badge bg-danger">답변완료</span></c:if>
+								<a class="fw-bold text-dark" 
+								onclick='clickSellerBoardTitle("${sb.parentSellerBno}")'>${sb.title}</a></td> 
 								<td>${sb.writer}</td>
 								<td>${sb.regdate}</td>
 								
@@ -49,7 +62,12 @@
 						
 					</tbody>
 				</table>
-
+				
+				<div align="right">
+					<c:if test="${user != null}">
+					<button id='regBtn' type="button" class="btn btn-outline-danger btn-sm" onclick="location.href='/sellerBoard/register'">글쓰기</button>
+					</c:if>				
+				</div>
 				
 			</div>
          </div>

@@ -8,9 +8,6 @@ CREATE TABLE TBL_SELLER (
 CREATE SEQUENCE SEQ_SELLER;
 set define off;
 
-DROP SEQUENCE SEQ_SELLER;
-drop table tbl_seller;
-
 alter table tbl_seller add constraint pk_seller
 primary key (seller_num);
 
@@ -20,6 +17,28 @@ CREATE TABLE TBL_SELLER_IMAGE (
     SELLER_IMAGE_NUM NUMBER,
     SELLER_IMAGE VARCHAR(50)
 );
+
+create sequence seq_seller_board;
+
+create table tbl_seller_board (
+    PARENT_SELLER_BNO NUMBER,
+    CHILD_SELLER_BNO NUMBER DEFAULT 0,
+    GRP_ORD NUMBER DEFAULT 0,
+    TITLE VARCHAR2(200) NOT NULL,
+    CONTENT VARCHAR2(2000) NOT NULL,
+    WRITER VARCHAR2(50) NOT NULL,
+    REGDATE DATE DEFAULT SYSDATE
+);
+
+select * from tbl_seller_board;
+
+SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate
+FROM( select  PARENT_SELLER_BNO,CHILD_SELLER_BNO,title,content,writer,REGDATE,GRP_ORD from(
+select * from tbl_seller_board)
+order by CHILD_SELLER_BNO asc, grp_ord  des)order by rn desc;
+
+
+
 
 INSERT INTO TBL_SELLER(SELLER_NUM, SELLER_ID, SELLER_STORENAME, 
 SELLER_PHONENUM, SELLER_LOCATION, SELLER_BUSINESSHOUR, SELLER_MANGER, SELLER_MAGEMAIL, SELLER_CONTENT) 

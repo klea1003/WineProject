@@ -27,7 +27,8 @@
 
 		<div class="form-group mb-3">
 			<label for="writer">작성자</label>
-			<input class="form-control" name="writer" type="text" id="writer" placeholder="이름을 입력해 주세요">
+			<input class="form-control" value="${user.userNickName}" name="writer" 
+			type="text" id="writer" readonly="readonly">
 		</div>
 
 		<div class="form-group mb-5">

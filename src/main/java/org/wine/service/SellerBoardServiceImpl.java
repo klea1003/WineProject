@@ -63,6 +63,26 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 		
 	}
 
+	@Override
+	public void insertAnswerSelectKey(SellerBoardVO board) {
+		
+		log.info("answer......" + board);
+		
+		mapper.insertAnswerSelectKey(board);
+		
+	}
+
+	@Override
+	public SellerBoardVO answerBtn(Long parentSellerBno) {
+		
+		log.info("parentSellerBno : " + parentSellerBno);
+		
+		return mapper.answerBtn(parentSellerBno);		
+		
+	}
+	
+	
+
 	
 	
  
