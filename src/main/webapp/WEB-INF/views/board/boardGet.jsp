@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
 
 <style>
 .uploadResult {
@@ -147,15 +146,6 @@ $(document).ready(function(){
 	replyer = '<c:out value="${user.userNickName}"/>';
 	var admin = "관리자";
     
-   /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
-    <sec:authorize access = "isAuthenticated()">
-        replyer = '<sec:authentication property="principal.username"/>';
-    </sec:authorize> */
-    
-    /* //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
-    var csrfHeaderName = "${_csrf.headerName}";
-    var csrfTokenValue = "${_csrf.token}";시큐리티 */
-	
 	
 	 //새로운 댓글 등록 버튼 클릭 시
 	$("#addReplyBtn").on("click",function(e){
@@ -171,11 +161,6 @@ $(document).ready(function(){
 		showList(1);
 	});
 	 
-	/* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
-    $(document).ajaxSend(function(e, xhr, options){
-        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-    });    */
- 
 	
 	 //새로운 댓글 처리
 	modalRegisterBtn.on("click",function(e){
@@ -430,10 +415,11 @@ $(document).ready(function(){
 					</div>
 
 
-					<div class="mb-3">		
-						 <c:if test="${user.userNickName eq board.writer || user.userNickName eq '관리자'}">
+					<div class="mb-3">
+						<c:if
+							test="${user.userNickName eq board.writer || user.userNickName eq '관리자'}">
 							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
-						 </c:if> 
+						</c:if>
 						<button class='btn btn-outline-dark' data-oper='boardList'>back</button>
 					</div>
 
@@ -525,11 +511,6 @@ $(document).ready(function(){
 
 					</div>
 
-					<!-- <sec:authorize access="isAuthenticated()">
-            			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-               			Reply</button>
-                		</sec:authorize> 시큐리티-->
-
 					<div class="card-body">
 						<ul class="chat">
 							<!-- start reply -->
@@ -581,16 +562,11 @@ $(document).ready(function(){
 				</div>
 			</div>
 
-			<!-- 모달영역 -->
-
-
-			<!--    footer 시작      -------------------------------------------------------------- -->
-
 		</div>
-		
+
 		<!-- 모달영역 -->
 
 	</section>
-
+	<!--    footer 시작      -------------------------------------------------------------- -->
 	<%@include file="../includes/footer.jsp"%>
 </body>
