@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%> --%>
 <%@include file="../includes/header.jsp" %>
 <style>
 .uploadResult {
@@ -98,9 +97,6 @@ $(document).ready(function(e) {
 		return true;
 	}//checkExtension
 	
-	/* var csrfHeaderName = "${_csrf.headerName}";
-    var csrfTokenValue = "${_csrf.token}"; 시큐리티*/
-    
    $("input[type='file']").change(function(e){
       //FormData 사용
       var formData = new FormData();
@@ -123,9 +119,6 @@ $(document).ready(function(e) {
          url:'/uploadAjaxAction',
          processData:false,
          contentType:false,
-         /* beforeSend: function(xhr){
-               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-           }, 시큐리티*/
          data:formData,
          type:'POST',
          dataType:'json', 
@@ -176,9 +169,6 @@ $(document).ready(function(e) {
 	  $.ajax({
 	  	url : '/deleteFile',
 	  	data : {fileName : targetFile, type : type},
-	   /*  beforeSend: function(xhr){
-               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-        }, */
 	  	dataType : 'text',
 	  	type : 'POST',
 	  		success : function(result) {
@@ -219,8 +209,6 @@ $(document).ready(function(e) {
 					<div class="form-group mb-3">
 						<h5 class="fw-bold">Writer</h5>
 						<input class='form-control' name='writer' value="${user.userNickName }" readonly='readonly'>
-
-						<!--'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
 
 					</div>
 					

@@ -38,7 +38,7 @@ public class SellerBoardServiceTest {
 		
 		service.register(sellerBoard);
 		
-		log.info("생성된 게시물의 번호 : " + sellerBoard.getSellerBno());
+		log.info("생성된 게시물의 번호 : " + sellerBoard.getParentSellerBno());
 	}
 	
 	@Test
@@ -76,7 +76,20 @@ public class SellerBoardServiceTest {
 		
 	}
 	
+	@Test
+	public void testAnswerBtn() {
+		
+		log.info("AnswerBtn RESULT : " + service.answerBtn(8L));
+		
+	}
 	
+	
+	@Test
+	public void testReadAnswer() {
+		
+		log.info(service.readAnswer(2L));
+		
+	}
 	
 
 }

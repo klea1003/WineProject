@@ -37,11 +37,11 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	}
 	
 	@Override
-	public SellerBoardVO get(Long sellerBno) {
+	public SellerBoardVO get(Long parentSellerBno) {
 		
-		log.info("get.........." + sellerBno);
+		log.info("get.........." + parentSellerBno);
 		
-		return mapper.read(sellerBno);
+		return mapper.read(parentSellerBno);
 		
 	}
 
@@ -55,13 +55,54 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	}
 
 	@Override
-	public boolean remove(Long sellerBno) {
+	public boolean remove(Long parentSellerBno) {
 		
-		log.info("remove......" + sellerBno);
+		log.info("remove......" + parentSellerBno);
 		
-		return mapper.delete(sellerBno) == 1;
+		return mapper.delete(parentSellerBno) == 1;
 		
 	}
+
+	@Override
+	public void insertAnswerSelectKey(SellerBoardVO board) {
+		
+		log.info("answer......" + board);
+		
+		mapper.insertAnswerSelectKey(board);
+		
+	}
+
+	@Override
+	public SellerBoardVO answerBtn(Long parentSellerBno) {
+		
+		log.info("parentSellerBno : " + parentSellerBno);
+		
+		return mapper.answerBtn(parentSellerBno);		
+		
+	}
+
+	@Override
+	public SellerBoardVO getAnswer(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		return mapper.getAnswer(parentSellerBno);
+	}
+
+	@Override
+	public SellerBoardVO readAnswer(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		return mapper.readAnswer(parentSellerBno);
+	}
+
+	@Override
+	public boolean answerRemove(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		log.info("answerRemove......" + parentSellerBno);
+		
+		return mapper.answerDelete(parentSellerBno) == 1;
+		
+	}
+	
+	
 
 	
 	

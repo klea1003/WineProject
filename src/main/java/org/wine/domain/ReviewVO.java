@@ -14,6 +14,7 @@ public class ReviewVO {
 	private String content;
 	private String date;
 	private String rating;
+	private Float ratingF;
 	private int cntLike;
 
 }

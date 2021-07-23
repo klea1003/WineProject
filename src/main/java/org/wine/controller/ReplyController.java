@@ -1,9 +1,12 @@
 package org.wine.controller;
 
 import org.wine.domain.Criteria;
+import org.wine.domain.CriteriaReview;
 import org.wine.domain.ReplyPageDTO;
 import org.wine.domain.ReplyVO;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.service.ReplyService;
+import org.wine.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,8 @@ public class ReplyController {
    
    
    private ReplyService service;
+   private ReviewService reviewService;
+   
    //@PreAuthorize("isAuthenticated()")
    @PostMapping(value="/new", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
    public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
@@ -46,6 +51,8 @@ public class ReplyController {
       log.info("cri: "+cri);
       return new ResponseEntity<>(service.getListPage(cri, boardNum), HttpStatus.OK);
    }
+   
+  
    
    @GetMapping(value="/{rno}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
    public ResponseEntity<ReplyVO> get(@PathVariable("rno")Long rno) {

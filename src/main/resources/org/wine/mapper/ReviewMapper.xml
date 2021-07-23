@@ -29,6 +29,14 @@
 			WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND REVIEW_NUM > 0
 		]]>
 	</select>
+	
+	<select id="getMyList" resultMap="reviewinfo">
+		<![CDATA[
+			SELECT REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
+			FROM TBL_WINE_REVIEW WINE, TBL_USER
+			WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND REVIEW_NUM > 0 AND WINE.USER_NUM=#{userNum} and WINE_NUM = #{wineNum}
+		]]>
+	</select>
 
 	<select id="readLike" resultType="int">
 		select count(*) from
@@ -65,6 +73,10 @@
 		COUNT(CASE WHEN REVIEW_RATING=1 or REVIEW_RATING=1.5 or REVIEW_RATING=0 or REVIEW_RATING=0.5 THEN 1 END) rating1
 		FROM TBL_WINE_REVIEW where wine_num=#{wineNum}
 	</select>
+	
+	<delete id="delete">
+		delete from TBL_WINE_REVIEW where review_Num=#{reviewNum} 
+	</delete>
 
 	<select id="getListWithPaging" resultMap="reviewinfo">
 	
@@ -75,11 +87,11 @@
 				SELECT /*+INDEX_DESC(TBL_WINE_REVIEW PK_REVIEW)*/ ROWNUM RN, REVIEW_NUM, WINE.USER_NUM AS USER_NUM, WINE_NUM, TBL_USER.USER_NICKNAME AS USER_NICKNAME, 
 				REVIEW_CONTENT, REVIEW_DATE, REVIEW_RATING, REVIEW_COUNT_LIKE
 				FROM TBL_WINE_REVIEW WINE, TBL_USER
-				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND Wine_Num=#{wineNum} AND]]>
+				WHERE WINE.USER_NUM = TBL_USER.USER_NUM AND]]>
 
 				<include refid="criteriaWine"></include>
 					
-				<![CDATA[rownum <= #{pageNum}*#{amount})
+				<![CDATA[Wine_Num=#{wineNum} AND rownum <= #{pageNum}*#{amount})
 			where rn>(#{pageNum}-1)*#{amount}]]>
 
 	</select>
@@ -89,12 +101,12 @@
 			resultType="long">
 			select seq_review.nextval from dual
 		</selectKey>
-
 		insert into TBL_WINE_REVIEW
 		values (#{reviewNum}, #{userNum},
-		#{wineNum}, #{content}, #{date}, #{rating}, #{cntLike})
+		#{wineNum}, #{content},  TO_CHAR(SYSDATE, 'Mon DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH'), #{ratingF}, 0)
 	</insert>
-
+    
+    
 	<select id="read" resultMap="reviewinfo">
 		select * from TBL_WINE_REVIEW where
 		REVIEW_NUM=#{reviewNum}
