@@ -50,6 +50,12 @@ public class WineServiceImpl implements WineService {
 		return mapper.getListWithPaging(cri);
 
 	}
+	
+	@Override
+	public List<WineVO> getListSameWinery(Long wno){
+		return mapper.getListSameWinery(wno);
+	}
+	
 	@Override
 	public int getTotal(CriteriaWine cri) {
 		

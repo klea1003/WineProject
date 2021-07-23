@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.wine.domain.CriteriaReview;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.domain.ReviewRatingVO;
 import org.wine.domain.ReviewVO;
 import org.wine.mapper.ReviewMapper;
@@ -18,11 +19,24 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewMapper mapper;
 	
 	@Override
-	public void register(ReviewVO review) {
+	public int register(ReviewVO review) {
 		
+		Float a = Float.parseFloat(review.getRating());
+		review.setRatingF(a);
 		log.info("register......." + review);
-		
 		mapper.insert(review);
+		
+		return 1;
+	}
+	
+	
+	@Override
+	public int remove(Long reviewNum) {
+		
+		log.info("remove......." + reviewNum);
+		
+		
+		return mapper.delete(reviewNum);
 	}
 	
 	@Override
@@ -39,6 +53,34 @@ public class ReviewServiceImpl implements ReviewService{
 		log.info("get List with Criteria: "+ cri);
 		
 		return mapper.getListWithPaging(cri);
+	}
+	
+	@Override
+	public ArrayList<ReviewVO> getMyList(ReviewVO review){
+		
+		log.info("get List with Criteria: "+review);
+		
+		return mapper.getMyList(review);
+	}
+	
+	
+	@Override
+	public int getTotal(Long wno) {
+		
+		log.info("get Total: "+ wno);
+		
+		return mapper.getTotalCountAll(wno);
+	}
+	
+	@Override
+	public ReviewPageDTO getListPage(CriteriaReview cri, Long wineNum){
+		
+		log.info("get List with reviewCriteria: "+ cri);
+		
+		cri.setWineNum(wineNum.intValue());
+		return new ReviewPageDTO(
+				mapper.getTotalCountAll(wineNum),
+				mapper.getListWithPaging(cri));
 	}
 	
 	@Override

@@ -27,26 +27,26 @@
   </sql>
 
   <select id="getList" resultMap="eventInfo">
-  select*from tbl_event_Test where 
+  select*from tbl_event where 
   EVENT_END>=sysdate and sysdate>=EVENT_START order by EVENT_NUM desc
   </select>
   
   <select id="read" resultMap="eventInfo">
-  select*from tbl_event_Test where EVENT_NUM=#{eventNum}
+  select*from tbl_event where EVENT_NUM=#{eventNum}
   </select>
   
   <select id="getTotalCount" resultType="int">
- select count(*)from tbl_event_Test where 
+ select count(*)from tbl_event where 
   EVENT_END>=sysdate and sysdate>=EVENT_START
   </select>
   
   
   <select id="getListWithPaging" resultMap="eventInfo">
   <![CDATA[ select * from(
-	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	select /*+INDEX_desc(tbl_Board pk_board)*/
 	rownum rn,EVENT_NUM,EVENT_Title,EVENT_Content,to_char(event_start,'yyyy-mm-dd') event_start,
 	to_char(event_end,'yyyy-mm-dd') event_end ,EVENT_IMAGE
-	from (select*from tbl_event_Test order by EVENT_NUM desc) 
+	from (select*from tbl_event order by EVENT_NUM desc) 
 	where EVENT_END>=sysdate and sysdate>=EVENT_START AND]]> 
 	
 	<include refid="criteria"></include>
@@ -58,10 +58,10 @@ where rn>(#{pageNum}-1)*#{amount}]]>
 
 <select id="getListAllWithPaging" resultMap="eventInfo">
   <![CDATA[ select * from(
-	select /*+INDEX_desc(tbl_Board_Test pk_board)*/
+	select /*+INDEX_desc(tbl_Board pk_board)*/
 	rownum rn,EVENT_NUM,EVENT_Title,EVENT_Content,to_char(event_start,'yyyy-mm-dd') event_start,
 	to_char(event_end,'yyyy-mm-dd') event_end,EVENT_IMAGE
-	from (select*from tbl_event_Test order by EVENT_NUM desc) 
+	from (select*from tbl_event order by EVENT_NUM desc) 
 	where ]]> 
 	<include refid="criteria"></include>
 <![CDATA[rownum <= #{pageNum}*#{amount}
@@ -72,18 +72,18 @@ where rn>(#{pageNum}-1)*#{amount}]]>
 
 
   <delete id="delete">
-  delete from tbl_event_Test where EVENT_NUM=#{eventNum}
+  delete from tbl_event where EVENT_NUM=#{eventNum}
   </delete>
   
   <update id="update">
-  update tbl_event_Test set EVENT_Title=#{eventTitle}, EVENT_Content=#{eventContent}, 
+  update tbl_event set EVENT_Title=#{eventTitle}, EVENT_Content=#{eventContent}, 
   EVENT_START=#{eventStart}, EVENT_END=#{eventEnd}, EVENT_IMAGE=#{eventImage}
   where EVENT_NUM=#{eventNum}
   </update> 
 
   
   <insert id="insert">
-  insert into tbl_event_Test(EVENT_NUM, EVENT_Title, EVENT_Content, EVENT_START, EVENT_END, EVENT_IMAGE)
+  insert into tbl_event(EVENT_NUM, EVENT_Title, EVENT_Content, EVENT_START, EVENT_END, EVENT_IMAGE)
   values(seq_board.nextval, #{eventTitle}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImage})
   </insert>
   

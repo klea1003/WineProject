@@ -3,6 +3,9 @@ package org.wine.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.BoardLikeVO;
 import org.wine.domain.CriteriaReview;
 import org.wine.domain.CriteriaWine;
+import org.wine.domain.ReviewPageDTO;
 import org.wine.domain.ReviewVO;
 import org.wine.domain.SocialCriteriaReview;
 import org.wine.domain.SocialPageDTO;
+import org.wine.domain.UserVO;
 import org.wine.domain.WineVO;
 import org.wine.domain.pageWineDTO;
 import org.wine.service.ReviewService;
@@ -310,23 +315,34 @@ public class WineController {
 	}
 	
 	@GetMapping("/get")
-	public void get(@RequestParam("wno") Long wno, Model model) {
+	public void get(@RequestParam("wno") Long wno, Model model, CriteriaReview cri,HttpServletRequest request) {
 		
 		log.info("/get");
 		model.addAttribute("wine", service.get(wno));
-		
-		CriteriaReview cri = new CriteriaReview();
+		 ReviewVO re=new ReviewVO();
+		 ArrayList<ReviewVO> myList= null;
+		 HttpSession session = request.getSession();
+		 UserVO lvo = (UserVO) session.getAttribute("user");
+		if(lvo!=null) {
+		 re.setUserNum(lvo.getUserNum());
+		 re.setWineNum(wno);
+		 myList = reviewSerivce.getMyList(re);
+		}
 		cri.setWineNum(wno.intValue());
+		
+		int total = reviewSerivce.getTotal(wno);
 		
 		CriteriaReview cri3Line = new CriteriaReview();
 		cri3Line.setWineNum(wno.intValue());
 		cri3Line.setAmount(3);		
-		
-		model.addAttribute("review_list", reviewSerivce.getList(cri));
+
+		model.addAttribute("myList",myList);
+		model.addAttribute("pageReviewMaker",new ReviewPageDTO(cri,total));
 		model.addAttribute("review_list_3line", reviewSerivce.getList(cri3Line));
 		model.addAttribute("review_Rating", reviewSerivce.getRating(wno));
 		model.addAttribute("review_Avg", reviewSerivce.getAvgRating(wno));
 		model.addAttribute("taste_list", service.getTasteList(wno));
+		model.addAttribute("list_same_winery", service.getListSameWinery(wno));
 		
 	}
 	
@@ -338,18 +354,8 @@ public class WineController {
 		 return "redirect:/wine/get?wno="+review.getWineNum(); 
 	}
 	
-	 @GetMapping(value="/pages/{wno}", 
-			  produces= {MediaType.APPLICATION_XML_VALUE, 
-					  MediaType.APPLICATION_JSON_VALUE})
-	   public ResponseEntity<List<ReviewVO>> getList(@PathVariable("wno")Long wno) {
-	      
-		 CriteriaReview cri = new CriteriaReview();
-			cri.setWineNum(wno.intValue());
-	      
-	      log.info("cri: "+cri);
-	      
-	      return new ResponseEntity<>(reviewSerivce.getList(cri), 
-	    		  HttpStatus.OK);
-	   }
+	
+	
+	
 	
 }

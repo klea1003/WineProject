@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wine.mapper.SellerBoardMapper">
+
+	<resultMap type="org.wine.domain.SellerBoardVO" id="sellerBoardInfo">
+		<result property="parentSellerBno" column="PARENT_SELLER_BNO"/>
+		<result property="childSellerBno" column="CHILD_SELLER_BNO"/>
+		<result property="groupOrder" column="GRP_ORD"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="writer" column="WRITER"/>
+		<result property="regdate" column="REGDATE"/>
+		
+	</resultMap>
+	
+	<select id="getList" resultMap="sellerBoardInfo">
+		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate
+		FROM(
+		select  PARENT_SELLER_BNO,CHILD_SELLER_BNO,title,content,writer,REGDATE,GRP_ORD from(
+		select * from tbl_seller_board)
+		order by CHILD_SELLER_BNO asc, grp_ord  desc
+		)order by rn desc
+	</select>
+	
+	<select id="read" resultMap="sellerBoardInfo">
+		select*
+		from tbl_seller_board tsb, tbl_user u 
+		where tsb.parent_seller_bno =#{parentSellerBno} 
+		and tsb.writer=u.user_nickname and user_num =#{userNum}
+	</select>
+	
+	<select id="answerBtn" resultMap="sellerBoardInfo">
+		select parent_seller_bno from tbl_seller_board
+		where child_seller_bno=#{parentSellerBno} and grp_ord = 1
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tbl_seller_board (PARENT_SELLER_BNO, TITLE, CONTENT, WRITER, regdate)
+		VALUES (seq_seller_board.NEXTVAL, #{title}, #{content}, #{writer}, sysdate)
+	</insert>
+	
+	<insert id="insertSelectKey">
+		
+		<selectKey keyProperty="parentSellerBno" order="BEFORE" resultType="long">
+			select SEQ_SELLER_BOARD.NEXTVAL from dual
+		</selectKey>
+		
+			INSERT INTO tbl_seller_board (PARENT_SELLER_BNO,CHILD_SELLER_BNO ,TITLE, CONTENT, WRITER, regdate)
+			VALUES (#{parentSellerBno},#{parentSellerBno} ,#{title}, #{content}, #{writer}, sysdate)
+	</insert>
+	
+	<insert id="insertAnswerSelectKey">
+		
+		<selectKey keyProperty="parentSellerBno" order="BEFORE" resultType="long">
+			select SEQ_SELLER_BOARD.NEXTVAL from dual
+		</selectKey>
+		
+			INSERT INTO tbl_seller_board (PARENT_SELLER_BNO, CHILD_SELLER_BNO, GRP_ORD, TITLE, CONTENT, WRITER, regdate)
+			VALUES (#{parentSellerBno}, #{childSellerBno}, #{groupOrder}+1, #{title}, #{content}, #{writer}, sysdate)
+	</insert>
+	
+	<update id="update">
+		update tbl_seller_board
+		set TITLE = #{title},
+		CONTENT = #{content},
+		WRITER = #{writer}
+		where PARENT_SELLER_BNO = #{parentSellerBno}
+	</update>
+	
+	<delete id="delete">
+		delete from tbl_seller_board where seller_bno = #{sellerBno}
+	</delete>
+	
+	
+</mapper>
