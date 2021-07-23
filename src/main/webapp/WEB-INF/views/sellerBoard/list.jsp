@@ -61,7 +61,7 @@ function nonewriter(){
 									</c:if>
 								</td> 
 								<td>${sb.writer}</td>
-								<td>${sb.regdate}</td>
+								<td>${sb.regdate_c}</td>
 								
 							</tr>
 						</c:forEach>
