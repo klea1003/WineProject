@@ -15,11 +15,7 @@
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerBoardInfo">
-		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate,ANSWER_WRITER
-	</resultMap>
-	
-	<select id="getList" resultMap="sellerBoardInfo">
-		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate,TO_CHAR(regdate, 'YYYY-MM-DD HH24:mi:ss') as regdate_c
+		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,ANSWER_WRITER,regdate,TO_CHAR(regdate, 'YYYY-MM-DD HH24:mi:ss') as regdate_c
 		FROM(
 		select  PARENT_SELLER_BNO,CHILD_SELLER_BNO,title,content,writer,REGDATE,GRP_ORD,ANSWER_WRITER from(
 		select * from tbl_seller_board)

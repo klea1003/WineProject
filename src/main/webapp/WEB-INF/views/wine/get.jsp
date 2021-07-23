@@ -407,8 +407,10 @@ function remove(reviewNum, callback, error) {
 }//remove
 
 function showList(page) {
-	getListRating({wineNum :wineNumValue, page : page|| 1},			
+	var wineNumValue = "${wine.wno}";
+	var ratingUL = $(".wineReview");
 	
+	getListRating({wineNum :wineNumValue, page : page|| 1},			
 	function(reviewCnt, list) {
 		console.log("reviewCnt: "+ reviewCnt);
 		console.log("list: "+list);
