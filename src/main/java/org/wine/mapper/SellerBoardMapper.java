@@ -2,6 +2,7 @@ package org.wine.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.wine.domain.SellerBoardVO;
 
 
@@ -13,7 +14,7 @@ public interface SellerBoardMapper {
 	
 	public void insertSelectKey(SellerBoardVO board);
 	
-	public SellerBoardVO read(Long sellerBno);
+	public SellerBoardVO read(@Param("parentSellerBno")Long sellerBno,@Param("userNum")Long userNum);
 	
 	public int update(SellerBoardVO board);
 	
