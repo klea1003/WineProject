@@ -51,14 +51,14 @@ public class SellerBoardServiceTest {
 	@Test
 	public void testGet() {
 		
-		log.info(service.get(2L,3L));
+		log.info(service.get(2L));
 		
 	}
 	
 	@Test
 	public void testUpdate() {
 		
-		SellerBoardVO sellerBoard = service.get(1L,3L);
+		SellerBoardVO sellerBoard = service.get(1L);
 		
 		if (sellerBoard == null) {
 			return;
@@ -84,6 +84,12 @@ public class SellerBoardServiceTest {
 	}
 	
 	
+	@Test
+	public void testReadAnswer() {
+		
+		log.info(service.readAnswer(2L));
+		
+	}
 	
 
 }
