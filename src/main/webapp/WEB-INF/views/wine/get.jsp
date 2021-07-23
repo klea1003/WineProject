@@ -870,16 +870,17 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 			</c:if>
 	</div><!-- end Review -->
 	
-	<!-- Same Winery Wine List Area -->
-	
-	<!-- <div class="container mt-5 mb-5" style="width:100%; height:500px; padding-left: 15%; padding-right: 10%;"> -->
-		<iframe loading="lazy" class="mt-5 mb-5" style="width:100%; height:100%; padding-left: 15%; padding-right: 10%;"
+	<!-- Map -->
+	<div class="mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+	<iframe  
+			width="1300" 
+			height="500"
+			style="boarder:0"
+			loading="lazy" 
 			allowfullscreen 
 			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
-		</iframe>
-	
-		
-	
+	</iframe>
+	</div>
 	
 	<!-- Same Winery Wine List Area -->
 	<div class="container">
@@ -888,23 +889,25 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 			<!-- 보여지는 영역 -->
 			<div class="swiper-wrapper">
 				<c:forEach items="${list_same_winery}" var="wine">
-                <div class="swiper-slide"> 
-                	   <div class="card-list">
-               				<div class="text-center">
-                  					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="140px" width="40px">
-               				</div>
-		                     <div class="card-body">
-							      <p ><b><c:out value="${wine.title}" /></b></p>
-							      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
-							      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
-							</div>
-		                 	<div class="card-footer text-center">
-		                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
-		                  		More Info</button>
-		                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
-								Add Cart</button>
-		                  	</div>
-            			</div>
+                	<div style="width: 344px; margin-left: 90px;"> 
+                   		<div class="col mb-5">
+                    		<div class="card-list">
+                				<div class="text-center">
+                   					<img src="http://klea-home.iptime.org:8081/<c:out value="${wine.imageName}" />" height="350" width="150">
+                				</div>
+			                     <div class="card-body">
+								      <p ><b><c:out value="${wine.title}" /></b></p>
+								      <p ><h6>생산지역 : <c:out value="${wine.country}" /></h6></p>
+								      <p ><h6>와인타입 : <c:out value="${wine.wineType}" /></h6></p>
+								</div>
+			                 	<div class="card-footer text-center">
+			                  		<button class="btn btn-outline-danger btn-sm" type="button" onclick="location.href='/wine/get?wno=${wine.wno}'">
+			                  		More Info</button>
+			                  		<button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='/cart/insert?wineNum=${wine.wno}&wineQty=1'">
+									Add Cart</button>
+			                  	</div>
+             				</div>
+               			</div>
                		</div>
 				</c:forEach>
 			</div>
@@ -913,6 +916,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 			<div class="swiper-button-next"></div>
 		</div>
 	</div>
+	<!-- Same Winery Wine List Area -->
 	
 	<section>
 	<!-- review modal -->
