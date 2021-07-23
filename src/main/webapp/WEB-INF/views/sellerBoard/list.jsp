@@ -7,23 +7,19 @@
 <%@include file="../includes/header.jsp"%>
 <script type="text/javascript">
 
-	var userNickName = '${user.userNickName}'; //로그인 된 해당 닉네임
+
+var userNick = '${user.userNickName}';
+var userNum = '${user.userNum}';
+
+function clickSellerBoardTitle(_input){
+		location.href = "/sellerBoard/get?parentSellerBno=" + _input+"&userNum=" +userNum;
 	
-		
-	function clickSellerBoardTitle(_input){
-			
-	if(userNickName != userNickName ){
-		
-		alert('해당 작성자만 확인가능합니다.')
-		
-		return
-	}
-	
-	if(userNickName == userNickName ){
-		
-		location.href = "/sellerBoard/get?parentSellerBno=" + _input;
-	}
 };
+function nonewriter(){
+	alert('해당 작성자만 조회 가능합니다.')
+
+};
+
 
 </script>
 <body>
@@ -50,9 +46,20 @@
 							<tr>
 								<td >${sb.rn}</td>
 								<td>
-								<c:if test="${sb.writer == '관리자' }"><i class="bi bi-arrow-return-right"></i>&nbsp;<span class="badge bg-danger">답변완료</span></c:if>
-								<a class="fw-bold text-dark" 
-								onclick='clickSellerBoardTitle("${sb.parentSellerBno}")'>${sb.title}</a></td> 
+									<c:if test="${sb.writer == '관리자' }">
+										<i class="bi bi-arrow-return-right"></i>&nbsp;
+										<span class="badge bg-danger">답변완료</span>
+									</c:if>
+									<c:if test="${user.userNickName==sb.writer}">
+										<c:if test="${sb.parentSellerBno==sb.childSellerBno}">
+										<a class="fw-bold text-dark" onclick='clickSellerBoardTitle("${sb.parentSellerBno}")'>
+										${sb.title}</a>
+										</c:if>
+									</c:if>
+									<c:if test="${user.userNickName!=sb.writer}">
+										<a class="fw-bold text-dark" onclick='nonewriter()'>${sb.title}</a>
+									</c:if>
+								</td> 
 								<td>${sb.writer}</td>
 								<td>${sb.regdate}</td>
 								

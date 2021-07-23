@@ -10,6 +10,7 @@
 		<result property="content" column="CONTENT"/>
 		<result property="writer" column="WRITER"/>
 		<result property="regdate" column="REGDATE"/>
+		
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerBoardInfo">
@@ -22,7 +23,10 @@
 	</select>
 	
 	<select id="read" resultMap="sellerBoardInfo">
-		select*from tbl_seller_board where PARENT_SELLER_BNO = #{parentSellerBno}
+		select*
+		from tbl_seller_board tsb, tbl_user u 
+		where tsb.parent_seller_bno =#{parentSellerBno} 
+		and tsb.writer=u.user_nickname and user_num =#{userNum}
 	</select>
 	
 	<select id="answerBtn" resultMap="sellerBoardInfo">

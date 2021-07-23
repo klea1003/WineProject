@@ -1,5 +1,9 @@
 package org.wine.controller;
 
+import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.wine.domain.SellerBoardVO;
+import org.wine.domain.UserVO;
+
 import org.wine.service.SellerBoardService;
 
 
@@ -51,18 +57,24 @@ public class SellerBoardController {
 	}
 	
 	@GetMapping("/get")
-	public void get(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
+	public void get(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		Long userNum = user.getUserNum();
 		
 		log.info("/get");
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		model.addAttribute("sellerBoard", service.get(parentSellerBno,userNum));
 		model.addAttribute("answerBtn", service.answerBtn(parentSellerBno));
 	}
 	
 	@GetMapping("/answer")
-	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
+	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		Long userNum = user.getUserNum();
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		
+		model.addAttribute("sellerBoard", service.get(parentSellerBno, userNum));
 		
 	}
 	

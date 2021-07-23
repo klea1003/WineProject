@@ -37,11 +37,11 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	}
 	
 	@Override
-	public SellerBoardVO get(Long sellerBno) {
+	public SellerBoardVO get(Long sellerBno, Long userNum) {
 		
 		log.info("get.........." + sellerBno);
 		
-		return mapper.read(sellerBno);
+		return mapper.read(sellerBno, userNum);
 		
 	}
 
