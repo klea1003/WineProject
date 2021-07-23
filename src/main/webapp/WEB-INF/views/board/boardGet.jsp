@@ -145,6 +145,7 @@ $(document).ready(function(){
 	//작성자 null로 선언
     var replyer = null;
 	replyer = '<c:out value="${user.userNickName}"/>';
+	var admin = "관리자";
     
    /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
     <sec:authorize access = "isAuthenticated()">
@@ -231,7 +232,10 @@ $(document).ready(function(){
 			return;
 		}
 		console.log("Original Replyer : " + originalReplyer);
-		  if(replyer != originalReplyer){
+		 if(replyer == admin){
+        	 alert("관리자 접근");
+        }
+        else if(replyer != originalReplyer){
               alert("자신이 작성한 댓글만 수정 가능");
               modal.modal("hide");
               return;
@@ -260,7 +264,10 @@ $(document).ready(function(){
 		
         var originalReplyer = modalInputReplyer.val();
         console.log("Orginal Replyer : " + originalReplyer); //원래 댓글 작성자
-        if(replyer != originalReplyer){
+        if(replyer == admin){
+       	 alert("관리자 접근");
+       }
+       else if(replyer != originalReplyer){
             alert("자신이 작성한 댓글만 삭제 가능");
             modal.modal("hide");
             return;
@@ -366,51 +373,6 @@ $(document).ready(function(){
 	});//bigPictureWrapper click
 
 	
-	
-	//기능 확인용
-	//댓글 추가
-	/*replyService.add({
-		reply:"JS TEST",
-		replyer:"js tester",
-		boardNum:boardNumValue}
-	, function(result){
-		// alert("RESULT : "+result); 
-	
-	}); */
-	
-	//댓글 조회
-	/* replyService.getList(
-	{boardNum:boardNumValue , page:1}		
-	,function(list){
-		for(var i = 0 , len = list.length||0; i<len;i++){
-			console.log(list[i]);
-		}
-	}); */
-	
-	//댓글 삭제
-	/* replyService.remove(
-		7
-		,function(count){
-			console.log(count);
-			if(count==="success"){alert("REMOVED");}
-		}, function(err){
-			alert("error occured....");
-		}); */
-		
-		
-	//댓글 수정
-	/* replyService.update({
-		rno:3,
-		boardNum:boardNumValue,
-		reply:"modified reply..."
-	}, function(result){
-		alert("수정 완료");
-	});  */
-		
-	//특정 댓글 조회
-	/* replyService.get(10,function(data){
-		console.log(data);
-	}); */
 
 });
    
@@ -467,17 +429,11 @@ $(document).ready(function(){
 						<br />
 					</div>
 
-					<%-- <sec:authentication property="principal" var="pinfo"/>
-		            <sec:authorize access="isAuthenticated()">
-		            <c:if test="${pinfo.username eq board.writer }">
-		            <button class='btn btn-success' data-oper='modify'>Modify</button>
-		            </c:if>
-		            </sec:authorize> 시큐리티 기능--%>
 
-					<div class="mb-3">
-						<c:if test="${user.userNickName eq board.writer }">
+					<div class="mb-3">		
+						 <c:if test="${user.userNickName eq board.writer || user.userNickName eq '관리자'}">
 							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
-						</c:if>
+						 </c:if> 
 						<button class='btn btn-outline-dark' data-oper='boardList'>back</button>
 					</div>
 

@@ -331,6 +331,18 @@ $(document).ready(function() {
 		
 	});
 	
+   $("#adminReviewRemove").on("click",function(e){
+		  
+		var reviewNum =$("#operForm").find("input[name='reviewNum']").val();
+       console.log("reviewNum" + reviewNum);
+    
+		remove(reviewNum, function(result){
+			alert(result);
+			window.location.reload();
+			});
+		
+	});
+	
 function showList(page) {
 	getListRating({wineNum :wineNumValue, page : page|| 1},			
 	
@@ -355,7 +367,6 @@ function showList(page) {
 			str += "<div>"; //우측에 대한 영역
 			
 			str += "<div style='height: 350px; width:23%; margin-left:2%; float:left;'>"; //이미지 영역
-
 			str += "</div>";  //이미지 영역 끝
 				
 			str += "<div  style='text-align:left; margin-right:2%; '>"; //닉네임, 리뷰데이트 우측 정렬 영역
@@ -697,6 +708,9 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 									</span>&nbsp;&nbsp; <span class="mb-2 user"> <c:out
 											value="${reviewVO.userNum}" /> <c:out
 											value="${reviewVO.userNickName}" />
+											<c:if test="${user.userNickName eq '관리자'}">
+											<button id="adminReviewRemove" class="btn btn-outline-danger">X</button>
+											</c:if>
 									</span>
 
 								</div>

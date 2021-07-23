@@ -136,7 +136,7 @@
 						<c:forEach var="c" items="${boardlist}" varStatus="status">
 							<tr>
 								<td>${c.boardNum }</td>
-								 <td><a onclick="location.href='/board/get?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
+								 <td><a onclick="location.href='/board/boardGet?boardNum=<c:out value="${c.boardNum }"/>'">${c.title}[${ c.replyCnt }]</a></td>
 								<%-- <td><a class="move" href="<c:out value='${c.boardNum }'/>"><c:out value="${c.title}"/>[${ c.replyCnt }]</a></td> --%>
 								<td>${c.writer}</td>
 								<td>${c.regdate}</td>
