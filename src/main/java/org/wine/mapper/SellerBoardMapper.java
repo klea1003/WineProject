@@ -14,11 +14,17 @@ public interface SellerBoardMapper {
 	
 	public void insertSelectKey(SellerBoardVO board);
 	
-	public SellerBoardVO read(@Param("parentSellerBno")Long sellerBno,@Param("userNum")Long userNum);
+	public SellerBoardVO read(Long sellerBno);
+	
+	public SellerBoardVO readAnswer(Long parentSellerBno);
+	
+	public SellerBoardVO getAnswer(Long parentSellerBno);
 	
 	public int update(SellerBoardVO board);
 	
-	public int delete(Long sellerBno);
+	public int delete(Long parentSellerBno);
+	
+	public int answerDelete(Long parentSellerBno);
 		
 	public void insertAnswerSelectKey(SellerBoardVO board);
 	
