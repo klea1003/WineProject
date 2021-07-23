@@ -81,7 +81,12 @@
 	</update>
 	
 	<delete id="delete">
-		delete from tbl_seller_board where seller_bno = #{sellerBno}
+		delete from tbl_seller_board where CHILD_SELLER_BNO = #{parentSellerBno}
+	</delete>
+	
+	<delete id="answerDelete">
+		delete from tbl_seller_board
+		where PARENT_SELLER_BNO = #{parentSellerBno} and ANSWER_WRITER='관리자'
 	</delete>
 	
 	

@@ -106,16 +106,29 @@ public class SellerBoardController {
 	}	
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("sellerBno") Long sellerBno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("parentSellerBno") Long parentSellerBno, RedirectAttributes rttr) {
 		
-		log.info("remove..." + sellerBno);
+		log.info("remove..." + parentSellerBno);
 		
-		if(service.remove(sellerBno)) {
-			rttr.addFlashAttribute("result", "success");
+		if(service.remove(parentSellerBno)) {
+			
+			rttr.addFlashAttribute("sellerBoardresult", "success");
 		}
 		
-		return "redirect:sellerBoard/list";
+		return "redirect:/sellerBoard/list";
 	}
 	
+	@PostMapping("/answerRemove")
+	public String answerRemove(@RequestParam("parentSellerBno") Long parentSellerBno, RedirectAttributes rttr) {
+		
+		log.info("answerRemove..." + parentSellerBno);
+		
+		if(service.answerRemove(parentSellerBno)) {
+			
+			rttr.addFlashAttribute("sellerBoardAnswerresult", "success");
+		}
+		
+		return "redirect:/sellerBoard/list";
+	}
 	
 }

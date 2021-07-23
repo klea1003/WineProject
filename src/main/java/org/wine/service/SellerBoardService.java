@@ -16,7 +16,9 @@ public interface SellerBoardService {
 	
 	public boolean modify(SellerBoardVO board);
 	
-	public boolean remove(Long sellerBno);
+	public boolean remove(Long parentSellerBno);
+	
+	public boolean answerRemove(Long parentSellerBno);
 	
 	public List<SellerBoardVO> getList();	
 	

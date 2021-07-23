@@ -9,6 +9,7 @@
 </head>
 
 <jsp:include page="../includes/header.jsp" flush="false"/>
+
 <body>
 
 	<div class="container px-5 my-5">
@@ -35,15 +36,15 @@
 		<div class="form-group mb-5">
 			<label for="content">내용</label>
 			<textarea class="form-control" rows="5" name="content" id="content" readonly="readonly">
-			<c:out value="${sellerBoard.content }"></c:out>
+				<c:out value="${sellerBoard.content }"></c:out>
 			</textarea>
 		</div>
-	<div class="mb-5">
-		<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
-		<c:if test="${user.userNickName == '관리자' }">
-		<button type="button" class="btn btn-outline-danger" id="btnRemove" >삭제</button>
-		</c:if>
-	</div>
+		<div class="mb-5">
+			<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
+			<c:if test="${user.userNickName == '관리자' }">
+				<button type="submit" class="sellerBoardAnswerRemove btn btn-outline-danger">삭제</button>
+			</c:if>
+		</div>
 	</form>
 </div>
 
@@ -58,5 +59,11 @@
 			console.error(error);
 			
 		});
+	var formObj = $("form");
+	
+	$('.sellerBoardAnswerRemove').on("click",	function(e) {
+		formObj.attr("action","/sellerBoard/answerRemove");
+
+	})
 </script>
 </html>

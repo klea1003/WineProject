@@ -55,11 +55,11 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	}
 
 	@Override
-	public boolean remove(Long sellerBno) {
+	public boolean remove(Long parentSellerBno) {
 		
-		log.info("remove......" + sellerBno);
+		log.info("remove......" + parentSellerBno);
 		
-		return mapper.delete(sellerBno) == 1;
+		return mapper.delete(parentSellerBno) == 1;
 		
 	}
 
@@ -91,6 +91,15 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	public SellerBoardVO readAnswer(Long parentSellerBno) {
 		// TODO Auto-generated method stub
 		return mapper.readAnswer(parentSellerBno);
+	}
+
+	@Override
+	public boolean answerRemove(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		log.info("answerRemove......" + parentSellerBno);
+		
+		return mapper.answerDelete(parentSellerBno) == 1;
+		
 	}
 	
 	

@@ -22,7 +22,9 @@ public interface SellerBoardMapper {
 	
 	public int update(SellerBoardVO board);
 	
-	public int delete(Long sellerBno);
+	public int delete(Long parentSellerBno);
+	
+	public int answerDelete(Long parentSellerBno);
 		
 	public void insertAnswerSelectKey(SellerBoardVO board);
 	
