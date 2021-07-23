@@ -279,9 +279,9 @@ $(document).ready(function() {
 			window.location.reload();
 		});
 	});
-	
-	//삭제
-	$("#myReviewRemove").on("click",function(e){
+
+   //삭제
+   $("#myReviewRemove").on("click",function(e){
 		var reviewNum =$("#myReview").find("input[name='reviewNum']").val();
 		console.log("reviewNum" + reviewNum);
 		
@@ -972,7 +972,7 @@ function showList(page) {
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 40%;">Follower</h5>
+								<h5 class="modal-title" id="exampleModalLabel" style="margin-left: 40%;">My Review</h5>
 								<button type="button" id="close_follower" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
