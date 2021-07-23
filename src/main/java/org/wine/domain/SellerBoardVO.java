@@ -15,6 +15,7 @@ public class SellerBoardVO {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private String regdate_c;
 	private Long userNum;
 	private String answerWriter;
 }

@@ -80,7 +80,7 @@ function nonewriter(){
 									<c:if test="${sb.answerWriter != '관리자' }"> 
 										<td>${sb.writer}</td>
 									</c:if>
-									<td>${sb.regdate}</td>
+									<td>${sb.regdate_c}</td>
 								</tr>
 							</c:forEach>
 						</tbody>						
@@ -92,7 +92,6 @@ function nonewriter(){
 					</div>				
 				</div>
 			</div>
-		</div>
 	</section><!-- Section End -->
 	<%@include file="../includes/footer.jsp" %>
 </body>
