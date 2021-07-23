@@ -327,10 +327,10 @@ html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:activ
 						
 						str += "<div class='mt-5' style='height:54px; width:180px;'>"
 						str += "<p>" 
-						str += "<a href='/wine/get?wno="+ list[i].wno + "'>" +list[i].title +" </a></p>"
+						str += "<a class='fw-bold text-dark' href='/wine/get?wno="+ list[i].wno + "'>" +list[i].title +" </a></p>"
 						str += "</div>"
 						
-						str += "<div class='mt-3'>"
+						str += "<div class='mt-4'>"
 						if(list[i].avgRating != null) {
 							str += wineUtil.starFromRating(list[i].avgRating) + "<br>"
 							str += list[i].avgRating 	

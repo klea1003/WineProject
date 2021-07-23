@@ -6,34 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <style>
-@media ( min-width : 0) {
-	.g-mr-15 {
-		margin-right: 1.07143rem !important;
-	}
-}
-
-@media ( min-width : 0) {
-	.g-mt-3 {
-		margin-top: 0.21429rem !important;
-	}
-}
-
-.g-height-50 {
-	height: 50px;
-}
-
-.g-width-50 {
-	width: 50px !important;
-}
-
-@media ( min-width : 0) {
-	.g-pa-30 {
-		padding: 2.14286rem !important;
-	}
-}
 
 .svgicon {
 	width: 20px;
@@ -164,46 +137,85 @@ span.star-prototype>* {
     right: -4px;
     top: -5px;
 }
+
+.swiper-slide { 
+	text-align: center; 
+	font-size: 18px; 
+	background: #fff; 
+/* Center slide text vertically */ 
+	display: -webkit-box; 
+	display: -ms-flexbox;
+	display: -webkit-flex; 
+	display: flex; 
+	-webkit-box-pack: center; 
+	-ms-flex-pack: center; 
+	-webkit-justify-content: center; 
+	justify-content: center; 
+	-webkit-box-align: center; 
+	-ms-flex-align: center; 
+	-webkit-align-items: center; 
+	align-items: center; 
+} 
+
+.swiper-button-next {
+  color: #BDBDBD;
+}
+
+.swiper-button-prev {
+  
+  color: #BDBDBD;
+} 
+
+.swiper-container-vertical>.swiper-pagination-bullets { 
+	top: unset !important; 
+	bottom: 10px; 
+	left: 0; 
+	width: 100%; 
+}
+.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet { 
+	display : inline-block !important; 
+	margin: 6px 2px !important; 
+}
 </style>
-	<%@ include file="../includes/header.jsp"%>
+<%@ include file="../includes/header.jsp"%>
 <script type="text/javascript">
-	
+   
 var user = '${user}';
 
 function addWish(_input){
-	
-	if(user == null || user ==''){
-		
-		$("#loginModal").modal("show");
-		
-		return
-	}
-	
-	if(user != null || user !=''){
-		
-		console.log("add wish button clicked" + _input)
-		
-		location.href = "/wishList/insert?wno=" + _input;
-	}
+   
+   if(user == null || user ==''){
+      
+      $("#loginModal").modal("show");
+      
+      return
+   }
+   
+   if(user != null || user !=''){
+      
+      console.log("add wish button clicked" + _input)
+      
+      location.href = "/wishList/insert?wno=" + _input;
+   }
 };
 
 function addCart(_input){
-	
-	if(user == null || user ==''){
-		
-		$("#loginModal").modal("show");
-		
-		return
-	}
-	
-	if(user != null || user !=''){
-		
-	console.log("add cart button clicked" + _input)
-	
-	location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
-	
-	}
-	
+   
+   if(user == null || user ==''){
+      
+      $("#loginModal").modal("show");
+      
+      return
+   }
+   
+   if(user != null || user !=''){
+      
+   console.log("add cart button clicked" + _input)
+   
+   location.href = "/cart/insert?wineNum=" + _input + "&wineQty=1";
+   
+   }
+   
 };
 $(document).ready(function() {
 	 var modal=$("#myModal");
@@ -427,6 +439,47 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 	});
 
 });
+
+/* const swiper = new Swiper('.swiper-container', 
+		{ //기본 셋팅 
+		//방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평 
+		direction: 'horizontal', 
+		//한번에 보여지는 페이지 숫자 
+		slidesPerView: 3, 
+		//페이지와 페이지 사이의 간격 
+		spaceBetween: 30, 
+		//드레그 기능 true 사용가능 false 사용불가 
+		debugger: true, 
+		//마우스 휠기능 true 사용가능 false 사용불가 
+		mousewheel: true, 
+		//반복 기능 true 사용가능 false 사용불가 loop: true, 
+		//선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 
+		djqt centeredSlides: true, 
+		// 페이지 전환효과 slidesPerView효과와 같이 사용 불가 
+		// effect: 'fade', 
+
+		//자동 스크를링 
+		autoplay: { 
+		//시간 1000 이 1초 
+		delay: 2500, 
+		disableOnInteraction: false, }, 
+
+		//페이징 pagination: { 
+		//페이지 기능 
+		el: '.swiper-pagination', 
+		//클릭 가능여부 
+		clickable: true, 
+		}, 
+
+		//방향표 
+		navigation: { 
+		//다음페이지 설정 
+		nextEl: '.swiper-button-next', 
+		//이전페이지 설정
+		 prevEl: '.swiper-button-prev', 
+		}, 
+}); */
+
 </script>
 <body>
 
@@ -533,7 +586,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 						<div class="progress_bar">
 							<div class="pro-bar">
 								<!-- <span class="progress_number"><c:out value="${taste.ratio}" />%</span> -->
-								<span class="progress-bar-inner" style='background-color: #1abc9c; width: <c:out value="${taste.ratio}" />%;' 
+								<span class="progress-bar-inner" style='background-color: #ed687c; width: <c:out value="${taste.ratio}" />%;' 
 									data-value='<c:out value="${taste.ratio}" />' data-percentage-value='<c:out value="${taste.ratio}" />'></span>
 							</div>
 						</div>
@@ -687,18 +740,19 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 		</table>
 	</div>
 	<!-- end Facts about the wine -->
+	<div class="container mt-5 mb-5"
+		style="padding-left: 15%; padding-right: 10%;">
 	<a href='<c:out value="${wine.wineneryLink}" />'>
 		<h1 class="wineneryImg fw-bold">Winery 바로가기</h1> <br>
 	</a>
+	</div>
 	<!-- Review -->
-	<div class="container mt-3 mb-5" style="margin-left: 30%">
+	<div class="col-12 mt-3 mb-5" style="padding-left: 15%; ">
 		<div class="row">
-			<div class="col-md-8">
-				<div class="media">
-					<div class="media-body">
-
+		<div class="col-6">
+				<div>
+					<div>
 						<h3>Community reviews</h3>
-
 						<c:forEach items="${review_list_3line}" var="reviewVO">
 							<div class="card mb-3">
 								<div class="card-header">
@@ -712,7 +766,6 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 											<button id="adminReviewRemove" class="btn btn-outline-danger">X</button>
 											</c:if>
 									</span>
-
 								</div>
 
 								<div class="card-body fw-bold">
@@ -728,7 +781,7 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 												value='<c:out value="${reviewVO.reviewNum }"/>'> <input
 												type='hidden' id='wineNum' name='wineNum'
 												value='<c:out value="${wine.wno}"/>'>
-											<button class="like" type="submit">
+											<button class="like btn btn-light" type="submit">
 												<i class="bi bi-hand-thumbs-up"></i>
 												<c:out value="${reviewVO.cntLike}" />
 											</button>
@@ -736,50 +789,26 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 									</li>
 									<li class="list-inline-item g-mr-20">
 										&nbsp;&nbsp;&nbsp;&nbsp; <c:out value="${reviewVO.date}" />
-
 									</li>
-									<!-- <li class="list-inline-item ml-auto">
-				   <a class="reply" href="#!">
-				      <i class="bi bi-chat"></i>
-				      Reply
-				   </a>
-				 </li>  -->
 								</ul>
 							</div>
 						</c:forEach>
-
 					</div>
 				</div>
 			</div>
-		</div>
-		<button id="modal_show_reviewList" class="btn btn-outline-danger">Show
-						more reviews</button>
-						<c:if test="${user.userNickName != null}">
-					<button id="modalOpenBtn" class="btn btn-outline-danger">리뷰 쓰기
-						</button>
-						</c:if>
-						<c:if test="${user.userNickName != null}">
-					<button id="MyReviewOpen" class="btn btn-outline-danger">내가 쓴 리뷰
-						</button>
-						</c:if>
-	</div>
-	<!-- end Review -->
-	<!-- Rating Range -->
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-md-6">
-				<div class="well well-sm">
-					<div class="row">
-						<div class="col-xs-12 col-md-6 text-center">
+		<!-- Rating Range -->
+		<div class="col-6" style="margin-top: 10%;">
+			<div class="col-xs-12">
+				<div style="margin-left: 15%;">
+					<div class="col-xs-12 col-md-6 text-center">
 							<h1 class="rating-num">${review_Avg}</h1>
 							<div class="rating">
-								<!-- <span class="star-prototype">4</span> -->
 								<span><i class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i
 									class="bi bi-star-fill"></i></span> <span><i class="bi bi-star"></i></span>
 							</div>
-							<div>
+							<div class="mb-3">
 								<span>총 ratings</span>
 							</div>
 						</div>
@@ -841,13 +870,32 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 								</div>
 								<!-- end 1 -->
 							</div>
-							<!-- end row -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<button id="modal_show_reviewList" class="btn btn-outline-danger"> Show more reviews </button>
+			<c:if test="${user.userNickName != null}">
+				<button id="modalOpenBtn" class="btn btn-outline-danger"> 리뷰 쓰기 </button>
+			</c:if>
+			<c:if test="${user.userNickName != null}">
+				<button id="MyReviewOpen" class="btn btn-outline-danger"> 내가 쓴 리뷰 	</button>
+			</c:if>
+	</div><!-- end Review -->
+	
+	<!-- Map -->
+	<div class="mt-5 mb-5" style="padding-left: 15%; padding-right: 10%;">
+	<iframe  
+			width="1300" 
+			height="500"
+			style="boarder:0"
+			loading="lazy" 
+			allowfullscreen 
+			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
+	</iframe>
 	</div>
+	
 	<!-- Same Winery Wine List Area -->
 	<div class="container">
 		<!-- swiper슬라이더 메인컨테이너 -->
@@ -884,16 +932,6 @@ $('#reviewModal').on('hidden.bs.modal', function (e) {
 	</div>
 	<!-- Same Winery Wine List Area -->
 	
-	<div class="container">
-		<iframe
-			width="600"
-			height="500"
-			style="border:0"
-			loading="lazy"
-			allowfullscreen
-			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB9RU8v2I7ng5t2WxvsapMCJMjdoLljPBU&q=Moldova,Moldova">
-		</iframe>
-	</div>
 	<section>
 	<!-- review modal -->
 				<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog"
