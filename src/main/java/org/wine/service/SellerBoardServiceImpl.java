@@ -37,11 +37,11 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 	}
 	
 	@Override
-	public SellerBoardVO get(Long sellerBno, Long userNum) {
+	public SellerBoardVO get(Long parentSellerBno) {
 		
-		log.info("get.........." + sellerBno);
+		log.info("get.........." + parentSellerBno);
 		
-		return mapper.read(sellerBno, userNum);
+		return mapper.read(parentSellerBno);
 		
 	}
 
@@ -79,6 +79,18 @@ public class SellerBoardServiceImpl implements SellerBoardService{
 		
 		return mapper.answerBtn(parentSellerBno);		
 		
+	}
+
+	@Override
+	public SellerBoardVO getAnswer(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		return mapper.getAnswer(parentSellerBno);
+	}
+
+	@Override
+	public SellerBoardVO readAnswer(Long parentSellerBno) {
+		// TODO Auto-generated method stub
+		return mapper.readAnswer(parentSellerBno);
 	}
 	
 	

@@ -26,7 +26,7 @@
 
 		<div class="form-group mb-3">
 			<label for="writer">작성자</label>
-			<input class="form-control" name="writer" value="관리자" readonly="readonly">
+			<input class="form-control" name="answerWriter" value="관리자" readonly="readonly">
 		</div>
 
 		<div class="form-group mb-5">
@@ -37,7 +37,7 @@
 		</div>
 		<input type="hidden" name="childSellerBno" value='<c:out value="${sellerBoard.parentSellerBno }"/>'>
 		<input type="hidden" name="groupOrder" value='<c:out value="${sellerBoard.groupOrder }"/>' >
-		
+		<input type="hidden" name="writer" value='<c:out value="${sellerBoard.writer }"/>'>
 	<div class="mb-5">
 		<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
 		<button type="submit" class="btn btn-outline-danger" id="btnSave" >답변 달기</button>

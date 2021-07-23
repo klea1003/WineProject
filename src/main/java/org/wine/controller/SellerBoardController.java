@@ -58,23 +58,27 @@ public class SellerBoardController {
 	
 	@GetMapping("/get")
 	public void get(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
-		
-		UserVO user = (UserVO) session.getAttribute("user");
-		Long userNum = user.getUserNum();
-		
+
 		log.info("/get");
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno,userNum));
+		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		
 		model.addAttribute("answerBtn", service.answerBtn(parentSellerBno));
 	}
 	
 	@GetMapping("/answer")
-	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
-		UserVO user = (UserVO) session.getAttribute("user");
-		Long userNum = user.getUserNum();
+	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
 		
+		log.info("/answer");
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno, userNum));
+		model.addAttribute("sellerBoard", service.readAnswer(parentSellerBno));
+		
+	}
+	
+	@GetMapping("/getAnswer")
+	public void getanswer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
+			
+		model.addAttribute("sellerBoard", service.getAnswer(parentSellerBno));
 		
 	}
 	

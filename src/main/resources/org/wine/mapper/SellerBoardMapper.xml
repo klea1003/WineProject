@@ -10,13 +10,14 @@
 		<result property="content" column="CONTENT"/>
 		<result property="writer" column="WRITER"/>
 		<result property="regdate" column="REGDATE"/>
+		<result property="answerWriter" column="ANSWER_WRITER"/>
 		
 	</resultMap>
 	
 	<select id="getList" resultMap="sellerBoardInfo">
-		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate
+		SELECT rownum rn, PARENT_SELLER_BNO,CHILD_SELLER_BNO,GRP_ORD,title,content,writer,regdate,ANSWER_WRITER
 		FROM(
-		select  PARENT_SELLER_BNO,CHILD_SELLER_BNO,title,content,writer,REGDATE,GRP_ORD from(
+		select  PARENT_SELLER_BNO,CHILD_SELLER_BNO,title,content,writer,REGDATE,GRP_ORD,ANSWER_WRITER from(
 		select * from tbl_seller_board)
 		order by CHILD_SELLER_BNO asc, grp_ord  desc
 		)order by rn desc
@@ -24,9 +25,21 @@
 	
 	<select id="read" resultMap="sellerBoardInfo">
 		select*
-		from tbl_seller_board tsb, tbl_user u 
-		where tsb.parent_seller_bno =#{parentSellerBno} 
-		and tsb.writer=u.user_nickname and user_num =#{userNum}
+		from tbl_seller_board 
+		where parent_seller_bno =#{parentSellerBno} 
+	
+	</select>
+	<select id="readAnswer" resultMap="sellerBoardInfo">
+		select*
+		from tbl_seller_board
+		where parent_seller_bno =#{parentSellerBno} 
+	</select>
+	
+	<select id="getAnswer" resultMap="sellerBoardInfo">
+		select*
+		from tbl_seller_board  
+		where child_seller_bno =#{parentSellerBno} 
+		and answer_writer='관리자'
 	</select>
 	
 	<select id="answerBtn" resultMap="sellerBoardInfo">
@@ -55,8 +68,8 @@
 			select SEQ_SELLER_BOARD.NEXTVAL from dual
 		</selectKey>
 		
-			INSERT INTO tbl_seller_board (PARENT_SELLER_BNO, CHILD_SELLER_BNO, GRP_ORD, TITLE, CONTENT, WRITER, regdate)
-			VALUES (#{parentSellerBno}, #{childSellerBno}, #{groupOrder}+1, #{title}, #{content}, #{writer}, sysdate)
+			INSERT INTO tbl_seller_board (PARENT_SELLER_BNO, CHILD_SELLER_BNO, GRP_ORD, TITLE, CONTENT, WRITER, regdate,ANSWER_WRITER)
+			VALUES (#{parentSellerBno}, #{childSellerBno}, #{groupOrder}+1, #{title}, #{content}, #{writer}, sysdate,#{answerWriter})
 	</insert>
 	
 	<update id="update">

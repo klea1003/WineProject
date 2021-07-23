@@ -84,6 +84,12 @@ public class SellerBoardServiceTest {
 	}
 	
 	
+	@Test
+	public void testReadAnswer() {
+		
+		log.info(service.readAnswer(2L));
+		
+	}
 	
 
 }

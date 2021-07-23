@@ -8,7 +8,11 @@ public interface SellerBoardService {
 	
 	public void register(SellerBoardVO board);
 	
-	public SellerBoardVO get(Long parentSellerBno,Long userNum);
+	public SellerBoardVO get(Long parentSellerBno);
+	
+	public SellerBoardVO readAnswer(Long parentSellerBno);
+	
+	public SellerBoardVO getAnswer(Long parentSellerBno);
 	
 	public boolean modify(SellerBoardVO board);
 	

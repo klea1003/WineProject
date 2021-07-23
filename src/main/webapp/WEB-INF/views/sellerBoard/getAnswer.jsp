@@ -40,12 +40,8 @@
 		</div>
 	<div class="mb-5">
 		<button type="button" class="btn btn-outline-secondary" id="btnList" onclick="location.href='/sellerBoard/list'">목록</button>
-		<c:if test="${sellerBoard.answerWriter == '관리자' }">
-		<button type="button" class="btn btn-outline-danger" id="btnRemove" >삭제</button></c:if>
-		<c:if test="${sellerBoard.answerWriter != '관리자' }">
-		<c:if test="${answerBtn == null}">
-		<button type="button" class="btn btn-outline-warning" id="btnAnswer" 
-		onclick="location.href='/sellerBoard/answer?parentSellerBno=<c:out value="${sellerBoard.parentSellerBno }"/>'">답글</button></c:if>
+		<c:if test="${user.userNickName == '관리자' }">
+		<button type="button" class="btn btn-outline-danger" id="btnRemove" >삭제</button>
 		</c:if>
 	</div>
 	</form>
