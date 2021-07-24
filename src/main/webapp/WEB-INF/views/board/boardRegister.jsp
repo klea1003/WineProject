@@ -1,59 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%> --%>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/header.jsp"%>
 <style>
 .uploadResult {
-   width: 100%;
-   background-color: #ddd;
+	width: 100%;
+	background-color: #ddd;
 }
 
 .uploadResult ul {
-   display: flex;
-   flex-flow: row;
-   justify-content: center;
-   align-items: center;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .uploadResult ul li {
-   list-style: none;
-   padding: 5px;
+	list-style: none;
+	padding: 5px;
 }
 
 .uploadResult ul li img {
-   width: 20px;
+	width: 20px;
 }
 
 .uploadResult ul li span {
-   color: white;
+	color: white;
 }
 
 .bigPictureWrapper {
-   position: absolute;
-   display: none;
-   justify-content: center;
-   align-items: center;
-   top: 0%;
-   height: 100%;
-   width: 100%;
-   background-color: gray;
-   z-index: 100;
-   background: rgba(255, 255, 255, 0.5);
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	height: 100%;
+	width: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
 }
 
 .bigPicture {
-   position: relative;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .bigPicture img {
-   width: 400px;
+	width: 400px;
 }
 
-.w-50{
+.w-50 {
 	margin-top: 7%;
 	margin-left: 25%;
 }
@@ -98,8 +97,6 @@ $(document).ready(function(e) {
 		return true;
 	}//checkExtension
 	
-	/* var csrfHeaderName = "${_csrf.headerName}";
-    var csrfTokenValue = "${_csrf.token}"; 시큐리티*/
     
    $("input[type='file']").change(function(e){
       //FormData 사용
@@ -123,9 +120,6 @@ $(document).ready(function(e) {
          url:'/uploadAjaxAction',
          processData:false,
          contentType:false,
-         /* beforeSend: function(xhr){
-               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-           }, 시큐리티*/
          data:formData,
          type:'POST',
          dataType:'json', 
@@ -176,9 +170,6 @@ $(document).ready(function(e) {
 	  $.ajax({
 	  	url : '/deleteFile',
 	  	data : {fileName : targetFile, type : type},
-	    /* beforeSend: function(xhr){
-               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-        }, */
 	  	dataType : 'text',
 	  	type : 'POST',
 	  		success : function(result) {
@@ -200,60 +191,63 @@ $(document).ready(function(e) {
 	<section class="py-5">
 		<div class="container px-3 my-3">
 			<div class="text-center mb-5">
-            <h1 class="fw-bolder">Board Register</h1>
-            </div>
+				<h1 class="fw-bolder">Board Register</h1>
+			</div>
 			<div class="container-fluid">
 				<div class="w-50">
-					<form role="form" id="form-empty" action="/board/register" method="post" autocomplete="off">
-					<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
-					<div class="form-group">
-						<h5 class="fw-bold">Title</h5><input class="form-control" name='title'>
-					</div><br>
-                     <input type="hidden" name="boardType" value="자유게시판"/>
-					 <div class='form-group mb-3'>
-                  		<h5 class="fw-bold">Content</h5>
-                  			<textarea class='form-control' rows='8' name='content'></textarea>
-               		 </div>
-					
-					<div class="form-group mb-3">
-						<h5 class="fw-bold">Writer</h5>
-						<input class='form-control' name='writer' value="${user.userNickName }" readonly='readonly'>
+					<form role="form" id="form-empty" action="/board/register"
+						method="post" autocomplete="off">
+						<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>시큐리티 --%>
+						<div class="form-group">
+							<h5 class="fw-bold">Title</h5>
+							<input class="form-control" name='title'>
+						</div>
+						<br> <input type="hidden" name="boardType" value="자유게시판" />
+						<div class='form-group mb-3'>
+							<h5 class="fw-bold">Content</h5>
+							<textarea class='form-control' rows='8' name='content'></textarea>
+						</div>
 
-						<!--'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
+						<div class="form-group mb-3">
+							<h5 class="fw-bold">Writer</h5>
+							<input class='form-control' name='writer'
+								value="${user.userNickName }" readonly='readonly'>
 
-					</div>
-					
-					<!-- File attach -->
-					<div class="row mb-3">
-						<div class="col-lg-12">
-							<div class="panel panel-default">
-								<h5 class="fw-bold">File Attach</h5>
-								<!-- /.panel-heading -->
-								<div class="panel-body">
-									<div class="form-group uploadDiv">
-										<input type="file" name='uploadFile' multiple>
+							<!--'<sec:authentication property="principal.username"/>'readonly="readonly"> -->
+
+						</div>
+
+						<!-- File attach -->
+						<div class="row mb-3">
+							<div class="col-lg-12">
+								<div class="panel panel-default">
+									<h5 class="fw-bold">File Attach</h5>
+									<!-- /.panel-heading -->
+									<div class="panel-body">
+										<div class="form-group uploadDiv">
+											<input type="file" name='uploadFile' multiple>
+										</div>
+
+										<div class='uploadResult'>
+											<ul>
+
+											</ul>
+										</div>
+
 									</div>
-									
-									<div class='uploadResult'>
-										<ul>
-										
-										</ul>
-									</div>
-								
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- File attach End -->
-					
-					<button type="submit" class="btn btn-outline-danger">Submit</button>
-					<button type="reset" class="btn btn-outline-dark">Reset</button>
+						<!-- File attach End -->
+
+						<button type="submit" class="btn btn-outline-danger">Submit</button>
+						<button type="reset" class="btn btn-outline-dark">Reset</button>
 					</form>
-				
+
 				</div>
 			</div>
 		</div>
-	
+
 	</section>
-	<%@include file="../includes/footer.jsp" %>
+	<%@include file="../includes/footer.jsp"%>
 </body>

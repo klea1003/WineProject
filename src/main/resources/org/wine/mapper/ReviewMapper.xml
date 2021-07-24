@@ -103,7 +103,7 @@
 		</selectKey>
 		insert into TBL_WINE_REVIEW
 		values (#{reviewNum}, #{userNum},
-		#{wineNum}, #{content},  to_char(sysdate,'day/mm/yyyy'), #{ratingF}, 0)
+		#{wineNum}, #{content},  TO_CHAR(SYSDATE, 'Mon DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH'), #{ratingF}, 0)
 	</insert>
     
     

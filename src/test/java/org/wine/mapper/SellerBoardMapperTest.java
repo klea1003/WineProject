@@ -54,7 +54,7 @@ public class SellerBoardMapperTest {
 	@Test
 	public void testRead() {
 		
-		SellerBoardVO sellerBoard = mapper.read(2L,3L);
+		SellerBoardVO sellerBoard = mapper.read(2L);
 		
 		log.info(sellerBoard);
 		

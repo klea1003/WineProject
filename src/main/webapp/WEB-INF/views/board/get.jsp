@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  --%>
 
 <style>
 .uploadResult {
@@ -145,17 +144,8 @@ $(document).ready(function(){
 	//작성자 null로 선언
     var replyer = null;
 	replyer = '<c:out value="${user.userNickName}"/>';
+	var admin = "관리자";
     
-   /*  //로그인 확인하고, 로그인 사용자를 replyer에 넣는다
-    <sec:authorize access = "isAuthenticated()">
-        replyer = '<sec:authentication property="principal.username"/>';
-    </sec:authorize> */
-    
-    /* //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
-    var csrfHeaderName = "${_csrf.headerName}";
-    var csrfTokenValue = "${_csrf.token}";시큐리티 */
-	
-	
 	 //새로운 댓글 등록 버튼 클릭 시
 	$("#addReplyBtn").on("click",function(e){
 		modal.find("input").val("");
@@ -170,12 +160,6 @@ $(document).ready(function(){
 		showList(1);
 	});
 	 
-	/* //ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
-    $(document).ajaxSend(function(e, xhr, options){
-        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-    });    */
- 
-	
 	 //새로운 댓글 처리
 	modalRegisterBtn.on("click",function(e){
 		var reply={
@@ -183,7 +167,7 @@ $(document).ready(function(){
 			replyer:modalInputReplyer.val(),
 			boardNum:boardNumValue
 		};
-		reviewService.add(review,function(result){
+		replyService.add(reply,function(result){
 			alert(result);
 			modal.find("input").val(""); //댓글 등록이 정상적으로 이뤄지면 내용을 지움
 			modal.modal("hide");//모달 창 닫음
@@ -231,7 +215,9 @@ $(document).ready(function(){
 			return;
 		}
 		console.log("Original Replyer : " + originalReplyer);
-		  if(replyer != originalReplyer){
+		  if(replyer==admin){
+			  alert("관리자 권한으로 접근");
+		  }else if(replyer != originalReplyer){
               alert("자신이 작성한 댓글만 수정 가능");
               modal.modal("hide");
               return;
@@ -248,7 +234,6 @@ $(document).ready(function(){
 	modalRemoveBtn.on("click",function(e){
 		
 		var rno = modal.data("rno"); 
-		
         console.log("rno" + rno);
         console.log("REPLYER : "+ replyer);
         
@@ -260,11 +245,14 @@ $(document).ready(function(){
 		
         var originalReplyer = modalInputReplyer.val();
         console.log("Orginal Replyer : " + originalReplyer); //원래 댓글 작성자
-        if(replyer != originalReplyer){
+        if(replyer == admin){
+        	 alert("관리자 접근");
+        }
+        else if(replyer != originalReplyer){
             alert("자신이 작성한 댓글만 삭제 가능");
             modal.modal("hide");
             return;
-        }	
+        }	 
           	
 		replyService.remove(rno, originalReplyer, function(result){
 			alert(result);
@@ -366,51 +354,6 @@ $(document).ready(function(){
 	});//bigPictureWrapper click
 
 	
-	
-	//기능 확인용
-	//댓글 추가
-	/*replyService.add({
-		reply:"JS TEST",
-		replyer:"js tester",
-		boardNum:boardNumValue}
-	, function(result){
-		// alert("RESULT : "+result); 
-	
-	}); */
-	
-	//댓글 조회
-	/* replyService.getList(
-	{boardNum:boardNumValue , page:1}		
-	,function(list){
-		for(var i = 0 , len = list.length||0; i<len;i++){
-			console.log(list[i]);
-		}
-	}); */
-	
-	//댓글 삭제
-	/* replyService.remove(
-		7
-		,function(count){
-			console.log(count);
-			if(count==="success"){alert("REMOVED");}
-		}, function(err){
-			alert("error occured....");
-		}); */
-		
-		
-	//댓글 수정
-	/* replyService.update({
-		rno:3,
-		boardNum:boardNumValue,
-		reply:"modified reply..."
-	}, function(result){
-		alert("수정 완료");
-	});  */
-		
-	//특정 댓글 조회
-	/* replyService.get(10,function(data){
-		console.log(data);
-	}); */
 
 });
    
@@ -467,15 +410,9 @@ $(document).ready(function(){
 						<br />
 					</div>
 
-					<%-- <sec:authentication property="principal" var="pinfo"/>
-		            <sec:authorize access="isAuthenticated()">
-		            <c:if test="${pinfo.username eq board.writer }">
-		            <button class='btn btn-success' data-oper='modify'>Modify</button>
-		            </c:if>
-		            </sec:authorize> 시큐리티 기능--%>
-
 					<div class="mb-3">
-						<c:if test="${user.userNickName eq board.writer }">
+						<c:if
+							test="${user.userNickName eq board.writer || user.userNickName eq '관리자'}">
 							<button class='btn btn-outline-danger' data-oper='modify'>Modify</button>
 						</c:if>
 						<button class='btn btn-outline-dark' data-oper='list'>back</button>
@@ -560,7 +497,7 @@ $(document).ready(function(){
 					<div class="card-header bg-light">
 						Reply <i class="bi bi-chat-fill"></i>
 						<div class="float-end">
-							<c:if test="${user.userNickName != null}">
+							<c:if test="${user.userNickName eq '관리자'}">
 								<button id='addReplyBtn' class='btn btn-outline-dark btn-xs'>
 									New Reply</button>
 							</c:if>
@@ -569,10 +506,6 @@ $(document).ready(function(){
 
 					</div>
 
-					<!-- <sec:authorize access="isAuthenticated()">
-            			<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-               			Reply</button>
-                		</sec:authorize> 시큐리티-->
 
 					<div class="card-body">
 						<ul class="chat">
@@ -625,16 +558,12 @@ $(document).ready(function(){
 				</div>
 			</div>
 
-			<!-- 모달영역 -->
-
-
-			<!--    footer 시작      -------------------------------------------------------------- -->
 
 		</div>
-		
+
 		<!-- 모달영역 -->
 
 	</section>
-
+	<!--    footer 시작      -------------------------------------------------------------- -->
 	<%@include file="../includes/footer.jsp"%>
 </body>

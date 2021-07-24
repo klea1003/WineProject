@@ -58,23 +58,27 @@ public class SellerBoardController {
 	
 	@GetMapping("/get")
 	public void get(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
-		
-		UserVO user = (UserVO) session.getAttribute("user");
-		Long userNum = user.getUserNum();
-		
+
 		log.info("/get");
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno,userNum));
+		model.addAttribute("sellerBoard", service.get(parentSellerBno));
+		
 		model.addAttribute("answerBtn", service.answerBtn(parentSellerBno));
 	}
 	
 	@GetMapping("/answer")
-	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
-		UserVO user = (UserVO) session.getAttribute("user");
-		Long userNum = user.getUserNum();
+	public void answer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model) {
 		
+		log.info("/answer");
 		
-		model.addAttribute("sellerBoard", service.get(parentSellerBno, userNum));
+		model.addAttribute("sellerBoard", service.readAnswer(parentSellerBno));
+		
+	}
+	
+	@GetMapping("/getAnswer")
+	public void getanswer(@RequestParam("parentSellerBno") Long parentSellerBno, Model model, HttpSession session) {
+			
+		model.addAttribute("sellerBoard", service.getAnswer(parentSellerBno));
 		
 	}
 	
@@ -102,16 +106,29 @@ public class SellerBoardController {
 	}	
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("sellerBno") Long sellerBno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("parentSellerBno") Long parentSellerBno, RedirectAttributes rttr) {
 		
-		log.info("remove..." + sellerBno);
+		log.info("remove..." + parentSellerBno);
 		
-		if(service.remove(sellerBno)) {
-			rttr.addFlashAttribute("result", "success");
+		if(service.remove(parentSellerBno)) {
+			
+			rttr.addFlashAttribute("sellerBoardresult", "success");
 		}
 		
-		return "redirect:sellerBoard/list";
+		return "redirect:/sellerBoard/list";
 	}
 	
+	@PostMapping("/answerRemove")
+	public String answerRemove(@RequestParam("parentSellerBno") Long parentSellerBno, RedirectAttributes rttr) {
+		
+		log.info("answerRemove..." + parentSellerBno);
+		
+		if(service.answerRemove(parentSellerBno)) {
+			
+			rttr.addFlashAttribute("sellerBoardAnswerresult", "success");
+		}
+		
+		return "redirect:/sellerBoard/list";
+	}
 	
 }

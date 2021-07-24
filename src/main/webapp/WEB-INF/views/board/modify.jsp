@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%> --%>
 <jsp:include page="../includes/header.jsp" flush="false"></jsp:include>
 <style>
 .uploadResult {
@@ -209,8 +208,7 @@
 
 										}); //end getjson
 
-						/*  var csrfHeaderName="${_csrf.headerName}";
-						     var csrfTokenValue="${_csrf.token}"; 시큐리티 기능*/
+					
 
 						$("input[type='file']")
 								.change(
@@ -237,10 +235,7 @@
 												processData : false, /* 전달한 데이터틑 query string으로 만들지 말것 */
 												contentType : false,
 												data : formData,
-												type : 'POST',
-												/*  beforeSend:function(xhr) {
-												     xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-												 }, 시큐리티 기능*/
+												type : 'POST',									
 												dataType : 'json',
 												success : function(result) {
 													alert("Uploaded");
@@ -346,15 +341,6 @@
 						</div>
 						
 
-						<%-- <sec:authentication property="principal" var="pinfo"/>
-					<sec:authorize access="isAuthenticated()">
-					<c:if test="${pinfo.username eq board.writer}">
-					
-					<button type="submit" data-oper='modify' class="btn btn-info">Modify</button>
-              		<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>
-					
-					</c:if>
-					</sec:authorize> 시큐리티 기능--%>
 
 						<!-- 파일추가영역 -->
 						<div class="row">
