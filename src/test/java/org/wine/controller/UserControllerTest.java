@@ -60,4 +60,16 @@ public class UserControllerTest {
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 	}
+	
+	
+	@Test
+	public void testEmailCheck() throws Exception{
+		
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/user/emailcheck")
+				.param("email", "yeosepchoi@naver.com"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				);
+	}
 }
