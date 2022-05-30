@@ -5,7 +5,7 @@
 - OS : Windows 10
 - Development Tool : Eclipse, Sql Developer
 - Web: Apache-Tomcat,HTML5, CSS,JSP & Servlet
-- Framework :Spring, JSP,  bootstrap
+- Framework :Spring, JSP, Bootstrap
 - Language : Java, Python(Crawling)
 - DB : Oracle SQL
 - ETC: Docker(Static Image Server, DB Server)
