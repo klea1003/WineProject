@@ -28,4 +28,6 @@
 -메인페이지, 상품검색페이지, 상품상세 페이지, 상품 주문페이지
 -DB 및 이미지 서버 구축 
 
-[와인프로젝트메인페이지.pdf](https://github.com/klea1003/WineProject/files/8794903/default.pdf)
+최종 발표 자료
+
+[최은영_포트폴리오.pdf](https://github.com/klea1003/WineProject/files/8862275/_.pdf)
