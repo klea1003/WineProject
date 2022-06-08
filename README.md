@@ -1,7 +1,6 @@
 # 개발목표
 * 와인정보 검색 및 구매 예약 기능 제공하는 웹사이트 구현 
 
-
 # 개발환경
 * OS : Windows 10
 * Development Tool : Eclipse, Sql Developer
@@ -34,3 +33,6 @@
 
 # 최종 발표 자료
 [링크](https://github.com/klea1003/WineProject/files/8862275/_.pdf)
+
+![wine_main](https://user-images.githubusercontent.com/81761558/172639172-a60299cf-6354-495b-924e-4a6489addbd3.png)
+
