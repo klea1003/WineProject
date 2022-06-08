@@ -1,7 +1,7 @@
-개발목표
+# 개발목표
 -와인정보 검색 및 구매 예약 기능 제공하는 웹사이트 구현 
 
-개발환경
+# 개발환경
 - OS : Windows 10
 - Development Tool : Eclipse, Sql Developer
 - Web: Apache-Tomcat,HTML5, CSS,JSP & Servlet
@@ -10,7 +10,7 @@
 - DB : Oracle SQL
 - ETC: Docker(Static Image Server, DB Server)
 
-구현기능
+# 구현기능
 -메인페이지 
 전체 검색, 상품조건별 검색기능, 와인종류와 가격 평점에 따라 제품 검색처리 
 -상품 검색페이지
@@ -23,10 +23,10 @@
 -DB 및 이미지 서버 구축 
     도커 사용( Static Image Server 구축)
 
-담당역할
+# 담당역할
 -전체 총괄
 -메인페이지, 상품검색페이지, 상품상세 페이지, 상품 주문페이지
 -DB 및 이미지 서버 구축 
 
-최종 발표 자료
-[최종 발표 자료](https://github.com/klea1003/WineProject/files/8862275/_.pdf)
+# 최종 발표 자료
+[링크](https://github.com/klea1003/WineProject/files/8862275/_.pdf)
