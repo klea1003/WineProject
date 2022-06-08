@@ -34,5 +34,7 @@
 # 최종 발표 자료
 [링크](https://github.com/klea1003/WineProject/files/8862275/_.pdf)
 
+
+# 메인 페이지 스크린샷
 ![wine_main](https://user-images.githubusercontent.com/81761558/172639172-a60299cf-6354-495b-924e-4a6489addbd3.png)
 
